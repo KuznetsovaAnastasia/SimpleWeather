@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextGrayLabel">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextGrayValue">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextYellowLabel">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/yellow</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextYellowWarning">
+        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/yellow</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextHorizonGrayLabel">
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TextHorizonGrayValue">
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:textColor">@color/very_dark_gray</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="MenuItemButton">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/rectangle_rounded_7</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">39dp</item>
+    </style>
+
+</resources>

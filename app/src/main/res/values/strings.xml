@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">SimpleWeather</string>
+    <string name="app_name">WeatherApp</string>
+    <string name="hint_search_location">Search location</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="horizon">Horizon</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_add_to_list">Add to list</string>
+    <string name="action_added_to_list">Added to list</string>
 </resources>
