@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.fragment
+package com.github.skytoph.simpleweather.presentation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

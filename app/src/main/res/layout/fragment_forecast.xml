@@ -7,7 +7,7 @@
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
     android:paddingBottom="33dp"
-    tools:context=".fragment.ForecastFragment">
+    tools:context=".presentation.fragment.ForecastFragment">
 
     <include
         android:id="@+id/location_forecast"
