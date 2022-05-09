@@ -1,4 +1,4 @@
-package com.github.kuznetsovaanastasia.simpleweather
+package com.github.skytoph.simpleweather
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

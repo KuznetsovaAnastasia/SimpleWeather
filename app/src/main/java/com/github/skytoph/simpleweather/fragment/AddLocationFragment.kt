@@ -1,4 +1,4 @@
-package com.github.kuznetsovaanastasia.simpleweather.fragment
+package com.github.skytoph.simpleweather.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.github.kuznetsovaanastasia.simpleweather.R
-import com.github.kuznetsovaanastasia.simpleweather.databinding.FragmentAddLocationBinding
+import com.github.skytoph.simpleweather.R
+import com.github.skytoph.simpleweather.databinding.FragmentAddLocationBinding
 
 class AddLocationFragment : Fragment() {
     private lateinit var binding: FragmentAddLocationBinding

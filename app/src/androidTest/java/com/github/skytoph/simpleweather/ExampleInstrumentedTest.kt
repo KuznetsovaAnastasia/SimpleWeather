@@ -1,4 +1,4 @@
-package com.github.kuznetsovaanastasia.simpleweather
+package com.github.skytoph.simpleweather
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

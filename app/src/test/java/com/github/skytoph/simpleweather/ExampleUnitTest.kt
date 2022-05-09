@@ -1,4 +1,4 @@
-package com.github.kuznetsovaanastasia.simpleweather
+package com.github.skytoph.simpleweather
 
 import org.junit.Test
 
