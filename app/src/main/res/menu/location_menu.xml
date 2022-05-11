@@ -5,6 +5,6 @@
     <item
         android:id="@+id/action_add"
         android:title=""
-        app:actionLayout="@layout/add_button"
+        app:actionLayout="@layout/message_button"
         app:showAsAction="always" />
 </menu>

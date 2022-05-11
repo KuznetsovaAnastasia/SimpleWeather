@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fillViewport="true"
     tools:context=".presentation.fragment.AddLocationFragment">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.github.skytoph.simpleweather.presentation.view.MessageButton
+            android:id="@+id/message_button"
+            style="@style/MessageButton"
+            android:layout_gravity="end"
+            android:layout_marginTop="41dp"
+            android:layout_marginEnd="24dp"
+            app:iconTint="@color/very_dark_gray"
+            app:iconGravity="textEnd"
+            app:buttonText="@string/action_add_to_list"
+            app:clickedText="@string/action_added_to_list"
+            app:clickedDrawableEnd="@drawable/ic_done"
+            app:buttonDrawableEnd="@drawable/ic_add_circle_outline"/>
+
+        <include
+            layout="@layout/fragment_forecast"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="145dp">
-
-            <include
-                layout="@layout/fragment_forecast"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/location_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentTop="true"
-        app:background="@null" />
-
-</RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="41dp" />
+    </LinearLayout>
+</ScrollView>

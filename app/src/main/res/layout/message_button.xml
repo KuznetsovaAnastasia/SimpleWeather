@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/message_action_button"
+        style="@style/MessageButton"
+
+
+        android:backgroundTint="@color/very_light_gray"
+        android:stateListAnimator="@null"
+        android:textAllCaps="false"
+        android:textColor="@color/very_dark_gray"
+
+        android:visibility="visible"
+
+        app:backgroundTint="@color/very_light_gray"
+        tools:drawableEnd="@drawable/ic_add_circle_outline"
+        tools:text="@string/action_add_to_list" />
+
+    <Button
+        android:id="@+id/message_action_done_text_view"
+        style="@style/MessageButton"
+        android:layout_marginTop="50dp"
+
+        android:enabled="false"
+        android:textColor="@color/white"
+        android:visibility="gone"
+
+        app:backgroundTint="@color/green"
+
+        tools:layout_goneMarginTop="50dp"
+        tools:visibility="visible"
+        tools:drawableEndCompat="@drawable/ic_done"
+        tools:text="@string/action_added_to_list" />
+</merge>

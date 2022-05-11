@@ -8,4 +8,11 @@
         <attr name="textTimeSize" format="dimension"/>
         <attr name="t" format="float"/>
     </declare-styleable>
+
+    <declare-styleable name="MessageButton">
+        <attr name="buttonDrawableEnd" format="reference"/>
+        <attr name="clickedDrawableEnd" format="reference"/>
+        <attr name="buttonText" format="string"/>
+        <attr name="clickedText" format="string"/>
+    </declare-styleable>
 </resources>
