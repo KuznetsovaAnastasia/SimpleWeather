@@ -9,4 +9,6 @@
     <dimen name="horizon_dash_line_gap">2dp</dimen>
     <dimen name="horizon_dash_line_width">1dp</dimen>
     <dimen name="horizon_sun_size">14dp</dimen>
+    <dimen name="warning_view_min_height">162dp</dimen>
+    <dimen name="warning_view_padding_bottom">10dp</dimen>
 </resources>

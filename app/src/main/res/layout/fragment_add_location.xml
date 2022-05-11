@@ -26,7 +26,7 @@
             app:buttonDrawableEnd="@drawable/ic_add_circle_outline"/>
 
         <include
-            layout="@layout/fragment_forecast"
+            layout="@layout/fragment_main_forecast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="41dp" />

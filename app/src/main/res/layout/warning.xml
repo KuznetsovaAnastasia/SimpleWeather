@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:viewBindingIgnore="true"
     android:layout_width="match_parent"
     android:layout_height="162dp"
     android:background="@drawable/rectangle_rounded_11">
-
 
     <ImageView
         android:id="@+id/image_icon_warning"
@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="@+id/text_rain_percent_title"
         app:layout_constraintStart_toStartOf="@+id/text_rain_percent_title"
         app:layout_constraintTop_toBottomOf="@+id/text_rain_percent_title"
-        tools:text="58%"
+        android:text="58%"
         style="@style/TextGrayValue" />
 
     <TextView
@@ -80,16 +80,17 @@
         app:layout_constraintEnd_toEndOf="@+id/text_exp_time_title"
         app:layout_constraintStart_toStartOf="@+id/text_exp_time_title"
         app:layout_constraintTop_toBottomOf="@+id/text_exp_time_title"
-        tools:text="02:00 PM" />
+        android:text="02:00 PM" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/warning_label"
+        style="@style/TextYellowWarning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginTop="25dp"
         android:text="Expecting Rainfall"
-        style="@style/TextYellowWarning"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_rain_percent_value" />
+</merge>

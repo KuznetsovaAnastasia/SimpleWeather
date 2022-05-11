@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--TODO replace with linear layout-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,24 +7,33 @@
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
     android:paddingBottom="33dp"
-    tools:context=".presentation.fragment.ForecastFragment">
+    tools:context=".presentation.fragment.ForecastMainFragment">
 
     <include
         android:id="@+id/location_forecast"
         layout="@layout/location_forecast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <include
+    <!--    <include-->
+    <!--        android:id="@+id/warning"-->
+    <!--        layout="@layout/warning"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="162dp"-->
+    <!--        android:layout_marginTop="35dp"-->
+    <!--        android:visibility="visible"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/location_forecast" />-->
+
+    <com.github.skytoph.simpleweather.presentation.view.WarningView
         android:id="@+id/warning"
-        layout="@layout/warning"
-        android:layout_width="0dp"
-        android:layout_height="162dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/location_forecast" />
 
     <include
