@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="android.widget.RelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/location_weather_image"
+        android:layout_width="@dimen/weather_image_size"
+        android:layout_height="@dimen/weather_image_size"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:src="@drawable/weather_clouds" />
+
+    <TextView
+        android:id="@+id/location_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location_weather_image"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:text="Hyderabad"
+        android:textColor="@color/very_dark_gray"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/location_icon_pointer"
+        android:layout_width="@dimen/pointer_icon"
+        android:layout_height="@dimen/pointer_icon"
+        android:layout_alignTop="@id/location_city"
+        android:layout_alignBottom="@id/location_city"
+        android:layout_marginStart="11dp"
+        android:layout_toEndOf="@id/location_city"
+        app:srcCompat="@drawable/ic_pointer" />
+
+    <TextView
+        android:id="@+id/location_degrees"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location_city"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:includeFontPadding="false"
+        android:text="20°"
+        android:textColor="@color/very_dark_gray"
+        android:textSize="70sp" />
+</merge>

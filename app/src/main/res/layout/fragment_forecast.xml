@@ -10,9 +10,8 @@
     android:paddingBottom="33dp"
     tools:context=".presentation.fragment.ForecastFragment">
 
-    <include
+    <com.github.skytoph.simpleweather.presentation.view.LocationView
         android:id="@+id/location_forecast"
-        layout="@layout/location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"/>
