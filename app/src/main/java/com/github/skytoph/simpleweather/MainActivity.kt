@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.github.skytoph.simpleweather.databinding.ActivityMainBinding
-import com.github.skytoph.simpleweather.presentation.fragment.ForecastMainFragment
+import com.github.skytoph.simpleweather.presentation.fragment.ForecastFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = 3
             override fun createFragment(position: Int): Fragment =
-                ForecastMainFragment()
+                ForecastFragment()
         }
         viewPager.adapter = adapter
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->

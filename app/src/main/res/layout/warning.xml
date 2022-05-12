@@ -2,34 +2,32 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:viewBindingIgnore="true"
-    android:layout_width="match_parent"
-    android:layout_height="162dp"
-    android:background="@drawable/rectangle_rounded_11">
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
+    tools:viewBindingIgnore="true">
 
     <ImageView
-        android:id="@+id/image_icon_warning"
+        android:id="@+id/warning_image_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/rain_percent"
+        app:layout_constraintBottom_toBottomOf="@+id/warning_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rain_percent"
+        app:layout_constraintTop_toTopOf="@+id/warning_label"
         app:srcCompat="@drawable/ic_warning" />
 
     <TextView
-        android:id="@+id/rain_percent"
+        android:id="@+id/warning_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:text="Warning"
-        app:layout_constraintStart_toEndOf="@+id/image_icon_warning"
+        app:layout_constraintStart_toEndOf="@+id/warning_image_icon"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/TextYellowLabel" />
 
     <ImageView
-        android:id="@+id/image_forecast"
+        android:id="@+id/warning_forecast_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
@@ -39,58 +37,57 @@
         app:srcCompat="@drawable/weather_rain" />
 
     <TextView
-        android:id="@+id/text_rain_percent_title"
+        android:id="@+id/warning_rain_percent_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
         android:text="% Rain"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rain_percent"
+        app:layout_constraintTop_toBottomOf="@+id/warning_label"
         style="@style/TextGrayLabel" />
 
     <TextView
-        android:id="@+id/text_rain_percent_value"
+        android:id="@+id/warning_rain_percent_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/text_rain_percent_title"
-        app:layout_constraintStart_toStartOf="@+id/text_rain_percent_title"
-        app:layout_constraintTop_toBottomOf="@+id/text_rain_percent_title"
+        app:layout_constraintEnd_toEndOf="@+id/warning_rain_percent_title"
+        app:layout_constraintStart_toStartOf="@+id/warning_rain_percent_title"
+        app:layout_constraintTop_toBottomOf="@+id/warning_rain_percent_title"
         android:text="58%"
         style="@style/TextGrayValue" />
 
     <TextView
-        android:id="@+id/text_exp_time_title"
+        android:id="@+id/warning_exp_time_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="60dp"
         android:text="Exp. time"
         style="@style/TextGrayLabel"
-        app:layout_constraintEnd_toStartOf="@+id/image_forecast"
-        app:layout_constraintTop_toBottomOf="@+id/rain_percent" />
+        app:layout_constraintEnd_toStartOf="@+id/warning_forecast_image"
+        app:layout_constraintTop_toBottomOf="@+id/warning_label" />
 
     <TextView
-        android:id="@+id/text_exp_time_value"
+        android:id="@+id/warning_exp_time_value"
         style="@style/TextGrayValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/text_exp_time_title"
-        app:layout_constraintStart_toStartOf="@+id/text_exp_time_title"
-        app:layout_constraintTop_toBottomOf="@+id/text_exp_time_title"
+        app:layout_constraintEnd_toEndOf="@+id/warning_exp_time_title"
+        app:layout_constraintStart_toStartOf="@+id/warning_exp_time_title"
+        app:layout_constraintTop_toBottomOf="@+id/warning_exp_time_title"
         android:text="02:00 PM" />
 
     <TextView
-        android:id="@+id/warning_label"
+        android:id="@+id/warning_text"
         style="@style/TextYellowWarning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
         android:text="Expecting Rainfall"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_rain_percent_value" />
+        app:layout_constraintTop_toBottomOf="@id/warning_rain_percent_value" />
 </merge>

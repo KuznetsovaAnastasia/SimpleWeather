@@ -11,4 +11,8 @@
     <dimen name="horizon_sun_size">14dp</dimen>
     <dimen name="warning_view_min_height">162dp</dimen>
     <dimen name="warning_view_padding_bottom">10dp</dimen>
+    <dimen name="indicators_view_padding_start">20dp</dimen>
+    <dimen name="indicators_view_padding_top">6dp</dimen>
+    <dimen name="indicators_view_padding_end">20dp</dimen>
+    <dimen name="indicators_view_padding_bottom">10dp</dimen>
 </resources>

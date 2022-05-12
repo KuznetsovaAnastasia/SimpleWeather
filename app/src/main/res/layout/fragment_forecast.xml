@@ -1,20 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?><!--TODO replace with linear layout-->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
     android:paddingBottom="33dp"
-    tools:context=".presentation.fragment.ForecastMainFragment">
+    tools:context=".presentation.fragment.ForecastFragment">
 
     <include
         android:id="@+id/location_forecast"
-        layout="@layout/location_forecast"
+        layout="@layout/location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="35dp"/>
 
     <!--    <include-->
     <!--        android:id="@+id/warning"-->
@@ -28,23 +29,26 @@
     <!--        app:layout_constraintTop_toBottomOf="@id/location_forecast" />-->
 
     <com.github.skytoph.simpleweather.presentation.view.WarningView
-        android:id="@+id/warning"
+        android:id="@+id/warning_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location_forecast" />
+        android:layout_height="wrap_content"/>
 
-    <include
-        android:id="@+id/current_forecast"
-        layout="@layout/fragment_indicators"
+<!--    <include-->
+<!--        android:id="@+id/current_forecast"-->
+<!--        layout="@layout/indicators"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="11dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/warning"-->
+<!--        app:layout_goneMarginTop="35dp" />-->
+
+    <com.github.skytoph.simpleweather.presentation.view.IndicatorsView
+        android:id="@+id/indicators_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/warning"
         app:layout_goneMarginTop="35dp" />
 
     <include
@@ -52,9 +56,6 @@
         layout="@layout/horizon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/current_forecast" />
+        android:layout_marginTop="11dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

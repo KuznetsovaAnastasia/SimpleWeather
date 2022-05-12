@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <TextView
+        android:id="@+id/indicator_time_label"
+        style="@style/TextGrayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        app:layout_constraintEnd_toEndOf="@id/indicator_time_value"
+        app:layout_constraintStart_toStartOf="@id/indicator_time_value"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/indicator_time_value"
+        style="@style/TextGrayValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="11:25 am"
+        app:layout_constraintEnd_toStartOf="@+id/indicator_uv_value"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/indicator_time_label" />
+
+    <TextView
+        android:id="@+id/indicator_uv_label"
+        style="@style/TextGrayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="uv"
+        app:layout_constraintEnd_toEndOf="@id/indicator_uv_value"
+        app:layout_constraintStart_toStartOf="@id/indicator_uv_value"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/indicator_uv_value"
+        style="@style/TextGrayValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="2dp"
+        android:text="4"
+        app:layout_constraintEnd_toStartOf="@+id/indicator_rain_percent_value"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/indicator_time_value"
+        app:layout_constraintTop_toBottomOf="@id/indicator_uv_label" />
+
+    <TextView
+        android:id="@+id/indicator_rain_percent_label"
+        style="@style/TextGrayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="% rain"
+        app:layout_constraintEnd_toEndOf="@id/indicator_rain_percent_value"
+        app:layout_constraintStart_toStartOf="@id/indicator_rain_percent_value"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/indicator_rain_percent_value"
+        style="@style/TextGrayValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="2dp"
+        android:text="58%"
+        app:layout_constraintEnd_toStartOf="@+id/indicator_aq_value"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/indicator_uv_value"
+        app:layout_constraintTop_toBottomOf="@id/indicator_rain_percent_label" />
+
+    <TextView
+        android:id="@+id/indicator_aq_label"
+        style="@style/TextGrayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="aq"
+        app:layout_constraintEnd_toEndOf="@id/indicator_aq_value"
+        app:layout_constraintStart_toStartOf="@id/indicator_aq_value"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/indicator_aq_value"
+        style="@style/TextGrayValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="2dp"
+        android:text="22"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/indicator_rain_percent_value"
+        app:layout_constraintTop_toBottomOf="@id/indicator_aq_label" />
+
+</merge>
