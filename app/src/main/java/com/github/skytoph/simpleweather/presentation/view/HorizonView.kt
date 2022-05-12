@@ -41,11 +41,12 @@ class HorizonView @JvmOverloads constructor(
             timeTextSize = getDimension(R.styleable.HorizonView_textTimeSize, 34f)
             t = getFloat(R.styleable.HorizonView_t, 0f)
         }
+        minimumHeight = resources.getDimensionPixelSize(R.dimen.horizon_min_height)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val desiredWidth = 800
-        val desiredHeight = 300
+        val desiredWidth = resources.getDimensionPixelSize(R.dimen.horizon_desired_width)
+        val desiredHeight = resources.getDimensionPixelSize(R.dimen.horizon_desired_height)
 
         val width = measureDimension(desiredWidth, widthMeasureSpec)
         val height = measureDimension(desiredHeight, heightMeasureSpec)
@@ -53,7 +54,7 @@ class HorizonView @JvmOverloads constructor(
     }
 
     private fun measureDimension(desiredSize: Int, measureSpec: Int): Int{
-        var result: Int = 0
+        var result = 0
 
         val specMode = MeasureSpec.getMode(measureSpec)
         val specSize = MeasureSpec.getSize(measureSpec)
@@ -83,9 +84,9 @@ class HorizonView @JvmOverloads constructor(
 
 
         val nightWidth = (graphWidth / 4.8f)
-        val nightHeight = ((graphHeight / 3).toFloat())
-        val dayWidth = ((graphWidth - nightWidth).toFloat())
-        val dayHeight = (graphHeight - nightHeight).toFloat()
+        val nightHeight = (graphHeight / 3)
+        val dayWidth = (graphWidth - nightWidth)
+        val dayHeight = graphHeight - nightHeight
 
         val nightStepX = nightWidth / 2
         val nightStepY = (nightHeight * 2)
@@ -130,7 +131,6 @@ class HorizonView @JvmOverloads constructor(
         drawDayAndNight(canvas)
         drawLines(canvas)
         drawText(canvas)
-
         drawSun(canvas)
     }
 
@@ -149,12 +149,10 @@ class HorizonView @JvmOverloads constructor(
         canvas.restore()
     }
 
-    private fun getSunPosition(t: Float): PointF {
-        if (t < 0) {
-            return HorizonUtils.getSunPosition(pNightStart, pMidnight, pSunrise, Math.abs(t))
-        } else {
-            return HorizonUtils.getSunPosition(pSunrise, pMidday, pSunset, t)
-        }
+    private fun getSunPosition(t: Float): PointF = if (t < 0) {
+        HorizonUtils.getSunPosition(pNightStart, pMidnight, pSunrise, Math.abs(t))
+    } else {
+        HorizonUtils.getSunPosition(pSunrise, pMidday, pSunset, t)
     }
 
     private fun drawDayAndNight(canvas: Canvas) {

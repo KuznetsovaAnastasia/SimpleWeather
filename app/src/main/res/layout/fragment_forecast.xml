@@ -17,32 +17,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"/>
 
-    <!--    <include-->
-    <!--        android:id="@+id/warning"-->
-    <!--        layout="@layout/warning"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="162dp"-->
-    <!--        android:layout_marginTop="35dp"-->
-    <!--        android:visibility="visible"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/location_forecast" />-->
-
     <com.github.skytoph.simpleweather.presentation.view.WarningView
         android:id="@+id/warning_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-<!--    <include-->
-<!--        android:id="@+id/current_forecast"-->
-<!--        layout="@layout/indicators"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="11dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/warning"-->
-<!--        app:layout_goneMarginTop="35dp" />-->
 
     <com.github.skytoph.simpleweather.presentation.view.IndicatorsView
         android:id="@+id/indicators_view"
@@ -55,6 +33,6 @@
         android:id="@+id/sunrise_sunset_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp" />
+        android:layout_marginTop="11dp"/>
 
 </LinearLayout>

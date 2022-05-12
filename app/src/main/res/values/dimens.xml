@@ -2,6 +2,7 @@
 <resources>
     <dimen name="weather_image_size">136dp</dimen>
     <dimen name="pointer_icon">21dp</dimen>
+
     <dimen name="horizon_bottom_margin">3dp</dimen>
     <dimen name="horizon_right_margin">1dp</dimen>
     <dimen name="horizon_label_bottom_margin">10dp</dimen>
@@ -9,11 +10,19 @@
     <dimen name="horizon_dash_line_gap">2dp</dimen>
     <dimen name="horizon_dash_line_width">1dp</dimen>
     <dimen name="horizon_sun_size">14dp</dimen>
-    <dimen name="warning_view_min_height">162dp</dimen>
+    <dimen name="sunrise_sunset_view_padding_bottom">15dp</dimen>
+    <dimen name="horizon_min_height">120dp</dimen>
     <dimen name="warning_view_padding_bottom">10dp</dimen>
+
+    <dimen name="warning_view_min_height">162dp</dimen>
+    <dimen name="horizon_desired_width">300dp</dimen>
+    <dimen name="horizon_desired_height">120dp</dimen>
+
     <dimen name="indicators_view_padding_start">20dp</dimen>
     <dimen name="indicators_view_padding_top">6dp</dimen>
     <dimen name="indicators_view_padding_end">20dp</dimen>
     <dimen name="indicators_view_padding_bottom">10dp</dimen>
-    <dimen name="horizon_view_padding_bottom">15dp</dimen>
+    <dimen name="sunrise_sunset_view_padding_start">18dp</dimen>
+    <dimen name="sunrise_sunset_view_padding_top">15dp</dimen>
+    <dimen name="sunrise_sunset_view_padding_end">18dp</dimen>
 </resources>

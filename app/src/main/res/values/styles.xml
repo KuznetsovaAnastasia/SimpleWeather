@@ -69,4 +69,7 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+<!--    <style name="BasicHorizonView">-->
+<!--        <item name="android:fontFamily">@font/poppins</item>-->
+<!--    </style>-->
 </resources>

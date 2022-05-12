@@ -2,15 +2,17 @@ package com.github.skytoph.simpleweather.presentation.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import com.github.skytoph.simpleweather.R
 
-class SunriseSunsetView : ConstraintLayout {
-    private lateinit var horizonView: HorizonView
-    private lateinit var dayLengthText: TextView
-    private lateinit var daylightText: TextView
+class SunriseSunsetView : RelativeLayout {
+    private var horizonView: HorizonView
+    private var dayLengthText: TextView
+    private var daylightText: TextView
 
     //region constructors
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
@@ -27,9 +29,16 @@ class SunriseSunsetView : ConstraintLayout {
         (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(R.layout.sunrise_sunset, this, true)
 
-        background = resources.getDrawable(R.drawable.rectangle_rounded_11)
-        minHeight = resources.getDimensionPixelSize(R.dimen.warning_view_min_height)
-        setPadding(0, 0, 0, resources.getDimensionPixelSize(R.dimen.horizon_view_padding_bottom))
+        gravity = Gravity.START
+
+        background = ResourcesCompat.getDrawable(resources, R.drawable.rectangle_rounded_11, null)
+        minimumHeight = resources.getDimensionPixelSize(R.dimen.warning_view_min_height)
+        setPadding(
+            resources.getDimensionPixelSize(R.dimen.sunrise_sunset_view_padding_start),
+            resources.getDimensionPixelSize(R.dimen.sunrise_sunset_view_padding_top),
+            resources.getDimensionPixelSize(R.dimen.sunrise_sunset_view_padding_end),
+            resources.getDimensionPixelSize(R.dimen.sunrise_sunset_view_padding_bottom)
+        )
 
         horizonView = findViewById(R.id.horizon_view)
         dayLengthText = findViewById(R.id.day_length_value)
