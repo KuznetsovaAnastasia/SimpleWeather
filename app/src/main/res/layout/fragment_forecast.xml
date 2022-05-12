@@ -51,9 +51,8 @@
         android:layout_marginTop="11dp"
         app:layout_goneMarginTop="35dp" />
 
-    <include
-        android:id="@+id/horizon"
-        layout="@layout/horizon"
+    <com.github.skytoph.simpleweather.presentation.view.SunriseSunsetView
+        android:id="@+id/sunrise_sunset_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp" />

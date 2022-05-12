@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <TextView
+        android:id="@+id/sunrise_sunset_label"
+        style="@style/TextGrayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="15dp"
+        android:text="sunrise &amp; sunset"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.github.skytoph.simpleweather.presentation.view.HorizonView
+        android:id="@+id/horizon_view"
+        android:layout_width="296dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="40dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sunrise_sunset_label" />
+
+    <TextView
+        android:id="@+id/day_length_label"
+        style="@style/TextHorizonGrayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:text="Length of day: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizon_view" />
+
+    <TextView
+        android:id="@+id/day_length_value"
+        style="@style/TextHorizonGrayValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/day_length_label"
+        app:layout_constraintTop_toTopOf="@id/day_length_label"
+        tools:text="13H 12M" />
+
+    <TextView
+        android:id="@+id/daylight_label"
+        style="@style/TextHorizonGrayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="4dp"
+        android:text="Remaining daylight: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/day_length_label" />
+
+    <TextView
+        android:id="@+id/daylight_value"
+        style="@style/TextHorizonGrayValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/daylight_label"
+        app:layout_constraintTop_toTopOf="@id/daylight_label"
+        tools:text="9H 22M" />
+
+</merge>
