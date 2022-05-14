@@ -9,7 +9,7 @@
         style="@style/TextGrayLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sunrise &amp; sunset" />
+        android:text="@string/sunrise_and_sunset" />
 
     <com.github.skytoph.simpleweather.presentation.view.horizon.HorizonView
         android:id="@+id/horizon_view"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/horizon_view"
         android:layout_marginBottom="4dp"
-        android:text="Length of day: " />
+        android:text="@string/day_length" />
 
     <TextView
         android:id="@+id/day_length_value"
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/horizon_view"
-        android:layout_toRightOf="@id/day_length_label"
+        android:layout_toEndOf="@id/day_length_label"
         android:text="13H 12M" />
 
     <TextView
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/day_length_label"
-        android:text="Remaining daylight: " />
+        android:text="@string/remaining_daylight" />
 
     <TextView
         android:id="@+id/daylight_value"
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/day_length_label"
-        android:layout_toRightOf="@id/daylight_label"
+        android:layout_toEndOf="@id/daylight_label"
         android:text="9H 22M" />
 
 </merge>

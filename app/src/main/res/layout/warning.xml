@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
-        android:text="Warning"
+        android:text="@string/warning"
         app:layout_constraintStart_toEndOf="@+id/warning_image_icon"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/TextYellowLabel" />
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-        android:text="% Rain"
+        android:text="@string/rain_percent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/warning_label"
         style="@style/TextGrayLabel" />
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="60dp"
-        android:text="Exp. time"
+        android:text="@string/expected_rain_time"
         style="@style/TextGrayLabel"
         app:layout_constraintEnd_toStartOf="@+id/warning_forecast_image"
         app:layout_constraintTop_toBottomOf="@+id/warning_label" />
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
-        android:text="Expecting Rainfall"
+        android:text="@string/warning_rainfall"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/warning_rain_percent_value" />
 </merge>

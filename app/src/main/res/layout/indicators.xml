@@ -9,7 +9,7 @@
         style="@style/TextGrayLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time"
+        android:text="@string/indicator_time"
         app:layout_constraintEnd_toEndOf="@id/indicator_time_value"
         app:layout_constraintStart_toStartOf="@id/indicator_time_value"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +32,7 @@
         style="@style/TextGrayLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="uv"
+        android:text="@string/indicator_uv"
         app:layout_constraintEnd_toEndOf="@id/indicator_uv_value"
         app:layout_constraintStart_toStartOf="@id/indicator_uv_value"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,7 @@
         style="@style/TextGrayLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="% rain"
+        android:text="@string/indicator_rain"
         app:layout_constraintEnd_toEndOf="@id/indicator_rain_percent_value"
         app:layout_constraintStart_toStartOf="@id/indicator_rain_percent_value"
         app:layout_constraintTop_toTopOf="parent" />
@@ -78,7 +78,7 @@
         style="@style/TextGrayLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="aq"
+        android:text="@string/indicator_aq"
         app:layout_constraintEnd_toEndOf="@id/indicator_aq_value"
         app:layout_constraintStart_toStartOf="@id/indicator_aq_value"
         app:layout_constraintTop_toTopOf="parent" />
