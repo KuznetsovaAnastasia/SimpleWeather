@@ -4,8 +4,6 @@
         <attr name="sunrise_time" format="string"/>
         <attr name="sunset_time" format="string"/>
         <attr name="fontFamily" format="string"/>
-        <attr name="textLabelSize" format="dimension"/>
-        <attr name="textTimeSize" format="dimension"/>
         <attr name="t" format="float"/>
     </declare-styleable>
 

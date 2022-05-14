@@ -8,6 +8,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.github.skytoph.simpleweather.R
+import com.github.skytoph.simpleweather.presentation.view.horizon.HorizonView
 
 class SunriseSunsetView : RelativeLayout {
     private var horizonView: HorizonView

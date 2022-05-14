@@ -69,7 +69,9 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-<!--    <style name="BasicHorizonView">-->
-<!--        <item name="android:fontFamily">@font/poppins</item>-->
-<!--    </style>-->
+    <style name="TextDegrees">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/very_dark_gray</item>
+        <item name="android:textSize">70sp</item>
+    </style>
 </resources>

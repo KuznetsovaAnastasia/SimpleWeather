@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="sunrise &amp; sunset" />
 
-    <com.github.skytoph.simpleweather.presentation.view.HorizonView
+    <com.github.skytoph.simpleweather.presentation.view.horizon.HorizonView
         android:id="@+id/horizon_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +19,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
-        app:fontFamily="@font/poppins" />
+        app:fontFamily="@font/poppins"
+        app:sunset_time="5:45 pm"
+        app:sunrise_time="6:30 am"/>
 
     <TextView
         android:id="@+id/day_length_label"
