@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rectangle_rounded_11"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="25dp"
+    android:paddingBottom="16dp">
+
+    <ImageView
+        android:id="@+id/location_item_icon"
+        android:layout_width="@dimen/location_search_item_image"
+        android:layout_height="@dimen/location_search_item_image"
+        android:layout_below="@id/location_item_city"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/weather_clouds" />
+
+    <TextView
+        android:id="@+id/location_item_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:text="Mumbai"
+        android:textColor="@color/very_dark_gray"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/location_item_temperature"
+        style="@style/TextDegrees"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location_item_city"
+        android:layout_alignStart="@id/location_item_city"
+        android:layout_marginTop="13dp"
+        android:text="20" />
+
+    <TextView
+        style="@style/TextDegrees"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/location_item_temperature"
+        android:layout_alignBottom="@id/location_item_temperature"
+        android:layout_toRightOf="@id/location_item_temperature"
+        android:text="@string/degrees_celsius" />
+
+    <LinearLayout
+        android:id="@+id/location_item_warning_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location_item_temperature"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="0"
+            android:src="@drawable/ic_warning" />
+
+        <TextView
+            style="@style/TextYellowLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:includeFontPadding="false"
+            android:text="@string/warning" />
+
+        <TextView
+            android:id="@+id/location_item_warning_text"
+            style="@style/TextYellowWarning"
+            android:gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:includeFontPadding="false"
+            android:text="@string/warning_rainfall" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -51,7 +51,8 @@
         style="@style/TextDegrees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/location_city"
         android:layout_toRightOf="@id/location_degrees"
+        android:layout_alignTop="@id/location_degrees"
+        android:layout_alignBottom="@id/location_degrees"
         android:text="@string/degrees_celsius" />
 </merge>

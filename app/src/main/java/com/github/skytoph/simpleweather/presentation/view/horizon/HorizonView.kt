@@ -7,11 +7,7 @@ import android.view.View
 import androidx.core.content.withStyledAttributes
 import com.github.skytoph.simpleweather.R
 
-class HorizonView constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+class HorizonView : View {
     private val curveDrawer: CurveDrawer
     private val lineDrawer: DashedLineDrawer
     private val textDrawer: TextDrawer
@@ -34,13 +30,24 @@ class HorizonView constructor(
 
     private var t = 0f
 
+    //region constructors
+    constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0,
+    ) : super(context, attrs, defStyleAttr) {
+        init(attrs)
+    }
+
+    constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+    ) : super(context, attrs) {
+        init(attrs)
+    }
+    //endregion
+
     init {
-        context.withStyledAttributes(attrs, R.styleable.HorizonView) {
-            sunriseTimeValue = getString(R.styleable.HorizonView_sunrise_time) ?: "00:00"
-            sunsetTimeValue = getString(R.styleable.HorizonView_sunset_time) ?: "00:00"
-            fontFamily = getString(R.styleable.HorizonView_fontFamily) ?: ""
-            t = getFloat(R.styleable.HorizonView_t, 0f)
-        }
         minimumHeight = resources.getDimensionPixelSize(R.dimen.horizon_min_height)
 
         val resourceProvider = ResourceProvider.Base(resources)
@@ -51,6 +58,32 @@ class HorizonView constructor(
         pointsCalculator = HorizonCurveCalculator(
             listOf(pNightStart, pMidnight, pSunrise, pMidday, pSunset, pSunriseTime, pSunsetTime)
         )
+    }
+
+    private fun init(attrs: AttributeSet?) {
+        context.withStyledAttributes(attrs, R.styleable.HorizonView) {
+            sunriseTimeValue = getString(R.styleable.HorizonView_sunrise_time) ?: "00:00"
+            sunsetTimeValue = getString(R.styleable.HorizonView_sunset_time) ?: "00:00"
+            fontFamily = getString(R.styleable.HorizonView_fontFamily) ?: ""
+            t = getFloat(R.styleable.HorizonView_t, 0f)
+        }
+    }
+
+    fun setValues(sunrise: String, sunset: String, sunPosition: Double){
+        sunriseTimeValue = sunrise
+        sunsetTimeValue = sunset
+        t = sunPosition.toFloat()
+        invalidate()
+    }
+
+    fun sunsetTime(value: String) {
+        sunsetTimeValue = value
+        invalidate()
+    }
+
+    fun sunriseTime(value: String) {
+        sunriseTimeValue = value
+        invalidate()
     }
 
     private fun computeHorizonPoints() {

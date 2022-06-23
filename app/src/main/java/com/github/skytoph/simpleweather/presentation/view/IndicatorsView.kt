@@ -3,16 +3,18 @@ package com.github.skytoph.simpleweather.presentation.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.skytoph.simpleweather.R
+import com.github.skytoph.simpleweather.presentation.WeatherUiComponent
 
 
 class IndicatorsView : ConstraintLayout {
-    private lateinit var timeTextView: TextView
-    private lateinit var uvTextView: TextView
-    private lateinit var rainPercentTextView: TextView
-    private lateinit var aqTextView: TextView
+    private var timeTextView: TextView
+    private var uvTextView: TextView
+    private var popTextView: TextView
+    private var aqTextView: TextView
 
     //region constructors
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
@@ -40,7 +42,12 @@ class IndicatorsView : ConstraintLayout {
 
         timeTextView = findViewById(R.id.indicator_time_value)
         uvTextView = findViewById(R.id.indicator_uv_value)
-        rainPercentTextView = findViewById(R.id.indicator_rain_percent_value)
+        popTextView = findViewById(R.id.indicator_rain_percent_value)
         aqTextView = findViewById(R.id.indicator_aq_value)
+    }
+
+    fun show(weather: WeatherUiComponent.Indicator){
+        visibility = View.VISIBLE
+        weather.show(timeTextView, uvTextView, popTextView, aqTextView)
     }
 }

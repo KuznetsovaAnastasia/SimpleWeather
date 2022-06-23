@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/indicator_aq"
-        app:layout_constraintEnd_toEndOf="@id/indicator_aq_value"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/indicator_aq_value"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,7 +90,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="53dp"
         android:layout_marginTop="2dp"
-        android:text="22"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/indicator_rain_percent_value"

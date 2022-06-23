@@ -4,16 +4,18 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.github.skytoph.simpleweather.R
+import com.github.skytoph.simpleweather.presentation.WeatherUiComponent
 import com.github.skytoph.simpleweather.presentation.view.horizon.HorizonView
 
 class SunriseSunsetView : RelativeLayout {
     private var horizonView: HorizonView
-    private var dayLengthText: TextView
-    private var daylightText: TextView
+    private var dayLengthTextView: TextView
+    private var daylightTextView: TextView
 
     //region constructors
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
@@ -42,7 +44,12 @@ class SunriseSunsetView : RelativeLayout {
         )
 
         horizonView = findViewById(R.id.horizon_view)
-        dayLengthText = findViewById(R.id.day_length_value)
-        daylightText = findViewById(R.id.daylight_value)
+        dayLengthTextView = findViewById(R.id.day_length_value)
+        daylightTextView = findViewById(R.id.daylight_value)
+    }
+
+    fun show(weather: WeatherUiComponent.Horizon) {
+        visibility = View.VISIBLE
+        weather.show(horizonView, dayLengthTextView, daylightTextView)
     }
 }
