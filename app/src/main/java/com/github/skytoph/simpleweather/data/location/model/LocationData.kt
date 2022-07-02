@@ -1,9 +1,8 @@
 package com.github.skytoph.simpleweather.data.location.model
 
 import com.github.skytoph.simpleweather.core.Mappable
-import com.github.skytoph.simpleweather.data.WeatherData
 import com.github.skytoph.simpleweather.data.location.mapper.LocationDataToCurrentWeatherMapper
-import com.github.skytoph.simpleweather.domain.model.WeatherDomain
+import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 
 data class LocationData(
     private val lat: Double,

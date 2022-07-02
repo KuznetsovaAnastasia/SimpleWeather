@@ -1,43 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextGrayLabel">
+    <style name="TextGrayTitle">
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/light_gray</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="TextGrayValue">
+    <style name="TextGrayMedium">
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textColor">@color/dark_gray</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="TextYellowLabel">
+    <style name="TextYellowSmall">
         <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/yellow</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="TextYellowWarning">
+    <style name="TextYellowLarge">
         <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textColor">@color/yellow</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="TextHorizonGrayLabel">
+    <style name="TextGraySmallTitle">
         <item name="fontFamily">@font/poppins</item>
         <item name="android:textColor">@color/dark_gray</item>
         <item name="android:textSize">10sp</item>
     </style>
 
-    <style name="TextHorizonGrayValue">
+    <style name="TextDarkSmallValue">
         <item name="fontFamily">@font/poppins</item>
         <item name="android:textColor">@color/very_dark_gray</item>
         <item name="android:textSize">10sp</item>
         <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextDarkSmallTitle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/very_dark_gray</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextGraySubtitleTitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="MessageButton">
@@ -45,7 +57,7 @@
         <item name="android:layout_height">39dp</item>
         <item name="android:minWidth">110dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/rectangle_rounded_7</item>
+        <item name="android:background">@drawable/rectangle_dark_rounded_7</item>
         <item name="backgroundTint">@color/very_light_gray</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textAllCaps">false</item>
@@ -73,5 +85,13 @@
         <item name="android:includeFontPadding">false</item>
         <item name="android:textColor">@color/very_dark_gray</item>
         <item name="android:textSize">70sp</item>
+    </style>
+
+    <style name="TitleMain">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/very_dark_gray</item>
+        <item name="android:textSize">30sp</item>
     </style>
 </resources>

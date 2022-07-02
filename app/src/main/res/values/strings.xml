@@ -28,5 +28,6 @@
     <string name="indicator_uv">uv</string>
     <string name="indicator_rain">% rain</string>
     <string name="indicator_aq">aq</string>
+    <string name="error_general">Something went wrong</string>
 
 </resources>

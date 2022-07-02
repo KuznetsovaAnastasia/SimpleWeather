@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".presentation.fragment.AddLocationFragment">
+    tools:context=".presentation.addlocation.AddLocationFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.github.skytoph.simpleweather.presentation.view.MessageButton
+        <com.github.skytoph.simpleweather.core.presentation.view.MessageButton
             android:id="@+id/message_button"
             style="@style/MessageButton"
             android:layout_gravity="end"
@@ -26,7 +26,7 @@
             app:buttonDrawableEnd="@drawable/ic_add_circle_outline"/>
 
         <include
-            layout="@layout/fragment_forecast"
+            layout="@layout/fragment_weather"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="41dp" />

@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.core
 
+import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
 import org.junit.Assert.*
 import org.junit.Test
 

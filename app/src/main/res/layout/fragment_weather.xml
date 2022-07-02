@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="33dp"
+    tools:context=".presentation.weather.fragment.WeatherFragment">
+
+    <com.github.skytoph.simpleweather.core.presentation.view.LocationView
+        android:id="@+id/location_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
+        android:visibility="invisible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/warnings_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        tools:itemCount="1"
+        tools:listitem="@layout/warning_item" />
+
+    <com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
+        android:id="@+id/indicators_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_goneMarginTop="35dp" />
+
+    <com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
+        android:id="@+id/sunrise_sunset_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/message_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/error_general"
+        android:visibility="gone" />
+</LinearLayout>

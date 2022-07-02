@@ -1,8 +1,8 @@
 package com.github.skytoph.simpleweather.data.mapper
 
-import com.github.skytoph.simpleweather.core.SunCalculator
+import com.github.skytoph.simpleweather.core.util.SunCalculator
 import com.github.skytoph.simpleweather.core.Mapper
-import com.github.skytoph.simpleweather.domain.model.WeatherDomain
+import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 
 interface HorizonDataToDomainMapper : Mapper<WeatherDomain.Horizon> {
 

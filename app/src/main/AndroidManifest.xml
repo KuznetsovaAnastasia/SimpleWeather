@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleWeather">
         <activity
-            android:name="com.github.skytoph.simpleweather.MainActivity"
+            android:name="com.github.skytoph.simpleweather.presentation.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

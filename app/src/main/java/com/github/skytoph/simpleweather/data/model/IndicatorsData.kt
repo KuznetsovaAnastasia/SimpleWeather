@@ -1,10 +1,8 @@
 package com.github.skytoph.simpleweather.data.model
 
 import com.github.skytoph.simpleweather.core.Mappable
-import com.github.skytoph.simpleweather.core.MappableTo
 import com.github.skytoph.simpleweather.data.mapper.IndicatorsDataToDomainMapper
-import com.github.skytoph.simpleweather.domain.model.WeatherDomain
-import com.github.skytoph.simpleweather.presentation.WeatherUiComponent
+import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 
 data class IndicatorsData(
     private val time: Long,
