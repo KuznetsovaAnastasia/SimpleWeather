@@ -12,9 +12,8 @@
         <com.github.skytoph.simpleweather.core.presentation.view.SearchEditText
             android:id="@+id/edit_text_search_location"
             style="@style/EditTextSearch"
-            android:layout_marginStart="24dp"
+            android:layout_marginHorizontal="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
             android:layout_weight="0"
             android:hint="@string/hint_search_location"
             app:layout_constraintEnd_toEndOf="parent"

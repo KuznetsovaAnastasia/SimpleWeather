@@ -4,35 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:parentTag="android.widget.RelativeLayout">
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <ImageView
         android:id="@+id/location_weather_image"
         android:layout_width="@dimen/weather_image_size"
         android:layout_height="@dimen/weather_image_size"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/weather_clouds" />
 
     <TextView
         android:id="@+id/location_city"
+        style="@style/TitleMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/location_weather_image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        tools:text="Hyderabad"
-        style="@style/TitleMain" />
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/location_icon_pointer"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/location_weather_image"
+        tools:text="Hyderabad" />
 
     <ImageView
         android:id="@+id/location_icon_pointer"
         android:layout_width="@dimen/pointer_icon"
         android:layout_height="@dimen/pointer_icon"
-        android:layout_alignTop="@id/location_city"
-        android:layout_alignBottom="@id/location_city"
         android:layout_marginStart="11dp"
-        android:layout_toEndOf="@id/location_city"
+        app:layout_constraintBottom_toBottomOf="@id/location_city"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/location_city"
+        app:layout_constraintTop_toTopOf="@id/location_city"
         app:srcCompat="@drawable/ic_pointer" />
 
     <TextView
@@ -40,16 +44,17 @@
         style="@style/TextDegrees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/location_city"
-        android:layout_centerHorizontal="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/location_city"
         tools:text="20" />
 
     <TextView
         style="@style/TextDegrees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/location_degrees"
-        android:layout_alignTop="@id/location_degrees"
-        android:layout_alignBottom="@id/location_degrees"
-        android:text="@string/degrees_celsius" />
+        android:text="@string/degrees_celsius"
+        app:layout_constraintBottom_toBottomOf="@id/location_degrees"
+        app:layout_constraintStart_toEndOf="@id/location_degrees"
+        app:layout_constraintTop_toTopOf="@id/location_degrees" />
 </merge>

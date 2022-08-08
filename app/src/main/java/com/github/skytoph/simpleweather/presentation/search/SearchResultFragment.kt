@@ -1,34 +1,34 @@
 package com.github.skytoph.simpleweather.presentation.search
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.app.WeatherApp
+import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentSearchResultBinding
 import com.github.skytoph.simpleweather.presentation.search.adapter.SearchLocationAdapter
-import com.github.skytoph.simpleweather.presentation.search.viewmodel.SearchPredictionViewModel
 
-class SearchResultFragment : Fragment() {
+class SearchResultFragment :
+    BaseFragment<SearchPredictionViewModel, FragmentSearchResultBinding>() {
 
-    private lateinit var binding: FragmentSearchResultBinding
-    private lateinit var viewModel: SearchPredictionViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentSearchResultBinding.inflate(layoutInflater)
-        return binding.root
+    override val viewModel by lazy {
+        (requireActivity().application as WeatherApp).searchPredictionViewModel
     }
+
+    override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentSearchResultBinding
+        get() = FragmentSearchResultBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = (requireActivity().application as WeatherApp).searchPredictionViewModel
-        val adapter = SearchLocationAdapter()
+        val adapter = SearchLocationAdapter(object : SearchLocationAdapter.LocationClickListener {
+            override fun open(id: String, favorite: Boolean) {
+                hideKeyboard()
+                viewModel.showDetails(R.id.fragment_container, id, favorite)
+            }
+        })
         binding.searchPredictionRecyclerView.adapter = adapter
         viewModel.observe(this) { locations ->
             adapter.submitList(locations.toMutableList())

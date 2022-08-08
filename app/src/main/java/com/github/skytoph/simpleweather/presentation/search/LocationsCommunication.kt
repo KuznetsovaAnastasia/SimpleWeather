@@ -11,5 +11,5 @@ interface LocationsCommunication {
 
     interface Mutable : Update, Observe
 
-    class Base : Communication.UiUpdate<List<SearchItemUi>>(), Mutable
+    class Base : Communication.PostUpdate<List<SearchItemUi>>(), Mutable
 }

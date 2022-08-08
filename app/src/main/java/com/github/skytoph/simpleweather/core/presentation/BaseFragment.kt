@@ -12,18 +12,19 @@ import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<T : ViewModel, B : ViewBinding> : Fragment() {
-    protected lateinit var viewModel: T
+
+    protected abstract val viewModel: T
 
     protected lateinit var binding: B
 
-    protected abstract fun binding(inflater: LayoutInflater, container: ViewGroup?): B
+    protected abstract val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> B
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = binding(inflater, container)
+        binding = bindingInflation.invoke(inflater, container, false)
         return binding.root
     }
 
@@ -32,7 +33,8 @@ abstract class BaseFragment<T : ViewModel, B : ViewBinding> : Fragment() {
     }
 
     private fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

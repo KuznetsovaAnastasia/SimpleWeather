@@ -46,7 +46,7 @@ class IndicatorsView : ConstraintLayout {
         aqTextView = findViewById(R.id.indicator_aq_value)
     }
 
-    fun show(weather: WeatherUiComponent.Indicator){
+    fun show(weather: WeatherUiComponent.Indicator) {
         visibility = View.VISIBLE
         weather.show(timeTextView, uvTextView, popTextView, aqTextView)
     }

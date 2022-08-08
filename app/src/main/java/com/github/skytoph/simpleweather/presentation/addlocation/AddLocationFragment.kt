@@ -4,18 +4,46 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
+import com.github.skytoph.simpleweather.R
+import com.github.skytoph.simpleweather.app.WeatherApp
+import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentAddLocationBinding
 
-class AddLocationFragment : Fragment() {
-    private lateinit var binding: FragmentAddLocationBinding
+class AddLocationFragment :
+    BaseFragment<AddLocationViewModel, FragmentAddLocationBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentAddLocationBinding.inflate(inflater, container, false)
-        return binding.root
+    override val viewModel by lazy {
+        (requireActivity().application as WeatherApp).addLocationViewModel
+    }
+
+    private lateinit var locationId: String
+    private var favorite: Boolean = false
+
+    override val bindingInflation: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddLocationBinding =
+        FragmentAddLocationBinding::inflate
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        locationId = requireArguments().getString(PLACE_ID_KEY, "")
+        favorite = requireArguments().getBoolean(FAVORITE_KEY, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.showWeather(R.id.weather_add_container, locationId, favorite)
+        binding.messageButton.setOnClickListener {
+            viewModel.saveWeather(R.id.weather_fragment_container, locationId)
+        }
+    }
+
+    companion object {
+        private const val PLACE_ID_KEY = "placeId"
+        private const val FAVORITE_KEY = "favorite"
+
+        fun newInstance(placeId: String, favorite: Boolean): AddLocationFragment =
+            AddLocationFragment().apply {
+                arguments = bundleOf(PLACE_ID_KEY to placeId, FAVORITE_KEY to favorite)
+            }
     }
 }

@@ -2,13 +2,13 @@ package com.github.skytoph.simpleweather.core.presentation.navigation
 
 import com.github.skytoph.simpleweather.core.presentation.communication.Communication
 
-interface NavigationCommunication{
+interface NavigationCommunication {
 
-    interface Update: Communication.Update<NavigationScreen>
+    interface Update : Communication.Update<ShowScreen>
 
-    interface Observe: Communication.Observe<NavigationScreen>
+    interface Observe : Communication.Observe<ShowScreen>
 
-    interface Mutable: Update, Observe
+    interface Mutable : Update, Observe
 
-    class Base: Communication.SinglePostUpdate<NavigationScreen>(), Mutable
+    class Base : Communication.SinglePostUpdate<ShowScreen>(), Mutable
 }

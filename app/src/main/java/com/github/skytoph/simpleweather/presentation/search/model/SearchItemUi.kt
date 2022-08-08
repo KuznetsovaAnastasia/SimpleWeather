@@ -2,10 +2,12 @@ package com.github.skytoph.simpleweather.presentation.search.model
 
 import android.widget.TextView
 import com.github.skytoph.simpleweather.core.Matcher
+import com.github.skytoph.simpleweather.presentation.search.adapter.SearchLocationAdapter
 
 sealed interface SearchItemUi : Matcher<SearchItemUi> {
 
     fun show(firstTextView: TextView, secondTextView: TextView)
+    fun select(listener: SearchLocationAdapter.LocationClickListener) = Unit
 
     data class Location(
         private val id: String,
@@ -17,6 +19,10 @@ sealed interface SearchItemUi : Matcher<SearchItemUi> {
             firstTextView.text = title
             secondTextView.text = subtitle
         }
+
+        // TODO: get favorite
+        override fun select(listener: SearchLocationAdapter.LocationClickListener) =
+            listener.open(id, false)
 
         override fun matches(item: SearchItemUi): Boolean = item is Location && id == item.id
 

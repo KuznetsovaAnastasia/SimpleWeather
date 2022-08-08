@@ -25,10 +25,11 @@
             app:clickedDrawableEnd="@drawable/ic_done"
             app:buttonDrawableEnd="@drawable/ic_add_circle_outline"/>
 
-        <include
-            layout="@layout/fragment_weather"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/weather_add_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="24dp"
             android:layout_marginTop="41dp" />
     </LinearLayout>
 </ScrollView>

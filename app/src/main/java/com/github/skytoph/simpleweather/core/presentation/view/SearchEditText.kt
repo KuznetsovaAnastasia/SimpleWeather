@@ -15,7 +15,7 @@ class SearchEditText : AppCompatEditText {
     constructor(context: Context) : super(context)
 
     override fun onKeyPreIme(keyCode: Int, event: KeyEvent?): Boolean {
-        if ( keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_UP )
+        if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_UP)
             this.clearFocus();
         return super.onKeyPreIme(keyCode, event)
     }

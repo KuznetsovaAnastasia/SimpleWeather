@@ -16,7 +16,7 @@ class CurveDrawer(
         point1: PointF,
         point2: PointF,
         point3: PointF,
-        @ColorRes colorId: Int
+        @ColorRes colorId: Int,
     ) {
         val path = Path()
 

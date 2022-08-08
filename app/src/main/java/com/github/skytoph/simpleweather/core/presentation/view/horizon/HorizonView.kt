@@ -1,7 +1,9 @@
 package com.github.skytoph.simpleweather.core.presentation.view.horizon
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.withStyledAttributes
@@ -69,7 +71,7 @@ class HorizonView : View {
         }
     }
 
-    fun setValues(sunrise: String, sunset: String, sunPosition: Double){
+    fun setValues(sunrise: String, sunset: String, sunPosition: Double) {
         sunriseTimeValue = sunrise
         sunsetTimeValue = sunset
         t = sunPosition.toFloat()

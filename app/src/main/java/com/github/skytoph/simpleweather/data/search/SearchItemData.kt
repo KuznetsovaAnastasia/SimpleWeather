@@ -3,7 +3,6 @@ package com.github.skytoph.simpleweather.data.search
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.data.search.mapper.SearchItemDataToUiMapper
 import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
-import java.lang.Exception
 
 sealed class SearchItemData : Mappable<SearchItemUi, SearchItemDataToUiMapper> {
 

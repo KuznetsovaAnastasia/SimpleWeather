@@ -23,14 +23,14 @@ abstract class Communication {
             data.observe(owner, observer)
     }
 
-    abstract class UiUpdate<T>(data: MutableLiveData<T> = MutableLiveData()) : Abstract<T>(data){
+    abstract class UiUpdate<T>(data: MutableLiveData<T> = MutableLiveData()) : Abstract<T>(data) {
 
         override fun show(data: T) {
             this.data.value = data
         }
     }
 
-    abstract class PostUpdate<T>(data: MutableLiveData<T> = MutableLiveData()) : Abstract<T>(data){
+    abstract class PostUpdate<T>(data: MutableLiveData<T> = MutableLiveData()) : Abstract<T>(data) {
 
         override fun show(data: T) = this.data.postValue(data)
     }
@@ -38,5 +38,5 @@ abstract class Communication {
 
     abstract class SingleUiUpdate<T> : UiUpdate<T>(SingleLiveEvent())
 
-    abstract class SinglePostUpdate<T>: PostUpdate<T>(SingleLiveEvent())
+    abstract class SinglePostUpdate<T> : PostUpdate<T>(SingleLiveEvent())
 }

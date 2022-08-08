@@ -6,13 +6,13 @@ import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 
 class DrawableDrawer(
-    private val resourceProvider: ResourceProvider
+    private val resourceProvider: ResourceProvider,
 ) {
     fun draw(
         canvas: Canvas,
         position: PointF,
         @DrawableRes drawableId: Int,
-        @DimenRes sizeId: Int
+        @DimenRes sizeId: Int,
     ) {
         canvas.save()
 

@@ -1,27 +1,24 @@
 package com.github.skytoph.simpleweather.domain.weather
 
-import com.github.skytoph.simpleweather.data.airquality.AirRepository
-import com.github.skytoph.simpleweather.data.location.LocationRepository
-import com.github.skytoph.simpleweather.data.weather.WeatherRepository
-import com.github.skytoph.simpleweather.data.mapper.WeatherDomainMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.WeatherDataToDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 
 interface WeatherInteractor {
-    suspend fun getWeather(lat: Double, lng: Double): WeatherDomain
+    suspend fun getCachedWeather(id: String): WeatherDomain
+    suspend fun getCloudWeather(id: String, favorite: Boolean): WeatherDomain
+    suspend fun cache()
 
     class Base(
-        private val weatherRepository: WeatherRepository,
-        private val airRepository: AirRepository,
-        private val locationRepository: LocationRepository,
-        private val toDomainMapper: WeatherDomainMapper
+        private val weatherRepository: WeatherRepository.Mutable,
+        private val mapper: WeatherDataToDomainMapper,
     ) : WeatherInteractor {
 
-        override suspend fun getWeather(lat: Double, lng: Double): WeatherDomain {
-            val weatherData = weatherRepository.getWeather(lat, lng)
-            val airData = airRepository.getAirQuality(lat, lng)
-            val locationData = locationRepository.getLocation(lat, lng)
+        override suspend fun getCloudWeather(id: String, favorite: Boolean): WeatherDomain =
+            weatherRepository.getCloudWeather(id, favorite).map(mapper)
 
-            return toDomainMapper.map(weatherData, airData, locationData)
-        }
+        override suspend fun getCachedWeather(id: String): WeatherDomain =
+            weatherRepository.getCachedWeather(id).map(mapper)
+
+        override suspend fun cache() = weatherRepository.saveWeather()
     }
 }

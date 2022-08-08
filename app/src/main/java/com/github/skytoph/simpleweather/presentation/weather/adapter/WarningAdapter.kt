@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.adapter.BaseDiffUtil
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.Warning
 import com.github.skytoph.simpleweather.core.presentation.view.WarningView
+import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.Warning
 
 class WarningAdapter :
     ListAdapter<Warning, WarningAdapter.WarningViewHolder>(WarningItemDiffCallback()) {

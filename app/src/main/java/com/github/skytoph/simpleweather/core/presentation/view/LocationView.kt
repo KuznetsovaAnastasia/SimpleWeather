@@ -5,12 +5,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
 
-class LocationView : RelativeLayout {
+class LocationView : ConstraintLayout {
 
     private var weatherImage: ImageView
     private var cityTextView: TextView
@@ -36,7 +36,7 @@ class LocationView : RelativeLayout {
         degreesTextView = findViewById(R.id.location_degrees)
     }
 
-    fun show(weather: WeatherUiComponent.Current){
+    fun show(weather: WeatherUiComponent.Current) {
         visibility = View.VISIBLE
         weather.show(weatherImage, cityTextView, degreesTextView)
     }

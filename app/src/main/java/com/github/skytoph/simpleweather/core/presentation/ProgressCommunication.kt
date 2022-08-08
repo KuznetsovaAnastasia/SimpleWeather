@@ -10,5 +10,5 @@ interface ProgressCommunication {
 
     interface Mutable : Update, Observe
 
-    class Base: Communication.UiUpdate<Visibility>(), Mutable
+    class Base : Communication.UiUpdate<Visibility>(), Mutable
 }

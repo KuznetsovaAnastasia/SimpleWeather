@@ -3,6 +3,7 @@ package com.github.skytoph.simpleweather.core.presentation.view
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.View.OnClickListener
 import com.github.skytoph.simpleweather.R
 import com.google.android.material.button.MaterialButton
 

@@ -2,34 +2,46 @@ package com.github.skytoph.simpleweather.app
 
 import android.app.Application
 import com.github.skytoph.simpleweather.BuildConfig
+import com.github.skytoph.simpleweather.core.data.RealmProvider
 import com.github.skytoph.simpleweather.core.presentation.ProgressCommunication
-import com.github.skytoph.simpleweather.core.presentation.navigation.NavigationCommunication
 import com.github.skytoph.simpleweather.core.presentation.navigation.MainViewModel
+import com.github.skytoph.simpleweather.core.presentation.navigation.NavigationCommunication
+import com.github.skytoph.simpleweather.core.presentation.navigation.Navigator
+import com.github.skytoph.simpleweather.core.provider.PreferencesProvider
+import com.github.skytoph.simpleweather.core.util.SunCalculator
 import com.github.skytoph.simpleweather.core.util.formatter.ProbabilityFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TemperatureFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
-import com.github.skytoph.simpleweather.data.airquality.AirRepository
-import com.github.skytoph.simpleweather.data.location.LocationRepository
-import com.github.skytoph.simpleweather.data.weather.WeatherRepository
-import com.github.skytoph.simpleweather.data.weather.cloud.*
 import com.github.skytoph.simpleweather.data.airquality.AirQualityCloudDataSource
 import com.github.skytoph.simpleweather.data.airquality.AirQualityService
-import com.github.skytoph.simpleweather.data.weather.mapper.AlertsCloudMapper
-import com.github.skytoph.simpleweather.data.airquality.mapper.ToAirQualityDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.WeatherServerToDataMapper
-import com.github.skytoph.simpleweather.data.location.cloud.LocationCloudDataSource
+import com.github.skytoph.simpleweather.data.favorites.FavoritesPrefCache
+import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
 import com.github.skytoph.simpleweather.data.location.cloud.LocationService
-import com.github.skytoph.simpleweather.data.mapper.WeatherDomainMapper
+import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloudDataSource
+import com.github.skytoph.simpleweather.data.location.mapper.LocationDataMapper
 import com.github.skytoph.simpleweather.data.search.SearchLocationDataSource
-import com.github.skytoph.simpleweather.data.search.mapper.PredictionListToDataMapper
-import com.github.skytoph.simpleweather.data.search.mapper.PredictionToDataMapper
+import com.github.skytoph.simpleweather.data.search.geocode.PredictionCloudToDataMapper
+import com.github.skytoph.simpleweather.data.search.geocode.PredictionService
 import com.github.skytoph.simpleweather.data.search.mapper.SearchItemDataToUiMapper
 import com.github.skytoph.simpleweather.data.search.mapper.SearchItemListToUiMapper
-import com.github.skytoph.simpleweather.domain.weather.mapper.*
+import com.github.skytoph.simpleweather.data.weather.WeatherCache
+import com.github.skytoph.simpleweather.data.weather.cache.WeatherCacheDataSource
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.*
+import com.github.skytoph.simpleweather.data.weather.cloud.WeatherCloudDataSource
+import com.github.skytoph.simpleweather.data.weather.cloud.WeatherService
+import com.github.skytoph.simpleweather.data.weather.cloud.mapper.AlertsDataMapper
+import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudToDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.*
+import com.github.skytoph.simpleweather.domain.favorites.FavoritesInteractor
 import com.github.skytoph.simpleweather.domain.weather.WeatherInteractor
+import com.github.skytoph.simpleweather.domain.weather.WeatherRepository
+import com.github.skytoph.simpleweather.domain.weather.mapper.*
+import com.github.skytoph.simpleweather.presentation.addlocation.AddLocationViewModel
+import com.github.skytoph.simpleweather.presentation.favorites.FavoritesCommunication
+import com.github.skytoph.simpleweather.presentation.favorites.FavoritesViewModel
+import com.github.skytoph.simpleweather.presentation.main.MainContentViewModel
 import com.github.skytoph.simpleweather.presentation.search.LocationsCommunication
-import com.github.skytoph.simpleweather.presentation.search.SearchViewModel
-import com.github.skytoph.simpleweather.presentation.search.viewmodel.SearchPredictionViewModel
+import com.github.skytoph.simpleweather.presentation.search.SearchPredictionViewModel
 import com.github.skytoph.simpleweather.presentation.weather.WeatherCommunication
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel
 import com.google.android.libraries.places.api.Places
@@ -41,9 +53,11 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class WeatherApp : Application() {
 
     lateinit var weatherViewModel: WeatherViewModel
-    lateinit var searchViewModel: SearchViewModel
+    lateinit var mainContentViewModel: MainContentViewModel
     lateinit var searchPredictionViewModel: SearchPredictionViewModel
     lateinit var mainViewModel: MainViewModel
+    lateinit var favoritesViewModel: FavoritesViewModel
+    lateinit var addLocationViewModel: AddLocationViewModel
 
     override fun onCreate() {
         super.onCreate()
@@ -63,28 +77,52 @@ class WeatherApp : Application() {
 
         val weatherService = retrofit.create(WeatherService::class.java)
         val airService = retrofit.create(AirQualityService::class.java)
-        val locationService = retrofit.create(LocationService::class.java)
 
-        val weatherRepository = WeatherRepository.Base(
-            WeatherCloudDataSource.Base(weatherService),
-            WeatherServerToDataMapper.Base(
-                WeatherTypeCloudMapper.Base(),
-                AlertsCloudMapper.Base()
-            )
-        )
-        val airRepository = AirRepository.Base(
-            AirQualityCloudDataSource.Base(airService),
-            ToAirQualityDataMapper.Base()
-        )
-        val locationRepository =
-            LocationRepository.Base(LocationCloudDataSource.Base(locationService))
         val timeFormatter = TimeFormatter.Base()
         val probFormatter = ProbabilityFormatter.Base()
+        val locationDataMapper = LocationDataMapper.Base()
+        val currentWeatherDataMapper = CurrentWeatherDataMapper.Base()
+        val indicatorsDataMapper = IndicatorsDataMapper.Base()
+        val horizonDataMapper = HorizonDataMapper.Base()
+        val alertsMapper = AlertsDataMapper.Base()
+
+        val client = Places.createClient(this)
+
+//        val latMapper = PlaceCloudMapper.Lat()
+//        val lngMapper = PlaceCloudMapper.Lng()
+        val weatherRepository = WeatherRepository.Base(
+            WeatherCacheDataSource.Base(RealmProvider.Base(this), WeatherDataDBMapper.Base(
+                CurrentDBMapper.Base(),
+                LocationDBMapper.Base(),
+                IndicatorsDBMapper.Base(),
+                HorizonDBMapper.Base()
+            )),
+            WeatherCloudDataSource.Base(weatherService),
+            AirQualityCloudDataSource.Base(airService),
+            PlaceCloudDataSource.Base(retrofit.create(LocationService::class.java)),
+//            PlaceCloudDataSource.Base(client, PlaceToCloudMapper.Base()),
+            WeatherCloudToDataMapper.Base(
+                locationDataMapper,
+                currentWeatherDataMapper,
+                indicatorsDataMapper,
+                horizonDataMapper,
+                alertsMapper
+            ),
+            WeatherDBToDataMapper.Base(
+                locationDataMapper,
+                currentWeatherDataMapper,
+                indicatorsDataMapper,
+                horizonDataMapper),
+            IdMapper.Base(),
+            WeatherCache()
+        )
         val weatherInteractor = WeatherInteractor.Base(
             weatherRepository,
-            airRepository,
-            locationRepository,
-            WeatherDomainMapper.Base()
+//            WeatherRepository.Mock(),
+            WeatherDataToDomainMapper.Base(CurrentWeatherDomainMapper.Base(),
+                IndicatorsDataToDomainMapper.Base(),
+                HorizonDataToDomainMapper.Base(SunCalculator.Base()),
+                WarningsDataToDomainMapper.Base(WarningDataToDomainMapper.Base()))
         )
         val progressCommunication = ProgressCommunication.Base()
         weatherViewModel = WeatherViewModel(
@@ -100,16 +138,26 @@ class WeatherApp : Application() {
             )
         )
         val locationsCommunication = LocationsCommunication.Base()
-        val client = Places.createClient(this)
-        val navCommunication = NavigationCommunication.Base()
-        searchViewModel = SearchViewModel(
-            navCommunication,
+        val navigation = Navigator.Base(NavigationCommunication.Base())
+        mainContentViewModel = MainContentViewModel(
+            navigation,
             locationsCommunication,
-            SearchLocationDataSource.Base(client,
-                PredictionListToDataMapper.Base(PredictionToDataMapper.Base()),
-                SearchItemListToUiMapper.Base(SearchItemDataToUiMapper.Base())),
+            SearchLocationDataSource.Geocode(retrofit.create(PredictionService::class.java),
+                PredictionCloudToDataMapper.Base()),
+//            SearchLocationDataSource.Mock(),
+            SearchItemListToUiMapper.Base(SearchItemDataToUiMapper.Base())
+//            SearchLocationDataSource.Base(client,
+//                PredictionListToDataMapper.Base(PredictionToDataMapper.Base()),
+//                SearchItemListToUiMapper.Base(SearchItemDataToUiMapper.Base())),
         )
-        searchPredictionViewModel = SearchPredictionViewModel(locationsCommunication)
-        mainViewModel = MainViewModel(navCommunication, progressCommunication)
+        searchPredictionViewModel = SearchPredictionViewModel(locationsCommunication, navigation)
+        mainViewModel = MainViewModel(navigation, progressCommunication)
+        val favoritesInteractor =
+            FavoritesInteractor.Base(FavoritesPrefCache.Base(PreferencesProvider.Base(this)),
+                weatherRepository)
+        favoritesViewModel = FavoritesViewModel(favoritesInteractor, FavoritesCommunication.Base())
+        addLocationViewModel = AddLocationViewModel(
+            favoritesInteractor,
+            navigation)
     }
 }

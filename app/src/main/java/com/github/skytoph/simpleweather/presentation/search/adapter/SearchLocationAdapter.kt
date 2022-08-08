@@ -9,7 +9,7 @@ import com.github.skytoph.simpleweather.core.presentation.adapter.BaseDiffUtil
 import com.github.skytoph.simpleweather.core.presentation.adapter.BaseViewHolder
 import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
 
-class SearchLocationAdapter :
+class SearchLocationAdapter(private val listener: LocationClickListener) :
     BaseAdapter<SearchItemUi, BaseViewHolder<SearchItemUi>>(
         LocationDiffCallback()) {
 
@@ -22,7 +22,8 @@ class SearchLocationAdapter :
         parent: ViewGroup,
         viewType: Int,
     ): BaseViewHolder<SearchItemUi> = when (viewType) {
-        ViewType.LOCATION.ordinal -> LocationViewHolder.Base(R.layout.search_item.inflateView(parent))
+        ViewType.LOCATION.ordinal -> LocationViewHolder.Base(R.layout.search_item.inflateView(parent),
+            listener)
         else -> LocationViewHolder.Error(R.layout.error_fullscreen.inflateView(parent))
     }
 
@@ -31,12 +32,16 @@ class SearchLocationAdapter :
 
     abstract class LocationViewHolder(itemView: View) : BaseViewHolder<SearchItemUi>(itemView) {
 
-        class Base(itemView: View) : LocationViewHolder(itemView) {
+        class Base(itemView: View, private val listener: LocationClickListener) :
+            LocationViewHolder(itemView) {
 
             override fun bind(item: SearchItemUi) {
                 val titleTextView = itemView.findViewById<TextView>(R.id.search_item_title)
                 val subtitleTextView = itemView.findViewById<TextView>(R.id.search_item_subtitle)
                 item.show(titleTextView, subtitleTextView)
+                itemView.setOnClickListener {
+                    item.select(listener)
+                }
             }
         }
 
@@ -50,6 +55,9 @@ class SearchLocationAdapter :
     }
 
     class LocationDiffCallback : BaseDiffUtil<SearchItemUi>()
+    interface LocationClickListener {
+        fun open(id: String, favorite: Boolean)
+    }
 }
 
 enum class ViewType {

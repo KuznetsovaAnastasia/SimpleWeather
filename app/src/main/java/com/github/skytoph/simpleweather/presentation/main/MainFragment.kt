@@ -9,22 +9,19 @@ import com.github.skytoph.simpleweather.app.WeatherApp
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.core.presentation.TextEditorWatcher
 import com.github.skytoph.simpleweather.databinding.FragmentMainBinding
-import com.github.skytoph.simpleweather.presentation.search.SearchViewModel
 
-class MainFragment : BaseFragment<SearchViewModel, FragmentMainBinding>() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = (requireActivity().application as WeatherApp).searchViewModel
+class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
+    override val viewModel by lazy {
+        (requireActivity().application as WeatherApp).mainContentViewModel
     }
 
-    override fun binding(inflater: LayoutInflater, container: ViewGroup?) =
-        FragmentMainBinding.inflate(inflater, container, false)
+    override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentMainBinding
+        get() = FragmentMainBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.showWeather(R.id.weather_fragment_container)
+        viewModel.showFavorites(R.id.weather_fragment_container)
 
         val searchEditText = binding.editTextSearchLocation
 
@@ -39,7 +36,6 @@ class MainFragment : BaseFragment<SearchViewModel, FragmentMainBinding>() {
                 viewModel.showSearch(R.id.weather_fragment_container)
             else {
                 hideKeyboard()
-                viewModel.showWeather(R.id.weather_fragment_container)
             }
         }
     }

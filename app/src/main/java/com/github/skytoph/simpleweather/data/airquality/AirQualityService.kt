@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.data.airquality
 
 import com.github.skytoph.simpleweather.BuildConfig
-import com.github.skytoph.simpleweather.data.airquality.model.AirQualityCloud
+import com.github.skytoph.simpleweather.data.airquality.cloud.AirQualityCloud
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
