@@ -3,10 +3,13 @@ package com.github.skytoph.simpleweather.data.favorites
 import com.github.skytoph.simpleweather.core.data.Read
 import com.github.skytoph.simpleweather.core.data.Save
 import com.github.skytoph.simpleweather.core.provider.PreferencesProvider
+import javax.inject.Inject
+import javax.inject.Singleton
 
 interface FavoritesPrefCache : Read<List<String>>, Save<String> {
 
-    class Base(private val preferencesProvider: PreferencesProvider) : FavoritesPrefCache {
+    @Singleton
+    class Base @Inject constructor(private val preferencesProvider: PreferencesProvider) : FavoritesPrefCache {
 
         override fun read(): List<String> =
             preferencesProvider.providePreferences(FAVORITES_FILENAME)

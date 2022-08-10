@@ -7,8 +7,11 @@ import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.ProgressCommunication
 import com.github.skytoph.simpleweather.core.presentation.Visibility
 import com.github.skytoph.simpleweather.presentation.main.MainNavigator
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val navigator: MainNavigator,
     private val progressCommunication: ProgressCommunication.Observe,
 ) : ViewModel() {

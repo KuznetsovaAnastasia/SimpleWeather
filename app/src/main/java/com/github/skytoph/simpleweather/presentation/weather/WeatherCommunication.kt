@@ -1,8 +1,11 @@
 package com.github.skytoph.simpleweather.presentation.weather
 
 import com.github.skytoph.simpleweather.core.presentation.communication.Communication
+import dagger.hilt.android.scopes.ViewModelScoped
+import javax.inject.Inject
 
 interface WeatherCommunication : Communication.Mutable<WeatherUi> {
 
-    class Base : Communication.UiUpdate<WeatherUi>(), WeatherCommunication
+    @ViewModelScoped
+    class Base @Inject constructor() : Communication.UiUpdate<WeatherUi>(), WeatherCommunication
 }

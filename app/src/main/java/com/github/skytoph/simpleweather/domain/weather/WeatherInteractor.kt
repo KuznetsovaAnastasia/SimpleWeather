@@ -2,13 +2,14 @@ package com.github.skytoph.simpleweather.domain.weather
 
 import com.github.skytoph.simpleweather.data.weather.mapper.WeatherDataToDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
+import javax.inject.Inject
 
 interface WeatherInteractor {
     suspend fun getCachedWeather(id: String): WeatherDomain
     suspend fun getCloudWeather(id: String, favorite: Boolean): WeatherDomain
-    suspend fun cache()
+    suspend fun cache(favorite: Boolean)
 
-    class Base(
+    class Base @Inject constructor(
         private val weatherRepository: WeatherRepository.Mutable,
         private val mapper: WeatherDataToDomainMapper,
     ) : WeatherInteractor {
@@ -19,6 +20,8 @@ interface WeatherInteractor {
         override suspend fun getCachedWeather(id: String): WeatherDomain =
             weatherRepository.getCachedWeather(id).map(mapper)
 
-        override suspend fun cache() = weatherRepository.saveWeather()
+        override suspend fun cache(favorite: Boolean) {
+            if (favorite) weatherRepository.saveWeather()
+        }
     }
 }

@@ -10,6 +10,7 @@ import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataMa
 import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.IndicatorsDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
+import javax.inject.Inject
 
 interface WeatherDBToDataMapper : Mapper<WeatherData> {
     fun map(
@@ -19,7 +20,7 @@ interface WeatherDBToDataMapper : Mapper<WeatherData> {
         horizon: HorizonDB,
     ): WeatherData
 
-    class Base(
+    class Base @Inject constructor(
         private val locationMapper: LocationDataMapper,
         private val currentMapper: CurrentWeatherDataMapper,
         private val indicatorsMapper: IndicatorsDataMapper,

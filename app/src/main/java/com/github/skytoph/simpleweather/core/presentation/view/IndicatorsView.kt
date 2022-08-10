@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
 
@@ -31,7 +32,7 @@ class IndicatorsView : ConstraintLayout {
         (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(R.layout.view_indicators, this, true)
 
-        background = resources.getDrawable(R.drawable.rectangle_rounded_11)
+        background = ResourcesCompat.getDrawable(resources, R.drawable.rectangle_rounded_11, null)
 
         setPadding(
             resources.getDimensionPixelSize(R.dimen.indicators_view_padding_start),

@@ -4,8 +4,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.github.skytoph.simpleweather.domain.favorites.FavoritesInteractor
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class FavoritesViewModel(
+@HiltViewModel
+class FavoritesViewModel @Inject constructor(
     private val interactor: FavoritesInteractor,
     private val communication: FavoritesCommunication,
 ) : ViewModel() {

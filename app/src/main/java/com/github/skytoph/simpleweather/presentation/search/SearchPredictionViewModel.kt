@@ -5,9 +5,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SearchPredictionViewModel(
-    private val locationsCommunication: LocationsCommunication.Observe,
+@HiltViewModel
+class SearchPredictionViewModel @Inject constructor(
+    private val searchCommunication: SearchCommunication.Observe,
     private val navigation: SearchNavigator,
 ) : ViewModel() {
 
@@ -16,5 +19,5 @@ class SearchPredictionViewModel(
     }
 
     fun observe(owner: LifecycleOwner, observer: Observer<List<SearchItemUi>>) =
-        locationsCommunication.observe(owner, observer)
+        searchCommunication.observe(owner, observer)
 }

@@ -3,6 +3,7 @@ package com.github.skytoph.simpleweather.data.weather.mapper
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.weather.model.*
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
+import javax.inject.Inject
 
 interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
 
@@ -16,7 +17,7 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
 
     fun map(e: Exception): WeatherDomain
 
-    class Base(
+    class Base @Inject constructor(
         private val weatherMapper: CurrentWeatherDomainMapper,
         private val indicatorsMapper: IndicatorsDataToDomainMapper,
         private val horizonMapper: HorizonDataToDomainMapper,

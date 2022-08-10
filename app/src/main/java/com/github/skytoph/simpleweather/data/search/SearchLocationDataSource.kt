@@ -4,29 +4,31 @@ import com.github.skytoph.simpleweather.core.exception.UnknownException
 import com.github.skytoph.simpleweather.data.search.geocode.PredictionCloudToDataMapper
 import com.github.skytoph.simpleweather.data.search.geocode.PredictionService
 import com.github.skytoph.simpleweather.data.search.mapper.PredictionListToDataMapper
-import com.github.skytoph.simpleweather.presentation.search.LocationsCommunication
+import com.github.skytoph.simpleweather.presentation.search.SearchCommunication
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
 import com.google.android.libraries.places.api.net.PlacesClient
+import javax.inject.Inject
+import javax.inject.Singleton
 
 interface SearchLocationDataSource {
     fun startSession()
     suspend fun getPredictions(
         query: String,
-        locationsCommunication: LocationsCommunication.Update,
+        searchCommunication: SearchCommunication.Update,
         showResult: (List<SearchItemData>) -> Unit,
     )
 
-    class Geocode(
+    class Geocode @Inject constructor(
         private val service: PredictionService,
         private val dataMapper: PredictionCloudToDataMapper,
     ) : SearchLocationDataSource {
 
         override suspend fun getPredictions(
             query: String,
-            locationsCommunication: LocationsCommunication.Update,
+            searchCommunication: SearchCommunication.Update,
             showResult: (List<SearchItemData>) -> Unit,
         ) {
             if (query.isBlank()) return
@@ -52,7 +54,7 @@ interface SearchLocationDataSource {
 
         override suspend fun getPredictions(
             query: String,
-            locationsCommunication: LocationsCommunication.Update,
+            searchCommunication: SearchCommunication.Update,
             showResult: (List<SearchItemData>) -> Unit,
         ) {
             if (query.isBlank()) return
@@ -76,12 +78,12 @@ interface SearchLocationDataSource {
         }
     }
 
-    class Mock : SearchLocationDataSource {
+    class Mock @Inject constructor() : SearchLocationDataSource {
         override fun startSession() = Unit
 
         override suspend fun getPredictions(
             query: String,
-            locationsCommunication: LocationsCommunication.Update,
+            searchCommunication: SearchCommunication.Update,
             showResult: (List<SearchItemData>) -> Unit,
         ) {
             showResult.invoke(listOf(SearchItemData.Location("11,22", "Mumbai", "Some country"),

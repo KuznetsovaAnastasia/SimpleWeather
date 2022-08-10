@@ -5,8 +5,12 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.github.skytoph.simpleweather.presentation.weather.WeatherFragment
+import dagger.hilt.android.scopes.FragmentScoped
+import javax.inject.Inject
 
-class FavoritesAdapter(fragment: Fragment, diffCallback: DiffUtil.ItemCallback<String>) :
+@FragmentScoped
+class FavoritesAdapter @Inject constructor
+    (fragment: Fragment, diffCallback: DiffUtil.ItemCallback<String>) :
     FragmentStateAdapter(fragment) {
 
     private val differ = AsyncListDiffer(this, diffCallback)
@@ -19,7 +23,7 @@ class FavoritesAdapter(fragment: Fragment, diffCallback: DiffUtil.ItemCallback<S
         differ.submitList(newList)
     }
 
-    class StringDiffCallback : DiffUtil.ItemCallback<String>() {
+    class StringDiffCallback @Inject constructor() : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
         override fun areContentsTheSame(oldItem: String, newItem: String): Boolean =
             oldItem == newItem

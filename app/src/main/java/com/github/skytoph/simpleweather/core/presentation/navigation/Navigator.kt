@@ -13,10 +13,13 @@ import com.github.skytoph.simpleweather.presentation.main.MainNavigator
 import com.github.skytoph.simpleweather.presentation.search.SearchNavFragment
 import com.github.skytoph.simpleweather.presentation.search.SearchNavigator
 import com.github.skytoph.simpleweather.presentation.weather.WeatherNavFragment
+import javax.inject.Inject
+import javax.inject.Singleton
 
 interface Navigator : AddLocationNavigator, SearchNavigator, MainContentNavigator, MainNavigator {
 
-    class Base(
+    @Singleton
+    class Base @Inject constructor(
         private val communication: NavigationCommunication.Mutable,
     ) : Navigator {
 

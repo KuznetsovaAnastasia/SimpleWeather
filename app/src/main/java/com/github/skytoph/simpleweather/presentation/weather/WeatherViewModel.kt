@@ -8,11 +8,14 @@ import com.github.skytoph.simpleweather.core.presentation.ProgressCommunication
 import com.github.skytoph.simpleweather.core.presentation.Visibility
 import com.github.skytoph.simpleweather.domain.weather.WeatherInteractor
 import com.github.skytoph.simpleweather.domain.weather.mapper.WeatherDomainToUiMapper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class WeatherViewModel(
+@HiltViewModel
+class WeatherViewModel @Inject constructor(
     private val interactor: WeatherInteractor,
     private val progressCommunication: ProgressCommunication.Update,
     private val weatherCommunication: WeatherCommunication,
@@ -39,17 +42,14 @@ class WeatherViewModel(
     private fun getWeatherCloud(placeId: String, favorite: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             val weatherDomainCloud = interactor.getCloudWeather(placeId, favorite)
-//                .also { if (favorite) interactor.cache() }
             withContext(Dispatchers.Main) {
                 weatherCommunication.show(weatherDomainCloud.map(toUiMapper))
             }
         }
     }
 
-    fun saveWeather(favorite: Boolean) {
-        if (favorite) viewModelScope.launch(Dispatchers.IO) {
-            interactor.cache()
-        }
+    fun saveWeather(favorite: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        interactor.cache(favorite)
     }
 
     fun observe(owner: LifecycleOwner, observer: Observer<WeatherUi>) {

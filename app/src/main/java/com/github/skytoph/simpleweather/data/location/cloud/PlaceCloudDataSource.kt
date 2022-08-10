@@ -1,10 +1,12 @@
 package com.github.skytoph.simpleweather.data.location.cloud
 
+import javax.inject.Inject
+
 interface PlaceCloudDataSource {
 
     suspend fun getPlace(coordinates: Pair<Double, Double>): PlaceCloud
 
-    class Base(
+    class Base @Inject constructor(
         private val service: LocationService,
     ) : PlaceCloudDataSource {
 

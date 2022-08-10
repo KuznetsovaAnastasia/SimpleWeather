@@ -2,8 +2,10 @@ package com.github.skytoph.simpleweather.presentation.search
 
 import com.github.skytoph.simpleweather.core.presentation.communication.Communication
 import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
+import javax.inject.Inject
+import javax.inject.Singleton
 
-interface LocationsCommunication {
+interface SearchCommunication {
 
     interface Update : Communication.Update<List<SearchItemUi>>
 
@@ -11,5 +13,6 @@ interface LocationsCommunication {
 
     interface Mutable : Update, Observe
 
-    class Base : Communication.PostUpdate<List<SearchItemUi>>(), Mutable
+    @Singleton
+    class Base @Inject constructor() : Communication.PostUpdate<List<SearchItemUi>>(), Mutable
 }

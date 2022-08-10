@@ -5,11 +5,12 @@ import com.github.skytoph.simpleweather.data.location.mapper.LocationDataToCurre
 import com.github.skytoph.simpleweather.data.weather.model.CurrentWeatherData
 import com.github.skytoph.simpleweather.data.weather.model.LocationData
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
+import javax.inject.Inject
 
 interface CurrentWeatherDomainMapper : Mapper<WeatherDomain.CurrentWeather> {
     fun map(current: CurrentWeatherData, location: LocationData): WeatherDomain.CurrentWeather
 
-    class Base : CurrentWeatherDomainMapper {
+    class Base @Inject constructor() : CurrentWeatherDomainMapper {
 
         override fun map(
             current: CurrentWeatherData,

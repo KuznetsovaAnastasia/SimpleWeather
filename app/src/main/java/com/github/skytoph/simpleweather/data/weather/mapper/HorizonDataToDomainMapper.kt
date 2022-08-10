@@ -3,12 +3,13 @@ package com.github.skytoph.simpleweather.data.weather.mapper
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.util.SunCalculator
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
+import javax.inject.Inject
 
 interface HorizonDataToDomainMapper : Mapper<WeatherDomain.Horizon> {
 
     fun map(sunrise: Long, sunset: Long, currentTime: Long): WeatherDomain.Horizon
 
-    class Base(
+    class Base @Inject constructor(
         private val sunCalculator: SunCalculator,
     ) : HorizonDataToDomainMapper {
 

@@ -1,13 +1,16 @@
 package com.github.skytoph.simpleweather.core.util
 
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 
 interface SunCalculator {
     fun duration(start: Long, end: Long): Long
     fun remainingDaylight(sunrise: Long, sunset: Long, current: Long): Long
     fun sunPosition(sunrise: Long, sunset: Long, current: Long): Double
 
-    class Base : SunCalculator {
+    @Singleton
+    class Base @Inject constructor() : SunCalculator {
 
         override fun duration(start: Long, end: Long): Long =
             if (end > start) end - start

@@ -4,6 +4,7 @@ import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.util.formatter.ProbabilityFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 interface IndicatorsDomainToUiMapper : Mapper<WeatherUiComponent.Indicator> {
@@ -14,7 +15,7 @@ interface IndicatorsDomainToUiMapper : Mapper<WeatherUiComponent.Indicator> {
         airQualityIndex: Int,
     ): WeatherUiComponent.Indicator
 
-    class Base(
+    class Base @Inject constructor(
         private val timeFormatter: TimeFormatter,
         private val probabilityFormatter: ProbabilityFormatter,
     ) : IndicatorsDomainToUiMapper {

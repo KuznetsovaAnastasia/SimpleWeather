@@ -7,15 +7,18 @@ import com.github.skytoph.simpleweather.core.exception.NoCachedDataException
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDataDBMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import io.realm.Realm
-
+import javax.inject.Inject
+import javax.inject.Singleton
 
 interface WeatherCacheDataSource : SaveItem<WeatherData> {
 
     fun read(id: String): WeatherDB
     fun remove(id: String, data: WeatherData)
 
-    class Base(private val realmProvider: RealmProvider, private val mapper: WeatherDataDBMapper) :
-        WeatherCacheDataSource {
+    class Base @Inject constructor(
+        private val realmProvider: RealmProvider,
+        private val mapper: WeatherDataDBMapper,
+    ) : WeatherCacheDataSource {
 
         override fun read(id: String): WeatherDB = realmProvider.provide().use { realm ->
             val weather = findRealmObject(realm, id)

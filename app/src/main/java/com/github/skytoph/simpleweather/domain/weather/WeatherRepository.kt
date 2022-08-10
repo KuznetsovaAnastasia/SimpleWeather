@@ -9,6 +9,8 @@ import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDat
 import com.github.skytoph.simpleweather.data.weather.cloud.WeatherCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
 interface WeatherRepository {
     interface Save {
@@ -22,7 +24,8 @@ interface WeatherRepository {
 
     interface Mutable : Read, Save
 
-    class Base(
+    @Singleton
+    class Base @Inject constructor(
         // TODO: move some parameters
         private val cacheDataSource: WeatherCacheDataSource,
         private val weatherCloudDataSource: WeatherCloudDataSource,

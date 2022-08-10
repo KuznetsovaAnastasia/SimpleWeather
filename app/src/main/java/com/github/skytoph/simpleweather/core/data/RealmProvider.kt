@@ -1,14 +1,16 @@
 package com.github.skytoph.simpleweather.core.data
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import javax.inject.Inject
 
 interface RealmProvider {
 
     fun provide(): Realm
 
-    class Base(context: Context) : RealmProvider {
+    class Base @Inject constructor(@ApplicationContext context: Context) : RealmProvider {
         init {
             Realm.init(context)
             val config = getConfig()

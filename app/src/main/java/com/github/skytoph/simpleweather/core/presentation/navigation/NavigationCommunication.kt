@@ -1,6 +1,8 @@
 package com.github.skytoph.simpleweather.core.presentation.navigation
 
 import com.github.skytoph.simpleweather.core.presentation.communication.Communication
+import javax.inject.Inject
+import javax.inject.Singleton
 
 interface NavigationCommunication {
 
@@ -10,5 +12,6 @@ interface NavigationCommunication {
 
     interface Mutable : Update, Observe
 
-    class Base : Communication.SinglePostUpdate<ShowScreen>(), Mutable
+    @Singleton
+    class Base @Inject constructor() : Communication.SinglePostUpdate<ShowScreen>(), Mutable
 }

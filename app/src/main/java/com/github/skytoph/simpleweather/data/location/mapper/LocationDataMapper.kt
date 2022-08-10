@@ -2,6 +2,7 @@ package com.github.skytoph.simpleweather.data.location.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.weather.model.LocationData
+import javax.inject.Inject
 
 interface LocationDataMapper : Mapper<LocationData> {
     fun map(
@@ -12,7 +13,7 @@ interface LocationDataMapper : Mapper<LocationData> {
         favorite: Boolean = false,
     ): LocationData
 
-    class Base : LocationDataMapper {
+    class Base @Inject constructor() : LocationDataMapper {
 
         override fun map(
             id: String,

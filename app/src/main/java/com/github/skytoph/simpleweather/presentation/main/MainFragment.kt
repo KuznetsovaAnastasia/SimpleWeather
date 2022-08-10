@@ -4,16 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.app.WeatherApp
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.core.presentation.TextEditorWatcher
 import com.github.skytoph.simpleweather.databinding.FragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
-    override val viewModel by lazy {
-        (requireActivity().application as WeatherApp).mainContentViewModel
-    }
+    override val viewModel by viewModels<MainContentViewModel>()
 
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentMainBinding
         get() = FragmentMainBinding::inflate
