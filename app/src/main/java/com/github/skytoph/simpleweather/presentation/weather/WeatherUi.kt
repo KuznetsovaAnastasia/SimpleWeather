@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.presentation.weather
 
 import android.widget.TextView
+import com.github.skytoph.simpleweather.core.presentation.MessageCommunication
 import com.github.skytoph.simpleweather.core.presentation.Visibility
 import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
@@ -35,6 +36,8 @@ sealed class WeatherUi : ShowWeatherUi() {
 
     data class Fail(private val message: String) : WeatherUi() {
 
+        override fun show(messageCommunication: MessageCommunication.Update) =
+            messageCommunication.show(message)
     }
 
     data class Error(private val message: String) : WeatherUi() {

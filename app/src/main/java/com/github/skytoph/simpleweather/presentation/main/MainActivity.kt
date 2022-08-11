@@ -1,9 +1,9 @@
 package com.github.skytoph.simpleweather.presentation.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.github.skytoph.simpleweather.app.WeatherApp
 import com.github.skytoph.simpleweather.core.presentation.navigation.MainViewModel
 import com.github.skytoph.simpleweather.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         }
         viewModel.observeProgress(this) { visibility ->
             visibility.apply(binding.progressBar)
+        }
+        viewModel.observeMessages(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
 }

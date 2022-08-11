@@ -47,6 +47,7 @@ interface WeatherRepository {
                 val weather = weatherCloudDataSource.getWeather(coordinates)
                 val airQuality = airQualityCloudDataSource.getAirQuality(coordinates)
                 cloudMapper.map(weather, airQuality, location, favorite)
+                    .also { cachedWeather.cache(it) }
             }
 
         override suspend fun saveWeather() {
@@ -54,7 +55,7 @@ interface WeatherRepository {
         }
 
         private suspend fun getWeather(fetch: suspend () -> WeatherData) = try {
-            fetch.invoke().also { cachedWeather.cache(it) } // TODO: cache only from cloud
+            fetch.invoke()
         } catch (exception: Exception) {
             cachedWeather.clear()
             WeatherData.Fail(exception)

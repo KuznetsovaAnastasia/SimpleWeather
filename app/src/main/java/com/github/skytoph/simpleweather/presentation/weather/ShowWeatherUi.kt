@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.presentation.weather
 
 import android.widget.TextView
+import com.github.skytoph.simpleweather.core.presentation.MessageCommunication
 import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
@@ -27,4 +28,6 @@ abstract class ShowWeatherUi {
         sunriseSunsetView: SunriseSunsetView,
         warningAdapter: WarningAdapter,
     ) = Unit
+
+    open fun show(messageCommunication: MessageCommunication.Update) = Unit
 }

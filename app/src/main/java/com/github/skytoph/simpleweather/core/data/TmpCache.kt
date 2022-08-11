@@ -9,9 +9,7 @@ interface CachedItem<T> : SaveItemToCache<T> {
     fun clear()
 
     class Empty<T> : CachedItem<T> {
-        override suspend fun save(source: SaveItem<T>) =
-            throw IllegalStateException("empty item can not be saved")
-
+        override suspend fun save(source: SaveItem<T>) {}
         override fun cache(value: SaveItemToCache<T>) {}
         override fun clear() {}
     }
