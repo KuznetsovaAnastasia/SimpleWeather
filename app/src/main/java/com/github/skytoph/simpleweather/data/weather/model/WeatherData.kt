@@ -15,7 +15,7 @@ sealed class WeatherData : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
     SaveItemToCache<WeatherData> {
 
     data class Info(
-        private val location: LocationData,
+        private val id: String,
         private val currentWeatherData: CurrentWeatherData,
         private val indicatorsData: IndicatorsData,
         private val horizonData: HorizonData,
@@ -23,13 +23,13 @@ sealed class WeatherData : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
     ) : WeatherData() {
 
         override fun map(mapper: WeatherDataToDomainMapper): WeatherDomain =
-            mapper.map(location, currentWeatherData, indicatorsData, horizonData, alertData)
+            mapper.map(id, currentWeatherData, indicatorsData, horizonData, alertData)
 
-        override fun map(mapper: WeatherDataDBMapper, dataBase: DataBase<WeatherDB>): WeatherDB =
-            mapper.map(location, currentWeatherData, indicatorsData, horizonData, dataBase)
+        override fun map(mapper: WeatherDataDBMapper, dataBase: DataBase): WeatherDB =
+            mapper.map(id, currentWeatherData, indicatorsData, horizonData, dataBase)
 
         override suspend fun save(source: SaveItem<WeatherData>) =
-            source.saveOrUpdate(location.map(), this)
+            source.saveOrUpdate(id, this)
     }
 
 
@@ -37,7 +37,7 @@ sealed class WeatherData : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
 
         override fun map(mapper: WeatherDataToDomainMapper): WeatherDomain = mapper.map(exception)
 
-        override fun map(mapper: WeatherDataDBMapper, dataBase: DataBase<WeatherDB>): WeatherDB =
+        override fun map(mapper: WeatherDataDBMapper, dataBase: DataBase): WeatherDB =
             throw IllegalStateException("can not save failed weather data")
 
         override suspend fun save(source: SaveItem<WeatherData>) = Unit

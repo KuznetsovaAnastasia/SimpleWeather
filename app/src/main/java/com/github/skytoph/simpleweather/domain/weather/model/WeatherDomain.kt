@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.domain.weather.model
 
 import com.github.skytoph.simpleweather.core.Mappable
+import com.github.skytoph.simpleweather.domain.weather.ErrorType
 import com.github.skytoph.simpleweather.domain.weather.mapper.*
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUi
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
@@ -19,10 +20,10 @@ sealed class WeatherDomain : Mappable<WeatherUi, WeatherDomainToUiMapper> {
             mapper.map(id, currentWeather, indicators, horizon, warnings)
     }
 
-    class Fail(private val message: String) : WeatherDomain() {
+    class Fail(private val errorType: ErrorType) : WeatherDomain() {
 
         // TODO: replace with error type
-        override fun map(mapper: WeatherDomainToUiMapper): WeatherUi = mapper.map(message)
+        override fun map(mapper: WeatherDomainToUiMapper): WeatherUi = mapper.map(errorType)
     }
 
     data class CurrentWeather(

@@ -6,34 +6,31 @@ import com.github.skytoph.simpleweather.data.weather.cache.WeatherDB
 import com.github.skytoph.simpleweather.data.weather.model.CurrentWeatherData
 import com.github.skytoph.simpleweather.data.weather.model.HorizonData
 import com.github.skytoph.simpleweather.data.weather.model.IndicatorsData
-import com.github.skytoph.simpleweather.data.weather.model.LocationData
 import javax.inject.Inject
 
 interface WeatherDataDBMapper : Mapper<WeatherDB> {
     fun map(
-        location: LocationData,
+        id: String,
         currentWeatherData: CurrentWeatherData,
         indicatorsData: IndicatorsData,
         horizonData: HorizonData,
-        dataBase: DataBase<WeatherDB>,
+        dataBase: DataBase,
     ): WeatherDB
 
     class Base @Inject constructor(
         private val currentMapper: CurrentDBMapper,
-        private val locationMapper: LocationDBMapper,
         private val indicatorsMapper: IndicatorsDBMapper,
         private val horizonMapper: HorizonDBMapper,
     ) : WeatherDataDBMapper {
 
         override fun map(
-            location: LocationData,
+            id: String,
             currentWeatherData: CurrentWeatherData,
             indicatorsData: IndicatorsData,
             horizonData: HorizonData,
-            dataBase: DataBase<WeatherDB>,
-        ): WeatherDB = dataBase.createObject(location.map()).apply {
+            dataBase: DataBase,
+        ): WeatherDB = dataBase.createObject<WeatherDB>(id).apply {
             this.current = currentWeatherData.map(currentMapper)
-            this.location = location.map(locationMapper)
             this.indicators = indicatorsData.map(indicatorsMapper)
             this.horizon = horizonData.map(horizonMapper)
         }

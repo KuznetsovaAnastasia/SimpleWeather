@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WeatherApp</string>
+    <string name="app_name">Simple Weather</string>
 
     <string name="hint_search_location">Search location</string>
     <string name="sunrise">Sunrise</string>
@@ -28,6 +28,11 @@
     <string name="indicator_uv">uv</string>
     <string name="indicator_rain">% rain</string>
     <string name="indicator_aq">aq</string>
+
+<!--    Error messages-->
     <string name="error_general">Something went wrong</string>
+    <string name="error_service_unavailable">Service unavailable</string>
+    <string name="error_no_connection">No connection</string>
+    <string name="error_no_cached_data">No cached data</string>
 
 </resources>

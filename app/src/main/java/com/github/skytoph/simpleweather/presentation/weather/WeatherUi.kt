@@ -10,25 +10,6 @@ import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningAdap
 
 sealed class WeatherUi : ShowWeatherUi() {
 
-    data class Fail(private val message: String) : WeatherUi() {
-        override fun show(
-            locationView: LocationView,
-            indicatorsView: IndicatorsView,
-            sunriseSunsetView: SunriseSunsetView,
-            warningAdapter: WarningAdapter,
-        ) = Visibility.Gone().run {
-            apply(locationView)
-            apply(indicatorsView)
-            apply(sunriseSunsetView)
-            warningAdapter.submitList(emptyList())
-        }
-
-        override fun show(messageView: TextView) {
-            Visibility.Visible().apply(messageView)
-            messageView.text = message
-        }
-    }
-
     data class Success(
         private val id: String,
         private val current: Current,
@@ -50,5 +31,28 @@ sealed class WeatherUi : ShowWeatherUi() {
 
         override fun show(messageView: TextView) = Visibility.Gone().apply(messageView)
 
+    }
+
+    data class Fail(private val message: String) : WeatherUi() {
+
+    }
+
+    data class Error(private val message: String) : WeatherUi() {
+        override fun show(
+            locationView: LocationView,
+            indicatorsView: IndicatorsView,
+            sunriseSunsetView: SunriseSunsetView,
+            warningAdapter: WarningAdapter,
+        ) = Visibility.Gone().run {
+            apply(locationView)
+            apply(indicatorsView)
+            apply(sunriseSunsetView)
+            warningAdapter.submitList(emptyList())
+        }
+
+        override fun show(messageView: TextView) {
+            Visibility.Visible().apply(messageView)
+            messageView.text = message
+        }
     }
 }

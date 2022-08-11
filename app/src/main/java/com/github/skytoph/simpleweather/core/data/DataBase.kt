@@ -3,12 +3,8 @@ package com.github.skytoph.simpleweather.core.data
 import io.realm.Realm
 import io.realm.RealmObject
 
-interface DataBase<T : RealmObject> {
+class DataBase(val realm: Realm) {
 
-    fun createObject(id: String): T
-
-    abstract class Abstract<T : RealmObject>(private val realm: Realm) : DataBase<T> {
-        override fun createObject(id: String): T = realm.createObject(dbClass(), id)
-        protected abstract fun dbClass(): Class<T>
-    }
+    inline fun <reified T : RealmObject> createObject(id: String): T =
+        realm.createObject(T::class.java, id)
 }

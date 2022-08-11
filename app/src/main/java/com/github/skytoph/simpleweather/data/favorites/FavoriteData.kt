@@ -14,7 +14,7 @@ data class FavoriteData(private val id: String, private val name: String) :
     Mappable<FavoriteDomain, FavoriteDataToDomainMapper>,
     MappableTo<String> {
 
-    override fun map(mapper: FavoriteDataToDbMapper, dataBase: DataBase<FavoriteDB>) =
+    override fun map(mapper: FavoriteDataToDbMapper, dataBase: DataBase) =
         mapper.map(id, name, dataBase)
 
     override fun map(mapper: FavoriteDataToDomainMapper): FavoriteDomain = mapper.map(id, name)

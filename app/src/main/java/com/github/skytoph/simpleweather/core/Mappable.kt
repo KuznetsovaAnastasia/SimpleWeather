@@ -14,7 +14,7 @@ interface MappableTo<T> {
 
 interface MappableToDB<T : RealmObject, M : Mapper<T>> {
     interface Base<T : RealmObject, M : Mapper<T>> : MappableToDB<T, M> {
-        fun map(mapper: M, dataBase: DataBase<T>): T
+        fun map(mapper: M, dataBase: DataBase): T
     }
 
     interface Embedded<T : RealmObject, M : Mapper<T>> : MappableToDB<T, M> {

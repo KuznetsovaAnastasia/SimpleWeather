@@ -65,8 +65,9 @@ interface WeatherRepository {
         override suspend fun saveWeather() = Unit
 
         override suspend fun getCachedWeather(id: String) =
-            WeatherData.Info(LocationData("11,22", 11.0, 22.0, "Mumbai", true),
-                CurrentWeatherData(10, 20.0),
+            WeatherData.Info(
+                id,
+                CurrentWeatherData(10, 20.0, "city", true),
                 IndicatorsData(1000000, 0.2, 0.5, 2),
                 HorizonData(999999, 1000100, 1000000),
                 emptyList())

@@ -6,11 +6,11 @@ import com.github.skytoph.simpleweather.data.favorites.cache.FavoriteDB
 
 interface FavoriteDataToDbMapper : Mapper<FavoriteDB> {
 
-    fun map(id: String, name: String, database: DataBase<FavoriteDB>): FavoriteDB
+    fun map(id: String, name: String, database: DataBase): FavoriteDB
 
     class Base : FavoriteDataToDbMapper {
-        override fun map(id: String, name: String, database: DataBase<FavoriteDB>) =
-            database.createObject(id).apply {
+        override fun map(id: String, name: String, database: DataBase) =
+            database.createObject<FavoriteDB>(id).apply {
                 this.name = name
             }
     }

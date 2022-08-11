@@ -37,15 +37,11 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
                 realm.executeTransaction {
                     val weather = findRealmObject(realm, id)
                     weather?.deleteFromRealm()
-                    it.insert(data.map(mapper, WeatherDatabase(it)))
+                    it.insert(data.map(mapper, DataBase(it)))
                 }
             }
 
         private fun findRealmObject(realm: Realm, id: String) =
             realm.where(WeatherDB::class.java).equalTo("id", id).findFirst()
-
-        private inner class WeatherDatabase(realm: Realm) : DataBase.Abstract<WeatherDB>(realm) {
-            override fun dbClass() = WeatherDB::class.java
-        }
     }
 }

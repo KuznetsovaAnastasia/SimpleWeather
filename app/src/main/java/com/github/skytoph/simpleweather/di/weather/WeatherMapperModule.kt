@@ -1,7 +1,6 @@
 package com.github.skytoph.simpleweather.di.weather
 
-import com.github.skytoph.simpleweather.data.location.mapper.LocationDataMapper
-import com.github.skytoph.simpleweather.data.weather.cache.mapper.*
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.AlertsDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataMapper
@@ -18,9 +17,6 @@ abstract class WeatherDataMapperModule {
 
     @Binds
     abstract fun cloudToDataMapper(mapper: WeatherCloudToDataMapper.Base): WeatherCloudToDataMapper
-
-    @Binds
-    abstract fun locationMapper(mapper: LocationDataMapper.Base): LocationDataMapper
 
     @Binds
     abstract fun currentWeatherMapper(mapper: CurrentWeatherDataMapper.Base): CurrentWeatherDataMapper

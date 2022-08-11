@@ -10,11 +10,13 @@ import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 data class CurrentWeatherData(
     private val weatherId: Int,
     private val temperature: Double,
+    private val location: String,
+    private val favorite: Boolean,
 ) : Mappable<WeatherDomain.CurrentWeather, CurrentWeatherDataToDomainMapper>,
     MappableToDB.Embedded<CurrentDB, CurrentDBMapper> {
 
     override fun map(mapper: CurrentWeatherDataToDomainMapper): WeatherDomain.CurrentWeather =
-        mapper.map(weatherId, temperature)
+        mapper.map(weatherId, temperature, location, favorite)
 
-    override fun map(mapper: CurrentDBMapper): CurrentDB = mapper.map(weatherId, temperature)
+    override fun map(mapper: CurrentDBMapper): CurrentDB = mapper.map(weatherId, temperature, location)
 }

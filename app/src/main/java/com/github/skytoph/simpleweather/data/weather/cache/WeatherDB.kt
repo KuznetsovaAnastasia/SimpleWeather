@@ -1,12 +1,14 @@
 package com.github.skytoph.simpleweather.data.weather.cache
 
 import com.github.skytoph.simpleweather.core.Mappable
-import com.github.skytoph.simpleweather.data.location.mapper.LocationDataMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.IndicatorsDataMapper
-import com.github.skytoph.simpleweather.data.weather.model.*
+import com.github.skytoph.simpleweather.data.weather.model.CurrentWeatherData
+import com.github.skytoph.simpleweather.data.weather.model.HorizonData
+import com.github.skytoph.simpleweather.data.weather.model.IndicatorsData
+import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
@@ -16,13 +18,12 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
     @PrimaryKey
     var id: String = ""
     var current: CurrentDB? = null
-    var location: LocationDB? = null
     var indicators: IndicatorsDB? = null
     var horizon: HorizonDB? = null
 
     override fun map(mapper: WeatherDBToDataMapper): WeatherData =
         mapper.map(
-            location!!,
+            id,
             current!!,
             indicators!!,
             horizon!!
@@ -30,23 +31,14 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
 }
 
 @RealmClass(embedded = true)
-open class LocationDB : RealmObject(), Mappable<LocationData, LocationDataMapper> {
-    var id: String = ""
-    var lat: Double = 0.0
-    var lon: Double = 0.0
-    var location: String = ""
-
-    override fun map(mapper: LocationDataMapper): LocationData =
-        mapper.map(id, lat, lon, location, true)
-}
-
-@RealmClass(embedded = true)
-open class CurrentDB : RealmObject(), Mappable<CurrentWeatherData, CurrentWeatherDataMapper> {
-    var weatherCode: Int = -1
-    var temperature: Double = 0.0
+open class CurrentDB(
+    var weatherCode: Int = -1,
+    var temperature: Double = 0.0,
+    var location: String = "",
+) : RealmObject(), Mappable<CurrentWeatherData, CurrentWeatherDataMapper> {
 
     override fun map(mapper: CurrentWeatherDataMapper): CurrentWeatherData =
-        mapper.map(weatherCode, temperature)
+        mapper.map(weatherCode, temperature, location)
 }
 
 @RealmClass(embedded = true)
