@@ -15,6 +15,7 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
     fun read(id: String): WeatherDB
     fun remove(id: String, data: WeatherData)
 
+    @Singleton
     class Base @Inject constructor(
         private val realmProvider: RealmProvider,
         private val mapper: WeatherDataDBMapper,

@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.app.WeatherApp
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentSearchResultBinding
-import com.github.skytoph.simpleweather.presentation.favorites.FavoritesViewModel
 import com.github.skytoph.simpleweather.presentation.search.adapter.SearchLocationAdapter
 import dagger.hilt.android.AndroidEntryPoint
 

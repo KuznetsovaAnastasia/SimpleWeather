@@ -6,7 +6,7 @@ import com.github.skytoph.simpleweather.presentation.search.adapter.SearchLocati
 
 sealed interface SearchItemUi : Matcher<SearchItemUi> {
 
-    fun show(firstTextView: TextView, secondTextView: TextView)
+    fun show(titleTextView: TextView, subtitleTextView: TextView)
     fun select(listener: SearchLocationAdapter.LocationClickListener) = Unit
 
     data class Location(
@@ -15,9 +15,9 @@ sealed interface SearchItemUi : Matcher<SearchItemUi> {
         private val subtitle: String,
     ) : SearchItemUi {
 
-        override fun show(firstTextView: TextView, secondTextView: TextView) {
-            firstTextView.text = title
-            secondTextView.text = subtitle
+        override fun show(titleTextView: TextView, subtitleTextView: TextView) {
+            titleTextView.text = title
+            subtitleTextView.text = subtitle
         }
 
         // TODO: get favorite
@@ -32,8 +32,8 @@ sealed interface SearchItemUi : Matcher<SearchItemUi> {
 
     data class Fail(private val message: String) : SearchItemUi {
 
-        override fun show(firstTextView: TextView, secondTextView: TextView) {
-            firstTextView.text = message
+        override fun show(titleTextView: TextView, subtitleTextView: TextView) {
+            titleTextView.text = message
         }
 
         override fun matches(item: SearchItemUi): Boolean = item is Fail && message == item.message

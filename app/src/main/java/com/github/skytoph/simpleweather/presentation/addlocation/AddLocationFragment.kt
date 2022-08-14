@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.app.WeatherApp
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentAddLocationBinding
 import dagger.hilt.android.AndroidEntryPoint

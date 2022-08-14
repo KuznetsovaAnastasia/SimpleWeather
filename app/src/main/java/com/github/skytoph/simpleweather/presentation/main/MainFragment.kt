@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.app.WeatherApp
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.core.presentation.TextEditorWatcher
 import com.github.skytoph.simpleweather.databinding.FragmentMainBinding
@@ -37,6 +36,8 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
                 viewModel.showSearch(R.id.weather_fragment_container)
             else {
                 hideKeyboard()
+                if (searchEditText.text.isNullOrBlank())
+                    viewModel.goBack()
             }
         }
     }

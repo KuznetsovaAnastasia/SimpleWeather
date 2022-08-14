@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.res.ResourcesCompat
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
 

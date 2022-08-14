@@ -36,7 +36,7 @@ import com.squareup.moshi.Json
   },
  */
 
-data class WeatherCloud(
+data class ForecastCloud(
     @field:Json(name = "lat")
     private val lat: Double,
 

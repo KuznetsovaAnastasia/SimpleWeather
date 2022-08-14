@@ -1,14 +1,13 @@
 package com.github.skytoph.simpleweather.domain.weather
 
-import com.github.skytoph.simpleweather.data.airquality.AirQualityCloudDataSource
-import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
-import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.WeatherCache
 import com.github.skytoph.simpleweather.data.weather.cache.WeatherCacheDataSource
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.WeatherCloudDataSource
-import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudToDataMapper
-import com.github.skytoph.simpleweather.data.weather.model.*
+import com.github.skytoph.simpleweather.data.weather.model.CurrentWeatherData
+import com.github.skytoph.simpleweather.data.weather.model.HorizonData
+import com.github.skytoph.simpleweather.data.weather.model.IndicatorsData
+import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,14 +25,9 @@ interface WeatherRepository {
 
     @Singleton
     class Base @Inject constructor(
-        // TODO: move some parameters
         private val cacheDataSource: WeatherCacheDataSource,
-        private val weatherCloudDataSource: WeatherCloudDataSource,
-        private val airQualityCloudDataSource: AirQualityCloudDataSource,
-        private val placeCloudDataSource: PlaceCloudDataSource,
-        private val cloudMapper: WeatherCloudToDataMapper,
+        private val cloudDataSource: WeatherCloudDataSource,
         private val cacheMapper: WeatherDBToDataMapper,
-        private val coordinatesMapper: IdMapper,
         private val cachedWeather: WeatherCache,
     ) : Mutable {
 
@@ -41,14 +35,7 @@ interface WeatherRepository {
             getWeather { cacheDataSource.read(id).map(cacheMapper) }
 
         override suspend fun getCloudWeather(id: String, favorite: Boolean): WeatherData =
-            getWeather {
-                val coordinates = coordinatesMapper.map(id)
-                val location = placeCloudDataSource.getPlace(coordinates)
-                val weather = weatherCloudDataSource.getWeather(coordinates)
-                val airQuality = airQualityCloudDataSource.getAirQuality(coordinates)
-                cloudMapper.map(weather, airQuality, location, favorite)
-                    .also { cachedWeather.cache(it) }
-            }
+            getWeather { cloudDataSource.getWeather(id, favorite) }.also { cachedWeather.cache(it) }
 
         override suspend fun saveWeather() {
             cachedWeather.save(cacheDataSource)

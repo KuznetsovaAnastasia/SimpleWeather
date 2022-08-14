@@ -14,9 +14,7 @@ interface FavoritesPrefCache : Read<List<String>>, Save<String> {
         override fun read(): List<String> =
             preferencesProvider.providePreferences(FAVORITES_FILENAME)
                 .getStringSet(FAVORITES_KEY, null)?.toList() ?:
-//                emptyList()
-            // TODO: remove
-            listOf("47.6933814,32.5106596")
+                emptyList()
 
         override fun save(data: String) {
             preferencesProvider.providePreferences(FAVORITES_FILENAME)

@@ -21,7 +21,7 @@ interface WeatherCloudMapper : Mapper<WeatherData> {
 
 interface WeatherCloudToDataMapper : Mapper<WeatherData> {
     fun map(
-        weatherCloud: WeatherCloud,
+        forecastCloud: ForecastCloud,
         airQualityCloud: AirQualityCloud,
         locationCloud: PlaceCloud,
         favorite: Boolean = false,
@@ -35,11 +35,11 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
     ) : WeatherCloudToDataMapper {
 
         override fun map(
-            weatherCloud: WeatherCloud,
+            forecastCloud: ForecastCloud,
             airQualityCloud: AirQualityCloud,
             locationCloud: PlaceCloud,
             favorite: Boolean,
-        ): WeatherData = weatherCloud.map(object : WeatherCloudMapper {
+        ): WeatherData = forecastCloud.map(object : WeatherCloudMapper {
 
             override fun map(
                 current: CurrentWeatherCloud,

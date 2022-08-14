@@ -2,7 +2,6 @@ package com.github.skytoph.simpleweather.di.core
 
 import android.content.Context
 import com.github.skytoph.simpleweather.core.presentation.view.horizon.ResourceProvider
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

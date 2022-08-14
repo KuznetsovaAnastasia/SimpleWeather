@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import com.github.skytoph.simpleweather.app.WeatherApp
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentWeatherBinding
 import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningAdapter
@@ -32,6 +31,7 @@ class WeatherFragment :
             locationId = getString(PLACE_ID_KEY, "")
             favorite = getBoolean(FAVORITE_KEY)
         }
+        viewModel.getWeather(locationId, favorite)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +52,6 @@ class WeatherFragment :
                     messageView)
             }
         }
-        viewModel.getWeather(locationId, favorite)
     }
 
     override fun onPause() {

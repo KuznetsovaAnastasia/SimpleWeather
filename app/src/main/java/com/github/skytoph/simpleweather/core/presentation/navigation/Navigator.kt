@@ -43,5 +43,8 @@ interface Navigator : AddLocationNavigator, SearchNavigator, MainContentNavigato
 
         override fun removePrevious(@IdRes container: Int) =
             communication.show(Navigate(NavigationAction.REMOVE, container))
+
+        override fun goBack() =
+            communication.show(Navigate(NavigationAction.POPUP))
     }
 }

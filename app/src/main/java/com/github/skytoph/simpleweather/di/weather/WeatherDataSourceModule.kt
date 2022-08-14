@@ -3,6 +3,7 @@ package com.github.skytoph.simpleweather.di.weather
 import com.github.skytoph.simpleweather.data.airquality.AirQualityCloudDataSource
 import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.cache.WeatherCacheDataSource
+import com.github.skytoph.simpleweather.data.weather.cloud.ForecastCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.cloud.WeatherCloudDataSource
 import dagger.Binds
 import dagger.Module
@@ -21,6 +22,10 @@ abstract class WeatherDataSourceModule {
     @Binds
     @Singleton
     abstract fun weatherCloudDataSource(source: WeatherCloudDataSource.Base): WeatherCloudDataSource
+
+    @Binds
+    @Singleton
+    abstract fun forecastCloudDataSource(source: ForecastCloudDataSource.Base): ForecastCloudDataSource
 
     @Binds
     @Singleton

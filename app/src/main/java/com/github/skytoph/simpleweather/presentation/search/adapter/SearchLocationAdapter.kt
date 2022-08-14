@@ -58,9 +58,9 @@ class SearchLocationAdapter(private val listener: LocationClickListener) :
     interface LocationClickListener {
         fun open(id: String, favorite: Boolean)
     }
-}
 
-enum class ViewType {
-    LOCATION,
-    ERROR
+    enum class ViewType {
+        LOCATION,
+        ERROR
+    }
 }
