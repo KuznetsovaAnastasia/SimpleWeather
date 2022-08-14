@@ -22,7 +22,7 @@ class CurveDrawer(
 
         paint.style = Paint.Style.FILL
         paint.isAntiAlias = true // smooth drawing
-        paint.color = resourceProvider.getColor(colorId)
+        paint.color = resourceProvider.color(colorId)
 
         path.reset()
         path.moveTo(point1.x, point1.y)

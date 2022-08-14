@@ -34,7 +34,6 @@ class SunriseSunsetView : RelativeLayout {
 
         gravity = Gravity.START
 
-        background = ResourcesCompat.getDrawable(resources, R.drawable.rectangle_rounded_11, null)
         minimumHeight = resources.getDimensionPixelSize(R.dimen.warning_view_min_height)
         setPadding(
             resources.getDimensionPixelSize(R.dimen.sunrise_sunset_view_padding_start),

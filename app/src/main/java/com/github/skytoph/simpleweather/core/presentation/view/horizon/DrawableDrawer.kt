@@ -16,8 +16,8 @@ class DrawableDrawer(
     ) {
         canvas.save()
 
-        val sun = resourceProvider.getDrawable(drawableId)
-        val sunSize = resourceProvider.getDimensionPixel(sizeId)
+        val sun = resourceProvider.drawable(drawableId)
+        val sunSize = resourceProvider.dimensionPixel(sizeId)
         sun?.setBounds(0, 0, sunSize, sunSize)
 
         canvas.translate(position.x - sunSize / 2, position.y - sunSize / 2)

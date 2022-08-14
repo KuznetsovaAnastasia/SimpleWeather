@@ -30,7 +30,7 @@
 
     <TextView
         android:id="@+id/location_item_temperature"
-        style="@style/TextDegrees"
+        style="@style/Degrees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/location_item_city"
@@ -39,7 +39,7 @@
         android:text="20" />
 
     <TextView
-        style="@style/TextDegrees"
+        style="@style/Degrees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/location_item_temperature"
@@ -64,7 +64,7 @@
             android:src="@drawable/ic_warning" />
 
         <TextView
-            style="@style/TextYellowSmall"
+            style="@style/WarningSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
@@ -73,7 +73,7 @@
 
         <TextView
             android:id="@+id/location_item_warning_text"
-            style="@style/TextYellowLarge"
+            style="@style/WarningTitle"
             android:gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

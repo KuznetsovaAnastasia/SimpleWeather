@@ -7,18 +7,21 @@ import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
+import javax.inject.Inject
 
 interface ResourceProvider {
-    fun getColor(@ColorRes id: Int): Int
-    fun getDimensionPixel(@DimenRes id: Int): Int
-    fun getString(@StringRes id: Int): String
-    fun getDrawable(@DrawableRes id: Int): Drawable?
+    fun color(@ColorRes id: Int): Int
+    fun dimensionPixel(@DimenRes id: Int): Int
+    fun string(@StringRes id: Int): String
+    fun string(@StringRes id: Int, vararg args: String): String
+    fun drawable(@DrawableRes id: Int): Drawable?
 
-    class Base(private val resources: Resources) : ResourceProvider {
-        override fun getColor(id: Int) = ResourcesCompat.getColor(resources, id, null)
-        override fun getDimensionPixel(id: Int): Int = resources.getDimensionPixelSize(id)
-        override fun getString(id: Int): String = resources.getString(id)
-        override fun getDrawable(id: Int): Drawable? =
+    class Base @Inject constructor(private val resources: Resources) : ResourceProvider {
+        override fun color(id: Int) = ResourcesCompat.getColor(resources, id, null)
+        override fun dimensionPixel(id: Int): Int = resources.getDimensionPixelSize(id)
+        override fun string(id: Int): String = resources.getString(id)
+        override fun string(id: Int, vararg args: String): String = resources.getString(id, *args)
+        override fun drawable(id: Int): Drawable? =
             ResourcesCompat.getDrawable(resources, id, null)
     }
 }

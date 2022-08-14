@@ -2,15 +2,16 @@ package com.github.skytoph.simpleweather.core.presentation.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
 
-class LocationView : ConstraintLayout {
+class LocationView : LinearLayout {
 
     private var weatherImage: ImageView
     private var cityTextView: TextView
@@ -34,6 +35,9 @@ class LocationView : ConstraintLayout {
         weatherImage = findViewById(R.id.location_weather_image)
         cityTextView = findViewById(R.id.location_city)
         degreesTextView = findViewById(R.id.location_degrees)
+
+        orientation = VERTICAL
+        gravity = Gravity.CENTER
     }
 
     fun show(weather: WeatherUiComponent.Current) {

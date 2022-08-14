@@ -3,6 +3,7 @@ package com.github.skytoph.simpleweather.core.presentation.view.horizon
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
+import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 
 class TextDrawer(
@@ -17,17 +18,17 @@ class TextDrawer(
         }
     }
 
-    fun setup(fontFamily: String, colorId: Int, textSizeValue: Float) {
+    fun setup(fontFamily: String, @ColorInt colorInt: Int, textSizeValue: Float) {
         paint.apply {
             textSize = textSizeValue
-            color = resourceProvider.getColor(colorId)
+            color = colorInt
             typeface = Typeface.create(fontFamily, Typeface.NORMAL)
             textAlign = Paint.Align.CENTER
         }
     }
 
     fun drawText(canvas: Canvas, positionX: Float, positionY: Float, @StringRes id: Int) {
-        val text = resourceProvider.getString(id)
+        val text = resourceProvider.string(id)
         drawText(canvas, positionX, positionY, text)
     }
 

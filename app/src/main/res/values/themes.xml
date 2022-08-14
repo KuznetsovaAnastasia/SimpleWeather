@@ -10,9 +10,22 @@
         <item name="colorSecondaryVariant">@color/blue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?android:windowBackground</item>
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="fontFamily">@font/poppins</item>
+
+
+        <item name="tabDotColor">@color/light_gray</item>
+        <item name="tabDotSelectedColor">@color/blue</item>
+
+        <item name="mainViewsBackground">@color/very_light_gray</item>
+
+        <item name="mainTitleTextColor">@color/very_dark_gray</item>
+
+        <item name="titleTextColor">@color/light_gray</item>
+        <item name="subtitleTextColor">@color/dark_gray</item>
+        <item name="contentTextColor">@color/dark_gray</item>
+        <item name="highlightedTextColor">@color/very_dark_gray</item>
     </style>
 </resources>

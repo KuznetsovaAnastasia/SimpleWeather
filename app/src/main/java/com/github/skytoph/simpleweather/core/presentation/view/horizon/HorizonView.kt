@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.View
+import androidx.annotation.ColorRes
 import androidx.core.content.withStyledAttributes
 import com.github.skytoph.simpleweather.R
 
@@ -29,6 +30,11 @@ class HorizonView : View {
     private lateinit var fontFamily: String
     private lateinit var sunsetTimeValue: String
     private lateinit var sunriseTimeValue: String
+
+    @ColorRes
+    private var titleColor: Int = 0
+    @ColorRes
+    private var valueColor: Int = 0
 
     private var t = 0f
 
@@ -64,6 +70,9 @@ class HorizonView : View {
 
     private fun init(attrs: AttributeSet?) {
         context.withStyledAttributes(attrs, R.styleable.HorizonView) {
+            titleColor = getColor(R.styleable.HorizonView_titleColor, R.color.light_gray)
+            valueColor = getColor(R.styleable.HorizonView_valueColor, R.color.dark_gray)
+
             sunriseTimeValue = getString(R.styleable.HorizonView_sunrise_time) ?: "00:00"
             sunsetTimeValue = getString(R.styleable.HorizonView_sunset_time) ?: "00:00"
             fontFamily = getString(R.styleable.HorizonView_fontFamily) ?: ""
@@ -75,16 +84,6 @@ class HorizonView : View {
         sunriseTimeValue = sunrise
         sunsetTimeValue = sunset
         t = sunPosition.toFloat()
-        invalidate()
-    }
-
-    fun sunsetTime(value: String) {
-        sunsetTimeValue = value
-        invalidate()
-    }
-
-    fun sunriseTime(value: String) {
-        sunriseTimeValue = value
         invalidate()
     }
 
@@ -137,7 +136,7 @@ class HorizonView : View {
     }
 
     private fun drawLines(canvas: Canvas) {
-        lineDrawer.prepare(R.color.light_gray)
+        lineDrawer.prepare(titleColor)
 
         val pointEnd = PointF().apply { x = width.toFloat(); y = pNightStart.y }
         lineDrawer.drawLine(canvas, pNightStart, pointEnd)
@@ -161,7 +160,7 @@ class HorizonView : View {
     }
 
     private fun drawLabels(canvas: Canvas, timeTextOffset: Float, textSize: Float) {
-        textDrawer.setup(fontFamily, R.color.light_gray, textSize)
+        textDrawer.setup(fontFamily, titleColor, textSize)
 
         val labelY =
             pSunriseTime.y - timeTextOffset - resources.getDimension(R.dimen.horizon_label_bottom_margin)
@@ -177,7 +176,7 @@ class HorizonView : View {
     }
 
     private fun drawTimeValues(canvas: Canvas, textSize: Float) {
-        textDrawer.setup(fontFamily, R.color.dark_gray, textSize)
+        textDrawer.setup(fontFamily, valueColor, textSize)
 
         val marginBottom = resources.getDimension(R.dimen.horizon_time_value_bottom_margin)
         textDrawer.drawText(

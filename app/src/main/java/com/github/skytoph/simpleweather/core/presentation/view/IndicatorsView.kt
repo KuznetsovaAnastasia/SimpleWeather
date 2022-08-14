@@ -32,8 +32,6 @@ class IndicatorsView : ConstraintLayout {
         (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(R.layout.view_indicators, this, true)
 
-        background = ResourcesCompat.getDrawable(resources, R.drawable.rectangle_rounded_11, null)
-
         setPadding(
             resources.getDimensionPixelSize(R.dimen.indicators_view_padding_start),
             resources.getDimensionPixelSize(R.dimen.indicators_view_padding_top),

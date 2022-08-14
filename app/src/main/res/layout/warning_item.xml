@@ -3,4 +3,5 @@
     android:id="@+id/warning_view_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/rectangle_rounded_11"
     android:layout_marginBottom="@dimen/block_vertical_margin"/>

@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/sunrise_sunset_label"
-        style="@style/TextGrayTitle"
+        style="@style/MediumValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sunrise_and_sunset" />
@@ -19,13 +19,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
+        app:titleColor="?titleTextColor"
+        app:valueColor="?subtitleTextColor"
         app:fontFamily="@font/poppins"
         app:sunset_time="5:45 pm"
         app:sunrise_time="6:30 am"/>
 
     <TextView
         android:id="@+id/day_length_label"
-        style="@style/TextGraySmallTitle"
+        style="@style/SmallContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/horizon_view"
@@ -34,7 +36,7 @@
 
     <TextView
         android:id="@+id/day_length_value"
-        style="@style/TextDarkSmallValue"
+        style="@style/HighlightedValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/horizon_view"
@@ -43,7 +45,7 @@
 
     <TextView
         android:id="@+id/daylight_label"
-        style="@style/TextGraySmallTitle"
+        style="@style/SmallContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/day_length_label"
@@ -51,7 +53,7 @@
 
     <TextView
         android:id="@+id/daylight_value"
-        style="@style/TextDarkSmallValue"
+        style="@style/HighlightedValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/day_length_label"

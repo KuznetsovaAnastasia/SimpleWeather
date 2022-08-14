@@ -1,15 +1,19 @@
 package com.github.skytoph.simpleweather.di.core
 
-import com.github.skytoph.simpleweather.core.provider.ResourceProvider
+import android.content.Context
+import com.github.skytoph.simpleweather.core.presentation.view.horizon.ResourceProvider
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class ResourceModule {
+object ResourceModule {
 
-    @Binds
-    abstract fun resourceProvider(provider: ResourceProvider.Base): ResourceProvider
+    @Provides
+    fun resourceProvider(@ApplicationContext context: Context): ResourceProvider =
+        ResourceProvider.Base(context.resources)
 }

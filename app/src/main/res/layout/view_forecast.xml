@@ -4,57 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+    tools:parentTag="android.widget.LinearLayout"
+    android:orientation="vertical"
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/location_weather_image"
         android:layout_width="@dimen/weather_image_size"
         android:layout_height="@dimen/weather_image_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/weather_clouds" />
 
     <TextView
         android:id="@+id/location_city"
-        style="@style/TitleMain"
+        style="@style/Location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:gravity="center"
-        app:layout_constraintEnd_toStartOf="@+id/location_icon_pointer"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location_weather_image"
-        tools:text="Hyderabad" />
-
-    <ImageView
-        android:id="@+id/location_icon_pointer"
-        android:layout_width="@dimen/pointer_icon"
-        android:layout_height="@dimen/pointer_icon"
-        android:layout_marginStart="11dp"
-        app:layout_constraintBottom_toBottomOf="@id/location_city"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/location_city"
-        app:layout_constraintTop_toTopOf="@id/location_city"
-        app:srcCompat="@drawable/ic_pointer" />
+        tools:text="Hyderabad"
+        android:drawablePadding="11dp"
+        android:paddingHorizontal="16dp"
+        app:drawableTint="?attr/mainTitleTextColor"
+        app:drawableEndCompat="@drawable/ic_pointer" />
 
     <TextView
         android:id="@+id/location_degrees"
-        style="@style/TextDegrees"
+        style="@style/Degrees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location_city"
+        android:textColor="?mainTitleTextColor"
         tools:text="20" />
-
-    <TextView
-        style="@style/TextDegrees"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/degrees_celsius"
-        app:layout_constraintBottom_toBottomOf="@id/location_degrees"
-        app:layout_constraintStart_toEndOf="@id/location_degrees"
-        app:layout_constraintTop_toTopOf="@id/location_degrees" />
 </merge>

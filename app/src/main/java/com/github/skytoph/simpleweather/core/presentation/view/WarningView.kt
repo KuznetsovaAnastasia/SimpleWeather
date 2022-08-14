@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.res.ResourcesCompat
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
 
@@ -32,7 +31,6 @@ class WarningView : ConstraintLayout {
         (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(R.layout.view_warning, this, true)
 
-        background = ResourcesCompat.getDrawable(resources, R.drawable.rectangle_rounded_11, null)
         minHeight = resources.getDimensionPixelSize(R.dimen.warning_view_min_height)
         setPadding(0, 0, 0, resources.getDimensionPixelSize(R.dimen.warning_view_padding_bottom))
 

@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextGrayTitle">
+    <style name="MediumValue">
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:textColor">?titleTextColor</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="TextGrayMedium">
+    <style name="MediumSubtitle">
         <item name="fontFamily">@font/poppins_medium</item>
-        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textColor">?subtitleTextColor</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="TextYellowSmall">
+    <style name="WarningSmall">
         <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/yellow</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="TextYellowLarge">
+    <style name="WarningTitle">
         <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textColor">@color/yellow</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="TextGraySmallTitle">
+    <style name="SmallContent">
         <item name="fontFamily">@font/poppins</item>
-        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textColor">?contentTextColor</item>
         <item name="android:textSize">10sp</item>
     </style>
 
-    <style name="TextDarkSmallValue">
+    <style name="HighlightedValue">
         <item name="fontFamily">@font/poppins</item>
-        <item name="android:textColor">@color/very_dark_gray</item>
+        <item name="android:textColor">?attr/highlightedTextColor</item>
         <item name="android:textSize">10sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
-    <style name="TextDarkSmallTitle">
+    <style name="MediumTitle">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/very_dark_gray</item>
+        <item name="android:textColor">?attr/mainTitleTextColor</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="TextGraySubtitleTitle">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textColor">?subtitleTextColor</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
@@ -58,11 +58,10 @@
         <item name="android:minWidth">110dp</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/rectangle_dark_rounded_7</item>
-        <item name="backgroundTint">@color/very_light_gray</item>
+        <item name="backgroundTint">?mainViewsBackground</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:fontFamily">@font/poppins_medium</item>
-        <item name="android:textColor">@color/very_dark_gray</item>
         <item name="android:stateListAnimator">@null</item>
     </style>
 
@@ -74,24 +73,24 @@
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:background">@drawable/search_edittext</item>
-        <item name="android:textColorHint">@color/light_gray</item>
-        <item name="android:textColor">@color/very_dark_gray</item>
+        <item name="android:textColorHint">?titleTextColor</item>
+        <item name="android:textColor">?attr/mainTitleTextColor</item>
         <item name="android:drawableEnd">@drawable/ic_search</item>
         <item name="android:fontFamily">@font/poppins</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="TextDegrees">
+    <style name="Degrees">
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textColor">@color/very_dark_gray</item>
+        <item name="android:textColor">?attr/mainTitleTextColor</item>
         <item name="android:textSize">70sp</item>
     </style>
 
-    <style name="TitleMain">
+    <style name="Location">
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:textColor">@color/very_dark_gray</item>
+        <item name="android:textColor">?attr/mainTitleTextColor</item>
         <item name="android:textSize">30sp</item>
     </style>
 </resources>

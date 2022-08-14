@@ -17,11 +17,11 @@
 
     <!--    SunriseSunsetView strings -->
     <string name="sunrise_and_sunset"><![CDATA[sunrise & sunset]]></string>
-    <string name="day_length">Length of day:</string>
-    <string name="remaining_daylight">Remaining daylight:</string>
+    <string name="day_length">"Length of day: "</string>
+    <string name="remaining_daylight">"Remaining daylight: "</string>
 
     <!--    LocationView strings-->
-    <string name="degrees_celsius">°</string>
+    <string name="degrees_celsius">%1$s°</string>
 
     <!--    IndicatorsView strings-->
     <string name="indicator_time">Time</string>
@@ -33,6 +33,8 @@
     <string name="error_general">Something went wrong</string>
     <string name="error_service_unavailable">Service unavailable</string>
     <string name="error_no_connection">No connection</string>
-    <string name="error_no_cached_data">No cached data</string>
+    <string name="error_no_cached_data">No saved locations</string>
+    <string name="error_empty_request">Start typing request for search</string>
+    <string name="error_no_results">Can\'t find location</string>
 
 </resources>

@@ -12,7 +12,7 @@
     <TextView
         android:id="@+id/search_item_title"
         tools:text="Mumbai"
-        style="@style/TextDarkSmallTitle"
+        style="@style/MediumTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

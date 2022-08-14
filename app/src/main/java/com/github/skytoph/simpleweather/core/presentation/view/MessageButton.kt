@@ -1,16 +1,19 @@
 package com.github.skytoph.simpleweather.core.presentation.view
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View.OnClickListener
+import androidx.core.content.res.ResourcesCompat
 import com.github.skytoph.simpleweather.R
 import com.google.android.material.button.MaterialButton
 
 class MessageButton : MaterialButton {
     private var listener = OnClickListener {}
     private var clickedDrawable: Drawable? = null
-    private lateinit var clickedText: String
+    private var clickedText: String = ""
+    private var clickedColor: ColorStateList? = null
 
     //region constructors
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -32,9 +35,14 @@ class MessageButton : MaterialButton {
             try {
                 text = getString(R.styleable.MessageButton_buttonText) ?: ""
                 icon = getDrawable(R.styleable.MessageButton_buttonDrawableEnd)
+                getColorStateList(R.styleable.MessageButton_contentColor).let { contentColor ->
+                    iconTint = contentColor
+                    setTextColor(contentColor)
+                }
 
                 clickedText = getString(R.styleable.MessageButton_clickedText) ?: ""
                 clickedDrawable = getDrawable(R.styleable.MessageButton_clickedDrawableEnd)
+                clickedColor = getColorStateList(R.styleable.MessageButton_clickedContentColor)
             } finally {
                 recycle()
             }
@@ -57,13 +65,9 @@ class MessageButton : MaterialButton {
         text = clickedText
         icon = clickedDrawable
 
-        val backgroundColor = resources.getColorStateList(R.color.green)
-        val textColor = resources.getColor(R.color.white)
-        val iconColor = resources.getColorStateList(R.color.white)
-
-        backgroundTintList = backgroundColor
-        iconTint = iconColor
-        setTextColor(textColor)
+        backgroundTintList = ResourcesCompat.getColorStateList(resources, R.color.green, null)
+        iconTint = clickedColor
+        setTextColor(clickedColor)
     }
 
 }

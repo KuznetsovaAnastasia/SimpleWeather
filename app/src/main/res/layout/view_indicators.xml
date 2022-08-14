@@ -2,11 +2,12 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/rectangle_rounded_11"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <TextView
         android:id="@+id/indicator_time_label"
-        style="@style/TextGrayTitle"
+        style="@style/MediumValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/indicator_time"
@@ -16,7 +17,7 @@
 
     <TextView
         android:id="@+id/indicator_time_value"
-        style="@style/TextGrayMedium"
+        style="@style/MediumSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -29,7 +30,7 @@
 
     <TextView
         android:id="@+id/indicator_uv_label"
-        style="@style/TextGrayTitle"
+        style="@style/MediumValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/indicator_uv"
@@ -39,7 +40,7 @@
 
     <TextView
         android:id="@+id/indicator_uv_value"
-        style="@style/TextGrayMedium"
+        style="@style/MediumSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -52,7 +53,7 @@
 
     <TextView
         android:id="@+id/indicator_rain_percent_label"
-        style="@style/TextGrayTitle"
+        style="@style/MediumValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/indicator_rain"
@@ -62,7 +63,7 @@
 
     <TextView
         android:id="@+id/indicator_rain_percent_value"
-        style="@style/TextGrayMedium"
+        style="@style/MediumSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -75,7 +76,7 @@
 
     <TextView
         android:id="@+id/indicator_aq_label"
-        style="@style/TextGrayTitle"
+        style="@style/MediumValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/indicator_aq"
@@ -85,7 +86,7 @@
 
     <TextView
         android:id="@+id/indicator_aq_value"
-        style="@style/TextGrayMedium"
+        style="@style/MediumSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="53dp"
