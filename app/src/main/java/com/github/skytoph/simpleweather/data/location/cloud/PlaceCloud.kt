@@ -4,7 +4,6 @@ import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudMapper
 import com.squareup.moshi.Json
 
 data class PlaceCloud(
-    private val id: String = "",
     @field:Json(name = "name")
     private val name: String,
     @field:Json(name = "lat")
@@ -12,5 +11,6 @@ data class PlaceCloud(
     @field:Json(name = "lon")
     private val lng: Double,
 ) {
-    fun <T> map(mapper: PlaceCloudMapper<T>) = mapper.map("$lat,$lng", name, lat, lng)
+    fun map(mapper: PlaceCloudMapper) = mapper.map(name, lat, lng)
+    fun map(mapper: IdMapper) = mapper.map(lat, lng)
 }

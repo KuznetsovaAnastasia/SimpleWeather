@@ -2,6 +2,7 @@ package com.github.skytoph.simpleweather.data.weather.model
 
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.core.MappableToDB
+import com.github.skytoph.simpleweather.data.weather.update.UpdateCurrentWeather
 import com.github.skytoph.simpleweather.data.weather.cache.CurrentDB
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.CurrentDBMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataToDomainMapper
@@ -19,4 +20,6 @@ data class CurrentWeatherData(
         mapper.map(weatherId, temperature, location, favorite)
 
     override fun map(mapper: CurrentDBMapper): CurrentDB = mapper.map(weatherId, temperature, location)
+
+    fun update(mapper: UpdateCurrentWeather) = mapper.update(location, favorite)
 }

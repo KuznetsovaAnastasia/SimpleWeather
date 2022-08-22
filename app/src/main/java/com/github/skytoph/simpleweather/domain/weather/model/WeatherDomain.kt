@@ -64,9 +64,10 @@ sealed class WeatherDomain : Mappable<WeatherUi, WeatherDomainToUiMapper> {
         private val event: String,
         private val startTime: Long,
         private val precipitationProb: Double,
+        private val description: String,
     ) : Mappable<WeatherUiComponent.Warning, WarningDomainToUiMapper> {
 
         override fun map(mapper: WarningDomainToUiMapper): WeatherUiComponent.Warning =
-            mapper.map(event, startTime, precipitationProb)
+            mapper.map(event, startTime, precipitationProb, description)
     }
 }

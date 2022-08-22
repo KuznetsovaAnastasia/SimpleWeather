@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.github.skytoph.simpleweather.core.presentation.view.WarningInfoView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.skytoph.simpleweather.core.presentation.view.WarningRainView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/warning_view_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

@@ -1,28 +1,42 @@
 package com.github.skytoph.simpleweather.core.data
 
+import java.lang.IllegalStateException
+
 interface SaveItemToCache<T> {
     suspend fun save(source: SaveItem<T>)
 }
 
-interface CachedItem<T> : SaveItemToCache<T> {
-    fun cache(value: SaveItemToCache<T>)
+interface UpdateCachedItem<T> {
+    suspend fun update(source: UpdateItem<T>): T
+}
+
+interface Item<T>: SaveItemToCache<T>, UpdateCachedItem<T>
+
+interface CachedItem<T> : Item<T> {
+    fun cache(value: Item<T>)
     fun clear()
 
     class Empty<T> : CachedItem<T> {
         override suspend fun save(source: SaveItem<T>) {}
-        override fun cache(value: SaveItemToCache<T>) {}
+        override suspend fun update(source: UpdateItem<T>): T =
+            throw IllegalStateException("can not update empty item")
+        override fun cache(value: Item<T>) {}
         override fun clear() {}
     }
 }
 
 abstract class BaseCache<T> : CachedItem<T> {
-    private var cached: SaveItemToCache<T> = CachedItem.Empty()
+    private var cached: Item<T> = CachedItem.Empty()
 
-    override fun cache(value: SaveItemToCache<T>) {
+    override fun cache(value: Item<T>) {
         cached = value
     }
 
-    override suspend fun save(source: SaveItem<T>) = cached.save(source)
+    override suspend fun save(source: SaveItem<T>) =
+        cached.save(source)
+
+    override suspend fun update(source: UpdateItem<T>): T =
+        cached.update(source)
 
     override fun clear() {
         cached = CachedItem.Empty()

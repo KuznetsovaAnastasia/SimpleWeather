@@ -6,10 +6,9 @@ import com.squareup.moshi.Json
 data class AirQualityCloud(
     @field:Json(name = "list")
     private val airQualityList: List<AirQualityListItemCloud>?,
+) : MappableTo<Int> {
 
-    ) : MappableTo<Int> {
-
-    override fun map(): Int = airQualityList?.get(0)?.map() ?: -1
+    override fun map(): Int = if (airQualityList.isNullOrEmpty()) -1 else airQualityList[0].map()
 }
 
 data class AirQualityListItemCloud(

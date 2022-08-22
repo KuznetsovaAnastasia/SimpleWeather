@@ -1,9 +1,6 @@
 package com.github.skytoph.simpleweather.di.search
 
-import com.github.skytoph.simpleweather.data.search.mapper.SearchItemCloudToDataMapper
-import com.github.skytoph.simpleweather.data.search.mapper.SearchItemDataToDomainMapper
-import com.github.skytoph.simpleweather.data.search.mapper.SearchResultsCloudToDataMapper
-import com.github.skytoph.simpleweather.data.search.mapper.SearchResultsDataToDomainMapper
+import com.github.skytoph.simpleweather.data.search.mapper.*
 import com.github.skytoph.simpleweather.domain.search.SearchItemDomainToUiMapper
 import com.github.skytoph.simpleweather.domain.search.SearchResultsDomainToUiMapper
 import dagger.Binds
@@ -15,6 +12,14 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class SearchMapperModule {
+
+    @Binds
+    @Singleton
+    abstract fun predictionsDataMapper(mapper: PredictionListToDataMapper.Base): PredictionListToDataMapper
+
+    @Binds
+    @Singleton
+    abstract fun predictionDataMapper(mapper: PredictionToDataMapper.Base): PredictionToDataMapper
 
     @Binds
     @Singleton

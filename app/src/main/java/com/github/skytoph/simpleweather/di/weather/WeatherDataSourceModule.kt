@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.di.weather
 
 import com.github.skytoph.simpleweather.data.airquality.AirQualityCloudDataSource
-import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloudDataSource
+import com.github.skytoph.simpleweather.data.location.cloud.LocationCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.cache.WeatherCacheDataSource
 import com.github.skytoph.simpleweather.data.weather.cloud.ForecastCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.cloud.WeatherCloudDataSource
@@ -33,5 +33,5 @@ abstract class WeatherDataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun placeCloudDataSource(source: PlaceCloudDataSource.Base): PlaceCloudDataSource
+    abstract fun placeCloudDataSource(source: LocationCloudDataSource.Base): LocationCloudDataSource
 }

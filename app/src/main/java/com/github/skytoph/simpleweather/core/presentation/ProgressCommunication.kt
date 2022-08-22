@@ -13,5 +13,5 @@ interface ProgressCommunication {
     interface Mutable : Update, Observe
 
     @Singleton
-    class Base @Inject constructor() : Communication.UiUpdate<Visibility>(), Mutable
+    class Base @Inject constructor() : Communication.SingleUiUpdate<Visibility>(), Mutable
 }

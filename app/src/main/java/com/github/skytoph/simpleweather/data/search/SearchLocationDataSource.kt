@@ -49,7 +49,7 @@ interface SearchLocationDataSource {
         override fun startSession() = Unit
     }
 
-    class Base(
+    class Base @Inject constructor(
         private val client: PlacesClient,
         private val dataMapper: PredictionListToDataMapper,
         private val domainMapper: SearchResultsDataToDomainMapper,
@@ -65,7 +65,8 @@ interface SearchLocationDataSource {
             query: String,
             showResult: (List<SearchItemDomain>) -> Unit,
         ) {
-            if (query.isBlank()) return
+            if (query.isBlank()) return showResult.invoke(domainMapper.map(dataMapper.map(
+                EmptyRequestException())))
 
             val request = FindAutocompletePredictionsRequest.builder()
                 .setQuery(query)
@@ -75,7 +76,11 @@ interface SearchLocationDataSource {
 
             client.findAutocompletePredictions(request)
                 .addOnSuccessListener { response: FindAutocompletePredictionsResponse ->
-                    showResult.invoke(domainMapper.map(dataMapper.map(response.autocompletePredictions.toList())))
+                    val predictions = response.autocompletePredictions.toList()
+                    val predictionsData =
+                        if (predictions.isEmpty()) dataMapper.map(NoResultsException())
+                        else dataMapper.map(predictions)
+                    showResult.invoke(domainMapper.map(predictionsData))
                 }
                 .addOnFailureListener { exception: Exception? ->
                     val error = exception ?: UnknownException()

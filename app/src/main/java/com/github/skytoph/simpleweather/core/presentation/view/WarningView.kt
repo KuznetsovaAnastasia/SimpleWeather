@@ -3,18 +3,11 @@ package com.github.skytoph.simpleweather.core.presentation.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
 
-class WarningView : ConstraintLayout {
-    private var forecastImage: ImageView
-    private var rainPercentText: TextView
-    private var expTimeText: TextView
-    private var warningText: TextView
+abstract class WarningView: ConstraintLayout {
 
     //region constructors
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
@@ -27,21 +20,10 @@ class WarningView : ConstraintLayout {
             : super(context, attrs)
     //endregion
 
-    init {
+    abstract fun show(warning: WeatherUiComponent.Warning)
+
+    protected fun inflate(@LayoutRes layoutId: Int){
         (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
-            .inflate(R.layout.view_warning, this, true)
-
-        minHeight = resources.getDimensionPixelSize(R.dimen.warning_view_min_height)
-        setPadding(0, 0, 0, resources.getDimensionPixelSize(R.dimen.warning_view_padding_bottom))
-
-        forecastImage = findViewById(R.id.warning_forecast_image)
-        rainPercentText = findViewById(R.id.warning_rain_percent_value)
-        expTimeText = findViewById(R.id.warning_exp_time_value)
-        warningText = findViewById(R.id.warning_text)
-    }
-
-    fun show(warning: WeatherUiComponent.Warning) {
-        visibility = View.VISIBLE
-        warning.show(warningText, rainPercentText, expTimeText)
+            .inflate(layoutId, this, true)
     }
 }

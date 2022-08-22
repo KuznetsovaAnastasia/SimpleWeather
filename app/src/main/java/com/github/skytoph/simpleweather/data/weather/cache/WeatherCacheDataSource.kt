@@ -13,6 +13,7 @@ import javax.inject.Singleton
 interface WeatherCacheDataSource : SaveItem<WeatherData> {
 
     fun read(id: String): WeatherDB
+    fun readAll(): List<WeatherDB>
     fun remove(id: String, data: WeatherData)
 
     @Singleton
@@ -24,6 +25,11 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
         override fun read(id: String): WeatherDB = realmProvider.provide().use { realm ->
             val weather = findRealmObject(realm, id)
             return weather?.let { realm.copyFromRealm(it) } ?: throw NoCachedDataException()
+        }
+
+        override fun readAll(): List<WeatherDB> = realmProvider.provide().use { realm ->
+            return realm.where(WeatherDB::class.java).findAll().let { realm.copyFromRealm(it) }
+                ?: throw NoCachedDataException()
         }
 
         override fun remove(id: String, data: WeatherData) =

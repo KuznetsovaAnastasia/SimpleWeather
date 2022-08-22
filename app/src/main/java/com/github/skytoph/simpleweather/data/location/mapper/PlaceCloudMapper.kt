@@ -2,16 +2,8 @@ package com.github.skytoph.simpleweather.data.location.mapper
 
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 
-interface PlaceCloudMapper<T> {
+interface PlaceCloudMapper {
 
-    fun map(id: String, name: String, lat: Double, lng: Double): T
+    fun map(name: String, lat: Double, lng: Double): WeatherData
 
-    interface ToCoordinates : PlaceCloudMapper<Pair<Double, Double>> {
-
-        class Base : ToCoordinates {
-            override fun map(id: String, name: String, lat: Double, lng: Double) = Pair(lat, lng)
-        }
-    }
-
-    interface ToWeatherData : PlaceCloudMapper<WeatherData>
 }

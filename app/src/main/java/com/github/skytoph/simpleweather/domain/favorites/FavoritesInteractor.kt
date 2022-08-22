@@ -16,7 +16,8 @@ interface FavoritesInteractor {
         private val weatherRepository: WeatherRepository.Save,
     ) : FavoritesInteractor {
 
-        override fun getFavoriteIDs(): List<String> = favoritesDataSource.read()
+        override fun getFavoriteIDs(): List<String> =
+            favoritesDataSource.read().ifEmpty { listOf("") }
 
         override suspend fun saveFavorite(id: String) {
             favoritesDataSource.save(id)

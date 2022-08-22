@@ -7,7 +7,7 @@ import javax.inject.Inject
 interface WeatherInteractor {
     suspend fun getCachedWeather(id: String): WeatherDomain
     suspend fun getCloudWeather(id: String, favorite: Boolean): WeatherDomain
-    suspend fun cache(favorite: Boolean)
+    suspend fun refreshAll()
 
     class Base @Inject constructor(
         private val weatherRepository: WeatherRepository.Mutable,
@@ -15,13 +15,14 @@ interface WeatherInteractor {
     ) : WeatherInteractor {
 
         override suspend fun getCloudWeather(id: String, favorite: Boolean): WeatherDomain =
-            weatherRepository.getCloudWeather(id, favorite).map(mapper)
+            weatherRepository.run {
+                if (favorite) updateCloudWeather(id)
+                else getCloudWeather(id)
+            }.map(mapper)
 
         override suspend fun getCachedWeather(id: String): WeatherDomain =
             weatherRepository.getCachedWeather(id).map(mapper)
 
-        override suspend fun cache(favorite: Boolean) {
-            if (favorite) weatherRepository.saveWeather()
-        }
+        override suspend fun refreshAll() = weatherRepository.refreshAll()
     }
 }

@@ -29,7 +29,6 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
             viewPagerFavorites.adapter = adapter
             TabLayoutMediator(tabLayoutDots, viewPagerFavorites) { _, _ -> }.attach()
         }
-
         viewModel.observe(this) { favorites ->
             adapter.submitList(favorites)
         }

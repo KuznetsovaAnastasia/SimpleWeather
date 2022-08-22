@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentWeatherBinding
+import com.github.skytoph.simpleweather.presentation.RefreshCommunication
 import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,11 +53,14 @@ class WeatherFragment :
                     messageView)
             }
         }
+        viewModel.observeRefresh(this) { refresh ->
+            if (refresh) viewModel.refresh(locationId, favorite)
+        }
     }
 
-    override fun onPause() {
-        viewModel.saveWeather(favorite)
-        super.onPause()
+    override fun onResume() {
+        viewModel.refresh(locationId, favorite)
+        super.onResume()
     }
 
     companion object {

@@ -27,18 +27,27 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
 
         searchEditText.addTextChangedListener(object : TextEditorWatcher() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val query = s?.toString() ?: ""
-                viewModel.getPredictions(query)
+                search()
             }
         })
         searchEditText.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus)
+            if (hasFocus) {
                 viewModel.showSearch(R.id.weather_fragment_container)
-            else {
+                search()
+            } else {
                 hideKeyboard()
                 if (searchEditText.text.isNullOrBlank())
                     viewModel.goBack()
             }
         }
+
+        binding.refresh.setOnRefreshListener {
+            viewModel.refresh()
+            binding.refresh.isRefreshing = false
+        }
+    }
+
+    private fun search() {
+        viewModel.getPredictions(binding.editTextSearchLocation.text?.toString() ?: "")
     }
 }

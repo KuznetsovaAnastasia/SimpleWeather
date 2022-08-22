@@ -3,12 +3,13 @@ package com.github.skytoph.simpleweather.data.search.mapper
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.search.SearchItemData
 import com.google.android.libraries.places.api.model.AutocompletePrediction
+import javax.inject.Inject
 
 interface PredictionListToDataMapper : Mapper<List<SearchItemData>> {
     fun map(list: List<AutocompletePrediction>): List<SearchItemData>
     fun map(exception: Exception): List<SearchItemData>
 
-    class Base(private val mapper: PredictionToDataMapper) : PredictionListToDataMapper {
+    class Base @Inject constructor(private val mapper: PredictionToDataMapper) : PredictionListToDataMapper {
 
         override fun map(list: List<AutocompletePrediction>): List<SearchItemData> =
             list.map { mapper.map(it) }

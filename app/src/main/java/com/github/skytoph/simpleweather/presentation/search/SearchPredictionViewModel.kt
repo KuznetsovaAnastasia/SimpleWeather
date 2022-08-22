@@ -4,8 +4,12 @@ import androidx.annotation.IdRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,9 +18,13 @@ class SearchPredictionViewModel @Inject constructor(
     private val navigation: SearchNavigator,
 ) : ViewModel() {
 
-    fun showDetails(@IdRes container: Int, id: String, favorite: Boolean) {
-        navigation.showPredictionDetails(container, id, favorite)
-    }
+    fun showDetails(@IdRes container: Int, id: String, favorite: Boolean) =
+        viewModelScope.launch(Dispatchers.IO) {
+//            val locationId = placesDataSource.getId(id)
+            withContext(Dispatchers.Main) {
+                navigation.showPredictionDetails(container, id, favorite)
+            }
+        }
 
     fun observe(owner: LifecycleOwner, observer: Observer<List<SearchItemUi>>) =
         searchCommunication.observe(owner, observer)

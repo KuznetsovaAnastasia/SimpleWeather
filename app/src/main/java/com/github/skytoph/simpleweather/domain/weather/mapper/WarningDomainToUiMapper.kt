@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.domain.weather.mapper
 
+import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.util.formatter.ProbabilityFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
@@ -7,7 +8,12 @@ import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
 import javax.inject.Inject
 
 interface WarningDomainToUiMapper : Mapper<WeatherUiComponent.Warning> {
-    fun map(event: String, startTime: Long, precipitationProb: Double): WeatherUiComponent.Warning
+    fun map(
+        event: String,
+        startTime: Long,
+        precipitationProb: Double,
+        description: String,
+    ): WeatherUiComponent.Warning
 
     class Base @Inject constructor(
         private val timeFormatter: TimeFormatter,
@@ -17,9 +23,23 @@ interface WarningDomainToUiMapper : Mapper<WeatherUiComponent.Warning> {
             event: String,
             startTime: Long,
             precipitationProb: Double,
-        ) = WeatherUiComponent.Warning(
-            event,
-            timeFormatter.formatTime(startTime),
-            probabilityFormatter.format(precipitationProb))
+            description: String,
+        ) = if (containsRain(event))
+            WeatherUiComponent.WarningRain(
+                event,
+                probabilityFormatter.format(precipitationProb),
+                timeFormatter.formatTime(startTime),
+                R.drawable.weather_rain)
+        else
+            WeatherUiComponent.WarningBasic(
+                event,
+                description,
+                timeFormatter.formatTime(startTime))
+
+        private fun containsRain(event: String): Boolean {
+            val lowercaseEvent = event.lowercase()
+            return lowercaseEvent.contains("rain").or(lowercaseEvent.contains("thunderstorm"))
+        }
+
     }
 }

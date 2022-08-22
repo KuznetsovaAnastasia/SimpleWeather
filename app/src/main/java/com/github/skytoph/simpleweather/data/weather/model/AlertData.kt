@@ -8,9 +8,9 @@ data class AlertData(
     private val name: String,
     private val startTime: Long,
     private val precipitationProb: Double,
-) :
-    Mappable<WeatherDomain.Warning, WarningDataToDomainMapper> {
+    private val description: String,
+) : Mappable<WeatherDomain.Warning, WarningDataToDomainMapper> {
 
     override fun map(mapper: WarningDataToDomainMapper): WeatherDomain.Warning =
-        mapper.map(name, startTime, precipitationProb)
+        mapper.map(name, startTime, precipitationProb, description)
 }

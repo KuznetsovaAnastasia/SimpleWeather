@@ -14,17 +14,22 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="WarningSmall">
-        <item name="android:fontFamily">@font/poppins</item>
-        <item name="android:textAllCaps">true</item>
+    <style name="Warning">
         <item name="android:textColor">@color/yellow</item>
+    </style>
+
+    <style name="WarningSmall" parent="Warning">
+        <item name="android:textAllCaps">true</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="WarningTitle">
-        <item name="android:fontFamily">@font/poppins</item>
-        <item name="android:textColor">@color/yellow</item>
+    <style name="WarningTitle" parent="Warning">
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="WarningDescription">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?contentTextColor</item>
     </style>
 
     <style name="SmallContent">

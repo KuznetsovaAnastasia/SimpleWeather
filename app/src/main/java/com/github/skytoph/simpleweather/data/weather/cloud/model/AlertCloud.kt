@@ -11,7 +11,10 @@ data class AlertCloud(
 
     @field:Json(name = "start")
     private val startTime: Long,
+
+    @field:Json(name = "description")
+    private val description: String,
 ) : Mappable<AlertData, AlertDataMapper> {
 
-    override fun map(mapper: AlertDataMapper): AlertData = mapper.map(name, startTime)
+    override fun map(mapper: AlertDataMapper): AlertData = mapper.map(name, startTime, description)
 }

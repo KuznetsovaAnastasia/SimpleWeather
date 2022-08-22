@@ -3,6 +3,7 @@ package com.github.skytoph.simpleweather.presentation.addlocation
 import androidx.annotation.IdRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.skytoph.simpleweather.data.location.PlacesDataSource
 import com.github.skytoph.simpleweather.domain.favorites.FavoritesInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddLocationViewModel @Inject constructor(
     private val favoritesInteractor: FavoritesInteractor,
+    private val placesDataSource: PlacesDataSource,
     private val navigator: AddLocationNavigator,
 ) : ViewModel() {
 
@@ -21,7 +23,8 @@ class AddLocationViewModel @Inject constructor(
 
     fun saveWeather(@IdRes searchResultsContainer: Int, id: String) =
         viewModelScope.launch(Dispatchers.IO) {
-            favoritesInteractor.saveFavorite(id)
+            val locationId = placesDataSource.getId(id)
+            favoritesInteractor.saveFavorite(locationId)
             navigator.showFavorites(searchResultsContainer)
         }
 }

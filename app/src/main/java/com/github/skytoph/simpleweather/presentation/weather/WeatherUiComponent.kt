@@ -4,6 +4,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import com.github.skytoph.simpleweather.core.Matcher
+import com.github.skytoph.simpleweather.core.presentation.Visibility
 import com.github.skytoph.simpleweather.core.presentation.view.horizon.HorizonView
 
 sealed interface WeatherUiComponent {
@@ -21,21 +22,41 @@ sealed interface WeatherUiComponent {
         }
     }
 
-    data class Warning(
-        private val event: String,
+    sealed class Warning(
+        private val title: String,
+        private val description: String,
         private val startTime: String,
-        private val pop: String,
     ) : WeatherUiComponent, Matcher<Warning> {
 
-        fun show(warningTextView: TextView, popTextView: TextView, startTimeTextView: TextView) {
-            warningTextView.text = event
-            popTextView.text = pop
+        fun show(
+            titleTextView: TextView,
+            descriptionTextView: TextView,
+            startTimeTextView: TextView,
+        ) {
+            titleTextView.text = title
+            descriptionTextView.text = description
             startTimeTextView.text = startTime
+            if (description.isBlank()) Visibility.Gone().apply(descriptionTextView)
+            else Visibility.Visible().apply(descriptionTextView)
         }
 
-        override fun matches(item: Warning): Boolean = event == item.event // todo add id
-        override fun contentMatches(item: Warning): Boolean = event == item.event
+        override fun matches(item: Warning): Boolean = title == item.title
+        override fun contentMatches(item: Warning): Boolean =
+            title == item.title && description == item.description && startTime == item.startTime
     }
+
+    data class WarningBasic(
+        private val event: String,
+        private val description: String,
+        private val startTime: String,
+    ) : Warning(event, description, startTime)
+
+    data class WarningRain(
+        private val event: String,
+        private val pop: String,
+        private val startTime: String,
+        private val weatherRain: Int,
+    ) : Warning(event, pop, startTime)
 
     data class Indicator(
         private val time: String,
