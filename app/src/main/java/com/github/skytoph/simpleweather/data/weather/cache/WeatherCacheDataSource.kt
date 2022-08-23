@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.data.weather.cache
 
+import android.util.Log
 import com.github.skytoph.simpleweather.core.data.DataBase
 import com.github.skytoph.simpleweather.core.data.RealmProvider
 import com.github.skytoph.simpleweather.core.data.SaveItem
@@ -24,6 +25,7 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
 
         override fun read(id: String): WeatherDB = realmProvider.provide().use { realm ->
             val weather = findRealmObject(realm, id)
+            Log.e("ErrorTag", weather.toString())
             return weather?.let { realm.copyFromRealm(it) } ?: throw NoCachedDataException()
         }
 

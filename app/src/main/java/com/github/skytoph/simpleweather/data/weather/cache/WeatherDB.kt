@@ -19,7 +19,7 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
     var current: CurrentDB? = null
     var indicators: IndicatorsDB? = null
     var horizon: HorizonDB? = null
-    var warnings: RealmList<WarningDB>? = null
+    var warnings: RealmList<WarningDB> = RealmList()
 
     override fun map(mapper: WeatherDBToDataMapper): WeatherData =
         mapper.map(
@@ -27,7 +27,7 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
             current!!,
             indicators!!,
             horizon!!,
-            warnings ?: emptyList()
+            warnings.toList()
         )
 }
 
