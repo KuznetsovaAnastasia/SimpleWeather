@@ -36,13 +36,14 @@ sealed interface WeatherUiComponent {
             titleTextView.text = title
             descriptionTextView.text = description
             startTimeTextView.text = startTime
-            if (description.isBlank()) Visibility.Gone().apply(descriptionTextView)
-            else Visibility.Visible().apply(descriptionTextView)
+            Visibility.Visible().apply(descriptionTextView)
         }
 
         override fun matches(item: Warning): Boolean = title == item.title
         override fun contentMatches(item: Warning): Boolean =
             title == item.title && description == item.description && startTime == item.startTime
+
+        fun isDescribed(): Boolean = description.isNotBlank()
     }
 
     data class WarningBasic(

@@ -12,7 +12,7 @@ interface WarningsDomainToUiMapper : Mapper<List<WeatherUiComponent.Warning>> {
     class Base @Inject constructor(private val mapper: WarningDomainToUiMapper) : WarningsDomainToUiMapper {
 
         override fun map(warnings: List<WeatherDomain.Warning>): List<WeatherUiComponent.Warning> =
-            warnings.map { it.map(mapper) }
+            warnings.map { it.map(mapper) }.filter { it.isDescribed() }.distinct()
 
     }
 
