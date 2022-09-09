@@ -39,12 +39,16 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         viewPager.offscreenPageLimit = 2
 
         tabLayout = requireActivity().findViewById(R.id.tab_layout_dots)
-        tabLayout.let{ tabLayout ->
-            TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
-        }
+        TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
 
         viewModel.observe(this) { favorites ->
             adapter.submitList(favorites)
+        }
+
+        binding.refresh.setOnRefreshListener {
+            viewModel.refresh {
+                binding.refresh.isRefreshing = false
+            }
         }
     }
 

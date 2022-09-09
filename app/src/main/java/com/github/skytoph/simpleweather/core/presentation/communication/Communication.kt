@@ -3,7 +3,6 @@ package com.github.skytoph.simpleweather.core.presentation.communication
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.github.skytoph.simpleweather.core.presentation.SingleLiveEvent
 
 abstract class Communication {
 

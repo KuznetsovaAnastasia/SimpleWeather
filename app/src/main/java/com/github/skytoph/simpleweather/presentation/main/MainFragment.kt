@@ -17,6 +17,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
+
     override val viewModel by viewModels<MainContentViewModel>()
 
     @Inject
@@ -32,12 +33,6 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
 
         viewModel.showFavorites(R.id.weather_fragment_container)
 
-        binding.refresh.setOnRefreshListener {
-            viewModel.refresh {
-                binding.refresh.isRefreshing = false
-            }
-        }
-
         val toolbar = binding.homeToolbar.toolbar
         toolbar.inflateMenu(R.menu.home_menu)
 
@@ -46,8 +41,7 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
         searchView = searchMenuItem.actionView as SearchView
         setupSearchView()
 
-        val toolbarPadding =
-            resources.getDimensionPixelSize(R.dimen.toolbar_collapsed_end_padding)
+        val toolbarPadding = resources.getDimensionPixelSize(R.dimen.toolbar_collapsed_end_padding)
 
         searchMenuItem.setOnActionExpandListener(MenuItemExpandListener(expand = {
             toolbar.updatePadding(0, 0, toolbarPadding, 0)
