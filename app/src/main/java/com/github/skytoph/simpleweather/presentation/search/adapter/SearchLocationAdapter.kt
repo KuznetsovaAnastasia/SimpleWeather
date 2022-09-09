@@ -22,7 +22,7 @@ class SearchLocationAdapter(private val listener: LocationClickListener) :
         parent: ViewGroup,
         viewType: Int,
     ): BaseViewHolder<SearchItemUi> = when (viewType) {
-        ViewType.LOCATION.ordinal -> LocationViewHolder.Base(R.layout.search_item.inflateView(parent),
+        ViewType.LOCATION.ordinal -> LocationViewHolder.Base(R.layout.prediction_item.inflateView(parent),
             listener)
         else -> LocationViewHolder.Error(R.layout.error_fullscreen.inflateView(parent))
     }

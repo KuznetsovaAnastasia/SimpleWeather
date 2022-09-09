@@ -1,6 +1,5 @@
-package com.github.skytoph.simpleweather.core.presentation
+package com.github.skytoph.simpleweather.core.presentation.communication
 
-import com.github.skytoph.simpleweather.core.presentation.communication.Communication
 import javax.inject.Inject
 import javax.inject.Singleton
 

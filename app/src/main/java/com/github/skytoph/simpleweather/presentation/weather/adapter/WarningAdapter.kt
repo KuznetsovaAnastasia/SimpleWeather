@@ -12,8 +12,9 @@ import com.github.skytoph.simpleweather.core.presentation.view.WarningRainView
 import com.github.skytoph.simpleweather.core.presentation.view.WarningView
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.Warning
+import javax.inject.Inject
 
-class WarningAdapter :
+class WarningAdapter @Inject constructor() :
     ListAdapter<Warning, WarningAdapter.WarningViewHolder<out WarningView>>(WarningItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WarningViewHolder<out WarningView> =

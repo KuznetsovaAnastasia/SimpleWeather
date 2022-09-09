@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.core.presentation
+package com.github.skytoph.simpleweather.core.presentation.view.visibility
 
 import android.view.View
 

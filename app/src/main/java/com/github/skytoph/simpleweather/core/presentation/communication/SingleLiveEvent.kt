@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.core.presentation
+package com.github.skytoph.simpleweather.core.presentation.communication
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

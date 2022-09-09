@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search_prediction_recycler_view"
     android:paddingTop="8dp"
+    android:paddingHorizontal="@dimen/search_result_horizontal_padding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:listitem="@layout/search_item" />
+    tools:listitem="@layout/prediction_item" />

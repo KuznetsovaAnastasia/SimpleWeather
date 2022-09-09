@@ -19,12 +19,7 @@ class SearchPredictionViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun showDetails(@IdRes container: Int, id: String, favorite: Boolean) =
-        viewModelScope.launch(Dispatchers.IO) {
-//            val locationId = placesDataSource.getId(id)
-            withContext(Dispatchers.Main) {
-                navigation.showPredictionDetails(container, id, favorite)
-            }
-        }
+        navigation.showPredictionDetails(container, id, favorite)
 
     fun observe(owner: LifecycleOwner, observer: Observer<List<SearchItemUi>>) =
         searchCommunication.observe(owner, observer)

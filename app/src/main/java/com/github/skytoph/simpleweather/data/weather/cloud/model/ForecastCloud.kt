@@ -54,8 +54,7 @@ data class ForecastCloud(
 
     @field:Json(name = "alerts")
     private val alerts: List<AlertCloud>?,
-
-    ) : Mappable<WeatherData, WeatherCloudMapper> {
+) : Mappable<WeatherData, WeatherCloudMapper> {
 
     override fun map(mapper: WeatherCloudMapper): WeatherData = mapper.map(
         current,

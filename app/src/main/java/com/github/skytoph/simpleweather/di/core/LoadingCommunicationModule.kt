@@ -1,6 +1,6 @@
 package com.github.skytoph.simpleweather.di.core
 
-import com.github.skytoph.simpleweather.core.presentation.ProgressCommunication
+import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -4,9 +4,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.skytoph.simpleweather.core.presentation.MessageCommunication
-import com.github.skytoph.simpleweather.core.presentation.ProgressCommunication
-import com.github.skytoph.simpleweather.core.presentation.Visibility
+import com.github.skytoph.simpleweather.core.presentation.communication.MessageCommunication
+import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
+import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 import com.github.skytoph.simpleweather.domain.weather.WeatherInteractor
 import com.github.skytoph.simpleweather.domain.weather.mapper.WeatherDomainToUiMapper
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain

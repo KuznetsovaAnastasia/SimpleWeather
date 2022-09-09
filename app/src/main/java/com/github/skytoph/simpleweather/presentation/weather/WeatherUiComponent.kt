@@ -4,7 +4,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import com.github.skytoph.simpleweather.core.Matcher
-import com.github.skytoph.simpleweather.core.presentation.Visibility
+import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 import com.github.skytoph.simpleweather.core.presentation.view.horizon.HorizonView
 
 sealed interface WeatherUiComponent {
