@@ -6,5 +6,6 @@ enum class ErrorType {
     NO_CACHED_DATA,
     GENERIC_ERROR,
     EMPTY_REQUEST,
-    NO_RESULTS
+    NO_RESULTS,
+    LOCATION_IS_NOT_CACHED
 }

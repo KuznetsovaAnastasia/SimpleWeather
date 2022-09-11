@@ -22,7 +22,7 @@ interface WeatherCloudDataSource : UpdateItem<WeatherData> {
     ) : WeatherCloudDataSource {
 
         override suspend fun fetch(placeId: String): WeatherData {
-            val location = placeCloudDataSource.getPlace(placeId)
+            val location = placeCloudDataSource.place(placeId)
             val coordinates = idMapper.map(location.map(idMapper))
             val forecast = forecastCloudDataSource.getForecast(coordinates)
             val airQuality = airQualityCloudDataSource.getAirQuality(coordinates)

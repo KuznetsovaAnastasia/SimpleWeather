@@ -10,6 +10,11 @@ class NoCachedDataException : Exception() {
         get() = "no cached data"
 }
 
+class DataIsNotCachedException(private val id: String) : Exception() {
+    override val message: String
+        get() = "can not find data with id $id"
+}
+
 class EmptyRequestException : Exception() {
     override val message: String
         get() = "request is empty"

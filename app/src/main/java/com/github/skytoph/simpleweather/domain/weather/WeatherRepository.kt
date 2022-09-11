@@ -20,6 +20,7 @@ interface WeatherRepository {
         suspend fun cachedIDs(): List<String>
         suspend fun getCachedWeather(id: String): WeatherData
         suspend fun getCloudWeather(id: String): WeatherData
+        suspend fun contains(id: String): Boolean
     }
 
     interface Mutable : Read, Write
@@ -56,6 +57,13 @@ interface WeatherRepository {
 
         override suspend fun delete(id: String) =
             cacheDataSource.remove(id)
+
+        override suspend fun contains(id: String): Boolean = try {
+            cacheDataSource.read(id)
+            true
+        } catch (exception: Exception){
+            false
+        }
 
         private suspend fun getWeather(fetch: suspend () -> WeatherData) = try {
             fetch.invoke()

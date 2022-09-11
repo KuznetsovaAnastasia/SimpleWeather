@@ -3,6 +3,7 @@ package com.github.skytoph.simpleweather.core
 import android.util.Log
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.exception.EmptyRequestException
+import com.github.skytoph.simpleweather.core.exception.DataIsNotCachedException
 import com.github.skytoph.simpleweather.core.exception.NoCachedDataException
 import com.github.skytoph.simpleweather.core.exception.NoResultsException
 import com.github.skytoph.simpleweather.core.presentation.view.horizon.ResourceProvider
@@ -18,6 +19,7 @@ interface Mapper<T> {
             is NoCachedDataException -> ErrorType.NO_CACHED_DATA
             is EmptyRequestException -> ErrorType.EMPTY_REQUEST
             is NoResultsException -> ErrorType.NO_RESULTS
+            is DataIsNotCachedException -> ErrorType.LOCATION_IS_NOT_CACHED
             else -> ErrorType.GENERIC_ERROR
         }
             .also { Log.e("ErrorTag", e.stackTraceToString()) }
@@ -32,6 +34,7 @@ interface Mapper<T> {
                 ErrorType.NO_CONNECTION -> R.string.error_no_connection
                 ErrorType.EMPTY_REQUEST -> R.string.error_empty_request
                 ErrorType.NO_RESULTS -> R.string.error_no_results
+                ErrorType.LOCATION_IS_NOT_CACHED -> R.string.error_location_is_not_saved
                 else -> R.string.error_general
             }
         )

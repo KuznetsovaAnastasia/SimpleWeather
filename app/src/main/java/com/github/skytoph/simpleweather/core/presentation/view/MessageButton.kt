@@ -60,7 +60,7 @@ class MessageButton : MaterialButton {
         l?.let { listener = l }
     }
 
-    private fun setClickedStyle() {
+    fun setClickedStyle() {
         isEnabled = false
         text = clickedText
         icon = clickedDrawable
@@ -69,5 +69,4 @@ class MessageButton : MaterialButton {
         iconTint = clickedColor
         setTextColor(clickedColor)
     }
-
 }

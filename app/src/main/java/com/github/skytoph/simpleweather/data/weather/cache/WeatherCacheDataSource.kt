@@ -3,6 +3,7 @@ package com.github.skytoph.simpleweather.data.weather.cache
 import com.github.skytoph.simpleweather.core.data.DataBase
 import com.github.skytoph.simpleweather.core.data.RealmProvider
 import com.github.skytoph.simpleweather.core.data.SaveItem
+import com.github.skytoph.simpleweather.core.exception.DataIsNotCachedException
 import com.github.skytoph.simpleweather.core.exception.NoCachedDataException
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDataDBMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
@@ -24,8 +25,8 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
     ) : WeatherCacheDataSource {
 
         override fun read(id: String): WeatherDB = realmProvider.provide().use { realm ->
-            val weather = findRealmObject(realm, id)
-            return weather?.let { realm.copyFromRealm(it) } ?: throw NoCachedDataException()
+            return findRealmObject(realm, id)?.let { realm.copyFromRealm(it) }
+                ?: throw DataIsNotCachedException(id)
         }
 
         override fun readAll(): List<WeatherDB> = realmProvider.provide().use { realm ->

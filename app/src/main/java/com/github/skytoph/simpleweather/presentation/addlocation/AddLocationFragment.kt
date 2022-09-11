@@ -31,9 +31,13 @@ class AddLocationFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.showWeather(R.id.weather_add_container, locationId, favorite)
-        binding.messageButton.setOnClickListener {
-            viewModel.saveWeather()
+        val button = binding.messageButton
+        viewModel.showWeather(R.id.weather_add_container, locationId) { fav ->
+            if (fav) button.setClickedStyle()
+            else button.setOnClickListener {
+                viewModel.saveWeather()
+            }
+            button.visibility = View.VISIBLE
         }
     }
 

@@ -36,5 +36,6 @@
     <string name="error_no_cached_data">No saved locations</string>
     <string name="error_empty_request">Start typing request for search</string>
     <string name="error_no_results">Can\'t find location</string>
+    <string name="error_location_is_not_saved">This data was deleted</string>
 
 </resources>
