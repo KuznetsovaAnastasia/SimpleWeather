@@ -1,36 +1,38 @@
 package com.github.skytoph.simpleweather.domain.favorites
 
-import com.github.skytoph.simpleweather.data.favorites.FavoritesPrefCache
+import com.github.skytoph.simpleweather.core.ErrorHandler
 import com.github.skytoph.simpleweather.domain.weather.WeatherRepository
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
 interface FavoritesInteractor {
 
-    fun getFavoriteIDs(): List<String>
-    suspend fun saveFavorite(id: String)
-    suspend fun refreshCache()
+    suspend fun favoriteIDs(): List<String>
+    suspend fun saveFavorite()
+    suspend fun removeFavorite(id: String)
+    suspend fun refreshFavorites()
 
     @ViewModelScoped
     class Base @Inject constructor(
-        private val favoritesDataSource: FavoritesPrefCache,
-        private val weatherRepository: WeatherRepository.Save,
+        private val weatherRepository: WeatherRepository.Mutable,
+        private val errorHandler: ErrorHandler,
     ) : FavoritesInteractor {
 
-        override fun getFavoriteIDs(): List<String> =
-            favoritesDataSource.read().ifEmpty { listOf("") }
+        override suspend fun favoriteIDs(): List<String> =
+            weatherRepository.cachedIDs()
 
-        override suspend fun saveFavorite(id: String) {
-            favoritesDataSource.save(id)
+        override suspend fun saveFavorite() =
             weatherRepository.saveWeather()
+
+        override suspend fun removeFavorite(id: String) =
+            weatherRepository.delete(id)
+
+        override suspend fun refreshFavorites() {
+            try {
+                weatherRepository.refreshAll()
+            } catch (error: Exception) {
+                errorHandler.handle(error)
+            }
         }
-
-        override suspend fun refreshCache() = weatherRepository.refreshAll()
-    }
-
-    class Mock(private val favoritesDataSource: FavoritesPrefCache) : FavoritesInteractor {
-        override fun getFavoriteIDs(): List<String> = favoritesDataSource.read()
-        override suspend fun saveFavorite(id: String) = Unit
-        override suspend fun refreshCache() = Unit
     }
 }

@@ -1,18 +1,14 @@
 package com.github.skytoph.simpleweather.presentation.favorites
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentFavoritesBinding
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,8 +37,9 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         tabLayout = requireActivity().findViewById(R.id.tab_layout_dots)
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
 
-        viewModel.observe(this) { favorites ->
-            adapter.submitList(favorites)
+        requireActivity().findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_delete).setOnMenuItemClickListener {
+            viewModel.delete(adapter.getItem(tabLayout.selectedTabPosition))
+            true
         }
 
         binding.refresh.setOnRefreshListener {
@@ -50,10 +47,13 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
                 binding.refresh.isRefreshing = false
             }
         }
+
+        viewModel.observe(this) { favorites ->
+            adapter.submitList(favorites)
+        }
     }
 
-    override fun onResume() {
-        viewModel.getFavorites()
-        super.onResume()
+    override fun onHiddenChanged(hidden: Boolean) {
+        if (!hidden) viewModel.getFavorites()
     }
 }

@@ -16,16 +16,23 @@ class FavoritesAdapter @Inject constructor
     private val differ = AsyncListDiffer(this, diffCallback)
 
     override fun getItemCount(): Int = differ.currentList.size
+
     override fun createFragment(position: Int): Fragment =
         WeatherFragment.newInstance(differ.currentList[position], true)
 
+    fun getItem(position: Int): String = differ.currentList[position]
+
     fun submitList(newList: List<String>) {
-        differ.submitList(newList)
+        differ.submitList(newList.toMutableList())
     }
+
+    override fun getItemId(position: Int): Long = getItem(position).hashCode().toLong()
+
+    override fun containsItem(itemId: Long): Boolean =
+        differ.currentList.find { it.hashCode().toLong() == itemId } != null
 
     class StringDiffCallback @Inject constructor() : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean =
-            oldItem == newItem
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean = false
     }
 }

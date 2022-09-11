@@ -1,6 +1,5 @@
 package com.github.skytoph.simpleweather.data.weather.cache
 
-import android.util.Log
 import com.github.skytoph.simpleweather.core.data.DataBase
 import com.github.skytoph.simpleweather.core.data.RealmProvider
 import com.github.skytoph.simpleweather.core.data.SaveItem
@@ -15,7 +14,8 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
 
     fun read(id: String): WeatherDB
     fun readAll(): List<WeatherDB>
-    fun remove(id: String, data: WeatherData)
+    fun readAllIDs(): List<String>
+    fun remove(id: String)
 
     @Singleton
     class Base @Inject constructor(
@@ -25,7 +25,6 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
 
         override fun read(id: String): WeatherDB = realmProvider.provide().use { realm ->
             val weather = findRealmObject(realm, id)
-            Log.e("ErrorTag", weather.toString())
             return weather?.let { realm.copyFromRealm(it) } ?: throw NoCachedDataException()
         }
 
@@ -34,12 +33,16 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
                 ?: throw NoCachedDataException()
         }
 
-        override fun remove(id: String, data: WeatherData) =
-            realmProvider.provide().use { realm ->
-                realm.executeTransaction {
-                    findRealmObject(realm, id)?.deleteFromRealm()
-                }
+        override fun readAllIDs(): List<String> = realmProvider.provide().use { realm ->
+            return realm.where(WeatherDB::class.java).findAll().let { realm.copyFromRealm(it) }
+                .map { it.id }.ifEmpty { listOf("") }
+        }
+
+        override fun remove(id: String) = realmProvider.provide().use { realm ->
+            realm.executeTransaction {
+                findRealmObject(realm, id)?.deleteFromRealm()
             }
+        }
 
         override fun saveOrUpdate(id: String, data: WeatherData) =
             realmProvider.provide().use { realm ->

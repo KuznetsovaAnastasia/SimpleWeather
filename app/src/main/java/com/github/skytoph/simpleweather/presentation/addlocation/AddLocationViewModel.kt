@@ -21,9 +21,7 @@ class AddLocationViewModel @Inject constructor(
         navigator.showWeather(container, id, favorite)
     }
 
-    fun saveWeather(id: String) =
-        viewModelScope.launch(Dispatchers.IO) {
-            val locationId = placesDataSource.getId(id)
-            favoritesInteractor.saveFavorite(locationId)
-        }
+    fun saveWeather() = viewModelScope.launch(Dispatchers.IO) {
+        favoritesInteractor.saveFavorite()
+    }
 }

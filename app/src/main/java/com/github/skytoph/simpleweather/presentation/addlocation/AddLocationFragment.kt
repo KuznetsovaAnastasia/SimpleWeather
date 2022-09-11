@@ -33,7 +33,7 @@ class AddLocationFragment :
         super.onViewCreated(view, savedInstanceState)
         viewModel.showWeather(R.id.weather_add_container, locationId, favorite)
         binding.messageButton.setOnClickListener {
-            viewModel.saveWeather(locationId)
+            viewModel.saveWeather()
         }
     }
 

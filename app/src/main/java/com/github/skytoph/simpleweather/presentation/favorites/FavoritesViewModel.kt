@@ -23,12 +23,15 @@ class FavoritesViewModel @Inject constructor(
         getFavorites()
     }
 
-    fun getFavorites() {
-        communication.show(interactor.getFavoriteIDs())
+    fun getFavorites() = viewModelScope.launch(Dispatchers.IO) {
+        val favoriteIDs = interactor.favoriteIDs()
+        withContext(Dispatchers.Main) {
+            communication.show(favoriteIDs)
+        }
     }
 
     fun refresh(hideProgress: () -> Unit) = viewModelScope.launch(Dispatchers.IO) {
-        interactor.refreshCache()
+        interactor.refreshFavorites()
         withContext(Dispatchers.Main) {
             refreshCommunication.show(true)
             hideProgress.invoke()
@@ -37,5 +40,10 @@ class FavoritesViewModel @Inject constructor(
 
     fun observe(owner: LifecycleOwner, observer: Observer<List<String>>) {
         communication.observe(owner, observer)
+    }
+
+    fun delete(id: String) = viewModelScope.launch(Dispatchers.IO) {
+        interactor.removeFavorite(id)
+        getFavorites()
     }
 }

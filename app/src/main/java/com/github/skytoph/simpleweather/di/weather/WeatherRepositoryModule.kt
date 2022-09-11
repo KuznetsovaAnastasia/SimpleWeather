@@ -17,5 +17,5 @@ abstract class WeatherRepositoryModule {
     abstract fun repositoryReadable(repository: WeatherRepository.Base): WeatherRepository.Read
 
     @Binds
-    abstract fun repositoryWritable(repository: WeatherRepository.Base): WeatherRepository.Save
+    abstract fun repositoryWritable(repository: WeatherRepository.Base): WeatherRepository.Write
 }
