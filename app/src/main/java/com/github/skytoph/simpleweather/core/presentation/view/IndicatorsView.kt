@@ -32,9 +32,9 @@ class IndicatorsView : ConstraintLayout {
             .inflate(R.layout.view_indicators, this, true)
 
         setPadding(
-            resources.getDimensionPixelSize(R.dimen.indicators_view_padding_start),
+            0,
             resources.getDimensionPixelSize(R.dimen.indicators_view_padding_top),
-            resources.getDimensionPixelSize(R.dimen.indicators_view_padding_end),
+            0,
             resources.getDimensionPixelSize(R.dimen.indicators_view_padding_bottom)
         )
 
