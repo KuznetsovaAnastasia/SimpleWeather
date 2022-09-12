@@ -20,7 +20,6 @@ sealed interface SearchItemUi : Matcher<SearchItemUi> {
             subtitleTextView.text = subtitle
         }
 
-        // TODO: get favorite
         override fun select(listener: SearchLocationAdapter.LocationClickListener) =
             listener.open(id, false)
 

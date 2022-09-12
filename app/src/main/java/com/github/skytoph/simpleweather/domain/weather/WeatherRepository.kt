@@ -44,16 +44,17 @@ interface WeatherRepository {
                 .also { cachedWeather.cache(it) }
 
         override suspend fun updateCloudWeather(id: String): WeatherData =
-            getWeather { getCachedWeather(id).update(cloudDataSource) }
-                .also { it.save(cacheDataSource) }
+            updateAndSave(getCachedWeather(id))
 
-        override suspend fun saveWeather() {
+        override suspend fun saveWeather() =
             cachedWeather.save(cacheDataSource)
-        }
 
         override suspend fun refreshAll() = cacheDataSource.readAll().forEach {
-            it.map(cacheMapper).update(cloudDataSource).save(cacheDataSource)
+            updateAndSave(it.map(cacheMapper))
         }
+
+        private suspend fun updateAndSave(data: WeatherData): WeatherData =
+            data.update(cloudDataSource).also { it.save(cacheDataSource) }
 
         override suspend fun delete(id: String) =
             cacheDataSource.remove(id)
@@ -61,7 +62,7 @@ interface WeatherRepository {
         override suspend fun contains(id: String): Boolean = try {
             cacheDataSource.read(id)
             true
-        } catch (exception: Exception){
+        } catch (exception: Exception) {
             false
         }
 

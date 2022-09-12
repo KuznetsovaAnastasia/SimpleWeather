@@ -22,7 +22,6 @@ sealed class WeatherDomain : Mappable<WeatherUi, WeatherDomainToUiMapper> {
 
     class Fail(private val errorType: ErrorType) : WeatherDomain() {
 
-        // TODO: replace with error type
         override fun map(mapper: WeatherDomainToUiMapper): WeatherUi = mapper.map(errorType)
     }
 
