@@ -34,11 +34,7 @@ sealed class WeatherUi : ShowWeatherUi() {
 
     }
 
-    data class Fail(private val message: String) : WeatherUi() {
-
-        override fun show(messageCommunication: MessageCommunication.Update) =
-            messageCommunication.show(message)
-    }
+    object Fail : WeatherUi()
 
     data class Error(private val message: String) : WeatherUi() {
         override fun show(

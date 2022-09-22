@@ -8,32 +8,19 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentWeatherBinding
-import com.github.skytoph.simpleweather.presentation.RefreshCommunication
+import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.FAVORITE_KEY
+import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.PLACE_ID_KEY
 import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WeatherFragment :
-    BaseFragment<WeatherViewModel, FragmentWeatherBinding>() {
+class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>() {
 
     override val viewModel by viewModels<WeatherViewModel>()
 
-    private lateinit var locationId: String
-    private var favorite: Boolean = true
-
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentWeatherBinding
         get() = FragmentWeatherBinding::inflate
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        requireArguments().apply {
-            locationId = getString(PLACE_ID_KEY, "")
-            favorite = getBoolean(FAVORITE_KEY)
-        }
-        viewModel.getWeather(locationId, favorite)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,19 +41,11 @@ class WeatherFragment :
             }
         }
         viewModel.observeRefresh(this) { refresh ->
-            if (refresh) viewModel.refresh(locationId, favorite)
+            if (refresh) viewModel.refreshFromCache()
         }
     }
 
-    override fun onResume() {
-        viewModel.refresh(locationId, favorite)
-        super.onResume()
-    }
-
     companion object {
-        private const val PLACE_ID_KEY = "placeId"
-        private const val FAVORITE_KEY = "favorite"
-
         fun newInstance(placeId: String, favorite: Boolean): WeatherFragment =
             WeatherFragment().apply {
                 arguments = bundleOf(PLACE_ID_KEY to placeId, FAVORITE_KEY to favorite)

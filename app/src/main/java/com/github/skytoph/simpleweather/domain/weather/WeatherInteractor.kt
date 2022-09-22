@@ -2,17 +2,15 @@ package com.github.skytoph.simpleweather.domain.weather
 
 import com.github.skytoph.simpleweather.core.ErrorHandler
 import com.github.skytoph.simpleweather.data.weather.mapper.WeatherDataToDomainMapper
+import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.github.skytoph.simpleweather.domain.weather.mapper.WeatherDomainToUiMapper
+import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUi
 import javax.inject.Inject
 
 interface WeatherInteractor {
-    suspend fun getCachedWeather(id: String, showResult: suspend (WeatherUi) -> Unit)
-    suspend fun getCloudWeather(
-        id: String,
-        favorite: Boolean,
-        showResult: suspend (WeatherUi) -> Unit,
-    )
+    suspend fun getCachedWeather(id: String): WeatherUi
+    suspend fun getCloudWeather(id: String, favorite: Boolean): WeatherUi
 
     class Base @Inject constructor(
         private val repository: WeatherRepository.Mutable,
@@ -21,20 +19,19 @@ interface WeatherInteractor {
         private val errorHandler: ErrorHandler,
     ) : WeatherInteractor {
 
-        override suspend fun getCloudWeather(
-            id: String,
-            favorite: Boolean,
-            showResult: suspend (WeatherUi) -> Unit,
-        ) = try {
+        override suspend fun getCloudWeather(id: String, favorite: Boolean): WeatherUi = try {
             val weather =
                 if (favorite) repository.updateCloudWeather(id)
                 else repository.getCloudWeather(id)
-            showResult.invoke(weather.map(domainMapper).map(uiMapper))
+            weather.mapToUi()
         } catch (exception: Exception) {
             errorHandler.handle(exception)
+            WeatherUi.Fail
         }
 
-        override suspend fun getCachedWeather(id: String, showResult: suspend (WeatherUi) -> Unit) =
-            showResult.invoke(repository.getCachedWeather(id).map(domainMapper).map(uiMapper))
+        override suspend fun getCachedWeather(id: String): WeatherUi =
+            repository.getCachedWeather(id).mapToUi()
+
+        private fun WeatherData.mapToUi() = this.map(domainMapper).map(uiMapper)
     }
 }
