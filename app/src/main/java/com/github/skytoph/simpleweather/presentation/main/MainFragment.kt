@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.presentation.main
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -57,6 +58,8 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
         searchView.maxWidth = Integer.MAX_VALUE
         searchView.findViewById<View?>(R.id.search_bar)
             ?.setBackgroundResource(R.drawable.rectangle_rounded_15)
+        searchView.findViewById<View?>(R.id.search_plate)
+            ?.setBackgroundColor(Color.TRANSPARENT)
         searchView.setOnQueryTextListener(SearchQueryListener { query ->
             viewModel.getPredictions(query)
         })
