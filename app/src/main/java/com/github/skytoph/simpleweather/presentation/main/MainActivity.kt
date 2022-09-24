@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.presentation.main
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -21,8 +22,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.observeNavigation(this) { screen ->
             screen.show(supportFragmentManager)
         }
-        viewModel.observeProgress(this) { visibility ->
-            visibility.apply(binding.progressBar)
+        viewModel.observeProgress(this) { visible ->
+            binding.progressBar.visibility = if (visible) View.VISIBLE
+            else View.INVISIBLE
         }
         viewModel.observeMessages(this) { message ->
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

@@ -30,9 +30,9 @@ class SearchResultFragment :
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = SearchLocationAdapter(object : SearchLocationAdapter.LocationClickListener {
-            override fun open(id: String, favorite: Boolean) {
+            override fun open(id: String) {
                 hideKeyboard()
-                viewModel.showDetails(R.id.fragment_container, id, favorite)
+                viewModel.showDetails(R.id.fragment_container, id)
             }
         })
         binding.searchPredictionRecyclerView.adapter = adapter

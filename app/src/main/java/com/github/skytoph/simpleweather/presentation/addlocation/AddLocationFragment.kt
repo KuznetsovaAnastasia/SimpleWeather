@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentAddLocationBinding
+import com.github.skytoph.simpleweather.presentation.addlocation.AddLocationViewModel.Companion.FAVORITE_KEY
+import com.github.skytoph.simpleweather.presentation.addlocation.AddLocationViewModel.Companion.PLACE_ID_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,34 +19,31 @@ class AddLocationFragment :
 
     override val viewModel by viewModels<AddLocationViewModel>()
 
-    private lateinit var locationId: String
-    private var favorite: Boolean = false
-
     override val bindingInflation: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddLocationBinding =
         FragmentAddLocationBinding::inflate
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        locationId = requireArguments().getString(PLACE_ID_KEY, "")
-        favorite = requireArguments().getBoolean(FAVORITE_KEY, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.showWeather(R.id.weather_add_container)
+
         val button = binding.messageButton
-        viewModel.showWeather(R.id.weather_add_container, locationId) { fav ->
-            if (fav) button.setClickedStyle()
-            else button.setOnClickListener {
+        val favorite = requireArguments().getBoolean(FAVORITE_KEY)
+        if (favorite) {
+            button.setClickedStyle()
+            button.visibility = View.VISIBLE
+        } else {
+            viewModel.observeProgress(this) { visible ->
+                button.visibility = if (!visible) View.VISIBLE
+                else View.INVISIBLE
+            }
+            button.setOnClickListener {
                 viewModel.saveWeather()
             }
-            button.visibility = View.VISIBLE
         }
     }
 
     companion object {
-        private const val PLACE_ID_KEY = "placeId"
-        private const val FAVORITE_KEY = "favorite"
-
         fun newInstance(placeId: String, favorite: Boolean): AddLocationFragment =
             AddLocationFragment().apply {
                 arguments = bundleOf(PLACE_ID_KEY to placeId, FAVORITE_KEY to favorite)

@@ -21,7 +21,12 @@ class FavoritesViewModel @Inject constructor(
 
     fun getFavorites(): List<String> = interactor.favoriteIDs()
 
-    fun refreshFavorites() = communication.show(interactor.favoriteIDs())
+    fun refreshFavorites() = viewModelScope.launch(Dispatchers.IO) {
+        val favoriteIDs = interactor.favoriteIDs()
+        withContext(Dispatchers.Main) {
+            communication.show(favoriteIDs)
+        }
+    }
 
     fun refresh(hideProgress: () -> Unit) = viewModelScope.launch(Dispatchers.IO) {
         interactor.refreshFavorites()

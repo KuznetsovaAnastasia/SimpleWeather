@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.communication.MessageCommunication
 import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
-import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 import com.github.skytoph.simpleweather.presentation.main.MainNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -25,7 +24,7 @@ class MainViewModel @Inject constructor(
     fun observeNavigation(owner: LifecycleOwner, observer: Observer<ShowScreen>) =
         navigator.observe(owner, observer)
 
-    fun observeProgress(owner: LifecycleOwner, observer: Observer<Visibility>) =
+    fun observeProgress(owner: LifecycleOwner, observer: Observer<Boolean>) =
         progressCommunication.observe(owner, observer)
 
     fun observeMessages(owner: LifecycleOwner, observer: Observer<String>) {

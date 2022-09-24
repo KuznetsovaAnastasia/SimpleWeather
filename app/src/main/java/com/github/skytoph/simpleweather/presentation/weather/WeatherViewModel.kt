@@ -24,14 +24,14 @@ class WeatherViewModel @Inject constructor(
     private val favorite = state.get<Boolean>(FAVORITE_KEY)!!
 
     fun getWeather() {
-        progressCommunication.show(Visibility.Visible())
+        progressCommunication.show(true)
 
         viewModelScope.launch(Dispatchers.IO) {
             if (favorite) interactor.getCachedWeather(placeId).show()
             interactor.getCloudWeather(placeId, favorite).show()
 
             withContext(Dispatchers.Main) {
-                progressCommunication.show(Visibility.Invisible())
+                progressCommunication.show(false)
             }
         }
     }

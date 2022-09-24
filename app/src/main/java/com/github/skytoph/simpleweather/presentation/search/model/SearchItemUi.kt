@@ -21,7 +21,7 @@ sealed interface SearchItemUi : Matcher<SearchItemUi> {
         }
 
         override fun select(listener: SearchLocationAdapter.LocationClickListener) =
-            listener.open(id, false)
+            listener.open(id)
 
         override fun matches(item: SearchItemUi): Boolean = item is Location && id == item.id
 

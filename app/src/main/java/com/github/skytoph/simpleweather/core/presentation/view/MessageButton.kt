@@ -68,5 +68,6 @@ class MessageButton : MaterialButton {
         backgroundTintList = ResourcesCompat.getColorStateList(resources, R.color.green, null)
         iconTint = clickedColor
         setTextColor(clickedColor)
+        super.setOnClickListener(null)
     }
 }
