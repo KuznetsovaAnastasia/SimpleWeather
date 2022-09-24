@@ -17,7 +17,10 @@ import javax.inject.Inject
 class WarningAdapter @Inject constructor() :
     ListAdapter<Warning, WarningAdapter.WarningViewHolder<out WarningView>>(WarningItemDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WarningViewHolder<out WarningView> =
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): WarningViewHolder<out WarningView> =
         when (viewType) {
             WarningType.RAINY.ordinal ->
                 WarningViewHolder<WarningRainView>(LayoutInflater.from(parent.context)
@@ -30,10 +33,10 @@ class WarningAdapter @Inject constructor() :
     override fun onBindViewHolder(holder: WarningViewHolder<out WarningView>, position: Int) =
         holder.bind(getItem(position))
 
-    override fun getItemViewType(position: Int): Int = when (getItem(position)) {
-        is WeatherUiComponent.WarningBasic -> WarningType.BASIC.ordinal
-        is WeatherUiComponent.WarningRain -> WarningType.RAINY.ordinal
-    }
+    override fun getItemViewType(position: Int): Int =
+        if (getItem(position) is WeatherUiComponent.WarningRain && position == 0)
+            WarningType.RAINY.ordinal
+        else WarningType.BASIC.ordinal
 
     class WarningViewHolder<V : WarningView>(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(warning: Warning) {
