@@ -2,13 +2,11 @@ package com.github.skytoph.simpleweather.data.weather.cache.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.data.DataBase
-import com.github.skytoph.simpleweather.data.weather.cache.WarningDB
 import com.github.skytoph.simpleweather.data.weather.cache.WeatherDB
 import com.github.skytoph.simpleweather.data.weather.model.AlertData
 import com.github.skytoph.simpleweather.data.weather.model.CurrentWeatherData
 import com.github.skytoph.simpleweather.data.weather.model.HorizonData
 import com.github.skytoph.simpleweather.data.weather.model.IndicatorsData
-import io.realm.RealmList
 import javax.inject.Inject
 
 interface WeatherDataDBMapper : Mapper<WeatherDB> {

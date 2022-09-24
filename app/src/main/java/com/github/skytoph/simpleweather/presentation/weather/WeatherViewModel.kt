@@ -23,11 +23,7 @@ class WeatherViewModel @Inject constructor(
     private val placeId = state.get<String>(PLACE_ID_KEY)!!
     private val favorite = state.get<Boolean>(FAVORITE_KEY)!!
 
-    init {
-        getWeather()
-    }
-
-    private fun getWeather() {
+    fun getWeather() {
         progressCommunication.show(Visibility.Visible())
 
         viewModelScope.launch(Dispatchers.IO) {

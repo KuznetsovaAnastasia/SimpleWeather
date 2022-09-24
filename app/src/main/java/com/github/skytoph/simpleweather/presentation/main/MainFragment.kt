@@ -1,27 +1,25 @@
 package com.github.skytoph.simpleweather.presentation.main
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.forEach
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.core.presentation.view.listener.FocusChangeListener
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.core.presentation.menu.MenuItemExpandListener
+import com.github.skytoph.simpleweather.core.presentation.view.listener.FocusChangeListener
 import com.github.skytoph.simpleweather.databinding.FragmentMainBinding
-import com.github.skytoph.simpleweather.presentation.favorites.FavoritesAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
 
     override val viewModel by viewModels<MainContentViewModel>()
-
-    @Inject
-    lateinit var adapter: FavoritesAdapter
 
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentMainBinding
         get() = FragmentMainBinding::inflate
@@ -31,7 +29,8 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.showFavorites(R.id.weather_fragment_container)
+        if (savedInstanceState == null)
+            viewModel.showFavorites(R.id.weather_fragment_container)
 
         val toolbar = binding.homeToolbar.toolbar
         toolbar.inflateMenu(R.menu.home_menu)
@@ -55,7 +54,7 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
     }
 
     private fun setupSearchView() {
-        searchView.maxWidth = Integer.MAX_VALUE;
+        searchView.maxWidth = Integer.MAX_VALUE
         searchView.findViewById<View?>(R.id.search_bar)
             ?.setBackgroundResource(R.drawable.rectangle_rounded_15)
         searchView.setOnQueryTextListener(SearchQueryListener { query ->

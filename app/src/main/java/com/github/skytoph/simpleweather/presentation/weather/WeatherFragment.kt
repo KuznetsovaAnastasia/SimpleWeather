@@ -43,6 +43,7 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
         viewModel.observeRefresh(this) { refresh ->
             if (refresh) viewModel.refreshFromCache()
         }
+        if (savedInstanceState == null) viewModel.getWeather()
     }
 
     companion object {

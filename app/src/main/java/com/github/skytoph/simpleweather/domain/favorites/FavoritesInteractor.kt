@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 interface FavoritesInteractor {
 
-    suspend fun favoriteIDs(): List<String>
+    fun favoriteIDs(): List<String>
     suspend fun saveFavorite()
     suspend fun removeFavorite(id: String)
     suspend fun refreshFavorites()
@@ -18,7 +18,7 @@ interface FavoritesInteractor {
         private val errorHandler: ErrorHandler,
     ) : FavoritesInteractor {
 
-        override suspend fun favoriteIDs(): List<String> =
+        override fun favoriteIDs(): List<String> =
             weatherRepository.cachedIDs()
 
         override suspend fun saveFavorite() =

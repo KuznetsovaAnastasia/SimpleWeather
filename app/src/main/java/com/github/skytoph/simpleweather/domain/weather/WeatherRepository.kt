@@ -17,7 +17,7 @@ interface WeatherRepository {
     }
 
     interface Read {
-        suspend fun cachedIDs(): List<String>
+        fun cachedIDs(): List<String>
         suspend fun getCachedWeather(id: String): WeatherData
         suspend fun getCloudWeather(id: String): WeatherData
         suspend fun contains(id: String): Boolean
@@ -33,7 +33,7 @@ interface WeatherRepository {
         private val cachedWeather: WeatherCache,
     ) : Mutable {
 
-        override suspend fun cachedIDs(): List<String> =
+        override fun cachedIDs(): List<String> =
             cacheDataSource.readAllIDs()
 
         override suspend fun getCachedWeather(id: String): WeatherData =

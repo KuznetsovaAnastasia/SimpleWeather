@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(
     private val messageCommunication: MessageCommunication.Observe,
 ) : ViewModel() {
 
-    init {
+    fun showMain() {
         navigator.showMain(R.id.fragment_container)
     }
 
@@ -31,5 +31,4 @@ class MainViewModel @Inject constructor(
     fun observeMessages(owner: LifecycleOwner, observer: Observer<String>) {
         messageCommunication.observe(owner, observer)
     }
-
 }

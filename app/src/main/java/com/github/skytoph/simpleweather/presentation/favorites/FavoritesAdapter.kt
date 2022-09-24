@@ -1,38 +1,47 @@
 package com.github.skytoph.simpleweather.presentation.favorites
 
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.github.skytoph.simpleweather.presentation.weather.WeatherFragment
-import dagger.hilt.android.scopes.FragmentScoped
-import javax.inject.Inject
 
-@FragmentScoped
-class FavoritesAdapter @Inject constructor
-    (fragment: Fragment, diffCallback: DiffUtil.ItemCallback<String>) :
-    FragmentStateAdapter(fragment) {
+class FavoritesAdapter constructor(parentFragment: Fragment, favorites: List<String>) :
+    FragmentStateAdapter(parentFragment) {
 
-    private val differ = AsyncListDiffer(this, diffCallback)
+    private val favorites: ArrayList<String> = ArrayList(favorites)
 
-    override fun getItemCount(): Int = differ.currentList.size
+    override fun getItemCount(): Int = favorites.size
 
     override fun createFragment(position: Int): Fragment =
-        WeatherFragment.newInstance(differ.currentList[position], true)
+        WeatherFragment.newInstance(favorites[position], true)
 
-    fun getItem(position: Int): String = differ.currentList[position]
+    fun getItem(position: Int): String = favorites[position]
 
     fun submitList(newList: List<String>) {
-        differ.submitList(newList.toMutableList())
+        val diff = DiffUtil.calculateDiff(StringDiffUtil(favorites, newList))
+
+        favorites.clear()
+        favorites.addAll(newList)
+
+        diff.dispatchUpdatesTo(this)
     }
 
-    override fun getItemId(position: Int): Long = getItem(position).hashCode().toLong()
+    override fun getItemId(position: Int): Long = favorites[position].toId()
 
     override fun containsItem(itemId: Long): Boolean =
-        differ.currentList.find { it.hashCode().toLong() == itemId } != null
+        favorites.any { it.toId() == itemId }
 
-    class StringDiffCallback @Inject constructor() : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean = false
+    private fun String.toId(): Long = this.hashCode().toLong()
+
+    class StringDiffUtil constructor(
+        private val oldList: List<String>,
+        private val newList: List<String>,
+    ) : DiffUtil.Callback() {
+
+        override fun getOldListSize(): Int = oldList.size
+        override fun getNewListSize(): Int = newList.size
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = false
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+            oldList[oldItemPosition] == newList[newItemPosition]
     }
 }

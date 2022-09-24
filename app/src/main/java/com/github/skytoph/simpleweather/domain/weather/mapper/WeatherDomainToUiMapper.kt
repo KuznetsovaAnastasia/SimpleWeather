@@ -44,7 +44,7 @@ interface WeatherDomainToUiMapper : Mapper<WeatherUi> {
         override fun map(error: ErrorType): WeatherUi {
             val message = errorMessage(error)
             return when (error) {
-                ErrorType.NO_CACHED_DATA, ErrorType.GENERIC_ERROR -> WeatherUi.Error(message)
+                ErrorType.NO_CACHED_DATA -> WeatherUi.Error(message)
                 else -> WeatherUi.Fail
             }
         }
