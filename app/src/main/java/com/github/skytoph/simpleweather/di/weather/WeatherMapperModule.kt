@@ -3,9 +3,11 @@ package com.github.skytoph.simpleweather.di.weather
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceToCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.AlertsDataMapper
+import com.github.skytoph.simpleweather.data.weather.cloud.mapper.HourlyForecastDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.HourlyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.IndicatorsDataMapper
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeatherMapper
 import dagger.Binds
@@ -37,6 +39,12 @@ abstract class WeatherDataMapperModule {
 
     @Binds
     abstract fun alertsMapper(mapper: AlertsDataMapper.Base): AlertsDataMapper
+
+    @Binds
+    abstract fun hourlyMapper(mapper: HourlyForecastDataMapper.Base): HourlyForecastDataMapper
+
+    @Binds
+    abstract fun hourlyListMapper(mapper: HourlyForecastListDataMapper.Base): HourlyForecastListDataMapper
 
     @Binds
     abstract fun dbToDataMapper(mapper: WeatherDBToDataMapper.Base): WeatherDBToDataMapper

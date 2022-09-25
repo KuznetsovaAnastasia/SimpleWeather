@@ -2,6 +2,7 @@ package com.github.skytoph.simpleweather.data.weather.cache
 
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
+import com.github.skytoph.simpleweather.data.weather.cloud.mapper.HourlyForecastDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.AlertDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
@@ -20,6 +21,7 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
     var indicators: IndicatorsDB? = null
     var horizon: HorizonDB? = null
     var warnings: RealmList<WarningDB> = RealmList()
+    var hourlyForecast: RealmList<HourlyForecastDB> = RealmList()
 
     override fun map(mapper: WeatherDBToDataMapper): WeatherData =
         mapper.map(
@@ -27,7 +29,8 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
             current!!,
             indicators!!,
             horizon!!,
-            warnings.toList()
+            warnings.toList(),
+            hourlyForecast
         )
 }
 
@@ -71,4 +74,18 @@ open class WarningDB : RealmObject(), Mappable<AlertData, AlertDataMapper> {
 
     override fun map(mapper: AlertDataMapper): AlertData =
         mapper.map(title, expectedTime, description)
+}
+
+@RealmClass(embedded = true)
+open class HourlyForecastDB : RealmObject(),
+    Mappable<HourlyForecastData, HourlyForecastDataMapper> {
+
+    var time: Long = 0
+    var temp: Double = 0.0
+    var weatherId: Int = 0
+    var precipitationProb: Double = 0.0
+
+    override fun map(mapper: HourlyForecastDataMapper): HourlyForecastData =
+        mapper.map(time, temp, weatherId, precipitationProb)
+
 }

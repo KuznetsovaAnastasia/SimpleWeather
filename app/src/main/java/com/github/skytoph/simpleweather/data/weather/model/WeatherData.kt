@@ -23,6 +23,7 @@ sealed class WeatherData : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
         private val indicatorsData: IndicatorsData,
         private val horizonData: HorizonData,
         private val alertData: List<AlertData>,
+        private val hourlyForecast: List<HourlyForecastData>,
     ) : WeatherData() {
 
         override fun map(mapper: WeatherDataToDomainMapper): WeatherDomain =

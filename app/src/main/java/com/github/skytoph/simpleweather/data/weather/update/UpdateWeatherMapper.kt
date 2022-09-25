@@ -4,9 +4,11 @@ import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.airquality.cloud.AirQualityCloud
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.AlertsDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.CurrentCloudToDataMapper
+import com.github.skytoph.simpleweather.data.weather.cloud.mapper.HourlyForecastDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.model.*
 import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.HourlyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.IndicatorsDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.CurrentWeatherData
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
@@ -23,6 +25,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
         private val indicatorsDataMapper: IndicatorsDataMapper,
         private val horizonDataMapper: HorizonDataMapper,
         private val alertsMapper: AlertsDataMapper,
+        private val hourlyMapper: HourlyForecastListDataMapper,
     ) : UpdateWeatherMapper {
 
         override fun update(
@@ -49,7 +52,6 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                             weather: WeatherTypeCloud,
                         ): WeatherData {
                             val currentMapper = object : UpdateCurrentWeather {
-
                                 override fun update(location: String, favorite: Boolean) =
                                     CurrentWeatherData(weather.map(), temp, location, favorite)
                             }
@@ -59,7 +61,8 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                                 currentWeatherData.update(currentMapper),
                                 indicatorsDataMapper.map(dt, temp, pop, airQualityCloud.map()),
                                 horizonDataMapper.map(sunrise, sunset, dt),
-                                alertsMapper.map(alerts, pop)
+                                alertsMapper.map(alerts, pop),
+                                hourlyMapper.map(hourly)
                             )
                         }
                     })

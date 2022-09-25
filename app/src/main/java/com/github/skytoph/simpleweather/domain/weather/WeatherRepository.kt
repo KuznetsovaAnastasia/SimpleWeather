@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.domain.weather
 
+import android.util.Log
 import com.github.skytoph.simpleweather.data.weather.WeatherCache
 import com.github.skytoph.simpleweather.data.weather.cache.WeatherCacheDataSource
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
@@ -41,7 +42,9 @@ interface WeatherRepository {
 
         override suspend fun getCloudWeather(id: String): WeatherData =
             getWeather { cloudDataSource.fetch(id) }
-                .also { cachedWeather.cache(it) }
+                .also { cachedWeather.cache(it)
+                    Log.e("ErrorTag", it.toString() )
+                }
 
         override suspend fun updateCloudWeather(id: String): WeatherData =
             updateAndSave(getCachedWeather(id))
