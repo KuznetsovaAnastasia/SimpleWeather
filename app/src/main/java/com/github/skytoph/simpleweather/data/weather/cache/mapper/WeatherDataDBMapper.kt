@@ -3,10 +3,7 @@ package com.github.skytoph.simpleweather.data.weather.cache.mapper
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.data.DataBase
 import com.github.skytoph.simpleweather.data.weather.cache.WeatherDB
-import com.github.skytoph.simpleweather.data.weather.model.AlertData
-import com.github.skytoph.simpleweather.data.weather.model.CurrentWeatherData
-import com.github.skytoph.simpleweather.data.weather.model.HorizonData
-import com.github.skytoph.simpleweather.data.weather.model.IndicatorsData
+import com.github.skytoph.simpleweather.data.weather.model.*
 import javax.inject.Inject
 
 interface WeatherDataDBMapper : Mapper<WeatherDB> {
@@ -16,6 +13,7 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
         indicatorsData: IndicatorsData,
         horizonData: HorizonData,
         alerts: List<AlertData>,
+        hourlyForecast: List<HourlyForecastData>,
         dataBase: DataBase,
     ): WeatherDB
 
@@ -24,6 +22,7 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
         private val indicatorsMapper: IndicatorsDBMapper,
         private val horizonMapper: HorizonDBMapper,
         private val warningsDBMapper: WarningsDBMapper,
+        private val hourlyDBMapper: HourlyForecastListDBMapper,
     ) : WeatherDataDBMapper {
 
         override fun map(
@@ -32,11 +31,15 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
             indicatorsData: IndicatorsData,
             horizonData: HorizonData,
             alerts: List<AlertData>,
+            hourlyForecast: List<HourlyForecastData>,
             dataBase: DataBase,
         ): WeatherDB = dataBase.createObject<WeatherDB>(id).apply {
             this.current = currentWeatherData.map(currentMapper)
             this.indicators = indicatorsData.map(indicatorsMapper)
             this.horizon = horizonData.map(horizonMapper)
-        }.also { warningsDBMapper.map(alerts, dataBase, it) }
+            this.horizon = horizonData.map(horizonMapper)
+            warningsDBMapper.map(alerts, dataBase, this)
+            hourlyDBMapper.map(hourlyForecast, dataBase, this)
+        }
     }
 }

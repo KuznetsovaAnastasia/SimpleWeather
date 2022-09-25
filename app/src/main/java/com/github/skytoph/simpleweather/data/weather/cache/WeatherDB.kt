@@ -21,7 +21,7 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
     var indicators: IndicatorsDB? = null
     var horizon: HorizonDB? = null
     var warnings: RealmList<WarningDB> = RealmList()
-    var hourlyForecast: RealmList<HourlyForecastDB> = RealmList()
+    var hourly: RealmList<HourlyForecastDB> = RealmList()
 
     override fun map(mapper: WeatherDBToDataMapper): WeatherData =
         mapper.map(
@@ -30,7 +30,7 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
             indicators!!,
             horizon!!,
             warnings.toList(),
-            hourlyForecast
+            hourly.toList()
         )
 }
 
@@ -87,5 +87,4 @@ open class HourlyForecastDB : RealmObject(),
 
     override fun map(mapper: HourlyForecastDataMapper): HourlyForecastData =
         mapper.map(time, temp, weatherId, precipitationProb)
-
 }

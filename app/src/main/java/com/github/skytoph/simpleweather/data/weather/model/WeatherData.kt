@@ -27,10 +27,10 @@ sealed class WeatherData : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
     ) : WeatherData() {
 
         override fun map(mapper: WeatherDataToDomainMapper): WeatherDomain =
-            mapper.map(id, currentWeatherData, indicatorsData, horizonData, alertData)
+            mapper.map(id, currentWeatherData, indicatorsData, horizonData, alertData, hourlyForecast)
 
         override fun map(mapper: WeatherDataDBMapper, dataBase: DataBase): WeatherDB =
-            mapper.map(id, currentWeatherData, indicatorsData, horizonData, alertData, dataBase)
+            mapper.map(id, currentWeatherData, indicatorsData, horizonData, alertData, hourlyForecast, dataBase)
 
         override fun map(mapper: IdMapper): Pair<Double, Double> = mapper.map(id)
 
