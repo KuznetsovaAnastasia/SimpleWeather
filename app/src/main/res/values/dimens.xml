@@ -30,4 +30,6 @@
     <dimen name="location_search_item_image">88dp</dimen>
     <dimen name="search_result_horizontal_padding">24dp</dimen>
     <dimen name="toolbar_collapsed_end_padding">56dp</dimen>
+
+    <dimen name="forecast_image_size">32dp</dimen>
 </resources>

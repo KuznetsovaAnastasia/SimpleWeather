@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/rectangle_rounded_7"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="8dp">
+
+    <TextView
+        android:id="@+id/forecast_time"
+        style="@style/MediumSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="10:11" />
+
+    <ImageView
+        android:id="@+id/forecast_image"
+        android:layout_width="@dimen/forecast_image_size"
+        android:layout_height="@dimen/forecast_image_size"
+        tools:src="@drawable/weather_clouds" />
+
+    <TextView
+        android:id="@+id/forecast_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textColor="?attr/mainTitleTextColor"
+        android:textSize="24sp"
+        tools:text="20°" />
+
+    <TextView
+        android:id="@+id/forecast_pop"
+        style="@style/MediumValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:drawableStart="@drawable/ic_drop"
+        android:drawablePadding="2dp"
+        android:includeFontPadding="false"
+        tools:text="10%" />
+
+</LinearLayout>
