@@ -1,12 +1,12 @@
 package com.github.skytoph.simpleweather.presentation.weather
 
 import android.widget.TextView
-import com.github.skytoph.simpleweather.core.presentation.communication.MessageCommunication
 import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.*
+import com.github.skytoph.simpleweather.presentation.weather.adapter.HourlyForecastAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningAdapter
 
 sealed class WeatherUi : ShowWeatherUi() {

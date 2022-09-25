@@ -10,6 +10,7 @@ import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentWeatherBinding
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.FAVORITE_KEY
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.PLACE_ID_KEY
+import com.github.skytoph.simpleweather.presentation.weather.adapter.HourlyForecastAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,12 +32,16 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
             layoutManager = WarningLayoutManager(context)
         }
 
+        val hourlyForecastAdapter = HourlyForecastAdapter()
+        binding.hourlyForecastContainer.adapter = hourlyForecastAdapter
+
         viewModel.observe(this) { weather ->
             binding.apply {
                 weather.show(locationView,
                     indicatorsView,
                     sunriseSunsetView,
                     warningAdapter,
+                    hourlyForecastAdapter,
                     messageView)
             }
         }

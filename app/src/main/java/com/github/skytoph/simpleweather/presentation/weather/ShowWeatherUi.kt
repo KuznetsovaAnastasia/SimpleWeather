@@ -5,6 +5,7 @@ import com.github.skytoph.simpleweather.core.presentation.communication.MessageC
 import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
+import com.github.skytoph.simpleweather.presentation.weather.adapter.HourlyForecastAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningAdapter
 
 abstract class ShowWeatherUi {
@@ -14,9 +15,10 @@ abstract class ShowWeatherUi {
         indicatorsView: IndicatorsView,
         sunriseSunsetView: SunriseSunsetView,
         warningAdapter: WarningAdapter,
+        hourlyAdapter: HourlyForecastAdapter,
         messageView: TextView,
     ) {
-        show(locationView, indicatorsView, sunriseSunsetView, warningAdapter)
+        show(locationView, indicatorsView, sunriseSunsetView, warningAdapter, hourlyAdapter)
         show(messageView)
     }
 
@@ -27,6 +29,7 @@ abstract class ShowWeatherUi {
         indicatorsView: IndicatorsView,
         sunriseSunsetView: SunriseSunsetView,
         warningAdapter: WarningAdapter,
+        hourlyAdapter: HourlyForecastAdapter,
     ) = Unit
 
     open fun show(messageCommunication: MessageCommunication.Update) = Unit

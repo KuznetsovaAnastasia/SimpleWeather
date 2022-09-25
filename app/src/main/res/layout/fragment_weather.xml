@@ -12,10 +12,10 @@
     tools:context=".presentation.weather.WeatherFragment">
 
     <LinearLayout
-        android:paddingTop="41dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="41dp">
 
         <com.github.skytoph.simpleweather.core.presentation.view.LocationView
             android:id="@+id/location_view"
@@ -41,6 +41,16 @@
             android:visibility="invisible"
             app:layout_goneMarginTop="35dp"
             tools:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hourly_forecast_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="16"
+            tools:listitem="@layout/forecast_hourly_item" />
 
         <com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
             android:id="@+id/sunrise_sunset_view"
