@@ -15,6 +15,7 @@ interface WeatherDomainToUiMapper : Mapper<WeatherUi> {
         indicators: Indicators,
         horizon: Horizon,
         warnings: List<Warning>,
+        hourly: List<HourlyForecast>
     ): WeatherUi
 
     fun map(error: ErrorType): WeatherUi
@@ -24,6 +25,7 @@ interface WeatherDomainToUiMapper : Mapper<WeatherUi> {
         private val indicatorsMapper: IndicatorsDomainToUiMapper,
         private val horizonMapper: HorizonDomainToUiMapper,
         private val warningsMapper: WarningsDomainToUiMapper,
+        private val hourlyMapper: HourlyForecastListToUiMapper,
         resourceProvider: ResourceProvider,
     ) : WeatherDomainToUiMapper, Mapper.ToUi<WeatherUi>(resourceProvider) {
 
@@ -33,11 +35,13 @@ interface WeatherDomainToUiMapper : Mapper<WeatherUi> {
             indicators: Indicators,
             horizon: Horizon,
             warnings: List<Warning>,
+            hourly: List<HourlyForecast>
         ): WeatherUi = WeatherUi.Success(
             id,
             currentWeather.map(weatherMapper),
             warningsMapper.map(warnings),
             indicators.map(indicatorsMapper),
+            hourlyMapper.map(hourly),
             horizon.map(horizonMapper)
         )
 

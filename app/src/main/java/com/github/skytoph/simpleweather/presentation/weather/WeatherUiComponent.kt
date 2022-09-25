@@ -4,8 +4,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import com.github.skytoph.simpleweather.core.Matcher
-import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 import com.github.skytoph.simpleweather.core.presentation.view.horizon.HorizonView
+import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 
 sealed interface WeatherUiComponent {
 
@@ -98,4 +98,25 @@ sealed interface WeatherUiComponent {
         }
     }
 
+    data class HourlyForecast(
+        private val time: String,
+        private val temp: String,
+        @DrawableRes private val weatherImage: Int,
+        private val precipitationProb: String,
+    ): Matcher<HourlyForecast> {
+        fun show(
+            weatherImageView: ImageView,
+            timeTextView: TextView,
+            tempTextView: TextView,
+            popTextView: TextView,
+        ) {
+            weatherImageView.setImageResource(weatherImage)
+            timeTextView.text = time
+            tempTextView.text = temp
+            popTextView.text = precipitationProb
+        }
+
+        override fun matches(item: HourlyForecast): Boolean = time == item.time
+        override fun contentMatches(item: HourlyForecast): Boolean = equals(item)
+    }
 }

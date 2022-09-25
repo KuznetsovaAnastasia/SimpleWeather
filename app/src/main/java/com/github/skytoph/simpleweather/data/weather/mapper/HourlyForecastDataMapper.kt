@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.data.weather.cloud.mapper
+package com.github.skytoph.simpleweather.data.weather.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.weather.model.HourlyForecastData

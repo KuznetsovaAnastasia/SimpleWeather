@@ -24,10 +24,10 @@ interface HorizonDomainToUiMapper : Mapper<WeatherUiComponent.Horizon> {
             remainingDaylight: Long,
             sunPosition: Double,
         ) = WeatherUiComponent.Horizon(
-            timeFormatter.formatTime(sunrise),
-            timeFormatter.formatTime(sunset),
-            timeFormatter.formatDuration(dayLength),
-            timeFormatter.formatDuration(remainingDaylight),
+            timeFormatter.timeFull(sunrise),
+            timeFormatter.timeFull(sunset),
+            timeFormatter.duration(dayLength),
+            timeFormatter.duration(remainingDaylight),
             sunPosition
         )
     }

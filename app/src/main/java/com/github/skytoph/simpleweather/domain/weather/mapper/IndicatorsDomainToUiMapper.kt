@@ -26,7 +26,7 @@ interface IndicatorsDomainToUiMapper : Mapper<WeatherUiComponent.Indicator> {
             precipitationProb: Double,
             airQualityIndex: Int,
         ) = WeatherUiComponent.Indicator(
-            timeFormatter.formatTime(time),
+            timeFormatter.timeFull(time),
             uvi.roundToInt().toString(),
             probabilityFormatter.format(precipitationProb),
             airQualityIndex.toString()

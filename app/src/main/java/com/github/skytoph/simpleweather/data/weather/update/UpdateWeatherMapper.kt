@@ -4,7 +4,6 @@ import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.airquality.cloud.AirQualityCloud
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.AlertsDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.CurrentCloudToDataMapper
-import com.github.skytoph.simpleweather.data.weather.cloud.mapper.HourlyForecastDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.model.*
 import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper

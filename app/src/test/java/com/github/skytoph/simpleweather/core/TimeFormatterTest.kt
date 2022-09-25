@@ -11,7 +11,7 @@ class TimeFormatterTest{
     @Test
     fun test_duration_formatting(){
         val seconds = 57595L
-        val actual = formatter.formatDuration(seconds)
+        val actual = formatter.duration(seconds)
 
         assertEquals("15H 59M", actual)
     }

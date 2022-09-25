@@ -18,7 +18,7 @@ sealed class WeatherDomain : Mappable<WeatherUi, WeatherDomainToUiMapper> {
     ) : WeatherDomain() {
 
         override fun map(mapper: WeatherDomainToUiMapper): WeatherUi =
-            mapper.map(id, currentWeather, indicators, horizon, warnings)
+            mapper.map(id, currentWeather, indicators, horizon, warnings, hourly)
     }
 
     class Fail(private val errorType: ErrorType) : WeatherDomain() {
@@ -76,5 +76,9 @@ sealed class WeatherDomain : Mappable<WeatherUi, WeatherDomainToUiMapper> {
         private val temp: Double,
         private val weatherId: Int,
         private val precipitationProb: Double,
-    )
+    ) : Mappable<WeatherUiComponent.HourlyForecast, HourlyForecastToUiMapper> {
+
+        override fun map(mapper: HourlyForecastToUiMapper): WeatherUiComponent.HourlyForecast =
+            mapper.map(time, temp, weatherId, precipitationProb)
+    }
 }

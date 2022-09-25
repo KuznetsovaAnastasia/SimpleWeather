@@ -16,6 +16,7 @@ sealed class WeatherUi : ShowWeatherUi() {
         private val current: Current,
         private val warnings: List<Warning>,
         private val indicator: Indicator,
+        private val hourly: List<HourlyForecast>,
         private val horizon: Horizon,
     ) : WeatherUi() {
         override fun show(
@@ -23,11 +24,13 @@ sealed class WeatherUi : ShowWeatherUi() {
             indicatorsView: IndicatorsView,
             sunriseSunsetView: SunriseSunsetView,
             warningAdapter: WarningAdapter,
+            hourlyAdapter: HourlyForecastAdapter,
         ) {
             locationView.show(current)
             indicatorsView.show(indicator)
             sunriseSunsetView.show(horizon)
             warningAdapter.submitList(warnings)
+            hourlyAdapter.submitList(hourly)
         }
 
         override fun show(messageView: TextView) = Visibility.Gone().apply(messageView)
@@ -42,6 +45,7 @@ sealed class WeatherUi : ShowWeatherUi() {
             indicatorsView: IndicatorsView,
             sunriseSunsetView: SunriseSunsetView,
             warningAdapter: WarningAdapter,
+            hourlyAdapter: HourlyForecastAdapter,
         ) = Visibility.Gone().run {
             apply(locationView)
             apply(indicatorsView)

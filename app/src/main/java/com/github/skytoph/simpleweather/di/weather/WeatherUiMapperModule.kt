@@ -27,4 +27,10 @@ abstract class WeatherUiMapperModule {
 
     @Binds
     abstract fun warningMapper(mapper: WarningDomainToUiMapper.Base): WarningDomainToUiMapper
+
+    @Binds
+    abstract fun hourlyMapper(mapper: HourlyForecastToUiMapper.Base): HourlyForecastToUiMapper
+
+    @Binds
+    abstract fun hourlyListMapper(mapper: HourlyForecastListToUiMapper.Base): HourlyForecastListToUiMapper
 }

@@ -2,7 +2,7 @@ package com.github.skytoph.simpleweather.data.weather.cache
 
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
-import com.github.skytoph.simpleweather.data.weather.cloud.mapper.HourlyForecastDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.HourlyForecastDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.AlertDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
