@@ -14,9 +14,9 @@ data class HourlyForecastData(
     private val temp: Double,
     private val weatherId: Int,
     private val precipitationProb: Double,
-) :
-    Mappable<WeatherDomain.HourlyForecast, HourlyForecastDomainMapper>,
+) : Mappable<WeatherDomain.HourlyForecast, HourlyForecastDomainMapper>,
     MappableToDB.EmbeddedValid<HourlyForecastDB, WeatherDB, HourlyForecastDBMapper> {
+
     override fun map(mapper: HourlyForecastDomainMapper): WeatherDomain.HourlyForecast =
         mapper.map(time, temp, weatherId, precipitationProb)
 

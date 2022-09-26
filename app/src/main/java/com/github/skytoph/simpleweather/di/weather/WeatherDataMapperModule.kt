@@ -3,12 +3,8 @@ package com.github.skytoph.simpleweather.di.weather
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceToCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.AlertsDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.HourlyForecastDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudToDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.HourlyForecastListDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.IndicatorsDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.*
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeatherMapper
 import dagger.Binds
 import dagger.Module
@@ -45,6 +41,12 @@ abstract class WeatherDataMapperModule {
 
     @Binds
     abstract fun hourlyListMapper(mapper: HourlyForecastListDataMapper.Base): HourlyForecastListDataMapper
+
+    @Binds
+    abstract fun dailyMapper(mapper: DailyForecastDataMapper.Base): DailyForecastDataMapper
+
+    @Binds
+    abstract fun dailyListMapper(mapper: DailyForecastListDataMapper.Base): DailyForecastListDataMapper
 
     @Binds
     abstract fun dbToDataMapper(mapper: WeatherDBToDataMapper.Base): WeatherDBToDataMapper

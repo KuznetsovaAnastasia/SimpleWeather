@@ -6,6 +6,7 @@ import com.github.skytoph.simpleweather.data.weather.cloud.mapper.AlertsDataMapp
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.CurrentCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.model.*
+import com.github.skytoph.simpleweather.data.weather.mapper.DailyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.HourlyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.IndicatorsDataMapper
@@ -16,7 +17,7 @@ import javax.inject.Inject
 interface UpdateWeatherMapper : Mapper<WeatherData> {
     fun update(
         weatherData: WeatherData,
-        forecastCloud: ForecastCloud,
+        weatherCloud: WeatherCloud,
         airQualityCloud: AirQualityCloud,
     ): WeatherData
 
@@ -25,20 +26,22 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
         private val horizonDataMapper: HorizonDataMapper,
         private val alertsMapper: AlertsDataMapper,
         private val hourlyMapper: HourlyForecastListDataMapper,
+        private val dailyMapper: DailyForecastListDataMapper,
     ) : UpdateWeatherMapper {
 
         override fun update(
             weatherData: WeatherData,
-            forecastCloud: ForecastCloud,
+            weatherCloud: WeatherCloud,
             airQualityCloud: AirQualityCloud,
         ): WeatherData = weatherData.update(object : UpdateWeather {
 
             override fun update(id: String, currentWeatherData: CurrentWeatherData): WeatherData =
-                forecastCloud.map(object : WeatherCloudMapper {
+                weatherCloud.map(object : WeatherCloudMapper {
 
                     override fun map(
                         current: CurrentWeatherCloud,
                         hourly: List<HourlyForecastCloud>,
+                        daily: List<DailyForecastCloud>,
                         alerts: List<AlertCloud>,
                     ): WeatherData = current.map(object : CurrentCloudToDataMapper {
 
@@ -61,7 +64,8 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                                 indicatorsDataMapper.map(dt, temp, pop, airQualityCloud.map()),
                                 horizonDataMapper.map(sunrise, sunset, dt),
                                 alertsMapper.map(alerts, pop),
-                                hourlyMapper.map(hourly)
+                                hourlyMapper.map(hourly),
+                                dailyMapper.map(daily)
                             )
                         }
                     })

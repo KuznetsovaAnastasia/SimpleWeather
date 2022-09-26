@@ -24,13 +24,14 @@ sealed class WeatherData : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
         private val horizonData: HorizonData,
         private val alertData: List<AlertData>,
         private val hourlyForecast: List<HourlyForecastData>,
+        private val dailyForecast: List<DailyForecastData>,
     ) : WeatherData() {
 
         override fun map(mapper: WeatherDataToDomainMapper): WeatherDomain =
-            mapper.map(id, currentWeatherData, indicatorsData, horizonData, alertData, hourlyForecast)
+            mapper.map(id, currentWeatherData, indicatorsData, horizonData, alertData, hourlyForecast, dailyForecast)
 
         override fun map(mapper: WeatherDataDBMapper, dataBase: DataBase): WeatherDB =
-            mapper.map(id, currentWeatherData, indicatorsData, horizonData, alertData, hourlyForecast, dataBase)
+            mapper.map(id, currentWeatherData, indicatorsData, horizonData, alertData, hourlyForecast, dailyForecast, dataBase)
 
         override fun map(mapper: IdMapper): Pair<Double, Double> = mapper.map(id)
 
