@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.weather.adapter
+package com.github.skytoph.simpleweather.presentation.weather.adapter.warning
 
 import android.view.LayoutInflater
 import android.view.View

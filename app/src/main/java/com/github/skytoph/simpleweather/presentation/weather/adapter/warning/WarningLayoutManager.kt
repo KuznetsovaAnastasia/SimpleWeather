@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.weather.adapter
+package com.github.skytoph.simpleweather.presentation.weather.adapter.warning
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
