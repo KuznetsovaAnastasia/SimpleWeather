@@ -13,6 +13,10 @@ interface HourlyForecastListToUiMapper : Mapper<List<WeatherUiComponent.HourlyFo
         HourlyForecastListToUiMapper {
 
         override fun map(forecasts: List<WeatherDomain.HourlyForecast>): List<WeatherUiComponent.HourlyForecast> =
-            forecasts.map { it.map(mapper) }
+            forecasts.subList(0, FORECAST_NUMBER).map { it.map(mapper) }
+
+        private companion object {
+            const val FORECAST_NUMBER = 24
+        }
     }
 }

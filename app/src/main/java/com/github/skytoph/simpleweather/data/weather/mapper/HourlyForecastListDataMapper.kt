@@ -13,11 +13,7 @@ interface HourlyForecastListDataMapper : Mapper<List<HourlyForecastData>> {
         HourlyForecastListDataMapper {
 
         override fun <T : Mappable<HourlyForecastData, HourlyForecastDataMapper>> map(forecasts: List<T>): List<HourlyForecastData> {
-            return forecasts.subList(0, FORECAST_NUMBER).map { it.map(mapper) }
-        }
-
-        private companion object {
-            const val FORECAST_NUMBER = 24
+            return forecasts.map { it.map(mapper) }
         }
     }
 }

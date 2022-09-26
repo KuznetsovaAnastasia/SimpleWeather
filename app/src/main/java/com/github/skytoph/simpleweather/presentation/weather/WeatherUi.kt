@@ -1,13 +1,15 @@
 package com.github.skytoph.simpleweather.presentation.weather
 
+import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.*
-import com.github.skytoph.simpleweather.presentation.weather.adapter.HourlyForecastAdapter
-import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningAdapter
+import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.HourlyForecastAdapter
+import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningAdapter
 
 sealed class WeatherUi : ShowWeatherUi() {
 
@@ -25,12 +27,14 @@ sealed class WeatherUi : ShowWeatherUi() {
             sunriseSunsetView: SunriseSunsetView,
             warningAdapter: WarningAdapter,
             hourlyAdapter: HourlyForecastAdapter,
+            recyclerView: RecyclerView,
         ) {
             locationView.show(current)
             indicatorsView.show(indicator)
             sunriseSunsetView.show(horizon)
             warningAdapter.submitList(warnings)
             hourlyAdapter.submitList(hourly)
+            recyclerView.visibility = View.VISIBLE
         }
 
         override fun show(messageView: TextView) = Visibility.Gone().apply(messageView)
@@ -46,10 +50,12 @@ sealed class WeatherUi : ShowWeatherUi() {
             sunriseSunsetView: SunriseSunsetView,
             warningAdapter: WarningAdapter,
             hourlyAdapter: HourlyForecastAdapter,
+            recyclerView: RecyclerView,
         ) = Visibility.Gone().run {
             apply(locationView)
             apply(indicatorsView)
             apply(sunriseSunsetView)
+            apply(recyclerView)
             warningAdapter.submitList(emptyList())
         }
 

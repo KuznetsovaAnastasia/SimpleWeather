@@ -98,12 +98,12 @@ sealed interface WeatherUiComponent {
         }
     }
 
-    data class HourlyForecast(
+    sealed class Forecast(
         private val time: String,
         private val temp: String,
         @DrawableRes private val weatherImage: Int,
         private val precipitationProb: String,
-    ): Matcher<HourlyForecast> {
+    ) : WeatherUiComponent {
         fun show(
             weatherImageView: ImageView,
             timeTextView: TextView,
@@ -115,8 +115,32 @@ sealed interface WeatherUiComponent {
             tempTextView.text = temp
             popTextView.text = precipitationProb
         }
+    }
+
+    data class HourlyForecast(
+        private val time: String,
+        private val temp: String,
+        private val weatherImage: Int,
+        private val precipitationProb: String,
+    ) : Forecast(time, temp, weatherImage, precipitationProb), Matcher<HourlyForecast> {
 
         override fun matches(item: HourlyForecast): Boolean = time == item.time
         override fun contentMatches(item: HourlyForecast): Boolean = equals(item)
+    }
+
+    data class WeeklyForecast(
+        private val day: String,
+        private val maxTemp: String,
+        private val minTemp: String,
+        private val weatherImage: Int,
+        private val precipitationProb: String,
+    ) : Forecast(day, maxTemp, weatherImage, precipitationProb), Matcher<WeeklyForecast> {
+
+        fun show(tempMinTextView: TextView) {
+            tempMinTextView.text = minTemp
+        }
+
+        override fun matches(item: WeeklyForecast): Boolean = day == item.day
+        override fun contentMatches(item: WeeklyForecast): Boolean = equals(item)
     }
 }
