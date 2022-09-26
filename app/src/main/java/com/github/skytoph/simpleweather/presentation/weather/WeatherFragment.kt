@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
+import com.github.skytoph.simpleweather.core.presentation.MarginItemDecoration
 import com.github.skytoph.simpleweather.databinding.FragmentWeatherBinding
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.FAVORITE_KEY
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.PLACE_ID_KEY
-import com.github.skytoph.simpleweather.presentation.weather.adapter.HourlyForecastAdapter
-import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningAdapter
-import com.github.skytoph.simpleweather.presentation.weather.adapter.WarningLayoutManager
+import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.HourlyForecastAdapter
+import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.WeeklyForecastAdapter
+import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningAdapter
+import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,13 +30,23 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
         super.onViewCreated(view, savedInstanceState)
 
         val warningAdapter = WarningAdapter()
-        binding.warningsContainer.apply {
+        binding.warningsRecyclerview.apply {
             adapter = warningAdapter
             layoutManager = WarningLayoutManager(context)
+            addItemDecoration(MarginItemDecoration(spaceBottom = resources.getDimensionPixelSize(R.dimen.warning_item_bottom_margin)))
         }
 
         val hourlyForecastAdapter = HourlyForecastAdapter()
-        binding.hourlyForecastContainer.adapter = hourlyForecastAdapter
+        binding.forecastHourlyRecyclerview.apply {
+            adapter = hourlyForecastAdapter
+            addItemDecoration(MarginItemDecoration(spaceRight = resources.getDimensionPixelSize(R.dimen.forecast_item_right_margin)))
+        }
+
+        val weeklyForecastAdapter = WeeklyForecastAdapter()
+        binding.forecastWeeklyRecyclerview.apply {
+            adapter = weeklyForecastAdapter
+            addItemDecoration(MarginItemDecoration(spaceBottom = resources.getDimensionPixelSize(R.dimen.forecast_item_bottom_margin)))
+        }
 
         viewModel.observe(this) { weather ->
             binding.apply {
@@ -42,6 +55,7 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
                     sunriseSunsetView,
                     warningAdapter,
                     hourlyForecastAdapter,
+                    binding.forecastWeeklyRecyclerview,
                     messageView)
             }
         }

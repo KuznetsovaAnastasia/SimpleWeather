@@ -26,11 +26,12 @@
             tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/warnings_container"
+            android:id="@+id/warnings_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             tools:itemCount="1"
+            android:layout_marginBottom="@dimen/warning_item_bottom_margin"
             tools:listitem="@layout/warning_item" />
 
         <com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
@@ -43,14 +44,31 @@
             tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/hourly_forecast_container"
+            android:id="@+id/forecast_hourly_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
+            android:nestedScrollingEnabled="true"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="16"
+            tools:itemCount="5"
             tools:listitem="@layout/forecast_hourly_item" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/forecast_weekly_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/rectangle_rounded_11"
+            android:nestedScrollingEnabled="true"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="4dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="3"
+            tools:listitem="@layout/forecast_weekly_item" />
 
         <com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
             android:id="@+id/sunrise_sunset_view"
