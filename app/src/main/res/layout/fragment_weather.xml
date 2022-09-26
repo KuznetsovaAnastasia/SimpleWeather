@@ -31,7 +31,6 @@
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             tools:itemCount="1"
-            android:layout_marginBottom="@dimen/warning_item_bottom_margin"
             tools:listitem="@layout/warning_item" />
 
         <com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
@@ -60,15 +59,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
             android:background="@drawable/rectangle_rounded_11"
-            android:nestedScrollingEnabled="true"
-            android:orientation="vertical"
+            android:nestedScrollingEnabled="false"
             android:paddingHorizontal="20dp"
-            android:paddingVertical="4dp"
+            android:paddingVertical="8dp"
             android:visibility="gone"
-            tools:visibility="visible"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="3"
-            tools:listitem="@layout/forecast_weekly_item" />
+            tools:listitem="@layout/forecast_daily_item"
+            tools:visibility="visible" />
 
         <com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
             android:id="@+id/sunrise_sunset_view"

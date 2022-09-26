@@ -7,6 +7,7 @@ import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
 import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.HourlyForecastAdapter
+import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.DailyForecastAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningAdapter
 
 abstract class ShowWeatherUi {
@@ -17,10 +18,17 @@ abstract class ShowWeatherUi {
         sunriseSunsetView: SunriseSunsetView,
         warningAdapter: WarningAdapter,
         hourlyAdapter: HourlyForecastAdapter,
+        dailyAdapter: DailyForecastAdapter,
         recyclerView: RecyclerView,
         messageView: TextView,
     ) {
-        show(locationView, indicatorsView, sunriseSunsetView, warningAdapter, hourlyAdapter, recyclerView)
+        show(locationView,
+            indicatorsView,
+            sunriseSunsetView,
+            warningAdapter,
+            hourlyAdapter,
+            dailyAdapter,
+            recyclerView)
         show(messageView)
     }
 
@@ -32,6 +40,7 @@ abstract class ShowWeatherUi {
         sunriseSunsetView: SunriseSunsetView,
         warningAdapter: WarningAdapter,
         hourlyAdapter: HourlyForecastAdapter,
+        dailyAdapter: DailyForecastAdapter,
         recyclerView: RecyclerView,
     ) = Unit
 

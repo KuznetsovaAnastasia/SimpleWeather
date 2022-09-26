@@ -8,6 +8,7 @@ import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.*
+import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.DailyForecastAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.HourlyForecastAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningAdapter
 
@@ -28,6 +29,7 @@ sealed class WeatherUi : ShowWeatherUi() {
             sunriseSunsetView: SunriseSunsetView,
             warningAdapter: WarningAdapter,
             hourlyAdapter: HourlyForecastAdapter,
+            dailyAdapter: DailyForecastAdapter,
             recyclerView: RecyclerView,
         ) {
             locationView.show(current)
@@ -35,6 +37,7 @@ sealed class WeatherUi : ShowWeatherUi() {
             sunriseSunsetView.show(horizon)
             warningAdapter.submitList(warnings)
             hourlyAdapter.submitList(hourly)
+            dailyAdapter.submitList(daily)
             recyclerView.visibility = View.VISIBLE
         }
 
@@ -51,6 +54,7 @@ sealed class WeatherUi : ShowWeatherUi() {
             sunriseSunsetView: SunriseSunsetView,
             warningAdapter: WarningAdapter,
             hourlyAdapter: HourlyForecastAdapter,
+            dailyAdapter: DailyForecastAdapter,
             recyclerView: RecyclerView,
         ) = Visibility.Gone().run {
             apply(locationView)

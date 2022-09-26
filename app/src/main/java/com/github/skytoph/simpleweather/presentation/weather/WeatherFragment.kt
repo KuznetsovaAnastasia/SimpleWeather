@@ -13,9 +13,9 @@ import com.github.skytoph.simpleweather.databinding.FragmentWeatherBinding
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.FAVORITE_KEY
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.PLACE_ID_KEY
 import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.HourlyForecastAdapter
-import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.WeeklyForecastAdapter
+import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.DailyForecastAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningAdapter
-import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningLayoutManager
+import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.NotScrollableLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,7 +32,7 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
         val warningAdapter = WarningAdapter()
         binding.warningsRecyclerview.apply {
             adapter = warningAdapter
-            layoutManager = WarningLayoutManager(context)
+            layoutManager = NotScrollableLayoutManager(context)
             addItemDecoration(MarginItemDecoration(spaceBottom = resources.getDimensionPixelSize(R.dimen.warning_item_bottom_margin)))
         }
 
@@ -42,9 +42,10 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
             addItemDecoration(MarginItemDecoration(spaceRight = resources.getDimensionPixelSize(R.dimen.forecast_item_right_margin)))
         }
 
-        val weeklyForecastAdapter = WeeklyForecastAdapter()
+        val dailyForecastAdapter = DailyForecastAdapter()
         binding.forecastWeeklyRecyclerview.apply {
-            adapter = weeklyForecastAdapter
+            adapter = dailyForecastAdapter
+            layoutManager = NotScrollableLayoutManager(context)
             addItemDecoration(MarginItemDecoration(spaceBottom = resources.getDimensionPixelSize(R.dimen.forecast_item_bottom_margin)))
         }
 
@@ -55,6 +56,7 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
                     sunriseSunsetView,
                     warningAdapter,
                     hourlyForecastAdapter,
+                    dailyForecastAdapter,
                     binding.forecastWeeklyRecyclerview,
                     messageView)
             }

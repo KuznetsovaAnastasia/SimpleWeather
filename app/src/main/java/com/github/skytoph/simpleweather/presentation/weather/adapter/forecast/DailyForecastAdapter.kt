@@ -8,13 +8,13 @@ import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.adapter.BaseDiffUtil
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
 
-class WeeklyForecastAdapter :
+class DailyForecastAdapter :
     ForecastAdapter<WeatherUiComponent.DailyForecast>(ForecastItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
             : ForecastViewHolder<WeatherUiComponent.DailyForecast> =
         WeeklyForecastViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.forecast_weekly_item, parent, false))
+            .inflate(R.layout.forecast_daily_item, parent, false))
 
     class ForecastItemDiffCallback : BaseDiffUtil<WeatherUiComponent.DailyForecast>()
 
