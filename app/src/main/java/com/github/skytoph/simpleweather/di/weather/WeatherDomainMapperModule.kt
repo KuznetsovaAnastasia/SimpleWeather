@@ -1,6 +1,8 @@
 package com.github.skytoph.simpleweather.di.weather
 
 import com.github.skytoph.simpleweather.data.weather.mapper.*
+import com.github.skytoph.simpleweather.domain.weather.mapper.DailyForecastDomainMapper
+import com.github.skytoph.simpleweather.domain.weather.mapper.DailyForecastListDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.mapper.HourlyForecastDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.mapper.HourlyForecastListDomainMapper
 import dagger.Binds
@@ -35,5 +37,11 @@ abstract class WeatherDomainMapperModule {
 
     @Binds
     abstract fun hourlyListMapper(mapper: HourlyForecastListDomainMapper.Base): HourlyForecastListDomainMapper
+
+    @Binds
+    abstract fun dailyMapper(mapper: DailyForecastDomainMapper.Base): DailyForecastDomainMapper
+
+    @Binds
+    abstract fun dailyListMapper(mapper: DailyForecastListDomainMapper.Base): DailyForecastListDomainMapper
 
 }
