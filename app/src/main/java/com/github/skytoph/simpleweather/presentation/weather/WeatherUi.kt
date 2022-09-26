@@ -19,6 +19,7 @@ sealed class WeatherUi : ShowWeatherUi() {
         private val warnings: List<Warning>,
         private val indicator: Indicator,
         private val hourly: List<HourlyForecast>,
+        private val daily: List<DailyForecast>,
         private val horizon: Horizon,
     ) : WeatherUi() {
         override fun show(

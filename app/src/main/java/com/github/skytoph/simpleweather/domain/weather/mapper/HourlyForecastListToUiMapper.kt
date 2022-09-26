@@ -20,3 +20,14 @@ interface HourlyForecastListToUiMapper : Mapper<List<WeatherUiComponent.HourlyFo
         }
     }
 }
+interface DailyForecastListToUiMapper : Mapper<List<WeatherUiComponent.DailyForecast>> {
+
+    fun map(forecasts: List<WeatherDomain.DailyForecast>): List<WeatherUiComponent.DailyForecast>
+
+    class Base @Inject constructor(private val mapper: DailyForecastToUiMapper) :
+        DailyForecastListToUiMapper {
+
+        override fun map(forecasts: List<WeatherDomain.DailyForecast>): List<WeatherUiComponent.DailyForecast> =
+            forecasts.map { it.map(mapper) }
+    }
+}

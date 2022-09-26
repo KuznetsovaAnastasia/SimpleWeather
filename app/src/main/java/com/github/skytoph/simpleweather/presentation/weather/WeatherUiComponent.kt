@@ -128,19 +128,19 @@ sealed interface WeatherUiComponent {
         override fun contentMatches(item: HourlyForecast): Boolean = equals(item)
     }
 
-    data class WeeklyForecast(
+    data class DailyForecast(
         private val day: String,
         private val maxTemp: String,
         private val minTemp: String,
         private val weatherImage: Int,
         private val precipitationProb: String,
-    ) : Forecast(day, maxTemp, weatherImage, precipitationProb), Matcher<WeeklyForecast> {
+    ) : Forecast(day, maxTemp, weatherImage, precipitationProb), Matcher<DailyForecast> {
 
         fun show(tempMinTextView: TextView) {
             tempMinTextView.text = minTemp
         }
 
-        override fun matches(item: WeeklyForecast): Boolean = day == item.day
-        override fun contentMatches(item: WeeklyForecast): Boolean = equals(item)
+        override fun matches(item: DailyForecast): Boolean = day == item.day
+        override fun contentMatches(item: DailyForecast): Boolean = equals(item)
     }
 }
