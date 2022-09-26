@@ -14,6 +14,7 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
         horizonData: HorizonData,
         alerts: List<AlertData>,
         hourlyForecast: List<HourlyForecastData>,
+        dailyForecast: List<DailyForecastData>,
         dataBase: DataBase,
     ): WeatherDB
 
@@ -23,6 +24,7 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
         private val horizonMapper: HorizonDBMapper,
         private val warningsDBMapper: WarningsDBMapper,
         private val hourlyDBMapper: HourlyForecastListDBMapper,
+        private val dailyDBMapper: DailyForecastListDBMapper,
     ) : WeatherDataDBMapper {
 
         override fun map(
@@ -32,6 +34,7 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
             horizonData: HorizonData,
             alerts: List<AlertData>,
             hourlyForecast: List<HourlyForecastData>,
+            dailyForecast: List<DailyForecastData>,
             dataBase: DataBase,
         ): WeatherDB = dataBase.createObject<WeatherDB>(id).apply {
             this.current = currentWeatherData.map(currentMapper)
@@ -40,6 +43,7 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
             this.horizon = horizonData.map(horizonMapper)
             warningsDBMapper.map(alerts, dataBase, this)
             hourlyDBMapper.map(hourlyForecast, dataBase, this)
+            dailyDBMapper.map(dailyForecast, dataBase, this)
         }
     }
 }

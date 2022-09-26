@@ -2,11 +2,7 @@ package com.github.skytoph.simpleweather.data.weather.cache
 
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.HourlyForecastDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.AlertDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.IndicatorsDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.*
 import com.github.skytoph.simpleweather.data.weather.model.*
 import io.realm.RealmList
 import io.realm.RealmObject
@@ -22,6 +18,7 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
     var horizon: HorizonDB? = null
     var warnings: RealmList<WarningDB> = RealmList()
     var hourly: RealmList<HourlyForecastDB> = RealmList()
+    var daily: RealmList<DailyForecastDB> = RealmList()
 
     override fun map(mapper: WeatherDBToDataMapper): WeatherData =
         mapper.map(
@@ -30,7 +27,8 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
             indicators!!,
             horizon!!,
             warnings.toList(),
-            hourly.toList()
+            hourly.toList(),
+            daily.toList(),
         )
 }
 
@@ -87,4 +85,18 @@ open class HourlyForecastDB : RealmObject(),
 
     override fun map(mapper: HourlyForecastDataMapper): HourlyForecastData =
         mapper.map(time, temp, weatherId, precipitationProb)
+}
+
+@RealmClass(embedded = true)
+open class DailyForecastDB : RealmObject(),
+    Mappable<DailyForecastData, DailyForecastDataMapper> {
+
+    var time: Long = 0
+    var tempMin: Double = 0.0
+    var tempMax: Double = 0.0
+    var weatherId: Int = 0
+    var precipitationProb: Double = 0.0
+
+    override fun map(mapper: DailyForecastDataMapper): DailyForecastData =
+        mapper.map(time, tempMin, tempMax, weatherId, precipitationProb)
 }

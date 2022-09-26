@@ -6,16 +6,13 @@ import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
 import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloud
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.model.*
-import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.HourlyForecastListDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.IndicatorsDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.*
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import javax.inject.Inject
 
 interface WeatherCloudToDataMapper : Mapper<WeatherData> {
     fun map(
-        forecastCloud: ForecastCloud,
+        weatherCloud: WeatherCloud,
         airQualityCloud: AirQualityCloud,
         locationCloud: PlaceCloud,
         favorite: Boolean = false,
@@ -28,18 +25,20 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
         private val horizonDataMapper: HorizonDataMapper,
         private val alertsMapper: AlertsDataMapper,
         private val hourlyMapper: HourlyForecastListDataMapper,
+        private val dailyMapper: DailyForecastListDataMapper,
     ) : WeatherCloudToDataMapper {
 
         override fun map(
-            forecastCloud: ForecastCloud,
+            weatherCloud: WeatherCloud,
             airQualityCloud: AirQualityCloud,
             locationCloud: PlaceCloud,
             favorite: Boolean,
-        ): WeatherData = forecastCloud.map(object : WeatherCloudMapper {
+        ): WeatherData = weatherCloud.map(object : WeatherCloudMapper {
 
             override fun map(
                 current: CurrentWeatherCloud,
                 hourly: List<HourlyForecastCloud>,
+                daily: List<DailyForecastCloud>,
                 alerts: List<AlertCloud>,
             ): WeatherData = locationCloud.map(object : PlaceCloudMapper {
 
@@ -62,7 +61,8 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
                                 indicatorsDataMapper.map(dt, temp, pop, airQualityCloud.map()),
                                 horizonDataMapper.map(sunrise, sunset, dt),
                                 alertsMapper.map(alerts, pop),
-                                hourlyMapper.map(hourly)
+                                hourlyMapper.map(hourly),
+                                dailyMapper.map(daily),
                             )
                         }
                     })

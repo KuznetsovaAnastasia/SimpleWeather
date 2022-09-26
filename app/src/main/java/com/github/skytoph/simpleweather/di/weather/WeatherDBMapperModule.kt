@@ -36,5 +36,11 @@ abstract class WeatherDBMapperModule {
     abstract fun hourlyForecastListMapper(mapper: HourlyForecastListDBMapper.Base): HourlyForecastListDBMapper
 
     @Binds
+    abstract fun dailyForecastMapper(mapper: DailyForecastDBMapper.Base): DailyForecastDBMapper
+
+    @Binds
+    abstract fun dailyForecastListMapper(mapper: DailyForecastListDBMapper.Base): DailyForecastListDBMapper
+
+    @Binds
     abstract fun idMapper(mapper: IdMapper.Base): IdMapper
 }

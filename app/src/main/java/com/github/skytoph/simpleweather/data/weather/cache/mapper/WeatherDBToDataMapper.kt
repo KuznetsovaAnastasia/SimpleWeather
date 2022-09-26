@@ -3,10 +3,8 @@ package com.github.skytoph.simpleweather.data.weather.cache.mapper
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.weather.cache.*
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.AlertsDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.HourlyForecastListDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.IndicatorsDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.*
+import com.github.skytoph.simpleweather.data.weather.model.DailyForecastData
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import javax.inject.Inject
 
@@ -18,6 +16,7 @@ interface WeatherDBToDataMapper : Mapper<WeatherData> {
         horizon: HorizonDB,
         warnings: List<WarningDB>,
         hourly: List<HourlyForecastDB>,
+        daily: List<DailyForecastDB>,
     ): WeatherData
 
     class Base @Inject constructor(
@@ -26,6 +25,7 @@ interface WeatherDBToDataMapper : Mapper<WeatherData> {
         private val horizonMapper: HorizonDataMapper,
         private val warningsMapper: AlertsDataMapper,
         private val hourlyMapper: HourlyForecastListDataMapper,
+        private val dailyMapper: DailyForecastListDataMapper,
     ) : WeatherDBToDataMapper {
 
         override fun map(
@@ -35,13 +35,15 @@ interface WeatherDBToDataMapper : Mapper<WeatherData> {
             horizon: HorizonDB,
             warnings: List<WarningDB>,
             hourly: List<HourlyForecastDB>,
+            daily: List<DailyForecastDB>,
         ) = WeatherData.Info(
             id,
             current.map(currentMapper),
             indicators.map(indicatorsMapper),
             horizon.map(horizonMapper),
             warningsMapper.map(warnings, indicators.precipitationProb),
-            hourlyMapper.map(hourly)
+            hourlyMapper.map(hourly),
+            dailyMapper.map(daily)
         )
     }
 }
