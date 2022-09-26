@@ -36,7 +36,7 @@ import com.squareup.moshi.Json
   },
  */
 
-data class ForecastCloud(
+data class WeatherCloud(
     @field:Json(name = "lat")
     private val lat: Double,
 
@@ -52,6 +52,9 @@ data class ForecastCloud(
     @field:Json(name = "hourly")
     private val hourly: List<HourlyForecastCloud>?,
 
+    @field:Json(name = "daily")
+    private val daily: List<DailyForecastCloud>?,
+
     @field:Json(name = "alerts")
     private val alerts: List<AlertCloud>?,
 ) : Mappable<WeatherData, WeatherCloudMapper> {
@@ -59,6 +62,7 @@ data class ForecastCloud(
     override fun map(mapper: WeatherCloudMapper): WeatherData = mapper.map(
         current,
         hourly ?: emptyList(),
+        daily ?: emptyList(),
         alerts ?: emptyList()
     )
 }
