@@ -4,6 +4,4 @@ import com.github.skytoph.simpleweather.core.presentation.navigation.NavigateBac
 import com.github.skytoph.simpleweather.presentation.main.MainContentNavigator
 import com.github.skytoph.simpleweather.presentation.weather.NavigateToWeather
 
-interface AddLocationNavigator : NavigateToWeather, MainContentNavigator, NavigateBack {
-    fun removePrevious(container: Int)
-}
+interface AddLocationNavigator : NavigateToWeather, MainContentNavigator, NavigateBack

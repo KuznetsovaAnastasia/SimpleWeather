@@ -33,8 +33,8 @@ class AddLocationFragment :
             button.setClickedStyle()
             button.visibility = View.VISIBLE
         } else {
-            viewModel.observeProgress(this) { visible ->
-                button.visibility = if (!visible) View.VISIBLE
+            viewModel.observeLoading(this) { state ->
+                button.visibility = if (state == Loading.SUCCESS) View.VISIBLE
                 else View.INVISIBLE
             }
             button.setOnClickListener {

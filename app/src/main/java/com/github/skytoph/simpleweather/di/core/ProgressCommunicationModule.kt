@@ -8,7 +8,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class LoadingCommunicationModule {
+abstract class ProgressCommunicationModule {
 
     @Binds
     abstract fun communication(communication: ProgressCommunication.Base): ProgressCommunication.Mutable

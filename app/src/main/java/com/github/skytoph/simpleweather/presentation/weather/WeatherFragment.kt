@@ -12,10 +12,10 @@ import com.github.skytoph.simpleweather.core.presentation.MarginItemDecoration
 import com.github.skytoph.simpleweather.databinding.FragmentWeatherBinding
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.FAVORITE_KEY
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.PLACE_ID_KEY
-import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.HourlyForecastAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.DailyForecastAdapter
-import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningAdapter
+import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.HourlyForecastAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.NotScrollableLayoutManager
+import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,11 +54,13 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
                 weather.show(locationView,
                     indicatorsView,
                     sunriseSunsetView,
-                    warningAdapter,
-                    hourlyForecastAdapter,
-                    dailyForecastAdapter,
                     binding.forecastWeeklyRecyclerview,
-                    messageView)
+                    messageView,
+                    submitLists = { warnings, hourly, daily ->
+                        warningAdapter.submitList(warnings)
+                        hourlyForecastAdapter.submitList(hourly)
+                        dailyForecastAdapter.submitList(daily)
+                    })
             }
         }
         viewModel.observeRefresh(this) { refresh ->

@@ -41,9 +41,6 @@ interface Navigator : AddLocationNavigator, SearchNavigator, MainContentNavigato
         override fun observe(owner: LifecycleOwner, observer: Observer<ShowScreen>) =
             communication.observe(owner, observer)
 
-        override fun removePrevious(@IdRes container: Int) =
-            communication.show(Navigate(NavigationAction.REMOVE, container))
-
         override fun goBack() =
             communication.show(Navigate(NavigationAction.POPUP))
     }

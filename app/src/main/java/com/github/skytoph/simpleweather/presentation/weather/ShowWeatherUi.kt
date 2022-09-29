@@ -2,13 +2,9 @@ package com.github.skytoph.simpleweather.presentation.weather
 
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.github.skytoph.simpleweather.core.presentation.communication.MessageCommunication
 import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
-import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.HourlyForecastAdapter
-import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.DailyForecastAdapter
-import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningAdapter
 
 abstract class ShowWeatherUi {
 
@@ -16,33 +12,22 @@ abstract class ShowWeatherUi {
         locationView: LocationView,
         indicatorsView: IndicatorsView,
         sunriseSunsetView: SunriseSunsetView,
-        warningAdapter: WarningAdapter,
-        hourlyAdapter: HourlyForecastAdapter,
-        dailyAdapter: DailyForecastAdapter,
         recyclerView: RecyclerView,
         messageView: TextView,
+        submitLists: (List<WeatherUiComponent.Warning>, List<WeatherUiComponent.HourlyForecast>, List<WeatherUiComponent.DailyForecast>) -> Unit,
     ) {
         show(locationView,
             indicatorsView,
             sunriseSunsetView,
-            warningAdapter,
-            hourlyAdapter,
-            dailyAdapter,
-            recyclerView)
-        show(messageView)
+            recyclerView,
+            submitLists)
     }
-
-    open fun show(messageView: TextView) = Unit
 
     open fun show(
         locationView: LocationView,
         indicatorsView: IndicatorsView,
         sunriseSunsetView: SunriseSunsetView,
-        warningAdapter: WarningAdapter,
-        hourlyAdapter: HourlyForecastAdapter,
-        dailyAdapter: DailyForecastAdapter,
         recyclerView: RecyclerView,
+        submitLists: (List<WeatherUiComponent.Warning>, List<WeatherUiComponent.HourlyForecast>, List<WeatherUiComponent.DailyForecast>) -> Unit,
     ) = Unit
-
-    open fun show(messageCommunication: MessageCommunication.Update) = Unit
 }

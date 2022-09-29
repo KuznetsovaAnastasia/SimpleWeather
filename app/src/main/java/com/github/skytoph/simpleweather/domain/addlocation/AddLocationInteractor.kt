@@ -8,9 +8,9 @@ interface AddLocationInteractor {
     suspend fun save()
 
     @ViewModelScoped
-    class Base @Inject constructor(private val weatherRepository: WeatherRepository.Mutable) :
+    class Base @Inject constructor(private val repository: WeatherRepository.Mutable) :
         AddLocationInteractor {
 
-        override suspend fun save() = weatherRepository.saveWeather()
+        override suspend fun save() = repository.saveWeather()
     }
 }

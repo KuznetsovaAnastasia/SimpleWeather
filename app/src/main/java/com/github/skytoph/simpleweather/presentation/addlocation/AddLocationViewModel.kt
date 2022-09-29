@@ -2,7 +2,6 @@ package com.github.skytoph.simpleweather.presentation.addlocation
 
 import androidx.annotation.IdRes
 import androidx.lifecycle.*
-import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
 import com.github.skytoph.simpleweather.domain.addlocation.AddLocationInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +13,7 @@ class AddLocationViewModel @Inject constructor(
     state: SavedStateHandle,
     private val interactor: AddLocationInteractor,
     private val navigator: AddLocationNavigator,
-    private val progressCommunication: ProgressCommunication.Observe,
+    private val loadingCommunication: LoadingCommunication.Observe,
 ) : ViewModel() {
 
     private val placeId: String = state[PLACE_ID_KEY]!!
@@ -26,8 +25,8 @@ class AddLocationViewModel @Inject constructor(
         interactor.save()
     }
 
-    fun observeProgress(owner: LifecycleOwner, observer: Observer<Boolean>) {
-        progressCommunication.observe(owner, observer)
+    fun observeLoading(owner: LifecycleOwner, observer: Observer<Loading>) {
+        loadingCommunication.observe(owner, observer)
     }
 
     companion object {
