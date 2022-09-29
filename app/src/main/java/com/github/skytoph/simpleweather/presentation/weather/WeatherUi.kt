@@ -1,18 +1,17 @@
 package com.github.skytoph.simpleweather.presentation.weather
 
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
+import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
+import com.github.skytoph.simpleweather.presentation.addlocation.Loading
+import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.*
-import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.DailyForecastAdapter
-import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.HourlyForecastAdapter
-import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningAdapter
 
 sealed class WeatherUi : ShowWeatherUi() {
+    abstract fun show(communication: LoadingCommunication.Update)
 
     data class Success(
         private val id: String,
@@ -27,46 +26,42 @@ sealed class WeatherUi : ShowWeatherUi() {
             locationView: LocationView,
             indicatorsView: IndicatorsView,
             sunriseSunsetView: SunriseSunsetView,
-            warningAdapter: WarningAdapter,
-            hourlyAdapter: HourlyForecastAdapter,
-            dailyAdapter: DailyForecastAdapter,
             recyclerView: RecyclerView,
+            submitLists: (List<Warning>, List<HourlyForecast>, List<DailyForecast>) -> Unit,
         ) {
             locationView.show(current)
             indicatorsView.show(indicator)
             sunriseSunsetView.show(horizon)
-            warningAdapter.submitList(warnings)
-            hourlyAdapter.submitList(hourly)
-            dailyAdapter.submitList(daily)
+            submitLists.invoke(warnings, hourly, daily)
             recyclerView.visibility = View.VISIBLE
         }
 
-        override fun show(messageView: TextView) = Visibility.Gone().apply(messageView)
+        override fun show(communication: LoadingCommunication.Update) =
+            communication.show(Loading.SUCCESS)
 
     }
 
-    object Fail : WeatherUi()
+    object Fail : WeatherUi() {
+        override fun show(communication: LoadingCommunication.Update) =
+            communication.show(Loading.FAIL)
+    }
 
     data class Error(private val message: String) : WeatherUi() {
         override fun show(
             locationView: LocationView,
             indicatorsView: IndicatorsView,
             sunriseSunsetView: SunriseSunsetView,
-            warningAdapter: WarningAdapter,
-            hourlyAdapter: HourlyForecastAdapter,
-            dailyAdapter: DailyForecastAdapter,
             recyclerView: RecyclerView,
+            submitLists: (List<Warning>, List<HourlyForecast>, List<DailyForecast>) -> Unit,
         ) = Visibility.Gone().run {
             apply(locationView)
             apply(indicatorsView)
             apply(sunriseSunsetView)
             apply(recyclerView)
-            warningAdapter.submitList(emptyList())
+            submitLists(emptyList(), emptyList(), emptyList())
         }
 
-        override fun show(messageView: TextView) {
-            Visibility.Visible().apply(messageView)
-            messageView.text = message
-        }
+        override fun show(communication: LoadingCommunication.Update) =
+            communication.show(Loading.FAIL)
     }
 }

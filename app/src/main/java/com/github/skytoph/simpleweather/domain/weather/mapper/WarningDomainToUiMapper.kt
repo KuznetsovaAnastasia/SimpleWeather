@@ -27,9 +27,10 @@ interface WarningDomainToUiMapper : Mapper<WeatherUiComponent.Warning> {
         ) = if (containsRain(event))
             WeatherUiComponent.WarningRain(
                 event,
-                probabilityFormatter.format(precipitationProb),
+                description,
                 timeFormatter.timeFull(startTime),
-                R.drawable.weather_rain)
+                R.drawable.weather_rain,
+                probabilityFormatter.format(precipitationProb))
         else
             WeatherUiComponent.WarningBasic(
                 event,
@@ -40,6 +41,5 @@ interface WarningDomainToUiMapper : Mapper<WeatherUiComponent.Warning> {
             val lowercaseEvent = event.lowercase()
             return lowercaseEvent.contains("rain").or(lowercaseEvent.contains("thunderstorm"))
         }
-
     }
 }

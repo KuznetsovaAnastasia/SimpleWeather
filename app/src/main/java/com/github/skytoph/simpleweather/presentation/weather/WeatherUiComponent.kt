@@ -41,7 +41,7 @@ sealed interface WeatherUiComponent {
 
         override fun matches(item: Warning): Boolean = title == item.title
         override fun contentMatches(item: Warning): Boolean =
-            title == item.title && description == item.description && startTime == item.startTime
+            title == item.title && description == item.description
 
         fun isDescribed(): Boolean = description.isNotBlank()
     }
@@ -54,10 +54,11 @@ sealed interface WeatherUiComponent {
 
     data class WarningRain(
         private val event: String,
-        private val pop: String,
+        private val description: String,
         private val startTime: String,
-        private val weatherRain: Int,
-    ) : Warning(event, pop, startTime)
+        private val rainImage: Int,
+        private val pop: String,
+    ) : Warning(event, description, startTime)
 
     data class Indicator(
         private val time: String,
