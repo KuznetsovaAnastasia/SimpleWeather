@@ -36,7 +36,7 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
 
         override fun readAllIDs(): List<String> = realmProvider.provide().use { realm ->
             return realm.where(WeatherDB::class.java).findAll().let { realm.copyFromRealm(it) }
-                .map { it.id }.ifEmpty { listOf("") }
+                .map { it.id }
         }
 
         override fun remove(id: String) = realmProvider.provide().use { realm ->

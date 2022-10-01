@@ -2,18 +2,19 @@ package com.github.skytoph.simpleweather.data.search
 
 import com.github.skytoph.simpleweather.core.exception.EmptyRequestException
 import com.github.skytoph.simpleweather.core.exception.NoResultsException
-import com.github.skytoph.simpleweather.core.exception.UnknownException
 import com.github.skytoph.simpleweather.data.search.geocode.PredictionCloud
 import com.github.skytoph.simpleweather.data.search.geocode.PredictionService
 import com.github.skytoph.simpleweather.data.search.mapper.PredictionListToDataMapper
 import com.github.skytoph.simpleweather.data.search.mapper.SearchResultsCloudToDataMapper
 import com.github.skytoph.simpleweather.data.search.mapper.SearchResultsDataToDomainMapper
 import com.github.skytoph.simpleweather.domain.search.SearchItemDomain
+import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
 import com.google.android.libraries.places.api.net.PlacesClient
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 interface SearchLocationDataSource {
@@ -35,8 +36,10 @@ interface SearchLocationDataSource {
         ) {
             val data: List<SearchItemData> = try {
                 dataMapper.map(fetchFromCloud(query))
+            } catch (e: ApiException) {
+                dataMapper.map(UnknownHostException())
             } catch (e: Exception) {
-                listOf(SearchItemData.Fail(e))
+                dataMapper.map(e)
             }
             showResult.invoke(domainMapper.map(data))
         }
@@ -82,9 +85,8 @@ interface SearchLocationDataSource {
                         else dataMapper.map(predictions)
                     showResult.invoke(domainMapper.map(predictionsData))
                 }
-                .addOnFailureListener { exception: Exception? ->
-                    val error = exception ?: UnknownException()
-                    showResult.invoke(domainMapper.map(dataMapper.map(error)))
+                .addOnFailureListener {
+                    showResult.invoke(domainMapper.map(dataMapper.map(UnknownHostException())))
                 }
         }
     }

@@ -23,7 +23,6 @@ class SearchResultFragment :
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentSearchResultBinding
         get() = FragmentSearchResultBinding::inflate
 
-    private lateinit var tabLayout: TabLayout
     private lateinit var searchMenuItem: MenuItem
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,18 +39,11 @@ class SearchResultFragment :
             adapter.submitList(locations.toMutableList())
         }
 
-        tabLayout = requireActivity().findViewById(R.id.tab_layout_dots)
         searchMenuItem = requireActivity().findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_search)
     }
 
-    override fun onResume() {
-        tabLayout.visibility = View.GONE
-        super.onResume()
-    }
-
-    override fun onPause() {
-        tabLayout.visibility = View.VISIBLE
+    override fun onDestroy() {
         searchMenuItem.collapseActionView()
-        super.onPause()
+        super.onDestroy()
     }
 }

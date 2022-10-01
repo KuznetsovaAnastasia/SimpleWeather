@@ -16,7 +16,11 @@ interface ValidIdInteractor {
         override suspend fun isFavorite(id: String): Boolean = weatherRepository.contains(id)
 
         override suspend fun validId(placeId: String): String {
-            val validId = placeCloudDataSource.placeCoordinates(placeId)
+            val validId = try {
+                placeCloudDataSource.placeCoordinates(placeId)
+            } catch (exception: Exception) {
+                placeId
+            }
             return if (isFavorite(validId)) validId else placeId
         }
     }
