@@ -17,6 +17,7 @@ class FavoritesViewModel @Inject constructor(
     private val interactor: FavoritesInteractor,
     private val communication: FavoritesCommunication,
     private val refreshCommunication: RefreshCommunication.Update,
+    private val stateCommunication: FavoritesStateCommunication,
 ) : ViewModel() {
 
     fun getFavorites(): List<String> = interactor.favoriteIDs()
@@ -36,12 +37,16 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-    fun observe(owner: LifecycleOwner, observer: Observer<List<String>>) {
-        communication.observe(owner, observer)
-    }
-
     fun delete(id: String) = viewModelScope.launch(Dispatchers.IO) {
         interactor.removeFavorite(id)
         refreshFavorites()
     }
+
+    fun observe(owner: LifecycleOwner, observer: Observer<List<String>>) =
+        communication.observe(owner, observer)
+
+    fun observeState(owner: LifecycleOwner, observer: Observer<FavoritesState>) =
+        stateCommunication.observe(owner, observer)
+
+    fun updateState(state: FavoritesState) = stateCommunication.show(state)
 }

@@ -25,10 +25,6 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentFavoritesBinding
         get() = FragmentFavoritesBinding::inflate
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,12 +51,22 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
 
         viewModel.observe(this) { favorites ->
             adapter.submitList(favorites)
+            if (favorites.isEmpty()) viewModel.updateState(FavoritesState.Error)
+            else viewModel.updateState(FavoritesState.Base)
+        }
+
+        viewModel.observeState(this) { state ->
+            state.show(binding.errorView, tabLayout)
         }
 
         if (savedInstanceState == null) viewModel.refreshFavorites()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
-        if (!hidden) viewModel.refreshFavorites()
+        if (hidden) viewModel.updateState(FavoritesState.Hidden)
+        else {
+            viewModel.refreshFavorites()
+            viewModel.updateState(FavoritesState.Base)
+        }
     }
 }
