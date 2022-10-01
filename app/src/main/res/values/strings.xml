@@ -39,4 +39,9 @@
     <string name="error_no_results">Can\'t find location</string>
     <string name="error_location_is_not_saved">This data was deleted</string>
 
+<!--    Delete confirmation dialog-->
+    <string name="confirm">Yes</string>
+    <string name="delete_location">Are you sure you want to delete this location from favorites?</string>
+    <string name="dismiss">Cancel</string>
+
 </resources>

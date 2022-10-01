@@ -39,7 +39,9 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
 
         requireActivity().findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_delete)
             .setOnMenuItemClickListener {
-                viewModel.delete(adapter.getItem(tabLayout.selectedTabPosition))
+                viewModel.updateState(
+                    FavoritesState.Delete { viewModel.delete(adapter.getItem(tabLayout.selectedTabPosition)) }
+                )
                 true
             }
 
@@ -56,7 +58,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         }
 
         viewModel.observeState(this) { state ->
-            state.show(binding.errorView, tabLayout)
+            state.show(binding.errorView, parentFragmentManager, tabLayout)
         }
 
         if (savedInstanceState == null) viewModel.refreshFavorites()
