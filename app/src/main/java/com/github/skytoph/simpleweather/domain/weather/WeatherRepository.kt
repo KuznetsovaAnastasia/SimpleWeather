@@ -37,10 +37,10 @@ interface WeatherRepository {
             cacheDataSource.readAllIDs()
 
         override suspend fun getCachedWeather(id: String): WeatherData =
-            getWeather { cacheDataSource.read(id).map(cacheMapper) }
+            cacheDataSource.read(id).map(cacheMapper)
 
         override suspend fun getCloudWeather(id: String): WeatherData =
-            getWeather { cloudDataSource.fetch(id) }
+            cloudDataSource.fetch(id)
                 .also { cachedWeather.cache(it) }
 
         override suspend fun updateCloudWeather(id: String): WeatherData =
@@ -64,13 +64,6 @@ interface WeatherRepository {
             true
         } catch (exception: Exception) {
             false
-        }
-
-        private suspend fun getWeather(fetch: suspend () -> WeatherData) = try {
-            fetch.invoke()
-        } catch (exception: Exception) {
-            cachedWeather.clear()
-            WeatherData.Fail(exception)
         }
     }
 }

@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
-import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 import com.github.skytoph.simpleweather.presentation.addlocation.Loading
 import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.*
@@ -13,7 +12,7 @@ import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.
 sealed class WeatherUi : ShowWeatherUi() {
     abstract fun show(communication: LoadingCommunication.Update)
 
-    data class Success(
+    data class Base(
         private val id: String,
         private val current: Current,
         private val warnings: List<Warning>,

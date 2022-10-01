@@ -1,6 +1,5 @@
 package com.github.skytoph.simpleweather.domain.weather.mapper
 
-import com.github.skytoph.simpleweather.core.ErrorType
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.presentation.view.horizon.ResourceProvider
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain.*
@@ -18,8 +17,6 @@ interface WeatherDomainToUiMapper : Mapper<WeatherUi> {
         hourly: List<HourlyForecast>,
         daily: List<DailyForecast>,
     ): WeatherUi
-
-    fun map(error: ErrorType): WeatherUi
 
     class Base @Inject constructor(
         private val weatherMapper: CurrentWeatherDomainToUiMapper,
@@ -39,7 +36,7 @@ interface WeatherDomainToUiMapper : Mapper<WeatherUi> {
             warnings: List<Warning>,
             hourly: List<HourlyForecast>,
             daily: List<DailyForecast>,
-        ): WeatherUi = WeatherUi.Success(
+        ): WeatherUi = WeatherUi.Base(
             id,
             currentWeather.map(weatherMapper),
             warningsMapper.map(warnings),
@@ -48,7 +45,5 @@ interface WeatherDomainToUiMapper : Mapper<WeatherUi> {
             dailyMapper.map(daily),
             horizon.map(horizonMapper),
         )
-
-        override fun map(error: ErrorType): WeatherUi = WeatherUi.Fail
     }
 }

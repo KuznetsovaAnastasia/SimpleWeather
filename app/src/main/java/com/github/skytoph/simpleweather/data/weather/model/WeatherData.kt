@@ -10,53 +10,43 @@ import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDataDBM
 import com.github.skytoph.simpleweather.data.weather.mapper.WeatherDataToDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 
-sealed class WeatherData : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
+data class WeatherData(
+    private val id: String,
+    private val currentWeatherData: CurrentWeatherData,
+    private val indicatorsData: IndicatorsData,
+    private val horizonData: HorizonData,
+    private val alertData: List<AlertData>,
+    private val hourlyForecast: List<HourlyForecastData>,
+    private val dailyForecast: List<DailyForecastData>,
+) : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
     MappableToDB.Base<WeatherDB, WeatherDataDBMapper>,
     Item<WeatherData> {
 
-    abstract fun map(mapper: IdMapper): Pair<Double, Double>
-    abstract fun update(mapper: UpdateWeather): WeatherData
+    override fun map(mapper: WeatherDataToDomainMapper): WeatherDomain =
+        mapper.map(id,
+            currentWeatherData,
+            indicatorsData,
+            horizonData,
+            alertData,
+            hourlyForecast,
+            dailyForecast)
 
-    data class Info(
-        private val id: String,
-        private val currentWeatherData: CurrentWeatherData,
-        private val indicatorsData: IndicatorsData,
-        private val horizonData: HorizonData,
-        private val alertData: List<AlertData>,
-        private val hourlyForecast: List<HourlyForecastData>,
-        private val dailyForecast: List<DailyForecastData>,
-    ) : WeatherData() {
+    override fun map(mapper: WeatherDataDBMapper, dataBase: DataBase): WeatherDB =
+        mapper.map(id,
+            currentWeatherData,
+            indicatorsData,
+            horizonData,
+            alertData,
+            hourlyForecast,
+            dailyForecast,
+            dataBase)
 
-        override fun map(mapper: WeatherDataToDomainMapper): WeatherDomain =
-            mapper.map(id, currentWeatherData, indicatorsData, horizonData, alertData, hourlyForecast, dailyForecast)
+    fun map(mapper: IdMapper): Pair<Double, Double> = mapper.map(id)
 
-        override fun map(mapper: WeatherDataDBMapper, dataBase: DataBase): WeatherDB =
-            mapper.map(id, currentWeatherData, indicatorsData, horizonData, alertData, hourlyForecast, dailyForecast, dataBase)
+    override suspend fun save(source: SaveItem<WeatherData>) =
+        source.saveOrUpdate(id, this)
 
-        override fun map(mapper: IdMapper): Pair<Double, Double> = mapper.map(id)
+    fun update(mapper: UpdateWeather): WeatherData = mapper.update(id, currentWeatherData)
 
-        override suspend fun save(source: SaveItem<WeatherData>) =
-            source.saveOrUpdate(id, this)
-
-        override fun update(mapper: UpdateWeather): WeatherData = mapper.update(id, currentWeatherData)
-
-        override suspend fun update(source: UpdateItem<WeatherData>): WeatherData = source.update(this)
-    }
-
-    data class Fail(private val exception: Exception) : WeatherData() {
-
-        override fun map(mapper: WeatherDataToDomainMapper): WeatherDomain = mapper.map(exception)
-
-        override fun map(mapper: WeatherDataDBMapper, dataBase: DataBase): WeatherDB =
-            throw IllegalStateException("can not save failed weather data")
-
-        override fun map(mapper: IdMapper): Pair<Double, Double> = mapper.map("")
-
-        override suspend fun save(source: SaveItem<WeatherData>) = Unit
-
-        override fun update(mapper: UpdateWeather): WeatherData =
-            throw IllegalStateException("can not update failed weather data")
-
-        override suspend fun update(source: UpdateItem<WeatherData>): WeatherData = this
-    }
+    override suspend fun update(source: UpdateItem<WeatherData>): WeatherData = source.update(this)
 }

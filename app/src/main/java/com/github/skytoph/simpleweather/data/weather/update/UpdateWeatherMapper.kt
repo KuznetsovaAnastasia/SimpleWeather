@@ -58,7 +58,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                                     CurrentWeatherData(weather.map(), temp, location, favorite)
                             }
                             val pop = hourly[0].map()
-                            return WeatherData.Info(
+                            return WeatherData(
                                 id,
                                 currentWeatherData.update(currentMapper),
                                 indicatorsDataMapper.map(dt, temp, pop, airQualityCloud.map()),

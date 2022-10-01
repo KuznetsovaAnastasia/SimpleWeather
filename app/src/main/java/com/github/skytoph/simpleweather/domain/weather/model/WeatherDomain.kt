@@ -6,26 +6,18 @@ import com.github.skytoph.simpleweather.domain.weather.mapper.*
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUi
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
 
-sealed class WeatherDomain : Mappable<WeatherUi, WeatherDomainToUiMapper> {
+data class WeatherDomain(
+    private val id: String,
+    private val currentWeather: CurrentWeather,
+    private val indicators: Indicators,
+    private val horizon: Horizon,
+    private val warnings: List<Warning>,
+    private val hourly: List<HourlyForecast>,
+    private val daily: List<DailyForecast>,
+) : Mappable<WeatherUi, WeatherDomainToUiMapper> {
 
-    class Base(
-        private val id: String,
-        private val currentWeather: CurrentWeather,
-        private val indicators: Indicators,
-        private val horizon: Horizon,
-        private val warnings: List<Warning>,
-        private val hourly: List<HourlyForecast>,
-        private val daily: List<DailyForecast>,
-    ) : WeatherDomain() {
-
-        override fun map(mapper: WeatherDomainToUiMapper): WeatherUi =
-            mapper.map(id, currentWeather, indicators, horizon, warnings, hourly, daily)
-    }
-
-    class Fail(private val errorType: ErrorType) : WeatherDomain() {
-
-        override fun map(mapper: WeatherDomainToUiMapper): WeatherUi = mapper.map(errorType)
-    }
+    override fun map(mapper: WeatherDomainToUiMapper): WeatherUi =
+        mapper.map(id, currentWeather, indicators, horizon, warnings, hourly, daily)
 
     data class CurrentWeather(
         private val city: String,
@@ -88,7 +80,7 @@ sealed class WeatherDomain : Mappable<WeatherUi, WeatherDomainToUiMapper> {
         private val temp: Pair<Double, Double>,
         private val weatherId: Int,
         private val precipitationProb: Double,
-    ): Mappable<WeatherUiComponent.DailyForecast, DailyForecastToUiMapper> {
+    ) : Mappable<WeatherUiComponent.DailyForecast, DailyForecastToUiMapper> {
 
         override fun map(mapper: DailyForecastToUiMapper): WeatherUiComponent.DailyForecast =
             mapper.map(time, temp, weatherId, precipitationProb)

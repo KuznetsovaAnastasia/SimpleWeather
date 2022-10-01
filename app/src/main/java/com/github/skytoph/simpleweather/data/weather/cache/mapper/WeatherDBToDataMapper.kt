@@ -4,7 +4,6 @@ import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.weather.cache.*
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.AlertsDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.*
-import com.github.skytoph.simpleweather.data.weather.model.DailyForecastData
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import javax.inject.Inject
 
@@ -36,7 +35,7 @@ interface WeatherDBToDataMapper : Mapper<WeatherData> {
             warnings: List<WarningDB>,
             hourly: List<HourlyForecastDB>,
             daily: List<DailyForecastDB>,
-        ) = WeatherData.Info(
+        ) = WeatherData(
             id,
             current.map(currentMapper),
             indicators.map(indicatorsMapper),

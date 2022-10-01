@@ -19,8 +19,6 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
         daily: List<DailyForecastData>
     ): WeatherDomain
 
-    fun map(e: Exception): WeatherDomain
-
     class Base @Inject constructor(
         private val weatherMapper: CurrentWeatherDataToDomainMapper,
         private val indicatorsMapper: IndicatorsDataToDomainMapper,
@@ -38,7 +36,7 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
             alertData: List<AlertData>,
             hourly: List<HourlyForecastData>,
             daily: List<DailyForecastData>
-        ): WeatherDomain = WeatherDomain.Base(
+        ): WeatherDomain = WeatherDomain(
             id,
             currentWeatherData.map(weatherMapper),
             indicatorsData.map(indicatorsMapper),
@@ -47,8 +45,5 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
             hourlyMapper.map(hourly),
             dailyMapper.map(daily)
         )
-
-        override fun map(e: Exception): WeatherDomain = WeatherDomain.Fail(errorType(e))
-
     }
 }

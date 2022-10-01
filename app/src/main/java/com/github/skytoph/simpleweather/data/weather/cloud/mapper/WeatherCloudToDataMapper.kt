@@ -55,7 +55,7 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
                             weather: WeatherTypeCloud,
                         ): WeatherData {
                             val pop = hourly[0].map()
-                            return WeatherData.Info(
+                            return WeatherData(
                                 idMapper.map(lat, lng),
                                 currentWeatherDataMapper.map(weather.map(), temp, name),
                                 indicatorsDataMapper.map(dt, temp, pop, airQualityCloud.map()),
