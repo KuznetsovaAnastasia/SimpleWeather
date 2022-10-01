@@ -30,11 +30,12 @@
     <string name="indicator_aq">aq</string>
 
 <!--    Error messages-->
-    <string name="error_general">Something went wrong</string>
+    <string name="error_general">Something went wrong, can not load the data</string>
     <string name="error_service_unavailable">Service unavailable</string>
     <string name="error_no_connection">No connection</string>
     <string name="error_no_cached_data">No saved locations</string>
     <string name="error_empty_request">Start typing request for search</string>
+    <string name="error_empty_favorites">Your locations list if empty</string>
     <string name="error_no_results">Can\'t find location</string>
     <string name="error_location_is_not_saved">This data was deleted</string>
 

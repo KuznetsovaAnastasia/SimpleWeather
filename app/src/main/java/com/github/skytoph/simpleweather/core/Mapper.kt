@@ -8,6 +8,7 @@ import com.github.skytoph.simpleweather.core.exception.NoCachedDataException
 import com.github.skytoph.simpleweather.core.exception.NoResultsException
 import com.github.skytoph.simpleweather.core.presentation.view.horizon.ResourceProvider
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 interface Mapper<T> {
@@ -22,7 +23,7 @@ interface Mapper<T> {
             is DataIsNotCachedException -> ErrorType.LOCATION_IS_NOT_CACHED
             else -> ErrorType.GENERIC_ERROR
         }
-            .also { Log.e("ErrorTag", e.stackTraceToString()) }
+            .also { Log.e("ErrorTag", e.toString()+"\n"+e.stackTraceToString()) }
     }
 
     abstract class ToUi<T>(private val resourceProvider: ResourceProvider) : Mapper<T> {
@@ -38,5 +39,20 @@ interface Mapper<T> {
                 else -> R.string.error_general
             }
         )
+    }
+
+    abstract class UiAbstract<T>(private val resourceProvider: ResourceProvider) : Mapper<T> {
+
+        protected fun messageText(exception: Exception): String {
+            val messageId = when (exception) {
+                is NoCachedDataException -> R.string.error_no_cached_data
+                is HttpException -> R.string.error_service_unavailable
+                is UnknownHostException, is SocketTimeoutException -> R.string.error_no_connection
+                is EmptyRequestException -> R.string.error_empty_request
+                is NoResultsException -> R.string.error_no_results
+                else -> R.string.error_general
+            }
+            return resourceProvider.string(messageId)
+        }
     }
 }

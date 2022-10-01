@@ -115,4 +115,10 @@
         <item name="android:textColor">?attr/mainTitleTextColor</item>
         <item name="android:textSize">30sp</item>
     </style>
+
+    <style name="ErrorMessageView">
+        <item name="android:drawableBottom">@drawable/ic_clouds_gray</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>
