@@ -30,12 +30,10 @@ class AddLocationFragment :
         val button = binding.messageButton
         val favorite = requireArguments().getBoolean(FAVORITE_KEY)
         if (favorite) {
-            button.setClickedStyle()
-            button.visibility = View.VISIBLE
+            State.Favorite.show(button, binding.errorView, binding.weatherAddContainer)
         } else {
-            viewModel.observeLoading(this) { state ->
-                button.visibility = if (state == Loading.SUCCESS) View.VISIBLE
-                else View.INVISIBLE
+            viewModel.observeState(this) { state ->
+                state.show(button, binding.errorView, binding.weatherAddContainer)
             }
             button.setOnClickListener {
                 viewModel.saveWeather()

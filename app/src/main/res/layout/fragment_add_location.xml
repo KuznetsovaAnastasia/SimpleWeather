@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.github.skytoph.simpleweather.core.presentation.view.MessageButton
@@ -19,19 +19,35 @@
             android:layout_marginTop="41dp"
             android:layout_marginEnd="24dp"
             android:visibility="invisible"
-            tools:visibility="visible"
             app:buttonDrawableEnd="@drawable/ic_add_circle_outline"
             app:buttonText="@string/action_add_to_list"
             app:clickedContentColor="@color/white"
             app:clickedDrawableEnd="@drawable/ic_done"
             app:clickedText="@string/action_added_to_list"
             app:contentColor="?highlightedTextColor"
-            app:iconGravity="textEnd" />
+            app:iconGravity="textEnd"
+            tools:visibility="visible" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/weather_add_container"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="41dp" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/error_view"
+                style="@style/ErrorMessageView"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/error_general"
+                android:layout_gravity="center" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/weather_add_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="41dp" />
+        </FrameLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

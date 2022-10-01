@@ -13,7 +13,7 @@ class AddLocationViewModel @Inject constructor(
     state: SavedStateHandle,
     private val interactor: AddLocationInteractor,
     private val navigator: AddLocationNavigator,
-    private val loadingCommunication: LoadingCommunication.Observe,
+    private val stateCommunication: StateCommunication,
 ) : ViewModel() {
 
     private val placeId: String = state[PLACE_ID_KEY]!!
@@ -25,8 +25,8 @@ class AddLocationViewModel @Inject constructor(
         interactor.save()
     }
 
-    fun observeLoading(owner: LifecycleOwner, observer: Observer<Loading>) {
-        loadingCommunication.observe(owner, observer)
+    fun observeState(owner: LifecycleOwner, observer: Observer<State>) {
+        stateCommunication.observe(owner, observer)
     }
 
     companion object {
