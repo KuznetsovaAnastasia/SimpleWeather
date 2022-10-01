@@ -22,6 +22,7 @@ sealed class WeatherUi : ShowWeatherUi() {
         private val daily: List<DailyForecast>,
         private val horizon: Horizon,
     ) : WeatherUi() {
+
         override fun show(
             locationView: LocationView,
             indicatorsView: IndicatorsView,
@@ -42,25 +43,6 @@ sealed class WeatherUi : ShowWeatherUi() {
     }
 
     object Fail : WeatherUi() {
-        override fun show(communication: LoadingCommunication.Update) =
-            communication.show(Loading.FAIL)
-    }
-
-    data class Error(private val message: String) : WeatherUi() {
-        override fun show(
-            locationView: LocationView,
-            indicatorsView: IndicatorsView,
-            sunriseSunsetView: SunriseSunsetView,
-            recyclerView: RecyclerView,
-            submitLists: (List<Warning>, List<HourlyForecast>, List<DailyForecast>) -> Unit,
-        ) = Visibility.Gone().run {
-            apply(locationView)
-            apply(indicatorsView)
-            apply(sunriseSunsetView)
-            apply(recyclerView)
-            submitLists(emptyList(), emptyList(), emptyList())
-        }
-
         override fun show(communication: LoadingCommunication.Update) =
             communication.show(Loading.FAIL)
     }

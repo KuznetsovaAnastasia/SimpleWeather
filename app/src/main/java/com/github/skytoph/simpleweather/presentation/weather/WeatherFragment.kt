@@ -55,7 +55,6 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
                     indicatorsView,
                     sunriseSunsetView,
                     binding.forecastWeeklyRecyclerview,
-                    messageView,
                     submitLists = { warnings, hourly, daily ->
                         warningAdapter.submitList(warnings)
                         hourlyForecastAdapter.submitList(hourly)

@@ -40,8 +40,7 @@ sealed interface WeatherUiComponent {
         }
 
         override fun matches(item: Warning): Boolean = title == item.title
-        override fun contentMatches(item: Warning): Boolean =
-            title == item.title && description == item.description
+        override fun contentMatches(item: Warning): Boolean = item.equals(this)
 
         fun isDescribed(): Boolean = description.isNotBlank()
     }
