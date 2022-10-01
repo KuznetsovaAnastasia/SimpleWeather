@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.core.presentation.MarginItemDecoration
@@ -39,6 +40,8 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
         val hourlyForecastAdapter = HourlyForecastAdapter()
         binding.forecastHourlyRecyclerview.apply {
             adapter = hourlyForecastAdapter
+            hourlyForecastAdapter.stateRestorationPolicy =
+                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             addItemDecoration(MarginItemDecoration(spaceRight = resources.getDimensionPixelSize(R.dimen.forecast_item_right_margin)))
         }
 
