@@ -12,6 +12,7 @@ import com.github.skytoph.simpleweather.presentation.main.MainNavFragment
 import com.github.skytoph.simpleweather.presentation.main.MainNavigator
 import com.github.skytoph.simpleweather.presentation.search.SearchNavFragment
 import com.github.skytoph.simpleweather.presentation.search.SearchNavigator
+import com.github.skytoph.simpleweather.presentation.settings.SettingsNavFragment
 import com.github.skytoph.simpleweather.presentation.weather.WeatherNavFragment
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -31,6 +32,9 @@ interface Navigator : AddLocationNavigator, SearchNavigator, MainContentNavigato
 
         override fun showFavorites(@IdRes container: Int) =
             communication.show(FavoritesNavFragment(container))
+
+        override fun showSettings(@IdRes container: Int) =
+            communication.show(SettingsNavFragment(container))
 
         override fun showSearchPredictions(@IdRes container: Int) =
             communication.show(SearchNavFragment(container))

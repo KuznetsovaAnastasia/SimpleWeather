@@ -35,11 +35,9 @@ class MainContentViewModel @Inject constructor(
         navigator.showSearchPredictions(container)
     }
 
-    fun showFavorites(@IdRes container: Int) {
-        navigator.showFavorites(container)
-    }
+    fun showFavorites(@IdRes container: Int) = navigator.showFavorites(container)
 
-    fun goBack() {
-        navigator.goBack()
-    }
+    fun showSettings(@IdRes container: Int) = navigator.showSettings(container)
+
+    fun goBack() = navigator.goBack()
 }

@@ -52,6 +52,11 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
             toolbar.menu.showAll()
             viewModel.goBack()
         }))
+
+        toolbar.menu.findItem(R.id.action_settings).setOnMenuItemClickListener {
+            viewModel.showSettings(R.id.fragment_container)
+            true
+        }
     }
 
     private fun setupSearchView() {

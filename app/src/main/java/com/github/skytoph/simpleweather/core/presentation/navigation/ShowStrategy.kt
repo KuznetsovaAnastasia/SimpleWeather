@@ -1,13 +1,13 @@
 package com.github.skytoph.simpleweather.core.presentation.navigation
 
 import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 
 abstract class ShowStrategy {
     abstract fun show(
         id: String,
-        fragment: BaseFragment<*, *>,
+        fragment: Fragment,
         @IdRes container: Int,
         fragmentManager: FragmentManager,
     )
@@ -15,7 +15,7 @@ abstract class ShowStrategy {
     object REPLACE : ShowStrategy() {
         override fun show(
             id: String,
-            fragment: BaseFragment<*, *>,
+            fragment: Fragment,
             @IdRes container: Int,
             fragmentManager: FragmentManager,
         ) {
@@ -28,7 +28,7 @@ abstract class ShowStrategy {
     object ADD : ShowStrategy() {
         override fun show(
             id: String,
-            fragment: BaseFragment<*, *>,
+            fragment: Fragment,
             container: Int,
             fragmentManager: FragmentManager,
         ) {

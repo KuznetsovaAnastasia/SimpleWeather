@@ -5,5 +5,6 @@ import com.github.skytoph.simpleweather.core.presentation.navigation.NavigateBac
 
 interface MainContentNavigator : NavigateBack {
     fun showFavorites(@IdRes container: Int)
+    fun showSettings(@IdRes container: Int)
     fun showSearchPredictions(container: Int)
 }
