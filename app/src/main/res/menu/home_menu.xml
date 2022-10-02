@@ -9,12 +9,12 @@
         android:actionLayout="@layout/search_item"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
-    <item android:id="@+id/action_settings"
-        android:title="Settings"
-        app:showAsAction="never"/>
-
     <item android:id="@+id/action_delete"
         android:title="Delete"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/action_settings"
+        android:title="Settings"
         app:showAsAction="never"/>
 
 </menu>
