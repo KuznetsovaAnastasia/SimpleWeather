@@ -3,10 +3,10 @@
     <PreferenceCategory app:title="@string/general_header">
 
         <ListPreference
-            app:defaultValue="celsius"
+            app:defaultValue="@string/unit_celsius"
             app:entries="@array/unit_entries"
             app:entryValues="@array/unit_values"
-            app:key="unit"
+            app:key="@string/key_units"
             app:title="@string/units_title"
             app:useSimpleSummaryProvider="true" />
 
@@ -14,13 +14,13 @@
             app:defaultValue="en"
             app:entries="@array/lang_entries"
             app:entryValues="@array/lang_values"
-            app:key="language"
+            app:key="@string/key_language"
             app:title="@string/language_title"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            app:key="time"
             app:defaultValue="true"
+            app:key="@string/key_time"
             app:summaryOff="@string/time_summary_off"
             app:summaryOn="@string/time_summary_on"
             app:title="@string/time_title" />
