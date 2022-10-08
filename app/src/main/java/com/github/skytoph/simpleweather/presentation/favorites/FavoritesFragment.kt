@@ -1,11 +1,14 @@
 package com.github.skytoph.simpleweather.presentation.favorites
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
+import androidx.preference.PreferenceManager
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentFavoritesBinding
@@ -15,7 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBinding>() {
+class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBinding>(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     override val viewModel by viewModels<FavoritesViewModel>()
 
@@ -37,13 +41,12 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         tabLayout = requireActivity().findViewById(R.id.tab_layout_dots)
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
 
-        requireActivity().findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_delete)
-            .setOnMenuItemClickListener {
-                viewModel.updateState(
-                    FavoritesState.Delete { viewModel.delete(adapter.getItem(tabLayout.selectedTabPosition)) }
-                )
-                true
-            }
+        val deleteMenuItem =
+            requireActivity().findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_delete)
+        deleteMenuItem.setOnMenuItemClickListener {
+            viewModel.delete(adapter.getItem(tabLayout.selectedTabPosition))
+            true
+        }
 
         binding.refresh.setOnRefreshListener {
             viewModel.refresh {
@@ -53,8 +56,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
 
         viewModel.observe(this) { favorites ->
             adapter.submitList(favorites)
-            if (favorites.isEmpty()) viewModel.updateState(FavoritesState.Error)
-            else viewModel.updateState(FavoritesState.Base)
+            viewModel.updateState(favorites.isEmpty())
         }
 
         viewModel.observeState(this) { state ->
@@ -65,10 +67,21 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
-        if (hidden) viewModel.updateState(FavoritesState.Hidden)
-        else {
-            viewModel.refreshFavorites()
-            viewModel.updateState(FavoritesState.Base)
-        }
+        viewModel.onHiddenChanged(hidden)
     }
+
+    override fun onAttach(context: Context) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .registerOnSharedPreferenceChangeListener(this)
+        super.onAttach(context)
+    }
+
+    override fun onDetach() {
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .unregisterOnSharedPreferenceChangeListener(this)
+        super.onDetach()
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) =
+        viewModel.updateChanges()
 }

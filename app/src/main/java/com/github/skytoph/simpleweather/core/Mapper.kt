@@ -2,11 +2,11 @@ package com.github.skytoph.simpleweather.core
 
 import android.util.Log
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.core.exception.EmptyRequestException
 import com.github.skytoph.simpleweather.core.exception.DataIsNotCachedException
+import com.github.skytoph.simpleweather.core.exception.EmptyRequestException
 import com.github.skytoph.simpleweather.core.exception.NoCachedDataException
 import com.github.skytoph.simpleweather.core.exception.NoResultsException
-import com.github.skytoph.simpleweather.core.presentation.view.horizon.ResourceProvider
+import com.github.skytoph.simpleweather.core.provider.ResourceProvider
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -26,9 +26,9 @@ interface Mapper<T> {
             .also { Log.e("ErrorTag", e.toString()+"\n"+e.stackTraceToString()) }
     }
 
-    abstract class ToUi<T>(private val resourceProvider: ResourceProvider) : Mapper<T> {
+    abstract class ToUi<T>(private val resources: ResourceProvider) : Mapper<T> {
 
-        protected fun errorMessage(error: ErrorType) = resourceProvider.string(
+        protected fun errorMessage(error: ErrorType) = resources.string(
             when (error) {
                 ErrorType.NO_CACHED_DATA -> R.string.error_no_cached_data
                 ErrorType.SERVICE_UNAVAILABLE -> R.string.error_service_unavailable
@@ -41,7 +41,7 @@ interface Mapper<T> {
         )
     }
 
-    abstract class UiAbstract<T>(private val resourceProvider: ResourceProvider) : Mapper<T> {
+    abstract class UiAbstract<T>(private val resources: ResourceProvider) : Mapper<T> {
 
         protected fun messageText(exception: Exception): String {
             val messageId = when (exception) {
@@ -52,7 +52,7 @@ interface Mapper<T> {
                 is NoResultsException -> R.string.error_no_results
                 else -> R.string.error_general
             }
-            return resourceProvider.string(messageId)
+            return resources.string(messageId)
         }
     }
 }
