@@ -4,7 +4,6 @@ import com.github.skytoph.simpleweather.core.ErrorHandler
 import com.github.skytoph.simpleweather.data.weather.mapper.WeatherDataToDomainMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.github.skytoph.simpleweather.domain.weather.mapper.WeatherDomainToUiMapper
-import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUi
 import javax.inject.Inject
 
@@ -29,8 +28,11 @@ interface WeatherInteractor {
             WeatherUi.Fail
         }
 
-        override suspend fun getCachedWeather(id: String): WeatherUi =
+        override suspend fun getCachedWeather(id: String): WeatherUi = try {
             repository.getCachedWeather(id).mapToUi()
+        } catch (exception: Exception) {
+            WeatherUi.Fail
+        }
 
         private fun WeatherData.mapToUi() = this.map(domainMapper).map(uiMapper)
     }

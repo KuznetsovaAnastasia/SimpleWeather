@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.presentation.weather
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>() {
 
+    private val TAG = "ErrorTag"
     override val viewModel by viewModels<WeatherViewModel>()
 
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentWeatherBinding
@@ -41,7 +43,7 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
         binding.forecastHourlyRecyclerview.apply {
             adapter = hourlyForecastAdapter
             hourlyForecastAdapter.stateRestorationPolicy =
-                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+                RecyclerView.Adapter.StateRestorationPolicy.PREVENT
             addItemDecoration(MarginItemDecoration(spaceRight = resources.getDimensionPixelSize(R.dimen.forecast_item_right_margin)))
         }
 
@@ -57,7 +59,7 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
                 weather.show(locationView,
                     indicatorsView,
                     sunriseSunsetView,
-                    binding.forecastWeeklyRecyclerview,
+                    forecastWeeklyRecyclerview,
                     submitLists = { warnings, hourly, daily ->
                         warningAdapter.submitList(warnings)
                         hourlyForecastAdapter.submitList(hourly)
@@ -67,8 +69,9 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
         }
         viewModel.observeRefresh(this) { refresh ->
             if (refresh) viewModel.refreshFromCache()
+
         }
-        if (savedInstanceState == null) viewModel.getWeather()
+        viewModel.getWeather(savedInstanceState == null)
     }
 
     companion object {
