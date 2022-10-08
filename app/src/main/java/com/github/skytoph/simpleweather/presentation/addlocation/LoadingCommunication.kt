@@ -26,7 +26,6 @@ interface LoadingCommunication {
 
 enum class Loading {
     INITIAL,
-    IN_PROGRESS,
     SUCCESS,
     FAIL
 }

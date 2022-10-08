@@ -2,6 +2,7 @@ package com.github.skytoph.simpleweather.presentation.addlocation
 
 import androidx.annotation.IdRes
 import androidx.lifecycle.*
+import com.github.skytoph.simpleweather.core.presentation.StateMapper
 import com.github.skytoph.simpleweather.domain.addlocation.AddLocationInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,8 @@ class AddLocationViewModel @Inject constructor(
     state: SavedStateHandle,
     private val interactor: AddLocationInteractor,
     private val navigator: AddLocationNavigator,
-    private val stateCommunication: StateCommunication,
+    private val loadingCommunication: LoadingCommunication.Observe,
+    private val stateMapper: StateMapper<Loading, State>,
 ) : ViewModel() {
 
     private val placeId: String = state[PLACE_ID_KEY]!!
@@ -25,8 +27,11 @@ class AddLocationViewModel @Inject constructor(
         interactor.save()
     }
 
-    fun observeState(owner: LifecycleOwner, observer: Observer<State>) {
-        stateCommunication.observe(owner, observer)
+    fun observe(owner: LifecycleOwner, observer: Observer<State>) {
+        if (favorite) return observer.onChanged(State.Favorite)
+        else loadingCommunication.observe(owner) {
+            observer.onChanged(stateMapper.map(it))
+        }
     }
 
     companion object {

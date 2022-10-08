@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.domain.weather.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
-import com.github.skytoph.simpleweather.core.presentation.view.horizon.ResourceProvider
+import com.github.skytoph.simpleweather.core.provider.ResourceProvider
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain.*
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUi
 import javax.inject.Inject
@@ -25,8 +25,8 @@ interface WeatherDomainToUiMapper : Mapper<WeatherUi> {
         private val warningsMapper: WarningsDomainToUiMapper,
         private val hourlyMapper: HourlyForecastListToUiMapper,
         private val dailyMapper: DailyForecastListToUiMapper,
-        resourceProvider: ResourceProvider,
-    ) : WeatherDomainToUiMapper, Mapper.ToUi<WeatherUi>(resourceProvider) {
+        resources: ResourceProvider,
+    ) : WeatherDomainToUiMapper, Mapper.ToUi<WeatherUi>(resources) {
 
         override fun map(
             id: String,

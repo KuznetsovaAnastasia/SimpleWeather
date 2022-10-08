@@ -14,8 +14,7 @@ import com.github.skytoph.simpleweather.presentation.addlocation.AddLocationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddLocationFragment :
-    BaseFragment<AddLocationViewModel, FragmentAddLocationBinding>() {
+class AddLocationFragment : BaseFragment<AddLocationViewModel, FragmentAddLocationBinding>() {
 
     override val viewModel by viewModels<AddLocationViewModel>()
 
@@ -29,15 +28,11 @@ class AddLocationFragment :
 
         val button = binding.messageButton
         val favorite = requireArguments().getBoolean(FAVORITE_KEY)
-        if (favorite) {
-            State.Favorite.show(button, binding.errorView, binding.weatherAddContainer)
-        } else {
-            viewModel.observeState(this) { state ->
-                state.show(button, binding.errorView, binding.weatherAddContainer)
-            }
-            button.setOnClickListener {
-                viewModel.saveWeather()
-            }
+        viewModel.observe(this) { state ->
+            binding.apply { state.show(button, errorView, weatherAddContainer, progressBar) }
+        }
+        if (!favorite) button.setOnClickListener {
+            viewModel.saveWeather()
         }
     }
 
