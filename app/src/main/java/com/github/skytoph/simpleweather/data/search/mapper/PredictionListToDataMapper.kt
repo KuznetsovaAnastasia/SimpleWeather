@@ -9,11 +9,14 @@ interface PredictionListToDataMapper : Mapper<List<SearchItemData>> {
     fun map(list: List<AutocompletePrediction>): List<SearchItemData>
     fun map(exception: Exception): List<SearchItemData>
 
-    class Base @Inject constructor(private val mapper: PredictionToDataMapper) : PredictionListToDataMapper {
+    class Base @Inject constructor(private val mapper: PredictionToDataMapper) :
+        PredictionListToDataMapper {
 
         override fun map(list: List<AutocompletePrediction>): List<SearchItemData> =
-            list.map { mapper.map(it) }
+            list.filter { it.isDescribed() }.map { mapper.map(it) }
 
         override fun map(exception: Exception) = listOf(SearchItemData.Fail(exception))
+
+        private fun AutocompletePrediction.isDescribed() = this.getSecondaryText(null).isNotBlank()
     }
 }

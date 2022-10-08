@@ -45,7 +45,7 @@
         android:layout_alignTop="@id/location_item_temperature"
         android:layout_alignBottom="@id/location_item_temperature"
         android:layout_toRightOf="@id/location_item_temperature"
-        android:text="@string/degrees_celsius" />
+        android:text="@string/temperature_degrees" />
 
     <LinearLayout
         android:id="@+id/location_item_warning_container"
