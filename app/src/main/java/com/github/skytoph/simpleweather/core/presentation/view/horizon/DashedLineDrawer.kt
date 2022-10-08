@@ -6,18 +6,19 @@ import android.graphics.Paint
 import android.graphics.PointF
 import androidx.annotation.ColorInt
 import com.github.skytoph.simpleweather.R
+import com.github.skytoph.simpleweather.core.provider.ResourceProvider
 
 class DashedLineDrawer(
     private val paint: Paint,
-    private val resourceProvider: ResourceProvider,
+    private val resources: ResourceProvider,
 ) {
     fun prepare(@ColorInt color: Int) {
         paint.apply {
             reset()
             val dashLineGap =
-                resourceProvider.dimensionPixel(R.dimen.horizon_dash_line_gap).toFloat()
+                resources.dimensionPixel(R.dimen.horizon_dash_line_gap).toFloat()
             val dashLineStrokeWidth =
-                resourceProvider.dimensionPixel(R.dimen.horizon_dash_line_width).toFloat()
+                resources.dimensionPixel(R.dimen.horizon_dash_line_width).toFloat()
             val dashLineOffset = (dashLineGap / 2)
             paint.color = color
             style = Paint.Style.STROKE

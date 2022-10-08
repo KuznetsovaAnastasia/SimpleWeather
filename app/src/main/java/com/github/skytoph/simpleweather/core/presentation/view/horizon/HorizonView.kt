@@ -9,6 +9,9 @@ import android.view.View
 import androidx.annotation.ColorRes
 import androidx.core.content.withStyledAttributes
 import com.github.skytoph.simpleweather.R
+import com.github.skytoph.simpleweather.core.provider.ResourceManager
+import com.github.skytoph.simpleweather.core.provider.ResourceProvider
+import javax.inject.Inject
 
 class HorizonView : View {
     private val curveDrawer: CurveDrawer
@@ -56,13 +59,12 @@ class HorizonView : View {
     //endregion
 
     init {
+        val resourceManager: ResourceProvider = ResourceManager.Base(context)
         minimumHeight = resources.getDimensionPixelSize(R.dimen.horizon_min_height)
-
-        val resourceProvider = ResourceProvider.Base(resources)
-        curveDrawer = CurveDrawer(paint, resourceProvider)
-        lineDrawer = DashedLineDrawer(paint, resourceProvider)
-        textDrawer = TextDrawer(paint, resourceProvider)
-        sunDrawer = DrawableDrawer(resourceProvider)
+        curveDrawer = CurveDrawer(paint, resourceManager)
+        lineDrawer = DashedLineDrawer(paint, resourceManager)
+        textDrawer = TextDrawer(paint, resourceManager)
+        sunDrawer = DrawableDrawer(resourceManager)
         pointsCalculator = HorizonCurveCalculator(
             listOf(pNightStart, pMidnight, pSunrise, pMidday, pSunset, pSunriseTime, pSunsetTime)
         )

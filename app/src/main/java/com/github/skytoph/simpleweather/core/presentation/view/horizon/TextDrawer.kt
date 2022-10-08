@@ -5,10 +5,11 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
+import com.github.skytoph.simpleweather.core.provider.ResourceProvider
 
 class TextDrawer(
     private val paint: Paint,
-    private val resourceProvider: ResourceProvider,
+    private val resources: ResourceProvider,
 ) {
     fun prepare() {
         paint.apply {
@@ -28,7 +29,7 @@ class TextDrawer(
     }
 
     fun drawText(canvas: Canvas, positionX: Float, positionY: Float, @StringRes id: Int) {
-        val text = resourceProvider.string(id)
+        val text = resources.string(id)
         drawText(canvas, positionX, positionY, text)
     }
 

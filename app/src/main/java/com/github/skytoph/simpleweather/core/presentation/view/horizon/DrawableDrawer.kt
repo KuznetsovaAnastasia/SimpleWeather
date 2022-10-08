@@ -4,9 +4,10 @@ import android.graphics.Canvas
 import android.graphics.PointF
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
+import com.github.skytoph.simpleweather.core.provider.ResourceProvider
 
 class DrawableDrawer(
-    private val resourceProvider: ResourceProvider,
+    private val resources: ResourceProvider,
 ) {
     fun draw(
         canvas: Canvas,
@@ -16,8 +17,8 @@ class DrawableDrawer(
     ) {
         canvas.save()
 
-        val sun = resourceProvider.drawable(drawableId)
-        val sunSize = resourceProvider.dimensionPixel(sizeId)
+        val sun = resources.drawable(drawableId)
+        val sunSize = resources.dimensionPixel(sizeId)
         sun?.setBounds(0, 0, sunSize, sunSize)
 
         canvas.translate(position.x - sunSize / 2, position.y - sunSize / 2)

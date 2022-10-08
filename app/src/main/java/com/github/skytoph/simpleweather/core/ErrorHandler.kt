@@ -1,8 +1,8 @@
 package com.github.skytoph.simpleweather.core
 
 import com.github.skytoph.simpleweather.core.presentation.communication.MessageCommunication
-import com.github.skytoph.simpleweather.core.presentation.view.horizon.ResourceProvider
 import com.github.skytoph.simpleweather.core.presentation.error.UiMessage
+import com.github.skytoph.simpleweather.core.provider.ResourceProvider
 import javax.inject.Inject
 
 interface ErrorHandler {
@@ -10,8 +10,8 @@ interface ErrorHandler {
 
     class Ui @Inject constructor(
         private val errorCommunication: MessageCommunication.Update,
-        resourceProvider: ResourceProvider,
-    ) : Mapper.UiAbstract<UiMessage>(resourceProvider), ErrorHandler {
+        resources: ResourceProvider,
+    ) : Mapper.UiAbstract<UiMessage>(resources), ErrorHandler {
 
         override fun handle(exception: Exception) =
             errorCommunication.show(UiMessage.ShowSnackbar(messageText(exception)))

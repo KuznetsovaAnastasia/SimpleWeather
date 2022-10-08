@@ -1,9 +1,7 @@
 package com.github.skytoph.simpleweather.di.core
 
 import com.github.skytoph.simpleweather.core.util.SunCalculator
-import com.github.skytoph.simpleweather.core.util.formatter.ProbabilityFormatter
-import com.github.skytoph.simpleweather.core.util.formatter.TemperatureFormatter
-import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
+import com.github.skytoph.simpleweather.core.util.formatter.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -29,4 +27,10 @@ abstract class UtilityModule {
     @Binds
     @Singleton
     abstract fun probabilityFormatter(formatter: ProbabilityFormatter.Base): ProbabilityFormatter
+
+    @Binds
+    abstract fun timeFormat(format: TimeFormat.Base): TimeFormat
+
+    @Binds
+    abstract fun temperatureFormat(format: TemperatureFormat.Base): TemperatureFormat
 }

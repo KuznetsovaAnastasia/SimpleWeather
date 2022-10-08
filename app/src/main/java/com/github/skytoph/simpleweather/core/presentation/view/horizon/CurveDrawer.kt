@@ -5,10 +5,11 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.PointF
 import androidx.annotation.ColorRes
+import com.github.skytoph.simpleweather.core.provider.ResourceProvider
 
 class CurveDrawer(
     private val paint: Paint,
-    private val resourceProvider: ResourceProvider,
+    private val resources: ResourceProvider,
 ) {
 
     fun drawCurve(
@@ -22,7 +23,7 @@ class CurveDrawer(
 
         paint.style = Paint.Style.FILL
         paint.isAntiAlias = true // smooth drawing
-        paint.color = resourceProvider.color(colorId)
+        paint.color = resources.color(colorId)
 
         path.reset()
         path.moveTo(point1.x, point1.y)

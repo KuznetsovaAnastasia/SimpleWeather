@@ -19,9 +19,10 @@
     <string name="sunrise_and_sunset"><![CDATA[sunrise & sunset]]></string>
     <string name="day_length">"Length of day: "</string>
     <string name="remaining_daylight">"Remaining daylight: "</string>
+    <string name="time_duration_format">%dH %02dM</string>
 
     <!--    LocationView strings-->
-    <string name="degrees_celsius">%1$s°</string>
+    <string name="temperature_degrees">%1$s°</string>
 
     <!--    IndicatorsView strings-->
     <string name="indicator_time">Time</string>
@@ -49,6 +50,8 @@
 
     <!-- Units Preferences -->
     <string name="units_title">Units</string>
+    <string name="unit_fahrenheit">fahrenheit</string>
+    <string name="unit_celsius">celsius</string>
 
     <!-- Language Preferences -->
     <string name="language_title">Language</string>
@@ -57,5 +60,10 @@
     <string name="time_title">Use 24-hour format</string>
     <string name="time_summary_on">13:00</string>
     <string name="time_summary_off">1:00 PM</string>
+
+<!--    Preference keys-->
+    <string name="key_time">time</string>
+    <string name="key_language">language</string>
+    <string name="key_units">unit</string>
 
 </resources>
