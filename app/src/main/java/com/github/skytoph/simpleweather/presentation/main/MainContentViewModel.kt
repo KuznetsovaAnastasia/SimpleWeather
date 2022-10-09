@@ -1,8 +1,12 @@
 package com.github.skytoph.simpleweather.presentation.main
 
 import androidx.annotation.IdRes
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.skytoph.simpleweather.core.presentation.communication.MessageCommunication
+import com.github.skytoph.simpleweather.core.presentation.error.UiMessage
 import com.github.skytoph.simpleweather.domain.search.SearchInteractor
 import com.github.skytoph.simpleweather.domain.search.SearchResultsDomainToUiMapper
 import com.github.skytoph.simpleweather.presentation.search.SearchCommunication
@@ -17,7 +21,8 @@ class MainContentViewModel @Inject constructor(
     private val interactor: SearchInteractor,
     private val uiMapper: SearchResultsDomainToUiMapper,
     private val searchCommunication: SearchCommunication.Update,
-) : ViewModel() {
+    private val messageCommunication: MessageCommunication.Observe,
+    ) : ViewModel() {
 
     fun getPredictions(query: String) = viewModelScope.launch(Dispatchers.IO) {
         interactor.search(query) { predictions ->
@@ -36,4 +41,7 @@ class MainContentViewModel @Inject constructor(
     fun showSettings(@IdRes container: Int) = navigator.showSettings(container)
 
     fun goBack() = navigator.goBack()
+
+    fun observeMessages(owner: LifecycleOwner, observer: Observer<UiMessage>) =
+        messageCommunication.observe(owner, observer)
 }

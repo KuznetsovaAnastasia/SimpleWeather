@@ -57,6 +57,10 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
             viewModel.showSettings(R.id.fragment_container)
             true
         }
+
+        viewModel.observeMessages(this) { message ->
+            message.show(binding.root)
+        }
     }
 
     private fun setupSearchView() {

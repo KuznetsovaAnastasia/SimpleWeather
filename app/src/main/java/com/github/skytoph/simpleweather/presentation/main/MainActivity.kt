@@ -24,9 +24,6 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.visibility = if (visible) View.VISIBLE
             else View.INVISIBLE
         }
-        viewModel.observeMessages(this) { message ->
-            message.show(binding.root)
-        }
 
         if (savedInstanceState == null) viewModel.showMain()
     }

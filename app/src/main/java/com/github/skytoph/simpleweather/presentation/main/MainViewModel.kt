@@ -15,7 +15,6 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val navigator: MainNavigator,
     private val progressCommunication: ProgressCommunication.Observe,
-    private val messageCommunication: MessageCommunication.Observe,
 ) : ViewModel() {
 
     fun showMain() = navigator.showMain(R.id.fragment_container)
@@ -25,7 +24,4 @@ class MainViewModel @Inject constructor(
 
     fun observeProgress(owner: LifecycleOwner, observer: Observer<Boolean>) =
         progressCommunication.observe(owner, observer)
-
-    fun observeMessages(owner: LifecycleOwner, observer: Observer<UiMessage>) =
-        messageCommunication.observe(owner, observer)
 }
