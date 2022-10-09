@@ -16,6 +16,7 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
         hourlyForecast: List<HourlyForecastData>,
         dailyForecast: List<DailyForecastData>,
         dataBase: DataBase,
+        priority: Int,
     ): WeatherDB
 
     class Base @Inject constructor(
@@ -36,11 +37,15 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
             hourlyForecast: List<HourlyForecastData>,
             dailyForecast: List<DailyForecastData>,
             dataBase: DataBase,
+            priority: Int,
         ): WeatherDB = dataBase.createObject<WeatherDB>(id).apply {
             this.current = currentWeatherData.map(currentMapper)
             this.indicators = indicatorsData.map(indicatorsMapper)
             this.horizon = horizonData.map(horizonMapper)
             this.horizon = horizonData.map(horizonMapper)
+            this.priority =
+                if (priority != 0) priority
+                else dataBase.findMax<WeatherDB>(WeatherDB.FIELD_PRIORITY) + 1
             warningsDBMapper.map(alerts, dataBase, this)
             hourlyDBMapper.map(hourlyForecast, dataBase, this)
             dailyDBMapper.map(dailyForecast, dataBase, this)

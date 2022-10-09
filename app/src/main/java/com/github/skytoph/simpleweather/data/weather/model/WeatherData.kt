@@ -18,6 +18,7 @@ data class WeatherData(
     private val alertData: List<AlertData>,
     private val hourlyForecast: List<HourlyForecastData>,
     private val dailyForecast: List<DailyForecastData>,
+    private val priority: Int = 0,
 ) : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
     MappableToDB.Base<WeatherDB, WeatherDataDBMapper>,
     Item<WeatherData> {
@@ -39,14 +40,15 @@ data class WeatherData(
             alertData,
             hourlyForecast,
             dailyForecast,
-            dataBase)
+            dataBase,
+            priority)
 
     fun map(mapper: IdMapper): Pair<Double, Double> = mapper.map(id)
 
     override suspend fun save(source: SaveItem<WeatherData>) =
         source.saveOrUpdate(id, this)
 
-    fun update(mapper: UpdateWeather): WeatherData = mapper.update(id, currentWeatherData)
+    fun update(mapper: UpdateWeather): WeatherData = mapper.update(id, priority, currentWeatherData)
 
     override suspend fun update(source: UpdateItem<WeatherData>): WeatherData = source.update(this)
 }

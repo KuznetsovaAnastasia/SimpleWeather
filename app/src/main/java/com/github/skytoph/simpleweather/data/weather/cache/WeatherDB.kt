@@ -8,11 +8,16 @@ import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
+import io.realm.annotations.RealmField
 
 open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMapper> {
 
     @PrimaryKey
+    @RealmField(name = FIELD_ID)
     var id: String = ""
+
+    @RealmField(name = FIELD_PRIORITY)
+    var priority: Int = 0
     var current: CurrentDB? = null
     var indicators: IndicatorsDB? = null
     var horizon: HorizonDB? = null
@@ -30,6 +35,11 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
             hourly.toList(),
             daily.toList(),
         )
+
+    companion object {
+        const val FIELD_ID = "id"
+        const val FIELD_PRIORITY = "priority"
+    }
 }
 
 @RealmClass(embedded = true)

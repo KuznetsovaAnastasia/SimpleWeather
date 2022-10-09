@@ -4,5 +4,5 @@ import com.github.skytoph.simpleweather.data.weather.model.CurrentWeatherData
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 
 interface UpdateWeather {
-    fun update(id: String, currentWeatherData: CurrentWeatherData): WeatherData
+    fun update(id: String, priority: Int, currentWeatherData: CurrentWeatherData): WeatherData
 }

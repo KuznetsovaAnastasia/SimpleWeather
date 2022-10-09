@@ -35,7 +35,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
             airQualityCloud: AirQualityCloud,
         ): WeatherData = weatherData.update(object : UpdateWeather {
 
-            override fun update(id: String, currentWeatherData: CurrentWeatherData): WeatherData =
+            override fun update(id: String, priority: Int, currentWeatherData: CurrentWeatherData): WeatherData =
                 weatherCloud.map(object : WeatherCloudMapper {
 
                     override fun map(
@@ -65,7 +65,8 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                                 horizonDataMapper.map(sunrise, sunset, dt),
                                 alertsMapper.map(alerts, pop),
                                 hourlyMapper.map(hourly),
-                                dailyMapper.map(daily)
+                                dailyMapper.map(daily),
+                                priority
                             )
                         }
                     })

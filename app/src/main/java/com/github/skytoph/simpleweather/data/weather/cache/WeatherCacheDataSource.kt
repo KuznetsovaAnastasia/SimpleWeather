@@ -31,13 +31,10 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
 
         override fun readAll(): List<WeatherDB> = realmProvider.provide().use { realm ->
             return realm.where(WeatherDB::class.java).findAll().let { realm.copyFromRealm(it) }
-                ?: throw NoCachedDataException()
+                ?.sortedBy { it.priority } ?: throw NoCachedDataException()
         }
 
-        override fun readAllIDs(): List<String> = realmProvider.provide().use { realm ->
-            return realm.where(WeatherDB::class.java).findAll().let { realm.copyFromRealm(it) }
-                .map { it.id }
-        }
+        override fun readAllIDs(): List<String> = readAll().map { it.id }
 
         override fun remove(id: String) = realmProvider.provide().use { realm ->
             realm.executeTransaction {
@@ -55,6 +52,6 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
             }
 
         private fun findRealmObject(realm: Realm, id: String) =
-            realm.where(WeatherDB::class.java).equalTo("id", id).findFirst()
+            realm.where(WeatherDB::class.java).equalTo(WeatherDB.FIELD_ID, id).findFirst()
     }
 }

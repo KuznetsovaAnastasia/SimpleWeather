@@ -13,4 +13,7 @@ class DataBase(val realm: Realm) {
         parent: RealmObject,
         property: String,
     ): T = realm.createEmbeddedObject(T::class.java, parent, property)
+
+    inline fun <reified T : RealmObject> findMax(fieldName: String): Int =
+        realm.where(T::class.java).max(fieldName)?.toInt() ?: 0
 }
