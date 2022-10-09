@@ -11,7 +11,6 @@ import androidx.core.content.withStyledAttributes
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.provider.ResourceManager
 import com.github.skytoph.simpleweather.core.provider.ResourceProvider
-import javax.inject.Inject
 
 class HorizonView : View {
     private val curveDrawer: CurveDrawer

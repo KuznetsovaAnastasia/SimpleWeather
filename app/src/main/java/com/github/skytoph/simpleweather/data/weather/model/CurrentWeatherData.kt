@@ -2,10 +2,10 @@ package com.github.skytoph.simpleweather.data.weather.model
 
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.core.MappableToDB
-import com.github.skytoph.simpleweather.data.weather.update.UpdateCurrentWeather
-import com.github.skytoph.simpleweather.data.weather.cache.CurrentDB
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.CurrentDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.model.CurrentDB
 import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataToDomainMapper
+import com.github.skytoph.simpleweather.data.weather.update.UpdateCurrentWeather
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 
 data class CurrentWeatherData(

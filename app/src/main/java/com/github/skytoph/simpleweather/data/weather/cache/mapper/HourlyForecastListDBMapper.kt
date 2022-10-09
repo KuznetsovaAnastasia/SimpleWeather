@@ -2,8 +2,8 @@ package com.github.skytoph.simpleweather.data.weather.cache.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.data.DataBase
-import com.github.skytoph.simpleweather.data.weather.cache.HourlyForecastDB
-import com.github.skytoph.simpleweather.data.weather.cache.WeatherDB
+import com.github.skytoph.simpleweather.data.weather.cache.model.HourlyForecastDB
+import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
 import com.github.skytoph.simpleweather.data.weather.model.HourlyForecastData
 import javax.inject.Inject
 

@@ -1,7 +1,5 @@
 package com.github.skytoph.simpleweather.core.data
 
-import java.lang.IllegalStateException
-
 interface SaveItemToCache<T> {
     suspend fun save(source: SaveItem<T>)
 }

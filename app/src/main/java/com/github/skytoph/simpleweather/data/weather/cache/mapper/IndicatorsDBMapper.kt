@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.data.weather.cache.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
-import com.github.skytoph.simpleweather.data.weather.cache.IndicatorsDB
+import com.github.skytoph.simpleweather.data.weather.cache.model.IndicatorsDB
 import javax.inject.Inject
 
 interface IndicatorsDBMapper : Mapper<IndicatorsDB> {

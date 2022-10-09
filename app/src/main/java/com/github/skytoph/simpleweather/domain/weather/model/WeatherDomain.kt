@@ -1,6 +1,5 @@
 package com.github.skytoph.simpleweather.domain.weather.model
 
-import com.github.skytoph.simpleweather.core.ErrorType
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.domain.weather.mapper.*
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUi

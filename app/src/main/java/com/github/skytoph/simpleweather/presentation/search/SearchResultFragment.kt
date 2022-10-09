@@ -11,7 +11,6 @@ import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentSearchResultBinding
 import com.github.skytoph.simpleweather.presentation.search.adapter.SearchLocationAdapter
-import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

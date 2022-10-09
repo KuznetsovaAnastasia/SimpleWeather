@@ -2,8 +2,8 @@ package com.github.skytoph.simpleweather.data.weather.cache.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.data.DataBase
-import com.github.skytoph.simpleweather.data.weather.cache.WarningDB
-import com.github.skytoph.simpleweather.data.weather.cache.WeatherDB
+import com.github.skytoph.simpleweather.data.weather.cache.model.WarningDB
+import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
 import javax.inject.Inject
 
 interface WarningDBMapper : Mapper<WarningDB> {
@@ -23,7 +23,7 @@ interface WarningDBMapper : Mapper<WarningDB> {
             description: String,
             parent: WeatherDB,
             dataBase: DataBase,
-        ) = dataBase.createEmbeddedObject<WarningDB>(parent, "warnings").apply {
+        ) = dataBase.createEmbeddedObject<WarningDB>(parent, WeatherDB.FIELD_WARNINGS).apply {
             this.title = name
             this.expectedTime = startTime
             this.description = description

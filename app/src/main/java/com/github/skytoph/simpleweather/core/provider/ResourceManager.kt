@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
-import com.github.skytoph.simpleweather.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton

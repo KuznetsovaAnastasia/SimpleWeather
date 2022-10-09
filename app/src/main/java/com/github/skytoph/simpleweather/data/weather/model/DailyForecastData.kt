@@ -3,9 +3,9 @@ package com.github.skytoph.simpleweather.data.weather.model
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.core.MappableToDB
 import com.github.skytoph.simpleweather.core.data.DataBase
-import com.github.skytoph.simpleweather.data.weather.cache.WeatherDB
-import com.github.skytoph.simpleweather.data.weather.cache.DailyForecastDB
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.DailyForecastDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.model.DailyForecastDB
+import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
 import com.github.skytoph.simpleweather.domain.weather.mapper.DailyForecastDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 

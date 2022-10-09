@@ -2,8 +2,8 @@ package com.github.skytoph.simpleweather.data.weather.cache.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.data.DataBase
-import com.github.skytoph.simpleweather.data.weather.cache.HourlyForecastDB
-import com.github.skytoph.simpleweather.data.weather.cache.WeatherDB
+import com.github.skytoph.simpleweather.data.weather.cache.model.HourlyForecastDB
+import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
 import javax.inject.Inject
 
 interface HourlyForecastDBMapper : Mapper<HourlyForecastDB> {
@@ -23,7 +23,7 @@ interface HourlyForecastDBMapper : Mapper<HourlyForecastDB> {
             pop: Double,
             parent: WeatherDB,
             dataBase: DataBase,
-        ) = dataBase.createEmbeddedObject<HourlyForecastDB>(parent, "hourly").apply {
+        ) = dataBase.createEmbeddedObject<HourlyForecastDB>(parent, WeatherDB.FIELD_HOURLY).apply {
             this.time = time
             this.temp = temp
             this.weatherId = weatherId

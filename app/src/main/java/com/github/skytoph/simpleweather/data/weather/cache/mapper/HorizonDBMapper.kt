@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.data.weather.cache.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
-import com.github.skytoph.simpleweather.data.weather.cache.HorizonDB
+import com.github.skytoph.simpleweather.data.weather.cache.model.HorizonDB
 import javax.inject.Inject
 
 interface HorizonDBMapper : Mapper<HorizonDB> {

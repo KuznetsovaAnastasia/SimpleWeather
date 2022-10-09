@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.data.weather.cache.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
-import com.github.skytoph.simpleweather.data.weather.cache.CurrentDB
+import com.github.skytoph.simpleweather.data.weather.cache.model.CurrentDB
 import javax.inject.Inject
 
 interface CurrentDBMapper : Mapper<CurrentDB> {

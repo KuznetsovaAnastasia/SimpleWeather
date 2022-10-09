@@ -2,12 +2,15 @@ package com.github.skytoph.simpleweather.data.weather.model
 
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.core.MappableToDB
-import com.github.skytoph.simpleweather.core.data.*
+import com.github.skytoph.simpleweather.core.data.DataBase
+import com.github.skytoph.simpleweather.core.data.Item
+import com.github.skytoph.simpleweather.core.data.SaveItem
+import com.github.skytoph.simpleweather.core.data.UpdateItem
 import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
-import com.github.skytoph.simpleweather.data.weather.update.UpdateWeather
-import com.github.skytoph.simpleweather.data.weather.cache.WeatherDB
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDataDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
 import com.github.skytoph.simpleweather.data.weather.mapper.WeatherDataToDomainMapper
+import com.github.skytoph.simpleweather.data.weather.update.UpdateWeather
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 
 data class WeatherData(

@@ -6,6 +6,7 @@ import com.github.skytoph.simpleweather.core.data.SaveItem
 import com.github.skytoph.simpleweather.core.exception.DataIsNotCachedException
 import com.github.skytoph.simpleweather.core.exception.NoCachedDataException
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDataDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import io.realm.Realm
 import javax.inject.Inject

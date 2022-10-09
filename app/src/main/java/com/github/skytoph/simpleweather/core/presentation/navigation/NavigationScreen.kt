@@ -4,7 +4,6 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.github.skytoph.simpleweather.core.Matches
-import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 
 abstract class NavigationScreen(
     private val id: String,

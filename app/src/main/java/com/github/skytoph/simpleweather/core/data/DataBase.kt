@@ -2,7 +2,6 @@ package com.github.skytoph.simpleweather.core.data
 
 import io.realm.Realm
 import io.realm.RealmObject
-import io.realm.kotlin.createEmbeddedObject
 
 class DataBase(val realm: Realm) {
 

@@ -2,8 +2,8 @@ package com.github.skytoph.simpleweather.data.weather.model
 
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.core.MappableToDB
-import com.github.skytoph.simpleweather.data.weather.cache.HorizonDB
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.HorizonDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.model.HorizonDB
 import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataToDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 
