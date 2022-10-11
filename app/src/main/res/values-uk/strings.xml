@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Погода</string>
+
+    <string name="sunset">Захід сонця</string>
+    <string name="sunrise">Світанок</string>
+    <string name="horizon">Горизонт</string>
+    <string name="day_length">"Тривалість дня: "</string>
+    <string name="remaining_daylight">"Залишок світлового дня: "</string>
+
+    <string name="warning">Попередження</string>
+    <string name="rain_percent">% опадів</string>
+    <string name="expected_rain_time">Очік. час</string>
+    <string name="sunrise_and_sunset"><![CDATA[світанок & захід сонця]]></string>
+    <string name="time_duration_format">%d Год. %02d Хв.</string>
+
+    <string name="hint_search_location">Пошук локації</string>
+
+    <string name="action_add_to_list">Зберегти</string>
+    <string name="action_added_to_list">Збережено</string>
+    <string name="confirm">Так</string>
+
+    <string name="indicator_time">Час</string>
+    <string name="indicator_rain">% опадів</string>
+
+    <string name="error_general">Не вдалось загрузити дані</string>
+    <string name="language_title">Мова</string>
+
+    <string name="error_service_unavailable">Сервіс недоступний</string>
+    <string name="error_no_connection">Інтернет-вз\'язок відсутній</string>
+    <string name="error_no_cached_data">Немає збережений локацій</string>
+    <string name="error_empty_request">Почніть вводити запит для пошуку локації</string>
+    <string name="error_empty_favorites">Немає збережений локацій</string>
+    <string name="error_no_results">Не вдалось знайти локацію</string>
+    <string name="error_location_is_not_saved">Ці данні було видалено</string>
+
+    <string name="delete_location">Ви дійсно хочете видалити цю локацію зі списку збережених?</string>
+    <string name="dismiss">Скасувати</string>
+
+    <string name="general_header">Загальні</string>
+    <string name="units_title">Одиниці вимірювання температури</string>
+    <string name="time_title">Використовувати 24-часовий формат</string>
+</resources>

@@ -5,13 +5,12 @@
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
     <string name="horizon">Horizon</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_add_to_list">Add to list</string>
     <string name="action_added_to_list">Added to list</string>
 
     <!--    WarningView strings -->
     <string name="warning">Warning</string>
-    <string name="warning_rainfall">Expecting Rainfall</string>
+    <string name="warning_rainfall" translatable="false">Expecting Rainfall</string>
     <string name="rain_percent">% Rain</string>
     <string name="expected_rain_time">Exp. time</string>
 
@@ -22,13 +21,13 @@
     <string name="time_duration_format">%dH %02dM</string>
 
     <!--    LocationView strings-->
-    <string name="temperature_degrees">%1$s°</string>
+    <string name="temperature_degrees" translatable="false">%1$s°</string>
 
     <!--    IndicatorsView strings-->
     <string name="indicator_time">Time</string>
-    <string name="indicator_uv">uv</string>
+    <string name="indicator_uv" translatable="false">uv</string>
     <string name="indicator_rain">% rain</string>
-    <string name="indicator_aq">aq</string>
+    <string name="indicator_aq" translatable="false">aq</string>
 
     <!--    Error messages-->
     <string name="error_general">Something went wrong, can not load the data</string>
@@ -50,20 +49,21 @@
 
     <!-- Units Preferences -->
     <string name="units_title">Units</string>
-    <string name="unit_fahrenheit">fahrenheit</string>
-    <string name="unit_celsius">celsius</string>
+    <string name="unit_fahrenheit" translatable="false">fahrenheit</string>
+    <string name="unit_celsius" translatable="false">celsius</string>
 
     <!-- Language Preferences -->
     <string name="language_title">Language</string>
+    <string name="language_eng" translatable="false">en</string>
+    <string name="language_uk" translatable="false">uk</string>
 
     <!-- Time Preferences -->
     <string name="time_title">Use 24-hour format</string>
-    <string name="time_summary_on">13:00</string>
-    <string name="time_summary_off">1:00 PM</string>
+    <string name="time_summary_on" translatable="false">13:00</string>
+    <string name="time_summary_off" translatable="false">1:00 PM</string>
 
 <!--    Preference keys-->
-    <string name="key_time">time</string>
-    <string name="key_language">language</string>
-    <string name="key_units">unit</string>
-
+    <string name="key_time" translatable="false">time</string>
+    <string name="key_language" translatable="false">language</string>
+    <string name="key_units" translatable="false">unit</string>
 </resources>
