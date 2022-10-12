@@ -15,8 +15,8 @@ interface PlaceToCloudMapper : Mapper<PlaceCloud> {
         override fun map(place: Place): PlaceCloud {
             return PlaceCloud(
                 place.addressComponents?.asList()?.findPlaceName() ?: "Unknown",
-                place.latLng.latitude,
-                place.latLng.longitude)
+                place.latLng!!.latitude,
+                place.latLng!!.longitude)
         }
 
         private fun List<AddressComponent>.findPlaceName() =

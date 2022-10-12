@@ -32,11 +32,9 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-    fun updateChanges() =
-        refreshCommunication.show(true)
+    fun updateChanges() = refreshCommunication.show(true)
 
-    fun refreshFavorites() =
-        communication.show(getFavorites())
+    fun refreshFavorites() = communication.show(getFavorites())
 
     fun delete(id: String) = stateCommunication.show(FavoritesState.Delete {
         viewModelScope.launch(Dispatchers.IO) {

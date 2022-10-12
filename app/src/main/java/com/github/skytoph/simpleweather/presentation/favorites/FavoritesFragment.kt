@@ -66,6 +66,11 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         if (savedInstanceState == null) viewModel.refreshFavorites()
     }
 
+    override fun onResume() {
+        viewModel.updateChanges()
+        super.onResume()
+    }
+
     override fun onHiddenChanged(hidden: Boolean) {
         viewModel.onHiddenChanged(hidden)
     }
@@ -82,6 +87,6 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         super.onDetach()
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) =
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) =
         viewModel.updateChanges()
 }

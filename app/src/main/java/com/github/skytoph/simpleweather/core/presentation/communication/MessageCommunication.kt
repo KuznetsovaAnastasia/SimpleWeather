@@ -13,5 +13,5 @@ class MessageCommunication {
     interface Mutable : Update, Observe
 
     @Singleton
-    class Base @Inject constructor() : Communication.PostUpdate<UiMessage>(), Mutable
+    class Base @Inject constructor() : Communication.SinglePostUpdate<UiMessage>(), Mutable
 }
