@@ -5,27 +5,22 @@ import com.github.skytoph.simpleweather.core.util.formatter.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 abstract class UtilityModule {
 
     @Binds
-    @Singleton
     abstract fun sunCalculator(calculator: SunCalculator.Base): SunCalculator
 
     @Binds
-    @Singleton
     abstract fun tempFormatter(formatter: TemperatureFormatter.Base): TemperatureFormatter
 
     @Binds
-    @Singleton
     abstract fun timeFormatter(formatter: TimeFormatter.Base): TimeFormatter
 
     @Binds
-    @Singleton
     abstract fun probabilityFormatter(formatter: ProbabilityFormatter.Base): ProbabilityFormatter
 
     @Binds
