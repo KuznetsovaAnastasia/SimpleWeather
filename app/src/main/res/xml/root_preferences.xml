@@ -7,11 +7,12 @@
             app:entries="@array/unit_entries"
             app:entryValues="@array/unit_values"
             app:key="@string/key_units"
+            app:singleLineTitle="false"
             app:title="@string/units_title"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="en"
+            app:defaultValue="@string/language_eng"
             app:entries="@array/lang_entries"
             app:entryValues="@array/lang_values"
             app:key="@string/key_language"
@@ -21,6 +22,7 @@
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:key="@string/key_time"
+            app:singleLineTitle="false"
             app:summaryOff="@string/time_summary_off"
             app:summaryOn="@string/time_summary_on"
             app:title="@string/time_title" />
