@@ -11,10 +11,12 @@ import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDataDBM
 import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
 import com.github.skytoph.simpleweather.data.weather.mapper.WeatherDataToDomainMapper
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeather
+import com.github.skytoph.simpleweather.data.weather.update.UpdateWeatherLocation
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 
 data class WeatherData(
     private val id: String,
+    private val placeId: String,
     private val currentWeatherData: CurrentWeatherData,
     private val indicatorsData: IndicatorsData,
     private val horizonData: HorizonData,
@@ -37,6 +39,7 @@ data class WeatherData(
 
     override fun map(mapper: WeatherDataDBMapper, dataBase: DataBase): WeatherDB =
         mapper.map(id,
+            placeId,
             currentWeatherData,
             indicatorsData,
             horizonData,
@@ -51,7 +54,20 @@ data class WeatherData(
     override suspend fun save(source: SaveItem<WeatherData>) =
         source.saveOrUpdate(id, this)
 
-    fun update(mapper: UpdateWeather): WeatherData = mapper.update(id, priority, currentWeatherData)
+    fun update(mapper: UpdateWeather): WeatherData = mapper.update(id, placeId, priority, currentWeatherData)
+
+    fun update(mapper: UpdateWeatherLocation): WeatherData = mapper.update(id,
+        placeId,
+        currentWeatherData,
+        indicatorsData,
+        horizonData,
+        alertData,
+        hourlyForecast,
+        dailyForecast,
+        priority)
 
     override suspend fun update(source: UpdateItem<WeatherData>): WeatherData = source.update(this)
+
+    override suspend fun updateLocation(source: UpdateItem<WeatherData>): WeatherData =
+        source.updateLocation(this, placeId)
 }

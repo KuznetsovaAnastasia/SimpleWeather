@@ -35,5 +35,8 @@ interface WeatherCloudDataSource : UpdateItem<WeatherData> {
             val airQuality = airQualityCloudDataSource.getAirQuality(coordinates)
             return updateMapper.update(data, forecast, airQuality)
         }
+
+        override suspend fun updateLocation(data: WeatherData, placeId: String): WeatherData =
+            updateMapper.update(data, placeCloudDataSource.placeName(placeId))
     }
 }

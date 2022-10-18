@@ -14,6 +14,8 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
     @RealmField(name = FIELD_ID)
     var id: String = ""
 
+    var placeId: String = ""
+
     @RealmField(name = FIELD_PRIORITY)
     var priority: Int = 0
 
@@ -49,6 +51,7 @@ open class WeatherDB : RealmObject(), Mappable<WeatherData, WeatherDBToDataMappe
     override fun map(mapper: WeatherDBToDataMapper): WeatherData =
         mapper.map(
             id,
+            placeId,
             priority,
             current!!,
             indicators!!,

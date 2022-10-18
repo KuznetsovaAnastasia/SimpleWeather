@@ -25,8 +25,7 @@ interface WeatherDomainToUiMapper : Mapper<WeatherUi> {
         private val warningsMapper: WarningsDomainToUiMapper,
         private val hourlyMapper: HourlyForecastListToUiMapper,
         private val dailyMapper: DailyForecastListToUiMapper,
-        resources: ResourceProvider,
-    ) : WeatherDomainToUiMapper, Mapper.ToUi<WeatherUi>(resources) {
+    ) : WeatherDomainToUiMapper {
 
         override fun map(
             id: String,

@@ -13,6 +13,7 @@ interface WeatherRepository {
         suspend fun saveWeather()
         suspend fun refreshAll()
         suspend fun updateCloudWeather(id: String): WeatherData
+        suspend fun updateLocationName(id: String): WeatherData
         suspend fun delete(id: String)
     }
 
@@ -45,6 +46,9 @@ interface WeatherRepository {
 
         override suspend fun updateCloudWeather(id: String): WeatherData =
             updateAndSave(getCachedWeather(id))
+
+        override suspend fun updateLocationName(id: String): WeatherData =
+            getCachedWeather(id).updateLocation(cloudDataSource).also { it.save(cacheDataSource) }
 
         override suspend fun saveWeather() =
             cachedWeather.save(cacheDataSource)

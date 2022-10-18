@@ -9,6 +9,7 @@ import javax.inject.Inject
 interface WeatherDataDBMapper : Mapper<WeatherDB> {
     fun map(
         id: String,
+        placeId: String,
         currentWeatherData: CurrentWeatherData,
         indicatorsData: IndicatorsData,
         horizonData: HorizonData,
@@ -30,6 +31,7 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
 
         override fun map(
             id: String,
+            placeId: String,
             currentWeatherData: CurrentWeatherData,
             indicatorsData: IndicatorsData,
             horizonData: HorizonData,
@@ -39,6 +41,7 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
             dataBase: DataBase,
             priority: Int,
         ): WeatherDB = dataBase.createObject<WeatherDB>(id).apply {
+            this.placeId = placeId
             this.current = currentWeatherData.map(currentMapper)
             this.indicators = indicatorsData.map(indicatorsMapper)
             this.horizon = horizonData.map(horizonMapper)

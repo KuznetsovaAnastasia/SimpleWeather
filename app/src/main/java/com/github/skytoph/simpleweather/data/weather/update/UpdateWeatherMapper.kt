@@ -10,8 +10,7 @@ import com.github.skytoph.simpleweather.data.weather.mapper.DailyForecastListDat
 import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.HourlyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.IndicatorsDataMapper
-import com.github.skytoph.simpleweather.data.weather.model.CurrentWeatherData
-import com.github.skytoph.simpleweather.data.weather.model.WeatherData
+import com.github.skytoph.simpleweather.data.weather.model.*
 import javax.inject.Inject
 
 interface UpdateWeatherMapper : Mapper<WeatherData> {
@@ -19,6 +18,11 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
         weatherData: WeatherData,
         weatherCloud: WeatherCloud,
         airQualityCloud: AirQualityCloud,
+    ): WeatherData
+
+    fun update(
+        weatherData: WeatherData,
+        location: String,
     ): WeatherData
 
     class Base @Inject constructor(
@@ -35,7 +39,12 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
             airQualityCloud: AirQualityCloud,
         ): WeatherData = weatherData.update(object : UpdateWeather {
 
-            override fun update(id: String, priority: Int, currentWeatherData: CurrentWeatherData): WeatherData =
+            override fun update(
+                id: String,
+                placeId: String,
+                priority: Int,
+                currentWeatherData: CurrentWeatherData,
+            ): WeatherData =
                 weatherCloud.map(object : WeatherCloudMapper {
 
                     override fun map(
@@ -60,6 +69,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                             val pop = hourly[0].map()
                             return WeatherData(
                                 id,
+                                placeId,
                                 currentWeatherData.update(currentMapper),
                                 indicatorsDataMapper.map(dt, temp, pop, airQualityCloud.map()),
                                 horizonDataMapper.map(sunrise, sunset, dt),
@@ -72,6 +82,34 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                     })
                 })
         })
-    }
 
+        override fun update(weatherData: WeatherData, location: String): WeatherData =
+            weatherData.update(object : UpdateWeatherLocation {
+
+                override fun update(
+                    id: String,
+                    placeId: String,
+                    currentWeatherData: CurrentWeatherData,
+                    indicatorsData: IndicatorsData,
+                    horizonData: HorizonData,
+                    alertData: List<AlertData>,
+                    hourlyForecast: List<HourlyForecastData>,
+                    dailyForecast: List<DailyForecastData>,
+                    priority: Int,
+                ) = WeatherData(id,
+                    placeId,
+                    currentWeatherData.update(object : UpdateCurrentWeatherLocation {
+                        override fun update(
+                            weatherId: Int,
+                            temperature: Double,
+                            favorite: Boolean,
+                        ) = CurrentWeatherData(weatherId, temperature, location, favorite)
+                    }),
+                    indicatorsData,
+                    horizonData,
+                    alertData, hourlyForecast, dailyForecast,
+                    priority)
+            })
+
+    }
 }

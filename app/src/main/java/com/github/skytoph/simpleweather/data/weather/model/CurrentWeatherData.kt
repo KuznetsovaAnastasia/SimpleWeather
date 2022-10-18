@@ -6,6 +6,7 @@ import com.github.skytoph.simpleweather.data.weather.cache.mapper.CurrentDBMappe
 import com.github.skytoph.simpleweather.data.weather.cache.model.CurrentDB
 import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataToDomainMapper
 import com.github.skytoph.simpleweather.data.weather.update.UpdateCurrentWeather
+import com.github.skytoph.simpleweather.data.weather.update.UpdateCurrentWeatherLocation
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 
 data class CurrentWeatherData(
@@ -22,4 +23,6 @@ data class CurrentWeatherData(
     override fun map(mapper: CurrentDBMapper): CurrentDB = mapper.map(weatherId, temperature, location)
 
     fun update(mapper: UpdateCurrentWeather) = mapper.update(location, favorite)
+
+    fun update(mapper: UpdateCurrentWeatherLocation) = mapper.update(weatherId, temperature, favorite)
 }
