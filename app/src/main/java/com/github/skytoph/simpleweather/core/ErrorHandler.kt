@@ -8,12 +8,10 @@ import javax.inject.Inject
 interface ErrorHandler {
     fun handle(exception: Exception)
 
-    class Ui @Inject constructor(
-        private val errorCommunication: MessageCommunication.Update,
-        resources: ResourceProvider,
-    ) : Mapper.UiAbstract<UiMessage>(resources), ErrorHandler {
+    class Ui @Inject constructor(private val errorCommunication: MessageCommunication.Update) :
+        Mapper.UiAbstract<UiMessage>(), ErrorHandler {
 
         override fun handle(exception: Exception) =
-            errorCommunication.show(UiMessage.ShowSnackbar(messageText(exception)))
+            errorCommunication.show(UiMessage.ShowSnackbar(messageRes(exception)))
     }
 }

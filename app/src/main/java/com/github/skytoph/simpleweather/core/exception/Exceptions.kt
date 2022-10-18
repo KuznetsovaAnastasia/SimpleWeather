@@ -24,3 +24,8 @@ class NoResultsException : Exception() {
     override val message: String
         get() = "nothing found"
 }
+
+class CanNotUpdateLocationException : Exception() {
+    override val message: String
+        get() = "can't update location after language change"
+}

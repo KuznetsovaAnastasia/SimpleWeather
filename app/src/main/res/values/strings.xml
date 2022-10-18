@@ -38,6 +38,7 @@
     <string name="error_empty_favorites">Your locations list if empty</string>
     <string name="error_no_results">Can\'t find location</string>
     <string name="error_location_is_not_saved">This data was deleted</string>
+    <string name="error_can_not_update_location">Can not update location after language change</string>
 
     <!--    Delete confirmation dialog-->
     <string name="confirm">Yes</string>
