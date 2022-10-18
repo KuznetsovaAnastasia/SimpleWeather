@@ -1,17 +1,19 @@
 package com.github.skytoph.simpleweather.presentation.favorites
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentFavoritesBinding
+import com.github.skytoph.simpleweather.presentation.RefreshData
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,27 +68,34 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         if (savedInstanceState == null) viewModel.refreshFavorites()
     }
 
-    override fun onResume() {
-        viewModel.updateChanges()
-        super.onResume()
-    }
-
     override fun onHiddenChanged(hidden: Boolean) {
         viewModel.onHiddenChanged(hidden)
     }
 
-    override fun onAttach(context: Context) {
+    override fun onResume() {
+        viewModel.updateChanges(RefreshData.CACHE)
         PreferenceManager.getDefaultSharedPreferences(context)
             .registerOnSharedPreferenceChangeListener(this)
-        super.onAttach(context)
+        super.onResume()
     }
 
-    override fun onDetach() {
+    override fun onPause() {
         PreferenceManager.getDefaultSharedPreferences(context)
             .unregisterOnSharedPreferenceChangeListener(this)
-        super.onDetach()
+        super.onPause()
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) =
-        viewModel.updateChanges()
+        when (key) {
+            resources.getString(R.string.key_language) -> {
+                val language =
+                    sharedPreferences.getString(key, resources.getString(R.string.language_eng))
+                val locale = LocaleListCompat.forLanguageTags(language)
+                AppCompatDelegate.setApplicationLocales(locale)
+                viewModel.updateChanges(RefreshData.LOCATION)
+            }
+            resources.getString(R.string.key_units), resources.getString(R.string.key_time) ->
+                viewModel.updateChanges(RefreshData.CACHE)
+            else -> Unit
+        }
 }

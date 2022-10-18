@@ -6,12 +6,17 @@ import javax.inject.Singleton
 
 class RefreshCommunication {
 
-    interface Update : Communication.Update<Boolean>
+    interface Update : Communication.Update<RefreshData>
 
-    interface Observe : Communication.Observe<Boolean>
+    interface Observe : Communication.Observe<RefreshData>
 
     interface Mutable : Update, Observe
 
     @Singleton
-    class Base @Inject constructor() : Mutable, Communication.UiUpdate<Boolean>()
+    class Base @Inject constructor() : Mutable, Communication.UiUpdate<RefreshData>()
+}
+
+enum class RefreshData {
+    CACHE,
+    LOCATION
 }
