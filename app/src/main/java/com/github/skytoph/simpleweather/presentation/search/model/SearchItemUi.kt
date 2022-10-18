@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.presentation.search.model
 
 import android.widget.TextView
+import androidx.annotation.StringRes
 import com.github.skytoph.simpleweather.core.Matcher
 import com.github.skytoph.simpleweather.presentation.search.adapter.SearchLocationAdapter
 
@@ -29,13 +30,14 @@ sealed interface SearchItemUi : Matcher<SearchItemUi> {
             item is Location && title == item.title && subtitle == item.subtitle
     }
 
-    data class Fail(private val message: String) : SearchItemUi {
+    data class Fail(@StringRes private val messageId: Int) : SearchItemUi {
 
         override fun show(titleTextView: TextView, subtitleTextView: TextView) {
-            titleTextView.text = message
+            titleTextView.text = titleTextView.context.resources.getString(messageId)
         }
 
-        override fun matches(item: SearchItemUi): Boolean = item is Fail && message == item.message
+        override fun matches(item: SearchItemUi): Boolean =
+            item is Fail && messageId == item.messageId
 
         override fun contentMatches(item: SearchItemUi): Boolean = matches(item)
     }
