@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
-import com.github.skytoph.simpleweather.domain.weather.RefreshLocation
 import com.github.skytoph.simpleweather.presentation.addlocation.Loading
 import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
 import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.*
@@ -13,7 +12,6 @@ import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.
 sealed class WeatherUi : ShowWeatherUi() {
     abstract fun show(communication: LoadingCommunication.Update)
     abstract fun show(communication: WeatherCommunication)
-    abstract fun saveState(refreshLocation: RefreshLocation.SaveRefreshed)
 
     data class Base(
         private val id: String,
@@ -43,9 +41,6 @@ sealed class WeatherUi : ShowWeatherUi() {
             communication.show(Loading.SUCCESS)
 
         override fun show(communication: WeatherCommunication) = communication.show(this)
-
-        override fun saveState(refreshLocation: RefreshLocation.SaveRefreshed) =
-            refreshLocation.locationRefreshed(id)
     }
 
     object Fail : WeatherUi() {
@@ -53,7 +48,5 @@ sealed class WeatherUi : ShowWeatherUi() {
             communication.show(Loading.FAIL)
 
         override fun show(communication: WeatherCommunication) = Unit
-
-        override fun saveState(refreshLocation: RefreshLocation.SaveRefreshed) = Unit
     }
 }

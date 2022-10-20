@@ -12,6 +12,8 @@ import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
 import com.github.skytoph.simpleweather.data.weather.mapper.WeatherDataToDomainMapper
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeather
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeatherLocation
+import com.github.skytoph.simpleweather.domain.weather.RefreshLocation
+import com.github.skytoph.simpleweather.domain.weather.SaveState
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 
 data class WeatherData(
@@ -26,7 +28,11 @@ data class WeatherData(
     private val priority: Int = 0,
 ) : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
     MappableToDB.Base<WeatherDB, WeatherDataDBMapper>,
-    Item<WeatherData> {
+    Item<WeatherData>,
+    SaveState {
+
+    override fun saveState(refreshLocation: RefreshLocation.SaveRefreshed) =
+        refreshLocation.locationRefreshed(id)
 
     override fun map(mapper: WeatherDataToDomainMapper): WeatherDomain =
         mapper.map(id,
@@ -54,7 +60,8 @@ data class WeatherData(
     override suspend fun save(source: SaveItem<WeatherData>) =
         source.saveOrUpdate(id, this)
 
-    fun update(mapper: UpdateWeather): WeatherData = mapper.update(id, placeId, priority, currentWeatherData)
+    fun update(mapper: UpdateWeather): WeatherData =
+        mapper.update(id, placeId, priority, currentWeatherData)
 
     fun update(mapper: UpdateWeatherLocation): WeatherData = mapper.update(id,
         placeId,
