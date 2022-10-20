@@ -3,6 +3,7 @@ package com.github.skytoph.simpleweather.presentation.weather
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.Matcher
 import com.github.skytoph.simpleweather.core.presentation.view.horizon.HorizonView
 import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
@@ -82,8 +83,8 @@ sealed interface WeatherUiComponent {
     data class Horizon(
         private val sunrise: String,
         private val sunset: String,
-        private val dayLength: String,
-        private val remainingDaylight: String,
+        private val dayLength: Pair<Int, Int>,
+        private val remainingDaylight: Pair<Int, Int>,
         private val sunPositionValue: Double,
     ) : WeatherUiComponent {
 
@@ -93,8 +94,9 @@ sealed interface WeatherUiComponent {
             daylightTextView: TextView,
         ) {
             horizonView.setValues(sunrise, sunset, sunPositionValue)
-            dayLengthTextView.text = dayLength
-            daylightTextView.text = remainingDaylight
+            val resources = horizonView.context.resources
+            dayLengthTextView.text = resources.getString(R.string.time_duration_format, dayLength.first, dayLength.second)
+            daylightTextView.text = resources.getString(R.string.time_duration_format, remainingDaylight.first, remainingDaylight.second)
         }
     }
 

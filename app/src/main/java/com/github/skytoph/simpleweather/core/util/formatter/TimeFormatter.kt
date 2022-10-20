@@ -10,7 +10,7 @@ import javax.inject.Inject
 interface TimeFormatter {
     fun timeFull(seconds: Long): String
     fun dayInWeek(seconds: Long): String
-    fun duration(seconds: Long): String
+    fun duration(seconds: Long): Pair<Int, Int>
 
     class Base @Inject constructor(
         private val resources: ResourceManager,
@@ -27,9 +27,7 @@ interface TimeFormatter {
             SimpleDateFormat("EEEE", resources.locale())
                 .format(Date(TimeUnit.SECONDS.toMillis(seconds)))
 
-        override fun duration(seconds: Long): String =
-            String.format(resources.string(R.string.time_duration_format),
-                seconds / 3600,
-                (seconds % 3600) / 60)
+        override fun duration(seconds: Long) =
+            Pair((seconds / 3600).toInt(), ((seconds % 3600) / 60).toInt())
     }
 }
