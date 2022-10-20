@@ -13,7 +13,6 @@ import androidx.preference.PreferenceManager
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentFavoritesBinding
-import com.github.skytoph.simpleweather.presentation.RefreshData
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,7 +72,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     }
 
     override fun onResume() {
-        viewModel.updateChanges(RefreshData.CACHE)
+        viewModel.updateChanges()
         PreferenceManager.getDefaultSharedPreferences(context)
             .registerOnSharedPreferenceChangeListener(this)
         super.onResume()
@@ -92,10 +91,10 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
                     sharedPreferences.getString(key, resources.getString(R.string.language_eng))
                 val locale = LocaleListCompat.forLanguageTags(language)
                 AppCompatDelegate.setApplicationLocales(locale)
-                viewModel.updateChanges(RefreshData.LOCATION)
+                viewModel.updateLocations()
             }
             resources.getString(R.string.key_units), resources.getString(R.string.key_time) ->
-                viewModel.updateChanges(RefreshData.CACHE)
+                viewModel.updateChanges()
             else -> Unit
         }
 }

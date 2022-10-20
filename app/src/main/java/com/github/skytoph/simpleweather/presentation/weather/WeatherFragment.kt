@@ -11,7 +11,6 @@ import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.core.presentation.MarginItemDecoration
 import com.github.skytoph.simpleweather.databinding.FragmentWeatherBinding
-import com.github.skytoph.simpleweather.presentation.RefreshData
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.FAVORITE_KEY
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.PLACE_ID_KEY
 import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.DailyForecastAdapter
@@ -66,16 +65,10 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
                     })
             }
         }
-        // TODO: refactor
         viewModel.observeRefresh(this) { refresh ->
-            when (refresh) {
-                RefreshData.LOCATION -> viewModel.saveUpdateLocationState()
-                RefreshData.CACHE -> viewModel.refreshFromCache()
-                else -> Unit
-            }
+            if(refresh) viewModel.refreshFromCache()
         }
         viewModel.getWeather(savedInstanceState == null)
-        viewModel.updateLocation()
     }
 
     companion object {

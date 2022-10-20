@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.github.skytoph.simpleweather.core.presentation.StateMapper
 import com.github.skytoph.simpleweather.domain.favorites.FavoritesInteractor
 import com.github.skytoph.simpleweather.presentation.RefreshCommunication
-import com.github.skytoph.simpleweather.presentation.RefreshData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,12 +27,12 @@ class FavoritesViewModel @Inject constructor(
     fun refresh(hideProgress: () -> Unit) = viewModelScope.launch(Dispatchers.IO) {
         interactor.refreshFavorites()
         withContext(Dispatchers.Main) {
-            updateChanges(RefreshData.CACHE)
+            updateChanges()
             hideProgress()
         }
     }
 
-    fun updateChanges(data: RefreshData) = refreshCommunication.show(data)
+    fun updateChanges() = refreshCommunication.show(true)
 
     fun refreshFavorites() = communication.show(getFavorites())
 
@@ -52,11 +51,14 @@ class FavoritesViewModel @Inject constructor(
 
     fun updateState(isFavoritesEmpty: Boolean) {
         stateCommunication.show(stateMapper.map(isFavoritesEmpty))
-        updateChanges(RefreshData.CACHE)
+        updateChanges()
     }
 
     fun onHiddenChanged(hidden: Boolean) {
         stateCommunication.show(if (hidden) FavoritesState.Hidden else FavoritesState.Base)
         if (!hidden) refreshFavorites()
     }
+
+    fun updateLocations() = interactor.saveRefreshLocationIntention()
+
 }
