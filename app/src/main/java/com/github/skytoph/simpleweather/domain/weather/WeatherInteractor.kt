@@ -32,8 +32,12 @@ interface WeatherInteractor {
 
         override suspend fun getCachedWeather(id: String): WeatherUi = try {
             if (refreshLocation.intentionSaved(id))
-                repository.updateLocationName(id).mapToUi().also { it.saveState(refreshLocation) }
-            else repository.getCachedWeather(id).mapToUi()
+                repository.updateLocationName(id).also { it.saveState(refreshLocation) }.mapToUi()
+            else
+                repository.getCachedWeather(id).mapToUi()
+        } catch (exception: CanNotUpdateLocationException) {
+            errorHandler.handle(exception)
+            repository.getCachedWeather(id).mapToUi()
         } catch (exception: Exception) {
             WeatherUi.Fail
         }
