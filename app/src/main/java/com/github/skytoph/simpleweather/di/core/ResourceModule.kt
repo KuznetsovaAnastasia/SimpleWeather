@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.di.core
 
+import com.github.skytoph.simpleweather.core.provider.LocaleProvider
 import com.github.skytoph.simpleweather.core.provider.ResourceManager
 import com.github.skytoph.simpleweather.core.provider.ResourceProvider
 import dagger.Binds
@@ -16,4 +17,7 @@ abstract class ResourceModule {
 
     @Binds
     abstract fun resourceManager(provider: ResourceManager.Base): ResourceManager
+
+    @Binds
+    abstract fun localeProvider(provider: ResourceManager.Base): LocaleProvider
 }

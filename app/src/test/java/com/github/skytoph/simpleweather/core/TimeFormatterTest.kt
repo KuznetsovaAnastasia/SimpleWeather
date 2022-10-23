@@ -1,23 +1,20 @@
 package com.github.skytoph.simpleweather.core
 
-import android.graphics.drawable.Drawable
-import com.github.skytoph.simpleweather.core.provider.ResourceProvider
+import com.github.skytoph.simpleweather.core.provider.LocaleProvider
 import com.github.skytoph.simpleweather.core.util.formatter.TimeFormat
 import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.util.*
 
 class TimeFormatterTest {
 
-    private val resources = object : ResourceProvider {
-        override fun color(id: Int): Int = 0
-        override fun dimensionPixel(id: Int): Int = 0
-        override fun string(id: Int): String = "%dH %02dM"
-        override fun string(id: Int, vararg args: String) = string(id)
-        override fun drawable(id: Int): Drawable? = null
+    private var locale = Locale.UK
+    private val resources = object : LocaleProvider {
+        override fun locale(): Locale = locale
     }
     private val format = object : TimeFormat {
-        override fun is24HourChosen(): Boolean = false
+        override fun is24HourChosen(): Boolean = true
     }
     private val formatter = TimeFormatter.Base(resources, format)
 
@@ -26,6 +23,15 @@ class TimeFormatterTest {
         val seconds = 57595L
         val actual = formatter.duration(seconds)
 
-        assertEquals("15H 59M", actual)
+        assertEquals(Pair(15, 59), actual)
+    }
+
+    @Test
+    fun test_time_formatting_locale_uk() {
+        val seconds = 57595L
+        locale = Locale.UK
+        val actual = formatter.timeFull(seconds)
+
+        assertEquals("15:59", actual)
     }
 }

@@ -8,9 +8,4 @@ interface HourlyForecastDataMapper : Mapper<HourlyForecastData> {
 
     fun map(time: Long, temp: Double, weatherId: Int, pop: Double): HourlyForecastData
 
-    class Base @Inject constructor() : HourlyForecastDataMapper {
-
-        override fun map(time: Long, temp: Double, weatherId: Int, pop: Double) =
-            HourlyForecastData(time, temp, weatherId, pop)
-    }
 }

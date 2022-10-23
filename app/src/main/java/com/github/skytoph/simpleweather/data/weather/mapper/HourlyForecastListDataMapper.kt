@@ -7,12 +7,25 @@ import javax.inject.Inject
 
 interface HourlyForecastListDataMapper : Mapper<List<HourlyForecastData>> {
 
-    fun <T : Mappable<HourlyForecastData, HourlyForecastDataMapper>> map(forecasts: List<T>): List<HourlyForecastData>
+    fun <T : Mappable<HourlyForecastData, HourlyForecastDataMapper>> map(
+        forecasts: List<T>,
+        timezoneOffset: Int = 0,
+    ): List<HourlyForecastData>
 
-    class Base @Inject constructor(private val mapper: HourlyForecastDataMapper) :
-        HourlyForecastListDataMapper {
+    class Base @Inject constructor() : HourlyForecastListDataMapper {
 
-        override fun <T : Mappable<HourlyForecastData, HourlyForecastDataMapper>> map(forecasts: List<T>): List<HourlyForecastData> {
+        override fun <T : Mappable<HourlyForecastData, HourlyForecastDataMapper>> map(
+            forecasts: List<T>,
+            timezoneOffset: Int,
+        ): List<HourlyForecastData> {
+            val mapper = object : HourlyForecastDataMapper {
+                override fun map(
+                    time: Long,
+                    temp: Double,
+                    weatherId: Int,
+                    pop: Double,
+                ) = HourlyForecastData(time + timezoneOffset, temp, weatherId, pop)
+            }
             return forecasts.map { it.map(mapper) }
         }
     }

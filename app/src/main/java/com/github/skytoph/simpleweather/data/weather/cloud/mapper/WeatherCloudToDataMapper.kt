@@ -37,6 +37,7 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
 
             override fun map(
                 current: CurrentWeatherCloud,
+                timezoneOffset: Int,
                 hourly: List<HourlyForecastCloud>,
                 daily: List<DailyForecastCloud>,
                 alerts: List<AlertCloud>,
@@ -59,10 +60,13 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
                                 idMapper.map(lat, lng),
                                 placeId,
                                 currentWeatherDataMapper.map(weather.map(), temp, name),
-                                indicatorsDataMapper.map(dt, temp, pop, airQualityCloud.map()),
-                                horizonDataMapper.map(sunrise, sunset, dt),
-                                alertsMapper.map(alerts, pop),
-                                hourlyMapper.map(hourly),
+                                indicatorsDataMapper.map(dt + timezoneOffset,
+                                    temp,
+                                    pop,
+                                    airQualityCloud.map()),
+                                horizonDataMapper.map(sunrise, sunset, dt, timezoneOffset),
+                                alertsMapper.map(alerts, pop, timezoneOffset),
+                                hourlyMapper.map(hourly, timezoneOffset),
                                 dailyMapper.map(daily),
                             )
                         }

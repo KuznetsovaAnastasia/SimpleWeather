@@ -10,6 +10,7 @@ import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 interface WeatherCloudMapper : Mapper<WeatherData> {
     fun map(
         current: CurrentWeatherCloud,
+        timezoneOffset: Int,
         hourly: List<HourlyForecastCloud>,
         daily: List<DailyForecastCloud>,
         alerts: List<AlertCloud>,
