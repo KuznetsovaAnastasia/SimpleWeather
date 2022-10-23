@@ -5,7 +5,7 @@ import com.github.skytoph.simpleweather.core.presentation.communication.Communic
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
-interface StateCommunication : Communication.Immutable<State> {
+interface StateCommunication : Communication.Observe<State> {
 
     @ViewModelScoped
     class Base @Inject constructor(data: LiveData<State>) :

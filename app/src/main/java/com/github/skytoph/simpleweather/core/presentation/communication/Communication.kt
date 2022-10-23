@@ -17,7 +17,7 @@ abstract class Communication {
 
     interface Mutable<T> : Observe<T>, Update<T>
 
-    interface Immutable<T> : Observe<T>
+//    interface Immutable<T> : Observe<T>
 
     abstract class Abstract<T>(protected val data: MutableLiveData<T>) : Mutable<T> {
 
@@ -25,7 +25,7 @@ abstract class Communication {
             data.observe(owner, observer)
     }
 
-    abstract class ImmutableUpdate<T>(protected val data: LiveData<T>) : Immutable<T> {
+    abstract class ImmutableUpdate<T>(protected val data: LiveData<T>) : Observe<T> {
 
         override fun observe(owner: LifecycleOwner, observer: Observer<T>) =
             data.observe(owner, observer)
