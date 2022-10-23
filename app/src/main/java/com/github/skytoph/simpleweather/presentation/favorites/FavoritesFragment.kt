@@ -64,7 +64,11 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
             state.show(binding.errorView, parentFragmentManager, tabLayout)
         }
 
-        if (savedInstanceState == null) viewModel.refreshFavorites()
+        viewModel.observeWeatherLoading(this) { state ->
+            viewModel.showProgress(this, state)
+        }
+
+         viewModel.initialize(savedInstanceState == null)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
