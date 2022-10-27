@@ -4,7 +4,7 @@ import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.ContentDB
 import com.github.skytoph.simpleweather.data.weather.cache.model.identifier.IdentifierDB
 import com.github.skytoph.simpleweather.data.weather.cache.model.time.TimeDB
-import com.github.skytoph.simpleweather.data.weather.mapper.content.ContentDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.ContentDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.identifier.IdentifierDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.time.TimeDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
@@ -16,7 +16,7 @@ interface WeatherDBToDataMapper : Mapper<WeatherData> {
 
     class Base @Inject constructor(
         private val timeMapper: TimeDBToDataMapper,
-        private val contentMapper: ContentDataMapper,
+        private val contentMapper: ContentDBToDataMapper,
     ) : WeatherDBToDataMapper {
 
         override fun map(

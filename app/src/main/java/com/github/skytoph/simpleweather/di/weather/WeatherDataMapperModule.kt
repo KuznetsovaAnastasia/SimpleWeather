@@ -3,7 +3,7 @@ package com.github.skytoph.simpleweather.di.weather
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceToCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudToDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.content.ContentDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.ContentDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.current.CurrentWeatherDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.*
 import com.github.skytoph.simpleweather.data.weather.mapper.content.horizon.HorizonDataMapper
@@ -28,7 +28,7 @@ abstract class WeatherDataMapperModule {
     abstract fun updateMapper(mapper: UpdateWeatherMapper.Base): UpdateWeatherMapper
 
     @Binds
-    abstract fun contentMapper(mapper: ContentDataMapper.Base): ContentDataMapper
+    abstract fun contentMapper(mapper: ContentDBToDataMapper.Base): ContentDBToDataMapper
 
     @Binds
     abstract fun currentWeatherMapper(mapper: CurrentWeatherDataMapper.Base): CurrentWeatherDataMapper
@@ -46,10 +46,7 @@ abstract class WeatherDataMapperModule {
     abstract fun alertsMapper(mapper: AlertListDataMapper.Base): AlertListDataMapper
 
     @Binds
-    abstract fun forecastMapper(mapper: ForecastDataMapper.Base): ForecastDataMapper
-
-    @Binds
-    abstract fun forecastFilterMapper(mapper: HourlyForecastFilter.Base): HourlyForecastFilter
+    abstract fun forecastMapper(mapper: ForecastDBToDataMapper.Base): ForecastDBToDataMapper
 
     @Binds
     abstract fun hourlyListMapper(mapper: HourlyForecastListDataMapper.Base): HourlyForecastListDataMapper

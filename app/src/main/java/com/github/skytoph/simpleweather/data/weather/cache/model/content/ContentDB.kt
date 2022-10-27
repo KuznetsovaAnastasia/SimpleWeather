@@ -2,14 +2,14 @@ package com.github.skytoph.simpleweather.data.weather.cache.model.content
 
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.ForecastDB
-import com.github.skytoph.simpleweather.data.weather.mapper.content.ContentDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.ContentDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
 import io.realm.RealmObject
 import io.realm.annotations.RealmClass
 import io.realm.annotations.RealmField
 
 @RealmClass(embedded = true)
-open class ContentDB : RealmObject(), Mappable<ContentData, ContentDataMapper> {
+open class ContentDB : RealmObject(), Mappable<ContentData, ContentDBToDataMapper> {
 
     @RealmField(name = FIELD_CURRENT)
     var current: CurrentDB? = null
@@ -30,6 +30,6 @@ open class ContentDB : RealmObject(), Mappable<ContentData, ContentDataMapper> {
         const val FIELD_FORECAST = "forecast"
     }
 
-    override fun map(mapper: ContentDataMapper): ContentData =
+    override fun map(mapper: ContentDBToDataMapper): ContentData =
         mapper.map(current!!, indicators!!, horizon!!, forecast!!)
 }
