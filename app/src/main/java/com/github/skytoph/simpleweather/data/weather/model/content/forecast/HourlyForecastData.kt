@@ -26,6 +26,6 @@ data class HourlyForecastData(
         parent: ForecastDB,
     ): HourlyForecastDB = mapper.map(time, temp, weatherId, precipitationProb, parent, dataBase)
 
-    fun isOutdated(timeSeconds: Long): Boolean =
-        time < timeSeconds
+    fun isNotOutdated(timeSeconds: Long): Boolean =
+        timeSeconds <= time
 }
