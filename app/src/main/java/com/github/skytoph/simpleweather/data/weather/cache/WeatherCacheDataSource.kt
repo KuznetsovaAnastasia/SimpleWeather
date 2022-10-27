@@ -9,8 +9,6 @@ import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDataDBM
 import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import io.realm.Realm
-import io.realm.RealmList
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,17 +23,17 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
     class Base @Inject constructor(
         private val realmProvider: RealmProvider,
         private val mapper: WeatherDataDBMapper,
-        private val timeFilter: WeatherForecastFilter,
     ) : WeatherCacheDataSource {
 
         override fun read(id: String): WeatherDB = realmProvider.provide().use { realm ->
-            return findRealmObject(realm, id)?.let { timeFilter.map(realm.copyFromRealm(it)) }
+            return findRealmObject(realm, id)?.let { realm.copyFromRealm(it) }
                 ?: throw DataIsNotCachedException(id)
         }
 
         override fun readAll(): List<WeatherDB> = realmProvider.provide().use { realm ->
             return realm.where(WeatherDB::class.java).findAll().let { realm.copyFromRealm(it) }
-                ?.sortedBy { it.priority } ?: throw NoCachedDataException()
+                ?.sortedBy { it.identifier!!.priority }
+                ?: throw NoCachedDataException()
         }
 
         override fun readAllIDs(): List<String> = readAll().map { it.id }
@@ -57,19 +55,5 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
 
         private fun findRealmObject(realm: Realm, id: String) =
             realm.where(WeatherDB::class.java).equalTo(WeatherDB.FIELD_ID, id).findFirst()
-    }
-}
-
-interface WeatherForecastFilter {
-    fun map(data: WeatherDB): WeatherDB
-
-    class Base @Inject constructor() : WeatherForecastFilter {
-
-        override fun map(data: WeatherDB): WeatherDB = data.apply {
-            val filteredForecast = hourly.filter {
-                it.time > TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis())
-            }.toTypedArray()
-            hourly = RealmList(*filteredForecast)
-        }
     }
 }

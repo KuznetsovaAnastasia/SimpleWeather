@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
+import com.github.skytoph.simpleweather.presentation.weather.CurrentWeatherUi
 
 class LocationView : LinearLayout {
 
@@ -40,7 +40,7 @@ class LocationView : LinearLayout {
         gravity = Gravity.CENTER
     }
 
-    fun show(weather: WeatherUiComponent.Current) {
+    fun show(weather: CurrentWeatherUi) {
         visibility = View.VISIBLE
         weather.show(weatherImage, cityTextView, degreesTextView)
     }

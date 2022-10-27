@@ -15,4 +15,11 @@ interface IdMapper {
 
         override fun map(lat: Double, lng: Double): String = "$lat,$lng"
     }
+
+    interface MappableToId<T> {
+        fun map(mapper: IdMapper): T
+    }
+
+    interface MappableToStringId : MappableToId<String>
+    interface MappableToCoordinates : MappableToId<Pair<Double, Double>>
 }

@@ -23,7 +23,7 @@
         app:valueColor="?subtitleTextColor"
         app:fontFamily="@font/poppins"
         app:sunset_time="5:45 pm"
-        app:sunrise_time="6:30 am"/>
+        app:sunrise_time="6:30 am" />
 
     <TextView
         android:id="@+id/day_length_label"

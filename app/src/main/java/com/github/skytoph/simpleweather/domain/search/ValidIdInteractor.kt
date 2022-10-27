@@ -10,7 +10,7 @@ interface ValidIdInteractor {
 
     class Base @Inject constructor(
         private val weatherRepository: WeatherRepository.Mutable,
-        private val placeCloudDataSource: LocationCloudDataSource,
+        private val placeCloudDataSource: LocationCloudDataSource.PlaceSearch,
     ) : ValidIdInteractor {
 
         override suspend fun isFavorite(id: String): Boolean = weatherRepository.contains(id)

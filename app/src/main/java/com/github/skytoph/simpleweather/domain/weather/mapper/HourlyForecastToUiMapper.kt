@@ -5,13 +5,13 @@ import com.github.skytoph.simpleweather.core.domain.mapper.WeatherIdHandler
 import com.github.skytoph.simpleweather.core.util.formatter.ProbabilityFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TemperatureFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.HourlyForecast
+import com.github.skytoph.simpleweather.presentation.weather.ForecastUi.Hourly
 import javax.inject.Inject
 
 
-interface HourlyForecastToUiMapper : Mapper<HourlyForecast> {
+interface HourlyForecastToUiMapper : Mapper<Hourly> {
 
-    fun map(time: Long, temp: Double, weatherId: Int, pop: Double): HourlyForecast
+    fun map(time: Long, temp: Double, weatherId: Int, pop: Double): Hourly
 
     class Base @Inject constructor(
         private val tempFormatter: TemperatureFormatter,
@@ -20,7 +20,7 @@ interface HourlyForecastToUiMapper : Mapper<HourlyForecast> {
     ) : HourlyForecastToUiMapper, WeatherIdHandler() {
 
         override fun map(time: Long, temp: Double, weatherId: Int, pop: Double) =
-            HourlyForecast(timeFormatter.timeFull(time),
+            Hourly(timeFormatter.timeFull(time),
                 tempFormatter.format(temp),
                 weatherImageRes(weatherId),
                 probabilityFormatter.format(pop))

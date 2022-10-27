@@ -37,7 +37,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
 
         val viewPager = binding.viewPagerFavorites
         viewPager.adapter = adapter
-        viewPager.offscreenPageLimit = 2
+        viewPager.offscreenPageLimit = 1
 
         tabLayout = requireActivity().findViewById(R.id.tab_layout_dots)
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()

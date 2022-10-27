@@ -12,5 +12,6 @@ import retrofit2.Retrofit
 object SearchCloudModule {
 
     @Provides
-    fun service(retrofit: Retrofit): PredictionService = retrofit.create(PredictionService::class.java)
+    fun service(retrofit: Retrofit): PredictionService =
+        retrofit.create(PredictionService::class.java)
 }

@@ -6,16 +6,17 @@ import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
 import com.github.skytoph.simpleweather.data.location.cloud.LocationCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
+import com.github.skytoph.simpleweather.data.weather.model.identifier.IdentifierData
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeatherMapper
 import javax.inject.Inject
 
-interface WeatherCloudDataSource : UpdateItem<WeatherData> {
+interface WeatherCloudDataSource : UpdateItem<WeatherData, IdentifierData> {
     suspend fun fetch(placeId: String): WeatherData
 
     class Base @Inject constructor(
         private val forecastCloudDataSource: ForecastCloudDataSource,
         private val airQualityCloudDataSource: AirQualityCloudDataSource,
-        private val placeCloudDataSource: LocationCloudDataSource,
+        private val placeCloudDataSource: LocationCloudDataSource.PlaceSearch,
         private val cloudMapper: WeatherCloudToDataMapper,
         private val updateMapper: UpdateWeatherMapper,
         private val idMapper: IdMapper,
@@ -36,7 +37,7 @@ interface WeatherCloudDataSource : UpdateItem<WeatherData> {
             return updateMapper.update(data, forecast, airQuality)
         }
 
-        override suspend fun updateLocation(data: WeatherData, placeId: String): WeatherData =
-            updateMapper.update(data, placeCloudDataSource.placeName(placeId))
+        override suspend fun updateLocation(data: WeatherData, id: IdentifierData): WeatherData =
+            updateMapper.update(data, id.placeName(placeCloudDataSource))
     }
 }

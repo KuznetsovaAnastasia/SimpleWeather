@@ -1,7 +1,10 @@
 package com.github.skytoph.simpleweather.data.weather.update
 
-import com.github.skytoph.simpleweather.data.weather.model.*
+import com.github.skytoph.simpleweather.data.weather.model.WeatherData
+import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
+import com.github.skytoph.simpleweather.data.weather.model.identifier.IdentifierData
+import com.github.skytoph.simpleweather.data.weather.model.time.ForecastTimeData
 
 interface UpdateWeather {
-    fun update(id: String, placeId: String, priority: Int, currentWeatherData: CurrentWeatherData): WeatherData
+    fun update(identifier: IdentifierData, time: ForecastTimeData, content: ContentData): WeatherData
 }

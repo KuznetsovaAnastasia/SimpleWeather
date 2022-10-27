@@ -39,4 +39,7 @@ abstract class WeatherUiMapperModule {
 
     @Binds
     abstract fun dailyListMapper(mapper: DailyForecastListToUiMapper.Base): DailyForecastListToUiMapper
+
+    @Binds
+    abstract fun listMapper(mapper: ForecastListUiMapper.Base): ForecastListUiMapper
 }

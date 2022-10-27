@@ -2,56 +2,38 @@ package com.github.skytoph.simpleweather.data.weather.cache.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.data.DataBase
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.ContentDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.identifier.IdentifierDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.time.TimeDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
-import com.github.skytoph.simpleweather.data.weather.model.*
+import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
+import com.github.skytoph.simpleweather.data.weather.model.identifier.IdentifierData
+import com.github.skytoph.simpleweather.data.weather.model.time.ForecastTimeData
 import javax.inject.Inject
 
 interface WeatherDataDBMapper : Mapper<WeatherDB> {
     fun map(
-        id: String,
-        placeId: String,
-        currentWeatherData: CurrentWeatherData,
-        indicatorsData: IndicatorsData,
-        horizonData: HorizonData,
-        alerts: List<AlertData>,
-        hourlyForecast: List<HourlyForecastData>,
-        dailyForecast: List<DailyForecastData>,
+        identifier: IdentifierData,
+        time: ForecastTimeData,
+        content: ContentData,
         dataBase: DataBase,
-        priority: Int,
     ): WeatherDB
 
     class Base @Inject constructor(
-        private val currentMapper: CurrentDBMapper,
-        private val indicatorsMapper: IndicatorsDBMapper,
-        private val horizonMapper: HorizonDBMapper,
-        private val warningsDBMapper: WarningsDBMapper,
-        private val hourlyDBMapper: HourlyForecastListDBMapper,
-        private val dailyDBMapper: DailyForecastListDBMapper,
+        private val identifierMapper: IdentifierDBMapper,
+        private val timeMapper: TimeDBMapper,
+        private val contentMapper: ContentDBMapper,
     ) : WeatherDataDBMapper {
 
         override fun map(
-            id: String,
-            placeId: String,
-            currentWeatherData: CurrentWeatherData,
-            indicatorsData: IndicatorsData,
-            horizonData: HorizonData,
-            alerts: List<AlertData>,
-            hourlyForecast: List<HourlyForecastData>,
-            dailyForecast: List<DailyForecastData>,
+            identifier: IdentifierData,
+            time: ForecastTimeData,
+            content: ContentData,
             dataBase: DataBase,
-            priority: Int,
-        ): WeatherDB = dataBase.createObject<WeatherDB>(id).apply {
-            this.placeId = placeId
-            this.current = currentWeatherData.map(currentMapper)
-            this.indicators = indicatorsData.map(indicatorsMapper)
-            this.horizon = horizonData.map(horizonMapper)
-            this.horizon = horizonData.map(horizonMapper)
-            this.priority =
-                if (priority != 0) priority
-                else dataBase.findMax<WeatherDB>(WeatherDB.FIELD_PRIORITY) + 1
-            warningsDBMapper.map(alerts, dataBase, this)
-            hourlyDBMapper.map(hourlyForecast, dataBase, this)
-            dailyDBMapper.map(dailyForecast, dataBase, this)
+        ): WeatherDB = dataBase.createObject<WeatherDB>(identifier.map()).apply {
+            this.identifier = identifier.map(identifierMapper, dataBase)
+            this.time = time.map(timeMapper)
+            content.map(contentMapper, dataBase, this)
         }
     }
 }

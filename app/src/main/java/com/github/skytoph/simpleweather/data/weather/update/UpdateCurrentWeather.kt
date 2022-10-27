@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.data.weather.update
 
-import com.github.skytoph.simpleweather.data.weather.model.CurrentWeatherData
+import com.github.skytoph.simpleweather.data.weather.model.content.current.CurrentWeatherData
 
 interface UpdateCurrentWeather {
-    fun update(location: String, favorite: Boolean): CurrentWeatherData
+    fun update(location: String): CurrentWeatherData
 }

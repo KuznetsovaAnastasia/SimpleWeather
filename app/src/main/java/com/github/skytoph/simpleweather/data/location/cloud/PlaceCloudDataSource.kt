@@ -5,15 +5,21 @@ import com.google.android.libraries.places.api.model.Place
 import javax.inject.Inject
 
 interface LocationCloudDataSource {
-    suspend fun place(placeId: String): PlaceCloud
-    suspend fun placeName(placeId: String): String
-    suspend fun placeCoordinates(placeId: String): String
+
+    interface PlaceNameSearch {
+        suspend fun placeName(placeId: String): String
+    }
+
+    interface PlaceSearch : PlaceNameSearch{
+        suspend fun place(placeId: String): PlaceCloud
+        suspend fun placeCoordinates(placeId: String): String
+    }
 
     class Base @Inject constructor(
         private val findPlace: FindPlace,
         private val mapper: PlaceToCloudMapper,
         private val idMapper: IdMapper,
-    ) : LocationCloudDataSource {
+    ) : LocationCloudDataSource, PlaceSearch {
 
         override suspend fun place(placeId: String): PlaceCloud = mapper.map(findPlace.find(placeId,
             Place.Field.ADDRESS_COMPONENTS,

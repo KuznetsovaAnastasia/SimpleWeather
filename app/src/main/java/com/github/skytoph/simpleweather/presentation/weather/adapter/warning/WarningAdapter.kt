@@ -10,12 +10,11 @@ import com.github.skytoph.simpleweather.core.presentation.adapter.BaseDiffUtil
 import com.github.skytoph.simpleweather.core.presentation.view.WarningInfoView
 import com.github.skytoph.simpleweather.core.presentation.view.WarningRainView
 import com.github.skytoph.simpleweather.core.presentation.view.WarningView
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.Warning
+import com.github.skytoph.simpleweather.presentation.weather.WarningUi
 import javax.inject.Inject
 
 class WarningAdapter @Inject constructor() :
-    ListAdapter<Warning, WarningAdapter.WarningViewHolder<out WarningView>>(WarningItemDiffCallback()) {
+    ListAdapter<WarningUi, WarningAdapter.WarningViewHolder<out WarningView>>(WarningItemDiffCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,17 +33,17 @@ class WarningAdapter @Inject constructor() :
         holder.bind(getItem(position))
 
     override fun getItemViewType(position: Int): Int =
-        if (getItem(position) is WeatherUiComponent.WarningRain && position == 0)
+        if (getItem(position) is WarningUi.Rain && position == 0)
             WarningType.RAINY.ordinal
         else WarningType.BASIC.ordinal
 
     class WarningViewHolder<V : WarningView>(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(warning: Warning) {
+        fun bind(warning: WarningUi) {
             itemView.findViewById<V>(R.id.warning_view_item).show(warning)
         }
     }
 
-    class WarningItemDiffCallback : BaseDiffUtil<Warning>()
+    class WarningItemDiffCallback : BaseDiffUtil<WarningUi>()
 
     enum class WarningType {
         BASIC,

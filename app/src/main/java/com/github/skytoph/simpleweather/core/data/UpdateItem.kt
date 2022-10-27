@@ -1,6 +1,6 @@
 package com.github.skytoph.simpleweather.core.data
 
-interface UpdateItem<T> {
+interface UpdateItem<T, I> {
     suspend fun update(data: T): T
-    suspend fun updateLocation(data: T, placeId: String): T
+    suspend fun updateLocation(data: T, id: I): T
 }

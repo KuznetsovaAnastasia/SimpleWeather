@@ -6,8 +6,17 @@ import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
 import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloud
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.model.*
-import com.github.skytoph.simpleweather.data.weather.mapper.*
+import com.github.skytoph.simpleweather.data.weather.mapper.content.current.CurrentWeatherDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.AlertListDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.DailyForecastListDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.HourlyForecastListDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.horizon.HorizonDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.indicators.IndicatorsDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
+import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
+import com.github.skytoph.simpleweather.data.weather.model.content.forecast.ForecastData
+import com.github.skytoph.simpleweather.data.weather.model.identifier.IdentifierData
+import com.github.skytoph.simpleweather.data.weather.model.time.ForecastTimeData
 import javax.inject.Inject
 
 interface WeatherCloudToDataMapper : Mapper<WeatherData> {
@@ -20,10 +29,10 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
 
     class Base @Inject constructor(
         private val idMapper: IdMapper,
-        private val currentWeatherDataMapper: CurrentWeatherDataMapper,
-        private val indicatorsDataMapper: IndicatorsDataMapper,
-        private val horizonDataMapper: HorizonDataMapper,
-        private val alertsMapper: AlertsDataMapper,
+        private val currentMapper: CurrentWeatherDataMapper,
+        private val indicatorsMapper: IndicatorsDataMapper,
+        private val horizonMapper: HorizonDataMapper,
+        private val alertsMapper: AlertListDataMapper,
         private val hourlyMapper: HourlyForecastListDataMapper,
         private val dailyMapper: DailyForecastListDataMapper,
     ) : WeatherCloudToDataMapper {
@@ -53,21 +62,18 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
                             sunrise: Long,
                             sunset: Long,
                             uvi: Double,
-                            weather: WeatherTypeCloud,
+                            weather: Int,
                         ): WeatherData {
                             val pop = hourly[0].map()
                             return WeatherData(
-                                idMapper.map(lat, lng),
-                                placeId,
-                                currentWeatherDataMapper.map(weather.map(), temp, name),
-                                indicatorsDataMapper.map(dt + timezoneOffset,
-                                    temp,
-                                    pop,
-                                    airQualityCloud.map()),
-                                horizonDataMapper.map(sunrise, sunset, dt, timezoneOffset),
-                                alertsMapper.map(alerts, pop, timezoneOffset),
-                                hourlyMapper.map(hourly, timezoneOffset),
-                                dailyMapper.map(daily),
+                                IdentifierData(idMapper.map(lat, lng), placeId, favorite),
+                                ForecastTimeData(dt, timezoneOffset),
+                                ContentData(currentMapper.map(weather, temp, name),
+                                    indicatorsMapper.map(temp, pop, airQualityCloud.map()),
+                                    horizonMapper.map(sunrise, sunset),
+                                    ForecastData(alertsMapper.map(alerts),
+                                        hourlyMapper.map(hourly),
+                                        dailyMapper.map(daily)))
                             )
                         }
                     })

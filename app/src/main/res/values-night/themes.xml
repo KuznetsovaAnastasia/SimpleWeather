@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/blue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?android:attr/colorBackground</item>
+        <item name="android:statusBarColor">?android:attr/colorBackground</item>
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="fontFamily">@font/poppins</item>
@@ -21,7 +21,7 @@
 
         <item name="mainViewsBackground">@color/very_dark_gray</item>
 
-<!--        Text colors-->
+        <!--        Text colors-->
         <item name="mainTitleTextColor">@color/white</item>
 
         <item name="titleTextColor">@color/light_gray</item>

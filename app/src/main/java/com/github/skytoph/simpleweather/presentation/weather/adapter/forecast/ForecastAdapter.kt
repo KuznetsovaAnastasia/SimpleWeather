@@ -9,15 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.Matcher
 import com.github.skytoph.simpleweather.core.presentation.adapter.BaseDiffUtil
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
+import com.github.skytoph.simpleweather.presentation.weather.ForecastUi
 
-abstract class ForecastAdapter<T : WeatherUiComponent.Forecast>(diffCallback: DiffUtil.ItemCallback<T>) :
+abstract class ForecastAdapter<T : ForecastUi>(diffCallback: DiffUtil.ItemCallback<T>) :
     ListAdapter<T, ForecastAdapter.ForecastViewHolder<T>>(diffCallback) {
 
     override fun onBindViewHolder(holder: ForecastViewHolder<T>, position: Int) =
         holder.bind(getItem(position))
 
-    abstract class ForecastViewHolder<T : WeatherUiComponent.Forecast>(itemView: View) :
+    abstract class ForecastViewHolder<T : ForecastUi>(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private val tempTextView = itemView.findViewById<TextView>(R.id.forecast_temp)
         private val timeTextView = itemView.findViewById<TextView>(R.id.forecast_time)

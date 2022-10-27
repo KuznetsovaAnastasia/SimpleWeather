@@ -2,8 +2,8 @@ package com.github.skytoph.simpleweather.data.weather.cloud.model
 
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.core.MappableTo
-import com.github.skytoph.simpleweather.data.weather.mapper.HourlyForecastDataMapper
-import com.github.skytoph.simpleweather.data.weather.model.HourlyForecastData
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.HourlyForecastDataMapper
+import com.github.skytoph.simpleweather.data.weather.model.content.forecast.HourlyForecastData
 import com.squareup.moshi.Json
 
 /*

@@ -1,7 +1,15 @@
 package com.github.skytoph.simpleweather.di.weather
 
 import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
-import com.github.skytoph.simpleweather.data.weather.cache.mapper.*
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDataDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.ContentDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.current.CurrentDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.forecast.*
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.horizon.HorizonDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.indicators.IndicatorsDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.identifier.IdentifierDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.time.TimeDBMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.time.TimeDBToDataMapper
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,6 +30,21 @@ abstract class WeatherDBMapperModule {
 
     @Binds
     abstract fun horizonMapper(mapper: HorizonDBMapper.Base): HorizonDBMapper
+
+    @Binds
+    abstract fun forecastMapper(mapper: ForecastDBMapper.Base): ForecastDBMapper
+
+    @Binds
+    abstract fun contentMapper(mapper: ContentDBMapper.Base): ContentDBMapper
+
+    @Binds
+    abstract fun identifierMapper(mapper: IdentifierDBMapper.Base): IdentifierDBMapper
+
+    @Binds
+    abstract fun timeMapper(mapper: TimeDBMapper.Base): TimeDBMapper
+
+    @Binds
+    abstract fun timeDataMapper(mapper: TimeDBToDataMapper.Base): TimeDBToDataMapper
 
     @Binds
     abstract fun warningsMapper(mapper: WarningsDBMapper.Base): WarningsDBMapper

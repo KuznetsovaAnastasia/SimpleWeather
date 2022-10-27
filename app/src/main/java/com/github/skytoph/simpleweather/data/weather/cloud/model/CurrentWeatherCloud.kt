@@ -27,5 +27,5 @@ class CurrentWeatherCloud(
     ) : Mappable<WeatherData, CurrentCloudToDataMapper> {
 
     override fun map(mapper: CurrentCloudToDataMapper): WeatherData =
-        mapper.map(dt, temp, sunrise, sunset, uvi, weather[0])
+        mapper.map(dt, temp, sunrise, sunset, uvi, weather[0].map())
 }

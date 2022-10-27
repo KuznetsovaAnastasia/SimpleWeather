@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
+import com.github.skytoph.simpleweather.presentation.weather.IndicatorsUi
 
 
 class IndicatorsView : ConstraintLayout {
@@ -44,7 +44,7 @@ class IndicatorsView : ConstraintLayout {
         aqTextView = findViewById(R.id.indicator_aq_value)
     }
 
-    fun show(weather: WeatherUiComponent.Indicator) {
+    fun show(weather: IndicatorsUi) {
         visibility = View.VISIBLE
         weather.show(timeTextView, uvTextView, popTextView, aqTextView)
     }

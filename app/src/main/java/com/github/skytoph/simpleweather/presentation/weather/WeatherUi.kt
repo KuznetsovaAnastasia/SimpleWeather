@@ -7,7 +7,6 @@ import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
 import com.github.skytoph.simpleweather.presentation.addlocation.Loading
 import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent.*
 
 sealed class WeatherUi : ShowWeatherUi() {
     abstract fun show(communication: LoadingCommunication.Update)
@@ -15,12 +14,10 @@ sealed class WeatherUi : ShowWeatherUi() {
 
     data class Base(
         private val id: String,
-        private val current: Current,
-        private val warnings: List<Warning>,
-        private val indicator: Indicator,
-        private val hourly: List<HourlyForecast>,
-        private val daily: List<DailyForecast>,
-        private val horizon: Horizon,
+        private val current: CurrentWeatherUi,
+        private val indicator: IndicatorsUi,
+        private val horizon: HorizonUi,
+        private val listUi: ListUi,
     ) : WeatherUi() {
 
         override fun show(
@@ -28,12 +25,12 @@ sealed class WeatherUi : ShowWeatherUi() {
             indicatorsView: IndicatorsView,
             sunriseSunsetView: SunriseSunsetView,
             recyclerView: RecyclerView,
-            submitLists: (List<Warning>, List<HourlyForecast>, List<DailyForecast>) -> Unit,
+            submitLists: (List<WarningUi>, List<ForecastUi.Hourly>, List<ForecastUi.Daily>) -> Unit,
         ) {
             locationView.show(current)
             indicatorsView.show(indicator)
             sunriseSunsetView.show(horizon)
-            submitLists.invoke(warnings, hourly, daily)
+            listUi.show(submitLists)
             recyclerView.visibility = View.VISIBLE
         }
 

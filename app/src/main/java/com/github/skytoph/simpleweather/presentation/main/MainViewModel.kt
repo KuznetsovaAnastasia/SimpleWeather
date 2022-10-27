@@ -4,9 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.core.presentation.communication.MessageCommunication
 import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
-import com.github.skytoph.simpleweather.core.presentation.error.UiMessage
 import com.github.skytoph.simpleweather.core.presentation.navigation.ShowScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

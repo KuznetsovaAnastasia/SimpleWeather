@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
+import com.github.skytoph.simpleweather.presentation.weather.WarningUi
 
 class WarningRainView : WarningView {
     private var forecastImage: ImageView
@@ -37,7 +37,7 @@ class WarningRainView : WarningView {
         warningText = findViewById(R.id.warning_text)
     }
 
-    override fun show(warning: WeatherUiComponent.Warning) {
+    override fun show(warning: WarningUi) {
         visibility = View.VISIBLE
         warning.show(warningText, rainPercentText, expTimeText)
     }

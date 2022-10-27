@@ -4,16 +4,16 @@ import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.util.formatter.ProbabilityFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
+import com.github.skytoph.simpleweather.presentation.weather.WarningUi
 import javax.inject.Inject
 
-interface WarningDomainToUiMapper : Mapper<WeatherUiComponent.Warning> {
+interface WarningDomainToUiMapper : Mapper<WarningUi> {
     fun map(
         event: String,
         startTime: Long,
         precipitationProb: Double,
         description: String,
-    ): WeatherUiComponent.Warning
+    ): WarningUi
 
     class Base @Inject constructor(
         private val timeFormatter: TimeFormatter,
@@ -25,14 +25,14 @@ interface WarningDomainToUiMapper : Mapper<WeatherUiComponent.Warning> {
             precipitationProb: Double,
             description: String,
         ) = if (containsRain(event))
-            WeatherUiComponent.WarningRain(
+            WarningUi.Rain(
                 event,
                 description,
                 timeFormatter.timeFull(startTime),
                 R.drawable.weather_rain,
                 probabilityFormatter.format(precipitationProb))
         else
-            WeatherUiComponent.WarningBasic(
+            WarningUi.Basic(
                 event,
                 description,
                 timeFormatter.timeFull(startTime))

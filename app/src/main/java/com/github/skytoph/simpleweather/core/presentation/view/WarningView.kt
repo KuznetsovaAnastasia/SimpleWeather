@@ -5,9 +5,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
+import com.github.skytoph.simpleweather.presentation.weather.WarningUi
 
-abstract class WarningView: ConstraintLayout {
+abstract class WarningView : ConstraintLayout {
 
     //region constructors
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
@@ -20,9 +20,9 @@ abstract class WarningView: ConstraintLayout {
             : super(context, attrs)
     //endregion
 
-    abstract fun show(warning: WeatherUiComponent.Warning)
+    abstract fun show(warning: WarningUi)
 
-    protected fun inflate(@LayoutRes layoutId: Int){
+    protected fun inflate(@LayoutRes layoutId: Int) {
         (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
             .inflate(layoutId, this, true)
     }

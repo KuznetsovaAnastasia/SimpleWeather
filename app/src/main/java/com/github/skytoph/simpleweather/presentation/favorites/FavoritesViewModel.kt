@@ -27,8 +27,9 @@ class FavoritesViewModel @Inject constructor(
 
     fun initialize(firstCreated: Boolean) {
         if (firstCreated) {
-            refreshFavorites()
-            progressCommunication.show(true)
+            val favorites = getFavorites()
+            communication.show(favorites)
+            if (favorites.isNotEmpty()) progressCommunication.show(true)
         }
     }
 

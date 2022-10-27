@@ -12,6 +12,6 @@ abstract class ShowWeatherUi {
         indicatorsView: IndicatorsView,
         sunriseSunsetView: SunriseSunsetView,
         recyclerView: RecyclerView,
-        submitLists: (List<WeatherUiComponent.Warning>, List<WeatherUiComponent.HourlyForecast>, List<WeatherUiComponent.DailyForecast>) -> Unit,
+        submitLists: (List<WarningUi>, List<ForecastUi.Hourly>, List<ForecastUi.Daily>) -> Unit,
     ) = Unit
 }

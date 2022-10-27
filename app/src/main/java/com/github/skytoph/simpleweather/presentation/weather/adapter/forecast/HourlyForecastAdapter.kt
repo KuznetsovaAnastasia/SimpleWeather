@@ -5,18 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.adapter.BaseDiffUtil
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUiComponent
+import com.github.skytoph.simpleweather.presentation.weather.ForecastUi
 
 class HourlyForecastAdapter :
-    ForecastAdapter<WeatherUiComponent.HourlyForecast>(ForecastItemDiffCallback()) {
+    ForecastAdapter<ForecastUi.Hourly>(ForecastItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            : ForecastViewHolder<WeatherUiComponent.HourlyForecast> =
+            : ForecastViewHolder<ForecastUi.Hourly> =
         WeeklyForecastViewHolder(LayoutInflater.from(parent.context)
             .inflate(R.layout.forecast_hourly_item, parent, false))
 
-    class ForecastItemDiffCallback : BaseDiffUtil<WeatherUiComponent.HourlyForecast>()
+    class ForecastItemDiffCallback : BaseDiffUtil<ForecastUi.Hourly>()
 
     class WeeklyForecastViewHolder(itemView: View) :
-        ForecastViewHolder<WeatherUiComponent.HourlyForecast>(itemView)
+        ForecastViewHolder<ForecastUi.Hourly>(itemView)
 }

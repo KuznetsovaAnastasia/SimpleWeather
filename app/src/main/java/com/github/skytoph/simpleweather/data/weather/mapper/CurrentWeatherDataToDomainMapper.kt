@@ -1,17 +1,16 @@
 package com.github.skytoph.simpleweather.data.weather.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
-import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain.CurrentWeather
+import com.github.skytoph.simpleweather.domain.weather.model.CurrentWeatherDomain
 import javax.inject.Inject
 
-interface CurrentWeatherDataToDomainMapper : Mapper<CurrentWeather> {
+interface CurrentWeatherDataToDomainMapper : Mapper<CurrentWeatherDomain> {
 
     fun map(
         weatherId: Int,
         temperature: Double,
         location: String,
-        favorite: Boolean,
-    ): CurrentWeather
+    ): CurrentWeatherDomain
 
     class Base @Inject constructor() : CurrentWeatherDataToDomainMapper {
 
@@ -19,7 +18,6 @@ interface CurrentWeatherDataToDomainMapper : Mapper<CurrentWeather> {
             weatherId: Int,
             temperature: Double,
             location: String,
-            favorite: Boolean,
-        ) = CurrentWeather(location, temperature, weatherId, favorite)
+        ) = CurrentWeatherDomain(location, temperature, weatherId)
     }
 }

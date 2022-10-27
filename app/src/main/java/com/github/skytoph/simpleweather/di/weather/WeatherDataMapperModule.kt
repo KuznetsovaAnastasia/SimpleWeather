@@ -2,9 +2,12 @@ package com.github.skytoph.simpleweather.di.weather
 
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceToCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
-import com.github.skytoph.simpleweather.data.weather.cloud.mapper.AlertsDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudToDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.*
+import com.github.skytoph.simpleweather.data.weather.mapper.content.ContentDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.current.CurrentWeatherDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.*
+import com.github.skytoph.simpleweather.data.weather.mapper.content.horizon.HorizonDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.indicators.IndicatorsDataMapper
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeatherMapper
 import dagger.Binds
 import dagger.Module
@@ -25,6 +28,9 @@ abstract class WeatherDataMapperModule {
     abstract fun updateMapper(mapper: UpdateWeatherMapper.Base): UpdateWeatherMapper
 
     @Binds
+    abstract fun contentMapper(mapper: ContentDataMapper.Base): ContentDataMapper
+
+    @Binds
     abstract fun currentWeatherMapper(mapper: CurrentWeatherDataMapper.Base): CurrentWeatherDataMapper
 
     @Binds
@@ -34,7 +40,16 @@ abstract class WeatherDataMapperModule {
     abstract fun horizonMapper(mapper: HorizonDataMapper.Base): HorizonDataMapper
 
     @Binds
-    abstract fun alertsMapper(mapper: AlertsDataMapper.Base): AlertsDataMapper
+    abstract fun alertMapper(mapper: AlertDataMapper.Base): AlertDataMapper
+
+    @Binds
+    abstract fun alertsMapper(mapper: AlertListDataMapper.Base): AlertListDataMapper
+
+    @Binds
+    abstract fun forecastMapper(mapper: ForecastDataMapper.Base): ForecastDataMapper
+
+    @Binds
+    abstract fun forecastFilterMapper(mapper: HourlyForecastFilter.Base): HourlyForecastFilter
 
     @Binds
     abstract fun hourlyListMapper(mapper: HourlyForecastListDataMapper.Base): HourlyForecastListDataMapper

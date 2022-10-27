@@ -1,10 +1,10 @@
 package com.github.skytoph.simpleweather.core
 
-import android.util.Log
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.exception.*
 import com.github.skytoph.simpleweather.core.provider.ResourceProvider
 import retrofit2.HttpException
+import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -20,7 +20,6 @@ interface Mapper<T> {
             is DataIsNotCachedException -> ErrorType.LOCATION_IS_NOT_CACHED
             else -> ErrorType.GENERIC_ERROR
         }
-            .also { Log.e("ErrorTag", e.toString() + "\n" + e.stackTraceToString()) }
     }
 
     abstract class ToUi<T>(private val resources: ResourceProvider) : Mapper<T> {
@@ -42,7 +41,7 @@ interface Mapper<T> {
             is NoCachedDataException -> R.string.error_no_cached_data
             is HttpException -> R.string.error_service_unavailable
             is CanNotUpdateLocationException -> R.string.error_can_not_update_location
-            is UnknownHostException, is SocketTimeoutException -> R.string.error_no_connection
+            is UnknownHostException, is SocketTimeoutException, is ConnectException -> R.string.error_no_connection
             is EmptyRequestException -> R.string.error_empty_request
             is NoResultsException -> R.string.error_no_results
             else -> R.string.error_general
