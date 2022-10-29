@@ -1,6 +1,5 @@
 package com.github.skytoph.simpleweather.di.core
 
-import com.github.skytoph.simpleweather.core.util.SunCalculator
 import com.github.skytoph.simpleweather.core.util.formatter.*
 import dagger.Binds
 import dagger.Module
@@ -10,9 +9,6 @@ import dagger.hilt.android.components.ViewModelComponent
 @Module
 @InstallIn(ViewModelComponent::class)
 abstract class UtilityModule {
-
-    @Binds
-    abstract fun sunCalculator(calculator: SunCalculator.Base): SunCalculator
 
     @Binds
     abstract fun tempFormatter(formatter: TemperatureFormatter.Base): TemperatureFormatter

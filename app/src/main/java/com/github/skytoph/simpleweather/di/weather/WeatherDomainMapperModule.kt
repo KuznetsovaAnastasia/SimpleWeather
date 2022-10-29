@@ -1,8 +1,6 @@
 package com.github.skytoph.simpleweather.di.weather
 
-import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataToDomainMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.HorizonDataToDomainMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.WeatherDataToDomainMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,5 +17,8 @@ abstract class WeatherDomainMapperModule {
     abstract fun weatherMapper(mapper: CurrentWeatherDataToDomainMapper.Base): CurrentWeatherDataToDomainMapper
 
     @Binds
-    abstract fun horizonMapper(mapper: HorizonDataToDomainMapper.Base): HorizonDataToDomainMapper
+    abstract fun horizonDataMapper(mapper: HorizonDataToDomainMapper.Base): HorizonDataToDomainMapper
+
+    @Binds
+    abstract fun sunCalculator(calculator: SunPosition): SunPosition
 }

@@ -43,10 +43,10 @@ data class IndicatorsDomain(
 }
 
 data class HorizonDomain(
-    private val sunrise: Long,
-    private val sunset: Long,
-    private val dayLength: Long,
-    private val daylight: Long,
+    private val sunrise: Int,
+    private val sunset: Int,
+    private val dayLength: Int,
+    private val daylight: Int,
     private val sunPosition: Double,
 ) : Mappable<HorizonUi, HorizonDomainToUiMapper> {
 

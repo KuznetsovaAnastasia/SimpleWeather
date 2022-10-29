@@ -7,10 +7,10 @@ import javax.inject.Inject
 
 interface HorizonDomainToUiMapper : Mapper<HorizonUi> {
     fun map(
-        sunrise: Long,
-        sunset: Long,
-        dayLength: Long,
-        remainingDaylight: Long,
+        sunrise: Int,
+        sunset: Int,
+        dayLength: Int,
+        remainingDaylight: Int,
         sunPosition: Double,
     ): HorizonUi
 
@@ -18,16 +18,16 @@ interface HorizonDomainToUiMapper : Mapper<HorizonUi> {
         HorizonDomainToUiMapper {
 
         override fun map(
-            sunrise: Long,
-            sunset: Long,
-            dayLength: Long,
-            remainingDaylight: Long,
+            sunrise: Int,
+            sunset: Int,
+            dayLength: Int,
+            remainingDaylight: Int,
             sunPosition: Double,
         ) = HorizonUi(
-            timeFormatter.timeFull(sunrise),
-            timeFormatter.timeFull(sunset),
-            timeFormatter.duration(dayLength),
-            timeFormatter.duration(remainingDaylight),
+            timeFormatter.timeFull(sunrise.toLong()),
+            timeFormatter.timeFull(sunset.toLong()),
+            timeFormatter.duration(dayLength.toLong()),
+            timeFormatter.duration(remainingDaylight.toLong()),
             sunPosition
         )
     }

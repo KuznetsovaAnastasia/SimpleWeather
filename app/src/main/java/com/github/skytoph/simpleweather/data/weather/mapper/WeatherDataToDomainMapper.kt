@@ -48,9 +48,9 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
                     }
                     val horizonMapper = object : HorizonDomainMapper {
                         override fun map(sunrise: Long, sunset: Long): HorizonDomain =
-                            horizonDomainMapper.map(timezone.withOffset(sunrise),
+                            SunPosition(timezone.withOffset(sunrise),
                                 timezone.withOffset(sunset),
-                                forecastTime)
+                                forecastTime).map(horizonDomainMapper)
                     }
                     val pop = indicators.map()
                     val warningMapper = object : WarningDataToDomainMapper {
