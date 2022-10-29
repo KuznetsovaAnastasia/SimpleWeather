@@ -40,10 +40,10 @@ abstract class WeatherDataMapperModule {
     abstract fun horizonMapper(mapper: HorizonDataMapper.Base): HorizonDataMapper
 
     @Binds
-    abstract fun alertMapper(mapper: AlertDataMapper.Base): AlertDataMapper
+    abstract fun alertMapper(mapper: WarningDataMapper.Base): WarningDataMapper
 
     @Binds
-    abstract fun alertsMapper(mapper: AlertListDataMapper.Base): AlertListDataMapper
+    abstract fun alertsMapper(mapper: WarningListDataMapper.Base): WarningListDataMapper
 
     @Binds
     abstract fun forecastMapper(mapper: ForecastDBToDataMapper.Base): ForecastDBToDataMapper

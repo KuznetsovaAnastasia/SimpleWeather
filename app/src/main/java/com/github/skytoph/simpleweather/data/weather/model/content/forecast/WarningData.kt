@@ -9,7 +9,7 @@ import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecas
 import com.github.skytoph.simpleweather.data.weather.mapper.WarningDataToDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.model.WarningDomain
 
-data class AlertData(
+data class WarningData(
     private val name: String,
     private val startTime: Long,
     private val description: String,

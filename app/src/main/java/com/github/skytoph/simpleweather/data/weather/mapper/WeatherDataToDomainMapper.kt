@@ -3,7 +3,7 @@ package com.github.skytoph.simpleweather.data.weather.mapper
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
 import com.github.skytoph.simpleweather.data.weather.model.content.current.CurrentWeatherData
-import com.github.skytoph.simpleweather.data.weather.model.content.forecast.AlertData
+import com.github.skytoph.simpleweather.data.weather.model.content.forecast.WarningData
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.DailyForecastData
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.ForecastData
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.HourlyForecastData
@@ -70,7 +70,7 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
                     }
                     val forecastMapper = object : ForecastDomainMapper {
                         override fun map(
-                            alerts: List<AlertData>,
+                            alerts: List<WarningData>,
                             hourlyForecast: List<HourlyForecastData>,
                             dailyForecast: List<DailyForecastData>,
                         ): ForecastDomain = ForecastDomain(

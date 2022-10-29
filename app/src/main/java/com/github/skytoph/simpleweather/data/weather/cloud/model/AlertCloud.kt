@@ -1,8 +1,8 @@
 package com.github.skytoph.simpleweather.data.weather.cloud.model
 
 import com.github.skytoph.simpleweather.core.Mappable
-import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.AlertDataMapper
-import com.github.skytoph.simpleweather.data.weather.model.content.forecast.AlertData
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.WarningDataMapper
+import com.github.skytoph.simpleweather.data.weather.model.content.forecast.WarningData
 import com.squareup.moshi.Json
 
 data class AlertCloud(
@@ -14,7 +14,7 @@ data class AlertCloud(
 
     @field:Json(name = "description")
     private val description: String,
-) : Mappable<AlertData, AlertDataMapper> {
+) : Mappable<WarningData, WarningDataMapper> {
 
-    override fun map(mapper: AlertDataMapper): AlertData = mapper.map(name, startTime, description)
+    override fun map(mapper: WarningDataMapper): WarningData = mapper.map(name, startTime, description)
 }

@@ -10,15 +10,15 @@ import com.github.skytoph.simpleweather.data.weather.mapper.ForecastDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.model.ForecastDomain
 
 data class ForecastData(
-    private val alerts: List<AlertData>,
+    private val warnings: List<WarningData>,
     private val hourlyForecast: List<HourlyForecastData>,
     private val dailyForecast: List<DailyForecastData>,
 ) : MappableToDB.EmbeddedValid<ForecastDB, ContentDB, ForecastDBMapper>,
     Mappable<ForecastDomain, ForecastDomainMapper> {
 
     override fun map(mapper: ForecastDBMapper, dataBase: DataBase, parent: ContentDB): ForecastDB =
-        mapper.map(alerts, hourlyForecast, dailyForecast, parent, dataBase)
+        mapper.map(warnings, hourlyForecast, dailyForecast, parent, dataBase)
 
     override fun map(mapper: ForecastDomainMapper): ForecastDomain =
-        mapper.map(alerts, hourlyForecast, dailyForecast)
+        mapper.map(warnings, hourlyForecast, dailyForecast)
 }
