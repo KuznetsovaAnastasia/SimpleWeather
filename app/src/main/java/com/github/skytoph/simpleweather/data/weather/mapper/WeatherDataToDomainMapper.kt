@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.data.weather.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.FindForecastedPop
 import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
 import com.github.skytoph.simpleweather.data.weather.model.content.current.CurrentWeatherData
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.WarningData
@@ -23,6 +24,7 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
     class Base @Inject constructor(
         private val currentMapper: CurrentWeatherDataToDomainMapper,
         private val horizonDomainMapper: HorizonDataToDomainMapper,
+        private val findPopMapper: FindForecastedPop,
     ) : WeatherDataToDomainMapper, Mapper.ToDomain<WeatherDomain>() {
 
         override fun map(
@@ -52,11 +54,13 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
                                 timezone.withOffset(sunset),
                                 forecastTime).map(horizonDomainMapper)
                     }
-                    val pop = indicators.map()
                     val warningMapper = object : WarningDataToDomainMapper {
                         override fun map(
                             name: String, startTime: Long, description: String,
-                        ) = WarningDomain(name, timezone.withOffset(startTime), pop, description)
+                        ): WarningDomain = WarningDomain(name,
+                            timezone.withOffset(startTime),
+                            forecast.map(findPopMapper, startTime, indicators.map()),
+                            description)
                     }
                     val hourlyMapper = object : HourlyForecastDomainMapper {
                         override fun map(

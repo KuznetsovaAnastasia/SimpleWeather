@@ -7,7 +7,7 @@ import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloud
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.model.*
 import com.github.skytoph.simpleweather.data.weather.mapper.content.current.CurrentWeatherDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.AlertListDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.WarningListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.DailyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.HourlyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.horizon.HorizonDataMapper
@@ -32,7 +32,7 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
         private val currentMapper: CurrentWeatherDataMapper,
         private val indicatorsMapper: IndicatorsDataMapper,
         private val horizonMapper: HorizonDataMapper,
-        private val alertsMapper: AlertListDataMapper,
+        private val warningsMapper: WarningListDataMapper,
         private val hourlyMapper: HourlyForecastListDataMapper,
         private val dailyMapper: DailyForecastListDataMapper,
     ) : WeatherCloudToDataMapper {
@@ -71,7 +71,7 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
                                 ContentData(currentMapper.map(weather, temp, name),
                                     indicatorsMapper.map(temp, pop, airQualityCloud.map()),
                                     horizonMapper.map(sunrise, sunset),
-                                    ForecastData(alertsMapper.map(alerts),
+                                    ForecastData(warningsMapper.map(alerts),
                                         hourlyMapper.map(hourly),
                                         dailyMapper.map(daily)))
                             )

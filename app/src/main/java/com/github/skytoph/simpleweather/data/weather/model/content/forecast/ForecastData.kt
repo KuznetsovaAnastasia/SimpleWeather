@@ -7,6 +7,7 @@ import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.foreca
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.ContentDB
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.ForecastDB
 import com.github.skytoph.simpleweather.data.weather.mapper.ForecastDomainMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.FindForecastedPop
 import com.github.skytoph.simpleweather.domain.weather.model.ForecastDomain
 
 data class ForecastData(
@@ -21,4 +22,7 @@ data class ForecastData(
 
     override fun map(mapper: ForecastDomainMapper): ForecastDomain =
         mapper.map(warnings, hourlyForecast, dailyForecast)
+
+    fun map(mapper: FindForecastedPop, time: Long, currentPop: Double): Double =
+        mapper.map(hourlyForecast, time, currentPop)
 }

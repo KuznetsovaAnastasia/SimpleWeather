@@ -21,4 +21,6 @@ data class WarningData(
 
     override fun map(mapper: WarningDBMapper, dataBase: DataBase, parent: ForecastDB): WarningDB =
         mapper.map(name, startTime, description, parent, dataBase)
+
+    fun isNotOutdated(timeSeconds: Long) = startTime >= timeSeconds
 }

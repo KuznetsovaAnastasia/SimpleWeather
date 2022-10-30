@@ -15,10 +15,9 @@ interface ForecastDBToDataMapper : Mapper<ForecastData> {
     ): ForecastData
 
     class Base @Inject constructor(
-        private val warningsMapper: AlertListDataMapper,
+        private val warningsMapper: WarningListDataMapper,
         private val hourlyMapper: HourlyForecastListDataMapper,
         private val dailyMapper: DailyForecastListDataMapper,
-        private val filter: HourlyForecastFilter,
         ) : ForecastDBToDataMapper {
 
         override fun map(
@@ -26,7 +25,7 @@ interface ForecastDBToDataMapper : Mapper<ForecastData> {
             hourly: List<HourlyForecastDB>,
             daily: List<DailyForecastDB>,
         ): ForecastData = ForecastData(warningsMapper.map(warnings),
-            filter.filter(hourlyMapper.map(hourly)),
+            hourlyMapper.map(hourly),
             dailyMapper.map(daily))
     }
 }

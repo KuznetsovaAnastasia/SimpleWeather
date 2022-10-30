@@ -10,9 +10,12 @@ interface WarningListDataMapper : Mapper<List<WarningData>> {
     fun <T : Mappable<WarningData, WarningDataMapper>>
             map(alerts: List<T>): List<WarningData>
 
-    class Base @Inject constructor(private val mapper: WarningDataMapper) : WarningListDataMapper {
+    class Base @Inject constructor(
+        private val mapper: WarningDataMapper,
+        private val filter: WarningsDataFilter,
+        ) : WarningListDataMapper {
 
         override fun <T : Mappable<WarningData, WarningDataMapper>> map(alerts: List<T>): List<WarningData> =
-            alerts.map { it.map(mapper) }
+            filter.filter(alerts.map { it.map(mapper) })
     }
 }

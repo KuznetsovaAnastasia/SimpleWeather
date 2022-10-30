@@ -6,6 +6,7 @@ import com.github.skytoph.simpleweather.core.data.DataBase
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.forecast.HourlyForecastDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.ForecastDB
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.HourlyForecastDB
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.WarningPopMapper
 import com.github.skytoph.simpleweather.domain.weather.mapper.HourlyForecastDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.model.HourlyDomain
 
@@ -26,6 +27,9 @@ data class HourlyForecastData(
         parent: ForecastDB,
     ): HourlyForecastDB = mapper.map(time, temp, weatherId, precipitationProb, parent, dataBase)
 
-    fun isNotOutdated(timeSeconds: Long): Boolean =
-        timeSeconds <= time
+    fun isNotOutdated(timeSeconds: Long): Boolean = timeSeconds <= time
+
+    fun isTimeForecasted(timeSeconds: Long) = time == timeSeconds
+
+    fun map(mapper: WarningPopMapper): Double = mapper.map(precipitationProb)
 }

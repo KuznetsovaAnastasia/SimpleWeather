@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.di.weather
 
 import com.github.skytoph.simpleweather.data.weather.mapper.*
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.FindForecastedPop
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,4 +22,7 @@ abstract class WeatherDomainMapperModule {
 
     @Binds
     abstract fun sunCalculator(calculator: SunPosition): SunPosition
+
+    @Binds
+    abstract fun findPopMapper(mapper: FindForecastedPop.Base): FindForecastedPop
 }
