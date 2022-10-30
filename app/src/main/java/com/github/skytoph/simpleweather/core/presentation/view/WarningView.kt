@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.github.skytoph.simpleweather.presentation.weather.WarningUi
+import com.github.skytoph.simpleweather.presentation.weather.model.WarningUi
 
 abstract class WarningView : ConstraintLayout {
 

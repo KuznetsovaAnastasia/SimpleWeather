@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.Matcher
 import com.github.skytoph.simpleweather.core.presentation.adapter.BaseDiffUtil
-import com.github.skytoph.simpleweather.presentation.weather.ForecastUi
+import com.github.skytoph.simpleweather.presentation.weather.model.ForecastUi
 
 abstract class ForecastAdapter<T : ForecastUi>(diffCallback: DiffUtil.ItemCallback<T>) :
     ListAdapter<T, ForecastAdapter.ForecastViewHolder<T>>(diffCallback) {

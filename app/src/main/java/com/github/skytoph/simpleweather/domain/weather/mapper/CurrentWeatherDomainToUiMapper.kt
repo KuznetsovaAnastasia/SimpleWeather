@@ -3,7 +3,7 @@ package com.github.skytoph.simpleweather.domain.weather.mapper
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.domain.mapper.WeatherIdHandler
 import com.github.skytoph.simpleweather.core.util.formatter.TemperatureFormatter
-import com.github.skytoph.simpleweather.presentation.weather.CurrentWeatherUi
+import com.github.skytoph.simpleweather.presentation.weather.model.CurrentWeatherUi
 import javax.inject.Inject
 
 interface CurrentWeatherDomainToUiMapper : Mapper<CurrentWeatherUi> {

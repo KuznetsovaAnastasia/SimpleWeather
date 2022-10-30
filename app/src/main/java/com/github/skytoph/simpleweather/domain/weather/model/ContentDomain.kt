@@ -5,10 +5,10 @@ import com.github.skytoph.simpleweather.domain.weather.mapper.ContentUiMapper
 import com.github.skytoph.simpleweather.domain.weather.mapper.CurrentWeatherDomainToUiMapper
 import com.github.skytoph.simpleweather.domain.weather.mapper.HorizonDomainToUiMapper
 import com.github.skytoph.simpleweather.domain.weather.mapper.IndicatorsDomainToUiMapper
-import com.github.skytoph.simpleweather.presentation.weather.CurrentWeatherUi
-import com.github.skytoph.simpleweather.presentation.weather.HorizonUi
-import com.github.skytoph.simpleweather.presentation.weather.IndicatorsUi
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUi
+import com.github.skytoph.simpleweather.presentation.weather.model.CurrentWeatherUi
+import com.github.skytoph.simpleweather.presentation.weather.model.HorizonUi
+import com.github.skytoph.simpleweather.presentation.weather.model.IndicatorsUi
+import com.github.skytoph.simpleweather.presentation.weather.model.WeatherUi
 
 data class ContentDomain(
     private val currentWeather: CurrentWeatherDomain,

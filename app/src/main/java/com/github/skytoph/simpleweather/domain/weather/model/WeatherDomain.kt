@@ -2,7 +2,7 @@ package com.github.skytoph.simpleweather.domain.weather.model
 
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.domain.weather.mapper.WeatherDomainToUiMapper
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUi
+import com.github.skytoph.simpleweather.presentation.weather.model.WeatherUi
 
 data class WeatherDomain(
     private val id: String,

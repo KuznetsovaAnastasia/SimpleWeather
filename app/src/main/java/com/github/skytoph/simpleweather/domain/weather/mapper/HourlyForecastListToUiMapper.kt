@@ -2,7 +2,7 @@ package com.github.skytoph.simpleweather.domain.weather.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.domain.weather.model.HourlyDomain
-import com.github.skytoph.simpleweather.presentation.weather.ForecastUi
+import com.github.skytoph.simpleweather.presentation.weather.model.ForecastUi
 import javax.inject.Inject
 
 interface HourlyForecastListToUiMapper : Mapper<List<ForecastUi.Hourly>> {

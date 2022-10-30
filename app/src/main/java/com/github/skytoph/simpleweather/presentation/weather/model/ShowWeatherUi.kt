@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.weather
+package com.github.skytoph.simpleweather.presentation.weather.model
 
 import androidx.recyclerview.widget.RecyclerView
 import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView

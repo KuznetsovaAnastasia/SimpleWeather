@@ -5,9 +5,9 @@ import com.github.skytoph.simpleweather.domain.weather.mapper.DailyForecastToUiM
 import com.github.skytoph.simpleweather.domain.weather.mapper.ForecastListUiMapper
 import com.github.skytoph.simpleweather.domain.weather.mapper.HourlyForecastToUiMapper
 import com.github.skytoph.simpleweather.domain.weather.mapper.WarningDomainToUiMapper
-import com.github.skytoph.simpleweather.presentation.weather.ForecastUi
-import com.github.skytoph.simpleweather.presentation.weather.ListUi
-import com.github.skytoph.simpleweather.presentation.weather.WarningUi
+import com.github.skytoph.simpleweather.presentation.weather.model.ForecastUi
+import com.github.skytoph.simpleweather.presentation.weather.model.ListUi
+import com.github.skytoph.simpleweather.presentation.weather.model.WarningUi
 
 data class ForecastDomain(
     private val warnings: List<WarningDomain>,

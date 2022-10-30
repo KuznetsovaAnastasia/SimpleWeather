@@ -5,7 +5,7 @@ import com.github.skytoph.simpleweather.domain.weather.model.CurrentWeatherDomai
 import com.github.skytoph.simpleweather.domain.weather.model.ForecastDomain
 import com.github.skytoph.simpleweather.domain.weather.model.HorizonDomain
 import com.github.skytoph.simpleweather.domain.weather.model.IndicatorsDomain
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUi
+import com.github.skytoph.simpleweather.presentation.weather.model.WeatherUi
 
 interface ContentUiMapper: Mapper<WeatherUi>{
     fun map(

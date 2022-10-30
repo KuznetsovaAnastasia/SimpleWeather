@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.presentation.weather.WarningUi
+import com.github.skytoph.simpleweather.presentation.weather.model.WarningUi
 
 class WarningInfoView : WarningView {
 

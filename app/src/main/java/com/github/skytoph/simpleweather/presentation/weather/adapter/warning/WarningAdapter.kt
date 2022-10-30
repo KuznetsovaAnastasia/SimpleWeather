@@ -10,7 +10,7 @@ import com.github.skytoph.simpleweather.core.presentation.adapter.BaseDiffUtil
 import com.github.skytoph.simpleweather.core.presentation.view.WarningInfoView
 import com.github.skytoph.simpleweather.core.presentation.view.WarningRainView
 import com.github.skytoph.simpleweather.core.presentation.view.WarningView
-import com.github.skytoph.simpleweather.presentation.weather.WarningUi
+import com.github.skytoph.simpleweather.presentation.weather.model.WarningUi
 import javax.inject.Inject
 
 class WarningAdapter @Inject constructor() :

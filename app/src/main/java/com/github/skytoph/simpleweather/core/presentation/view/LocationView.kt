@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.presentation.weather.CurrentWeatherUi
+import com.github.skytoph.simpleweather.presentation.weather.model.CurrentWeatherUi
 
 class LocationView : LinearLayout {
 

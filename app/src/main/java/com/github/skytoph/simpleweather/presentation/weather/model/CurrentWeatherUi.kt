@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.weather
+package com.github.skytoph.simpleweather.presentation.weather.model
 
 import android.widget.ImageView
 import android.widget.TextView

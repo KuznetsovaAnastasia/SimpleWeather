@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.presentation.weather.IndicatorsUi
+import com.github.skytoph.simpleweather.presentation.weather.model.IndicatorsUi
 
 
 class IndicatorsView : ConstraintLayout {

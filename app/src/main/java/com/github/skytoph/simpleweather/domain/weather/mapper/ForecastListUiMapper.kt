@@ -4,7 +4,7 @@ import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.domain.weather.model.DailyDomain
 import com.github.skytoph.simpleweather.domain.weather.model.HourlyDomain
 import com.github.skytoph.simpleweather.domain.weather.model.WarningDomain
-import com.github.skytoph.simpleweather.presentation.weather.ListUi
+import com.github.skytoph.simpleweather.presentation.weather.model.ListUi
 import javax.inject.Inject
 
 interface ForecastListUiMapper : Mapper<ListUi> {

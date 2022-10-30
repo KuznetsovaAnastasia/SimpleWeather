@@ -5,7 +5,7 @@ import com.github.skytoph.simpleweather.core.exception.CanNotUpdateLocationExcep
 import com.github.skytoph.simpleweather.data.weather.mapper.WeatherDataToDomainMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.github.skytoph.simpleweather.domain.weather.mapper.WeatherDomainToUiMapper
-import com.github.skytoph.simpleweather.presentation.weather.WeatherUi
+import com.github.skytoph.simpleweather.presentation.weather.model.WeatherUi
 import javax.inject.Inject
 
 interface WeatherInteractor {

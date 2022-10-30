@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.adapter.BaseDiffUtil
-import com.github.skytoph.simpleweather.presentation.weather.ForecastUi
+import com.github.skytoph.simpleweather.presentation.weather.model.ForecastUi
 
 class DailyForecastAdapter :
     ForecastAdapter<ForecastUi.Daily>(ForecastItemDiffCallback()) {

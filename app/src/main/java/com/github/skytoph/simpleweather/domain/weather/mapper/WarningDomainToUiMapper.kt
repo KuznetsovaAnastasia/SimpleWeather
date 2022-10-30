@@ -4,7 +4,7 @@ import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.util.formatter.ProbabilityFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
-import com.github.skytoph.simpleweather.presentation.weather.WarningUi
+import com.github.skytoph.simpleweather.presentation.weather.model.WarningUi
 import javax.inject.Inject
 
 interface WarningDomainToUiMapper : Mapper<WarningUi> {

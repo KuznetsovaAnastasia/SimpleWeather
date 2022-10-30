@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.github.skytoph.simpleweather.R
-import com.github.skytoph.simpleweather.presentation.weather.WarningUi
+import com.github.skytoph.simpleweather.presentation.weather.model.WarningUi
 
 class WarningRainView : WarningView {
     private var forecastImage: ImageView

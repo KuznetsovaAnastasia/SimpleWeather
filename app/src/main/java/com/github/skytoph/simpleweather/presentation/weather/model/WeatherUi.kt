@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.weather
+package com.github.skytoph.simpleweather.presentation.weather.model
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +7,7 @@ import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
 import com.github.skytoph.simpleweather.presentation.addlocation.Loading
 import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
+import com.github.skytoph.simpleweather.presentation.weather.WeatherCommunication
 
 sealed class WeatherUi : ShowWeatherUi() {
     abstract fun show(communication: LoadingCommunication.Update)

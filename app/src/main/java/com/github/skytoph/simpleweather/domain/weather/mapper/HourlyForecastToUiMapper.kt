@@ -5,7 +5,7 @@ import com.github.skytoph.simpleweather.core.domain.mapper.WeatherIdHandler
 import com.github.skytoph.simpleweather.core.util.formatter.ProbabilityFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TemperatureFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
-import com.github.skytoph.simpleweather.presentation.weather.ForecastUi.Hourly
+import com.github.skytoph.simpleweather.presentation.weather.model.ForecastUi.Hourly
 import javax.inject.Inject
 
 

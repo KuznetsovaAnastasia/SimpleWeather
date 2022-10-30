@@ -5,6 +5,7 @@ import com.github.skytoph.simpleweather.domain.weather.WeatherInteractor
 import com.github.skytoph.simpleweather.presentation.favorites.RefreshCommunication
 import com.github.skytoph.simpleweather.presentation.addlocation.Loading
 import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
+import com.github.skytoph.simpleweather.presentation.weather.model.WeatherUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
