@@ -2,7 +2,7 @@ package com.github.skytoph.simpleweather.presentation.weather
 
 import androidx.lifecycle.*
 import com.github.skytoph.simpleweather.domain.weather.WeatherInteractor
-import com.github.skytoph.simpleweather.presentation.RefreshCommunication
+import com.github.skytoph.simpleweather.presentation.favorites.RefreshCommunication
 import com.github.skytoph.simpleweather.presentation.addlocation.Loading
 import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
 import dagger.hilt.android.lifecycle.HiltViewModel

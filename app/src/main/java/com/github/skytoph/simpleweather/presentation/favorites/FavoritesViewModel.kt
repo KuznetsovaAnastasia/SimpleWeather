@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
 import com.github.skytoph.simpleweather.domain.favorites.FavoritesInteractor
-import com.github.skytoph.simpleweather.presentation.RefreshCommunication
 import com.github.skytoph.simpleweather.presentation.addlocation.Loading
 import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
 import dagger.hilt.android.lifecycle.HiltViewModel
