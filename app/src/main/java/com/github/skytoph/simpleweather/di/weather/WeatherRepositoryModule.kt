@@ -18,4 +18,7 @@ abstract class WeatherRepositoryModule {
 
     @Binds
     abstract fun repositoryWritable(repository: WeatherRepository.Base): WeatherRepository.Write
+
+    @Binds
+    abstract fun repositoryRefresh(repository: WeatherRepository.Base): WeatherRepository.RefreshAll
 }

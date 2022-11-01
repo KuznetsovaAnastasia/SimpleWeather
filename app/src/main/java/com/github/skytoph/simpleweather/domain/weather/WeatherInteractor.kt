@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 interface WeatherInteractor {
     suspend fun getCachedWeather(id: String): WeatherUi
-    suspend fun getCloudWeather(id: String, favorite: Boolean): WeatherUi
+    suspend fun getWeather(id: String, favorite: Boolean): WeatherUi
 
     class Base @Inject constructor(
         private val repository: WeatherRepository.Mutable,
@@ -20,11 +20,9 @@ interface WeatherInteractor {
         private val errorHandler: ErrorHandler,
     ) : WeatherInteractor {
 
-        override suspend fun getCloudWeather(id: String, favorite: Boolean): WeatherUi = try {
-            val weather =
-                if (favorite) repository.updateCloudWeather(id)
-                else repository.getCloudWeather(id)
-            weather.mapToUi()
+        override suspend fun getWeather(id: String, favorite: Boolean): WeatherUi = try {
+            if (favorite) getCachedWeather(id)
+            else repository.getCloudWeather(id).mapToUi()
         } catch (exception: Exception) {
             errorHandler.handle(exception)
             WeatherUi.Fail

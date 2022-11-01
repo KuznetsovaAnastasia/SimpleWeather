@@ -29,12 +29,11 @@ class WeatherViewModel @Inject constructor(
         loadingCommunication.show(Loading.INITIAL)
 
         viewModelScope.launch(Dispatchers.IO) {
-            refreshFromCache()
-            val cloudWeather = interactor.getCloudWeather(placeId, favorite)
+            val weather = interactor.getWeather(placeId, favorite)
 
             withContext(Dispatchers.Main) {
-                cloudWeather.show()
-                cloudWeather.show(loadingCommunication)
+                weather.show()
+                weather.show(loadingCommunication)
             }
         }
     }

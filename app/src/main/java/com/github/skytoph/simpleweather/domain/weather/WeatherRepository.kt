@@ -12,10 +12,13 @@ import javax.inject.Singleton
 interface WeatherRepository {
     interface Write {
         suspend fun saveWeather()
-        suspend fun refreshAll()
         suspend fun updateCloudWeather(id: String): WeatherData
         suspend fun updateLocationName(id: String): WeatherData
         suspend fun delete(id: String)
+    }
+
+    interface RefreshAll {
+        suspend fun refreshAll()
     }
 
     interface Read {
@@ -25,7 +28,7 @@ interface WeatherRepository {
         suspend fun contains(id: String): Boolean
     }
 
-    interface Mutable : Read, Write
+    interface Mutable : Read, Write, RefreshAll
 
     @Singleton
     class Base @Inject constructor(
