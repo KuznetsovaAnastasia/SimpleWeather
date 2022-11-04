@@ -32,17 +32,17 @@
                 android:name="autoStoreLocales"
                 android:value="true" />
         </service>
-        <service
-            android:name=".domain.service.update.UpdateForecastsService"
-            android:enabled="true"
-            android:exported="false"
-            android:label="UpdateForecasts" />
 
-        <receiver
-            android:name=".domain.service.update.AlarmReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:process=":remote"/>
+        <provider
+        android:name="androidx.startup.InitializationProvider"
+        android:authorities="${applicationId}.androidx-startup"
+        android:exported="false"
+        tools:node="merge">
+        <meta-data
+            android:name="androidx.work.WorkManagerInitializer"
+            android:value="androidx.startup"
+            tools:node="remove" />
+    </provider>
 
         <meta-data
             android:name="preloaded_fonts"

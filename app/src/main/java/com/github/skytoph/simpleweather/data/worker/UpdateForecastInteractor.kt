@@ -1,16 +1,16 @@
-package com.github.skytoph.simpleweather.domain.service.update
+package com.github.skytoph.simpleweather.data.worker
 
 import com.github.skytoph.simpleweather.domain.weather.WeatherRepository
-import dagger.hilt.android.scopes.ServiceScoped
 import javax.inject.Inject
+import javax.inject.Singleton
 
-interface ServiceInteractor {
+interface UpdateForecastInteractor {
     suspend fun updateForecasts()
 
-    @ServiceScoped
+    @Singleton
     class Base @Inject constructor(
         private val repository: WeatherRepository.RefreshAll,
-    ) : ServiceInteractor {
+    ) : UpdateForecastInteractor {
 
         override suspend fun updateForecasts() = repository.refreshAll()
     }
