@@ -23,9 +23,6 @@ abstract class WeatherDBMapperModule {
     abstract fun weatherMapper(mapper: WeatherDataDBMapper.Base): WeatherDataDBMapper
 
     @Binds
-    abstract fun currentMapper(mapper: CurrentDBMapper.Base): CurrentDBMapper
-
-    @Binds
     abstract fun indicatorsMapper(mapper: IndicatorsDBMapper.Base): IndicatorsDBMapper
 
     @Binds

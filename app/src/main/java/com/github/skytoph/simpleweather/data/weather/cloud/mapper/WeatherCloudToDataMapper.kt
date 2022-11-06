@@ -7,9 +7,9 @@ import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloud
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.model.*
 import com.github.skytoph.simpleweather.data.weather.mapper.content.current.CurrentWeatherDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.WarningListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.DailyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.HourlyForecastListDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.WarningListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.horizon.HorizonDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.indicators.IndicatorsDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData

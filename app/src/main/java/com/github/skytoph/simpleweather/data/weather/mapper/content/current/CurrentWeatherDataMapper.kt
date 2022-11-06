@@ -10,7 +10,11 @@ interface CurrentWeatherDataMapper : Mapper<CurrentWeatherData> {
 
     class Base @Inject constructor() : CurrentWeatherDataMapper {
 
-        override fun map(weatherId: Int, temperature: Double, location: String) =
+        override fun map(
+            weatherId: Int,
+            temperature: Double,
+            location: String,
+        ): CurrentWeatherData =
             CurrentWeatherData(weatherId, temperature, location)
     }
 }

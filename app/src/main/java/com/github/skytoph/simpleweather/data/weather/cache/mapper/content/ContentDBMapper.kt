@@ -25,7 +25,6 @@ interface ContentDBMapper : Mapper<ContentDB> {
     ): ContentDB
 
     class Base @Inject constructor(
-        private val currentMapper: CurrentDBMapper,
         private val indicatorsMapper: IndicatorsDBMapper,
         private val horizonMapper: HorizonDBMapper,
         private val forecastMapper: ForecastDBMapper,
@@ -39,7 +38,11 @@ interface ContentDBMapper : Mapper<ContentDB> {
             parent: WeatherDB,
             database: DataBase,
         ): ContentDB = database.createEmbeddedObject<ContentDB>(parent, WeatherDB.FIELD_CONTENT).apply {
-            this.current = currentWeather.map(currentMapper)
+            currentWeather.map(object : CurrentDBMapper {
+                override fun map(location: String) {
+                    this@apply.location = location
+                }
+            })
             this.indicators = indicators.map(indicatorsMapper)
             this.horizon = horizon.map(horizonMapper)
             forecast.map(forecastMapper, database, this)

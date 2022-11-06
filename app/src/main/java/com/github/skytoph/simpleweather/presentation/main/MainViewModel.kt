@@ -34,7 +34,7 @@ class MainViewModel @Inject constructor(
         val request = PeriodicWorkRequestBuilder<UpdateWorker>(12, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
             .setConstraints(constraints)
             .build()
-        workManager.enqueueUniquePeriodicWork(WORK_NAME, ExistingPeriodicWorkPolicy.KEEP, request)
+        workManager.enqueueUniquePeriodicWork(WORK_NAME, ExistingPeriodicWorkPolicy.REPLACE, request)
         workManager.getWorkInfoByIdLiveData(request.id).observe(owner) { info: WorkInfo ->
             when (info.state) {
                 WorkInfo.State.RUNNING -> progressCommunication.show(true)

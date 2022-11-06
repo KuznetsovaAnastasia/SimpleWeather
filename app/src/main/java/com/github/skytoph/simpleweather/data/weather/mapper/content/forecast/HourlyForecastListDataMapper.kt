@@ -11,21 +11,13 @@ interface HourlyForecastListDataMapper : Mapper<List<HourlyForecastData>> {
         forecasts: List<T>,
     ): List<HourlyForecastData>
 
-    class Base @Inject constructor(private val filter: HourlyForecastFilter) :
-        HourlyForecastListDataMapper {
+    class Base @Inject constructor(
+        private val mapper: HourlyForecastDataMapper,
+        private val filter: HourlyForecastFilter,
+    ) : HourlyForecastListDataMapper {
 
         override fun <T : Mappable<HourlyForecastData, HourlyForecastDataMapper>> map(
             forecasts: List<T>,
-        ): List<HourlyForecastData> {
-            val mapper = object : HourlyForecastDataMapper {
-                override fun map(
-                    time: Long,
-                    temp: Double,
-                    weatherId: Int,
-                    pop: Double,
-                ) = HourlyForecastData(time, temp, weatherId, pop)
-            }
-            return filter.filter(forecasts.map { it.map(mapper) })
-        }
+        ): List<HourlyForecastData> = filter.filter(forecasts.map { it.map(mapper) })
     }
 }

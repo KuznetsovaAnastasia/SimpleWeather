@@ -11,8 +11,8 @@ import io.realm.annotations.RealmField
 @RealmClass(embedded = true)
 open class ContentDB : RealmObject(), Mappable<ContentData, ContentDBToDataMapper> {
 
-    @RealmField(name = FIELD_CURRENT)
-    var current: CurrentDB? = null
+    @RealmField(name = FIELD_LOCATION)
+    var location: String = ""
 
     @RealmField(name = FIELD_INDICATORS)
     var indicators: IndicatorsDB? = null
@@ -24,12 +24,12 @@ open class ContentDB : RealmObject(), Mappable<ContentData, ContentDBToDataMappe
     var forecast: ForecastDB? = null
 
     companion object {
-        const val FIELD_CURRENT = "current"
+        const val FIELD_LOCATION = "location"
         const val FIELD_INDICATORS = "indicators"
         const val FIELD_HORIZON = "horizon"
         const val FIELD_FORECAST = "forecast"
     }
 
     override fun map(mapper: ContentDBToDataMapper): ContentData =
-        mapper.map(current!!, indicators!!, horizon!!, forecast!!)
+        mapper.map(location, indicators!!, horizon!!, forecast!!)
 }

@@ -28,6 +28,7 @@ interface WeatherInteractor {
             WeatherUi.Fail
         }
 
+        //todo move to favorites
         override suspend fun getCachedWeather(id: String): WeatherUi = try {
             if (refreshLocation.intentionSaved(id))
                 repository.updateLocationName(id).also { it.saveState(refreshLocation) }.mapToUi()
