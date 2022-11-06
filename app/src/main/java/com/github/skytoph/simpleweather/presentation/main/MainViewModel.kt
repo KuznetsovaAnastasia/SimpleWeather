@@ -29,17 +29,16 @@ class MainViewModel @Inject constructor(
         progressCommunication.observe(owner, observer)
 
     fun scheduleUpdateForecast(workManager: WorkManager, owner: LifecycleOwner) {
-        progressCommunication.show(true)
         val constraints =
             Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-        val request = PeriodicWorkRequestBuilder<UpdateWorker>(12, TimeUnit.HOURS)
+        val request = PeriodicWorkRequestBuilder<UpdateWorker>(12, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
             .setConstraints(constraints)
             .build()
         workManager.enqueueUniquePeriodicWork(WORK_NAME, ExistingPeriodicWorkPolicy.KEEP, request)
         workManager.getWorkInfoByIdLiveData(request.id).observe(owner) { info: WorkInfo ->
             when (info.state) {
-                WorkInfo.State.FAILED, WorkInfo.State.CANCELLED -> progressCommunication.show(false)
-                WorkInfo.State.SUCCEEDED -> {
+                WorkInfo.State.RUNNING -> progressCommunication.show(true)
+                WorkInfo.State.SUCCEEDED, WorkInfo.State.ENQUEUED -> {
                     progressCommunication.show(false)
                     refreshCommunication.show(true)
                 }

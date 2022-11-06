@@ -14,9 +14,8 @@ import kotlinx.coroutines.withContext
 class UpdateWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters,
-    private val interactor: UpdateForecastInteractor
-) :
-    CoroutineWorker(appContext, workerParams) {
+    private val interactor: UpdateForecastInteractor,
+) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result = try {
         withContext(Dispatchers.IO) {
