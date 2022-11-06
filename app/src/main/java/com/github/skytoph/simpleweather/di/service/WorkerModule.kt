@@ -1,6 +1,6 @@
 package com.github.skytoph.simpleweather.di.service
 
-import com.github.skytoph.simpleweather.data.worker.UpdateForecastInteractor
+import com.github.skytoph.simpleweather.domain.worker.UpdateForecastInteractor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

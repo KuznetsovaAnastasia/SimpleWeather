@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.data.worker
+package com.github.skytoph.simpleweather.domain.worker
 
 import com.github.skytoph.simpleweather.domain.weather.WeatherRepository
 import javax.inject.Inject

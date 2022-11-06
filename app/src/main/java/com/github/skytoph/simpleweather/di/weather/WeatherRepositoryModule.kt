@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.di.weather
 
+import com.github.skytoph.simpleweather.domain.weather.BaseWeatherRepository
 import com.github.skytoph.simpleweather.domain.weather.WeatherRepository
 import dagger.Binds
 import dagger.Module
@@ -11,14 +12,20 @@ import dagger.hilt.components.SingletonComponent
 abstract class WeatherRepositoryModule {
 
     @Binds
-    abstract fun repository(repository: WeatherRepository.Base): WeatherRepository.Mutable
+    abstract fun repository(repository: BaseWeatherRepository): WeatherRepository.Base
 
     @Binds
-    abstract fun repositoryReadable(repository: WeatherRepository.Base): WeatherRepository.Read
+    abstract fun repositoryMutable(repository: BaseWeatherRepository): WeatherRepository.Mutable
 
     @Binds
-    abstract fun repositoryWritable(repository: WeatherRepository.Base): WeatherRepository.Write
+    abstract fun repositoryUpdate(repository: BaseWeatherRepository): WeatherRepository.Update
 
     @Binds
-    abstract fun repositoryRefresh(repository: WeatherRepository.Base): WeatherRepository.RefreshAll
+    abstract fun repositoryRefresh(repository: BaseWeatherRepository): WeatherRepository.RefreshAll
+
+    @Binds
+    abstract fun repositorySave(repository: BaseWeatherRepository): WeatherRepository.Save
+
+    @Binds
+    abstract fun repositoryContains(repository: BaseWeatherRepository): WeatherRepository.Contains
 }

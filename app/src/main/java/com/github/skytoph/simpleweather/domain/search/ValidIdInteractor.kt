@@ -9,7 +9,7 @@ interface ValidIdInteractor {
     suspend fun validId(placeId: String): String
 
     class Base @Inject constructor(
-        private val weatherRepository: WeatherRepository.Mutable,
+        private val weatherRepository: WeatherRepository.Contains,
         private val placeCloudDataSource: LocationCloudDataSource.PlaceSearch,
     ) : ValidIdInteractor {
 

@@ -13,7 +13,7 @@ interface WeatherInteractor {
     suspend fun getWeather(id: String, favorite: Boolean): WeatherUi
 
     class Base @Inject constructor(
-        private val repository: WeatherRepository.Mutable,
+        private val repository: WeatherRepository.Update,
         private val refreshLocation: RefreshLocation.SaveRefreshed,
         private val domainMapper: WeatherDataToDomainMapper,
         private val uiMapper: WeatherDomainToUiMapper,

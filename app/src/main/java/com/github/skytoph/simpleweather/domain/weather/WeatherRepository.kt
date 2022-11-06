@@ -1,82 +1,35 @@
 package com.github.skytoph.simpleweather.domain.weather
 
-import android.util.Log
-import com.github.skytoph.simpleweather.data.weather.WeatherCache
-import com.github.skytoph.simpleweather.data.weather.cache.WeatherCacheDataSource
-import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
-import com.github.skytoph.simpleweather.data.weather.cloud.WeatherCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
-import javax.inject.Inject
-import javax.inject.Singleton
 
 interface WeatherRepository {
-    interface Write {
-        suspend fun saveWeather()
-        suspend fun updateCloudWeather(id: String): WeatherData
-        suspend fun updateLocationName(id: String): WeatherData
-        suspend fun delete(id: String)
-    }
 
     interface RefreshAll {
         suspend fun refreshAll()
     }
 
-    interface Read {
-        fun cachedIDs(): List<String>
-        suspend fun getCachedWeather(id: String): WeatherData
-        suspend fun getCloudWeather(id: String): WeatherData
+    interface Save {
+        suspend fun saveWeather()
+    }
+
+    interface Contains {
         suspend fun contains(id: String): Boolean
     }
 
-    interface Mutable : Read, Write, RefreshAll
-
-    @Singleton
-    class Base @Inject constructor(
-        private val cacheDataSource: WeatherCacheDataSource,
-        private val cloudDataSource: WeatherCloudDataSource,
-        private val cacheMapper: WeatherDBToDataMapper,
-        private val cachedWeather: WeatherCache,
-    ) : Mutable {
-
-        override fun cachedIDs(): List<String> =
-            cacheDataSource.readAllIDs()
-
-        override suspend fun getCachedWeather(id: String): WeatherData =
-            cacheDataSource.read(id).map(cacheMapper)
-
-        override suspend fun getCloudWeather(id: String): WeatherData =
-            cloudDataSource.fetch(id)
-                .also { cachedWeather.cache(it) }
-
-        override suspend fun updateCloudWeather(id: String): WeatherData =
-            updateAndSave(getCachedWeather(id))
-
-        override suspend fun updateLocationName(id: String): WeatherData =
-            getCachedWeather(id).updateLocation(cloudDataSource).also { it.save(cacheDataSource) }
-
-        override suspend fun saveWeather() {
-            try {
-                cachedWeather.save(cacheDataSource)
-            } catch (e: Exception) {
-                Log.e("ErrorTag", e.stackTraceToString())
-            }
-        }
-
-        override suspend fun refreshAll() = cacheDataSource.readAll().forEach {
-            updateAndSave(it.map(cacheMapper))
-        }
-
-        private suspend fun updateAndSave(data: WeatherData): WeatherData =
-            data.update(cloudDataSource).also { it.save(cacheDataSource) }
-
-        override suspend fun delete(id: String) =
-            cacheDataSource.remove(id)
-
-        override suspend fun contains(id: String): Boolean = try {
-            cacheDataSource.read(id)
-            true
-        } catch (exception: Exception) {
-            false
-        }
+    interface Delete {
+        suspend fun delete(id: String)
     }
+
+    interface Mutable : RefreshAll, Delete {
+        fun cachedIDs(): List<String>
+    }
+
+    interface Update {
+        suspend fun updateCloudWeather(id: String): WeatherData
+        suspend fun updateLocationName(id: String): WeatherData
+        suspend fun getCachedWeather(id: String): WeatherData
+        suspend fun getCloudWeather(id: String): WeatherData
+    }
+
+    interface Base : Mutable, Update, RefreshAll, Save, Contains
 }

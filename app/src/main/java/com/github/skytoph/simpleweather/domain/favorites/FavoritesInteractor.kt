@@ -9,10 +9,9 @@ import javax.inject.Inject
 interface FavoritesInteractor {
 
     fun favoriteIDs(): List<String>
-    suspend fun saveFavorite()
+    fun saveRefreshLocationIntention()
     suspend fun removeFavorite(id: String)
     suspend fun refreshFavorites()
-    fun saveRefreshLocationIntention()
 
     @ViewModelScoped
     class Base @Inject constructor(
@@ -21,14 +20,9 @@ interface FavoritesInteractor {
         private val refreshLocation: RefreshLocation.Mutable,
     ) : FavoritesInteractor {
 
-        override fun favoriteIDs(): List<String> =
-            weatherRepository.cachedIDs()
+        override fun favoriteIDs(): List<String> = weatherRepository.cachedIDs()
 
-        override suspend fun saveFavorite() =
-            weatherRepository.saveWeather()
-
-        override suspend fun removeFavorite(id: String) =
-            weatherRepository.delete(id)
+        override suspend fun removeFavorite(id: String) = weatherRepository.delete(id)
 
         override suspend fun refreshFavorites() {
             try {
