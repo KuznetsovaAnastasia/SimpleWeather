@@ -26,4 +26,6 @@ data class DailyForecastData(
         parent: ForecastDB,
     ): DailyForecastDB =
         mapper.map(time, temp.first, temp.second, weatherId, precipitationProb, parent, dataBase)
+
+    fun isNotOutdated(seconds: Long) = time >= seconds
 }
