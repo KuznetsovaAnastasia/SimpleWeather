@@ -13,27 +13,37 @@ interface FavoritesInteractor {
     fun saveRefreshLocationIntention()
     suspend fun removeFavorite(id: String)
     suspend fun refreshFavorites()
+    suspend fun refreshLocations(ids: List<String>)
     fun savedPage(): Int
     fun savePage(position: Int)
 
     @ViewModelScoped
     class Base @Inject constructor(
-        private val weatherRepository: WeatherRepository.Mutable,
+        private val repository: WeatherRepository.Mutable,
         private val errorHandler: ErrorHandler,
         private val refreshLocation: RefreshLocation.Mutable,
         private val pagesDataSource: PagesDataSource,
     ) : FavoritesInteractor {
 
-        override fun favoriteIDs(): List<String> = weatherRepository.cachedIDs()
+        override fun favoriteIDs(): List<String> = repository.cachedIDs()
 
-        override suspend fun removeFavorite(id: String) = weatherRepository.delete(id)
+        override suspend fun removeFavorite(id: String) = repository.delete(id)
 
         override suspend fun refreshFavorites() {
             try {
-                weatherRepository.refreshAll()
+                repository.refreshAll()
             } catch (error: Exception) {
                 errorHandler.handle(error)
             }
+        }
+
+        override suspend fun refreshLocations(ids: List<String>) = try {
+            ids.forEach { id ->
+                if (refreshLocation.intentionSaved(id))
+                    repository.updateLocationName(id).also { it.saveState(refreshLocation) }
+            }
+        } catch (exception: Exception) {
+            errorHandler.handle(exception)
         }
 
         override fun saveRefreshLocationIntention() = favoriteIDs().forEach {

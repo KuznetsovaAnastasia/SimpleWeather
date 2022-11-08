@@ -7,11 +7,11 @@ import com.github.skytoph.simpleweather.data.work.UpdateWorker
 import java.util.concurrent.TimeUnit
 
 interface UpdateForecastWork {
-    fun scheduleWork(owner: LifecycleOwner, observer: Observer<WorkInfo>)
+    fun scheduleWork(owner: LifecycleOwner, observer: Observer<List<WorkInfo>>)
 
     class Base(private val workManager: WorkManager) : UpdateForecastWork {
 
-        override fun scheduleWork(owner: LifecycleOwner, observer: Observer<WorkInfo>) {
+        override fun scheduleWork(owner: LifecycleOwner, observer: Observer<List<WorkInfo>>) {
             val constraints =
                 Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
             val request =
@@ -21,7 +21,7 @@ interface UpdateForecastWork {
             workManager.enqueueUniquePeriodicWork(WORK_NAME,
                 ExistingPeriodicWorkPolicy.KEEP,
                 request)
-            workManager.getWorkInfoByIdLiveData(request.id).observe(owner, observer)
+            workManager.getWorkInfosForUniqueWorkLiveData(WORK_NAME).observe(owner, observer)
         }
 
         private companion object {

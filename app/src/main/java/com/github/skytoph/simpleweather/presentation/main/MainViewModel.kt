@@ -29,10 +29,10 @@ class MainViewModel @Inject constructor(
         progressCommunication.observe(owner, observer)
 
     fun scheduleUpdateForecast(owner: LifecycleOwner) =
-        worker.scheduleWork(owner) { info: WorkInfo ->
-            when (info.state) {
+        worker.scheduleWork(owner) { info ->
+            when (info[0].state) {
                 WorkInfo.State.RUNNING -> progressCommunication.show(true)
-                WorkInfo.State.SUCCEEDED, WorkInfo.State.ENQUEUED -> {
+                WorkInfo.State.ENQUEUED -> {
                     progressCommunication.show(false)
                     refreshCommunication.show(true)
                 }

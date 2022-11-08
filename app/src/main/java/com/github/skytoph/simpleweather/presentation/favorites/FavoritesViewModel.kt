@@ -20,14 +20,17 @@ class FavoritesViewModel @Inject constructor(
     private val communication: FavoritesCommunication,
     private val refreshCommunication: RefreshCommunication.Update,
     private val stateCommunication: FavoritesStateCommunication,
-    private val progressCommunication: ProgressCommunication.Update,
-    private val loadingCommunication: LoadingCommunication.Observe,
 ) : ViewModel() {
 
-    fun initialize() {
+    fun initialize(firstCreated: Boolean) {
         val favorites = getFavorites()
-        communication.show(favorites)
-        if (favorites.isNotEmpty()) progressCommunication.show(true)
+        viewModelScope.launch(Dispatchers.IO) {
+            interactor.refreshLocations(favorites)
+            withContext(Dispatchers.Main) {
+                updateChanges()
+                if (firstCreated) communication.show(favorites)
+            }
+        }
     }
 
     fun getFavorites(): List<String> = interactor.favoriteIDs()
@@ -42,12 +45,10 @@ class FavoritesViewModel @Inject constructor(
 
     fun updateChanges() = refreshCommunication.show(true)
 
-    fun refreshFavorites() = communication.show(getFavorites())
-
     fun delete(id: String) = stateCommunication.show(FavoritesState.Delete {
         viewModelScope.launch(Dispatchers.IO) {
             interactor.removeFavorite(id)
-            withContext(Dispatchers.Main) { refreshFavorites() }
+            withContext(Dispatchers.Main) { communication.show(getFavorites()) }
         }
     })
 
@@ -64,20 +65,10 @@ class FavoritesViewModel @Inject constructor(
 
     fun onHiddenChanged(hidden: Boolean) {
         stateCommunication.show(if (hidden) FavoritesState.Hidden else FavoritesState.Base)
-        if (!hidden) refreshFavorites()
+        if (!hidden) communication.show(getFavorites())
     }
 
     fun updateLocations() = interactor.saveRefreshLocationIntention()
-
-    fun observeWeatherLoading(owner: LifecycleOwner, observer: Observer<Loading>) =
-        loadingCommunication.observe(owner, observer)
-
-    fun showProgress(owner: LifecycleOwner, loadingState: Loading) {
-        if (loadingState != Loading.INITIAL) {
-            progressCommunication.show(false)
-            loadingCommunication.removeObserver(owner)
-        }
-    }
 
     fun savedPage(): Int = interactor.savedPage()
 

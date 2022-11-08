@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.di.weather
 
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.DailyForecastFilter
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.HourlyForecastFilter
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.WarningsDataFilter
 import dagger.Binds
@@ -10,6 +11,9 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class WeatherFilterModule {
+
+    @Binds
+    abstract fun dailyForecastFilter(filter: DailyForecastFilter.Base): DailyForecastFilter
 
     @Binds
     abstract fun forecastFilter(filter: HourlyForecastFilter.Base): HourlyForecastFilter

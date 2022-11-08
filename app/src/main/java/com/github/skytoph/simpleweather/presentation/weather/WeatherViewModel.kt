@@ -45,7 +45,7 @@ class WeatherViewModel @Inject constructor(
     }
 
     fun refreshFromCache() = viewModelScope.launch(Dispatchers.IO) {
-        if (favorite) interactor.getCachedWeather(placeId).show()
+        interactor.getWeather(placeId, favorite).show()
     }
 
     fun observe(owner: LifecycleOwner, observer: Observer<WeatherUi>) =
