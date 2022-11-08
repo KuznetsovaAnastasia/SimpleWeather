@@ -28,6 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) viewModel.showMain()
 
-        viewModel.scheduleUpdateForecast(WorkManager.getInstance(applicationContext), this)
+        viewModel.scheduleUpdateForecast(this)
     }
 }

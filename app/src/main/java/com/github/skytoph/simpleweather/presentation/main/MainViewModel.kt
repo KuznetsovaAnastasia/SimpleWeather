@@ -7,10 +7,9 @@ import androidx.work.*
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
 import com.github.skytoph.simpleweather.core.presentation.navigation.ShowScreen
-import com.github.skytoph.simpleweather.data.worker.UpdateWorker
+import com.github.skytoph.simpleweather.domain.work.UpdateForecastWork
 import com.github.skytoph.simpleweather.presentation.favorites.RefreshCommunication
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,6 +17,7 @@ class MainViewModel @Inject constructor(
     private val navigator: MainNavigator,
     private val progressCommunication: ProgressCommunication.Mutable,
     private val refreshCommunication: RefreshCommunication.Update,
+    private val worker: UpdateForecastWork,
 ) : ViewModel() {
 
     fun showMain() = navigator.showMain(R.id.fragment_container)
@@ -28,14 +28,8 @@ class MainViewModel @Inject constructor(
     fun observeProgress(owner: LifecycleOwner, observer: Observer<Boolean>) =
         progressCommunication.observe(owner, observer)
 
-    fun scheduleUpdateForecast(workManager: WorkManager, owner: LifecycleOwner) {
-        val constraints =
-            Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-        val request = PeriodicWorkRequestBuilder<UpdateWorker>(12, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
-            .setConstraints(constraints)
-            .build()
-        workManager.enqueueUniquePeriodicWork(WORK_NAME, ExistingPeriodicWorkPolicy.REPLACE, request)
-        workManager.getWorkInfoByIdLiveData(request.id).observe(owner) { info: WorkInfo ->
+    fun scheduleUpdateForecast(owner: LifecycleOwner) =
+        worker.scheduleWork(owner) { info: WorkInfo ->
             when (info.state) {
                 WorkInfo.State.RUNNING -> progressCommunication.show(true)
                 WorkInfo.State.SUCCEEDED, WorkInfo.State.ENQUEUED -> {
@@ -44,9 +38,4 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-    private companion object {
-        const val WORK_NAME = "update_forecasts"
-    }
 }
