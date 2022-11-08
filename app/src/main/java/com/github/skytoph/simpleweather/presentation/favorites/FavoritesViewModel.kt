@@ -24,12 +24,10 @@ class FavoritesViewModel @Inject constructor(
     private val loadingCommunication: LoadingCommunication.Observe,
 ) : ViewModel() {
 
-    fun initialize(firstCreated: Boolean) {
-        if (firstCreated) {
-            val favorites = getFavorites()
-            communication.show(favorites)
-            if (favorites.isNotEmpty()) progressCommunication.show(true)
-        }
+    fun initialize() {
+        val favorites = getFavorites()
+        communication.show(favorites)
+        if (favorites.isNotEmpty()) progressCommunication.show(true)
     }
 
     fun getFavorites(): List<String> = interactor.favoriteIDs()
@@ -80,4 +78,8 @@ class FavoritesViewModel @Inject constructor(
             loadingCommunication.removeObserver(owner)
         }
     }
+
+    fun savedPage(): Int = interactor.savedPage()
+
+    fun saveCurrentPage(position: Int) = interactor.savePage(position)
 }

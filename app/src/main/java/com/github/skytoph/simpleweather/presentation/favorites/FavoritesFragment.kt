@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.LocaleListCompat
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
+import androidx.viewpager2.widget.ViewPager2
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentFavoritesBinding
@@ -26,6 +28,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
 
     private lateinit var adapter: FavoritesAdapter
     private lateinit var tabLayout: TabLayout
+    private lateinit var viewPager: ViewPager2
 
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentFavoritesBinding
         get() = FragmentFavoritesBinding::inflate
@@ -35,7 +38,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
 
         adapter = FavoritesAdapter(this, viewModel.getFavorites())
 
-        val viewPager = binding.viewPagerFavorites
+        viewPager = binding.viewPagerFavorites
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 1
 
@@ -68,7 +71,9 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
             viewModel.showProgress(this, state)
         }
 
-         viewModel.initialize(savedInstanceState == null)
+        viewPager.doOnPreDraw { viewPager.setCurrentItem(viewModel.savedPage(), false) }
+
+        if (savedInstanceState == null) viewModel.initialize()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -85,6 +90,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     override fun onPause() {
         PreferenceManager.getDefaultSharedPreferences(context)
             .unregisterOnSharedPreferenceChangeListener(this)
+        viewModel.saveCurrentPage(viewPager.currentItem)
         super.onPause()
     }
 
