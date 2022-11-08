@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.github.skytoph.simpleweather.R
@@ -62,6 +63,9 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
                         warningAdapter.submitList(warnings)
                         hourlyForecastAdapter.submitList(hourly)
                         dailyForecastAdapter.submitList(daily)
+                        forecastHourlyRecyclerview.doOnPreDraw {
+                            forecastHourlyRecyclerview.scrollToPosition(0)
+                        }
                     })
             }
         }
