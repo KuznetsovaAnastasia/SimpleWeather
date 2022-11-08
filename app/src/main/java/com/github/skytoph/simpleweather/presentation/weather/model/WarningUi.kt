@@ -1,23 +1,28 @@
 package com.github.skytoph.simpleweather.presentation.weather.model
 
 import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.github.skytoph.simpleweather.core.Matcher
 import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 
 sealed class WarningUi(
     private val title: String,
     private val description: String,
-    private val startTime: String,
+    private val timeValue: String,
+    @StringRes private val timeTitle: Int,
 ) : Matcher<WarningUi> {
 
     fun show(
         titleTextView: TextView,
         descriptionTextView: TextView,
-        startTimeTextView: TextView,
+        timeTextView: TextView,
+        timeTitleTextView: TextView,
     ) {
         titleTextView.text = title
         descriptionTextView.text = description
-        startTimeTextView.text = startTime
+        timeTextView.text = timeValue
+        timeTitleTextView.text = timeTitleTextView.resources.getString(timeTitle)
         Visibility.Visible().apply(descriptionTextView)
     }
 
@@ -29,14 +34,16 @@ sealed class WarningUi(
     data class Basic(
         private val event: String,
         private val description: String,
-        private val startTime: String,
-    ) : WarningUi(event, description, startTime)
+        private val timeValue: String,
+        @StringRes private val timeTitle: Int,
+    ) : WarningUi(event, description, timeValue, timeTitle)
 
     data class Rain(
         private val event: String,
         private val description: String,
-        private val startTime: String,
-        private val rainImage: Int,
+        private val timeValue: String,
+        @StringRes private val timeTitle: Int,
+        @DrawableRes private val rainImage: Int,
         private val pop: String,
-    ) : WarningUi(event, pop, startTime)
+    ) : WarningUi(event, pop, timeValue, timeTitle)
 }

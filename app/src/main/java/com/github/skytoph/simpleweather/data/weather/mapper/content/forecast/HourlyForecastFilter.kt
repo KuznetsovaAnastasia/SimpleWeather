@@ -12,7 +12,8 @@ interface HourlyForecastFilter {
         override fun filter(hourlyForecast: List<HourlyForecastData>): List<HourlyForecastData> {
             val timeSeconds = timeProvider.currentHoursInSeconds()
             val list = hourlyForecast.filter { it.isNotOutdated(timeSeconds) }
-            return if (list.size > FORECAST_NUMBER) list.subList(0, FORECAST_NUMBER) else list
+            return if (list.size > FORECAST_NUMBER) list.subList(0, FORECAST_NUMBER)
+            else list
         }
 
         private companion object {

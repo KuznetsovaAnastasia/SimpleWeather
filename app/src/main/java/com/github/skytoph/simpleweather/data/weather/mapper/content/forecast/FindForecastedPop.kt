@@ -1,22 +1,29 @@
 package com.github.skytoph.simpleweather.data.weather.mapper.content.forecast
 
+import com.github.skytoph.simpleweather.core.data.TimeProvider
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.HourlyForecastData
 import javax.inject.Inject
 
 interface FindForecastedPop {
-    fun map(hourlyForecast: List<HourlyForecastData>, time: Long, currentPop: Double): Double
+    fun map(
+        hourlyForecast: List<HourlyForecastData>,
+        startTime: Long,
+        currentPop: Double,
+    ): Double
 
-    class Base @Inject constructor() : FindForecastedPop {
+    class Base @Inject constructor(private val timeProvider: TimeProvider) : FindForecastedPop {
 
         override fun map(
             hourlyForecast: List<HourlyForecastData>,
-            time: Long,
+            startTime: Long,
             currentPop: Double,
         ): Double {
+            if (startTime < timeProvider.currentHoursInSeconds()) return currentPop
+
             val mapper = object : WarningPopMapper {
                 override fun map(pop: Double): Double = pop
             }
-            return hourlyForecast.find { it.isTimeForecasted(time) }?.map(mapper) ?: currentPop
+            return hourlyForecast.find { it.isTimeForecasted(startTime) }?.map(mapper) ?: currentPop
         }
     }
 }

@@ -10,8 +10,9 @@ import io.realm.annotations.RealmClass
 open class WarningDB : RealmObject(), Mappable<WarningData, WarningDataMapper> {
     var title: String = ""
     var description: String = ""
-    var expectedTime: Long = 0
+    var startTime: Long = 0
+    var endTime: Long = 0
 
     override fun map(mapper: WarningDataMapper): WarningData =
-        mapper.map(title, expectedTime, description)
+        mapper.map(title, startTime, endTime, description)
 }

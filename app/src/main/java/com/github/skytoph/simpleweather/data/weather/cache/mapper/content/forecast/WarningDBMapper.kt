@@ -10,6 +10,7 @@ interface WarningDBMapper : Mapper<WarningDB> {
     fun map(
         name: String,
         startTime: Long,
+        endTime: Long,
         description: String,
         parent: ForecastDB,
         dataBase: DataBase,
@@ -20,12 +21,14 @@ interface WarningDBMapper : Mapper<WarningDB> {
         override fun map(
             name: String,
             startTime: Long,
+            endTime: Long,
             description: String,
             parent: ForecastDB,
             dataBase: DataBase,
         ) = dataBase.createEmbeddedObject<WarningDB>(parent, ForecastDB.FIELD_WARNINGS).apply {
             this.title = name
-            this.expectedTime = startTime
+            this.startTime = startTime
+            this.endTime = endTime
             this.description = description
         }
     }

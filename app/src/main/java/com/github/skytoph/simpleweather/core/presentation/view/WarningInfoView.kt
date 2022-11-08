@@ -21,6 +21,7 @@ class WarningInfoView : WarningView {
     //endregion
 
     private var expTimeText: TextView
+    private var expTimeLabel: TextView
     private var warningText: TextView
     private var descriptionText: TextView
 
@@ -30,12 +31,13 @@ class WarningInfoView : WarningView {
         setPadding(0, 0, 0, resources.getDimensionPixelSize(R.dimen.warning_view_padding_bottom))
 
         expTimeText = findViewById(R.id.warning_exp_time_value)
+        expTimeLabel = findViewById(R.id.warning_exp_time_title)
         warningText = findViewById(R.id.warning_text)
         descriptionText = findViewById(R.id.warning_description)
     }
 
     override fun show(warning: WarningUi) {
         visibility = View.VISIBLE
-        warning.show(warningText, descriptionText, expTimeText)
+        warning.show(warningText, descriptionText, expTimeText, expTimeLabel)
     }
 }

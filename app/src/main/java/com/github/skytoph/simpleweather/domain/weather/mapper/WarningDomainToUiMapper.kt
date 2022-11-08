@@ -10,7 +10,8 @@ import javax.inject.Inject
 interface WarningDomainToUiMapper : Mapper<WarningUi> {
     fun map(
         event: String,
-        startTime: Long,
+        time: Long,
+        started: Boolean,
         precipitationProb: Double,
         description: String,
     ): WarningUi
@@ -21,21 +22,28 @@ interface WarningDomainToUiMapper : Mapper<WarningUi> {
     ) : WarningDomainToUiMapper {
         override fun map(
             event: String,
-            startTime: Long,
+            time: Long,
+            started: Boolean,
             precipitationProb: Double,
             description: String,
-        ) = if (containsRain(event))
-            WarningUi.Rain(
-                event,
-                description,
-                timeFormatter.timeFull(startTime),
-                R.drawable.weather_rain,
-                probabilityFormatter.format(precipitationProb))
-        else
-            WarningUi.Basic(
-                event,
-                description,
-                timeFormatter.timeFull(startTime))
+        ): WarningUi {
+            val timeTitle =
+                if (started) R.string.expected_warning_end_time else R.string.expected_warning_start_time
+            return if (containsRain(event)) {
+                WarningUi.Rain(
+                    event,
+                    description,
+                    timeFormatter.timeFull(time),
+                    timeTitle,
+                    R.drawable.weather_rain,
+                    probabilityFormatter.format(precipitationProb))
+            } else
+                WarningUi.Basic(
+                    event,
+                    description,
+                    timeFormatter.timeFull(time),
+                    timeTitle)
+        }
 
         private fun containsRain(event: String): Boolean {
             val lowercaseEvent = event.lowercase()

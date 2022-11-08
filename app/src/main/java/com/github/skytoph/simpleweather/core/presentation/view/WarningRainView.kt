@@ -12,6 +12,7 @@ class WarningRainView : WarningView {
     private var forecastImage: ImageView
     private var rainPercentText: TextView
     private var expTimeText: TextView
+    private var expTimeLabel: TextView
     private var warningText: TextView
 
     //region constructors
@@ -34,11 +35,12 @@ class WarningRainView : WarningView {
         forecastImage = findViewById(R.id.warning_forecast_image)
         rainPercentText = findViewById(R.id.warning_rain_percent_value)
         expTimeText = findViewById(R.id.warning_exp_time_value)
+        expTimeLabel = findViewById(R.id.warning_exp_time_title)
         warningText = findViewById(R.id.warning_text)
     }
 
     override fun show(warning: WarningUi) {
         visibility = View.VISIBLE
-        warning.show(warningText, rainPercentText, expTimeText)
+        warning.show(warningText, rainPercentText, expTimeText, expTimeLabel)
     }
 }

@@ -6,11 +6,11 @@ import javax.inject.Inject
 
 interface WarningDataMapper : Mapper<WarningData> {
 
-    fun map(name: String, startTime: Long, description: String): WarningData
+    fun map(name: String, startTime: Long, endTime: Long, description: String): WarningData
 
     class Base @Inject constructor() : WarningDataMapper {
 
-        override fun map(name: String, startTime: Long, description: String) =
-            WarningData(name, startTime, description)
+        override fun map(name: String, startTime: Long, endTime: Long, description: String) =
+            WarningData(name, startTime, endTime, description)
     }
 }

@@ -24,5 +24,5 @@ open class HourlyForecastDB : RealmObject(),
     override fun map(mapper: CurrentForecastDataMapper): CurrentWeatherData =
         mapper.map(weatherId, temp)
 
-    override fun isCurrent(currentHoursInSeconds: Long) = time == currentHoursInSeconds
+    override fun isCurrent(seconds: Long) = time == seconds
 }

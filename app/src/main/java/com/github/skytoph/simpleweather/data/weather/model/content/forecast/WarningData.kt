@@ -12,15 +12,16 @@ import com.github.skytoph.simpleweather.domain.weather.model.WarningDomain
 data class WarningData(
     private val name: String,
     private val startTime: Long,
+    private val endTime: Long,
     private val description: String,
 ) : Mappable<WarningDomain, WarningDataToDomainMapper>,
     MappableToDB.EmbeddedValid<WarningDB, ForecastDB, WarningDBMapper> {
 
     override fun map(mapper: WarningDataToDomainMapper): WarningDomain =
-        mapper.map(name, startTime, description)
+        mapper.map(name, startTime, endTime, description)
 
     override fun map(mapper: WarningDBMapper, dataBase: DataBase, parent: ForecastDB): WarningDB =
-        mapper.map(name, startTime, description, parent, dataBase)
+        mapper.map(name, startTime, endTime, description, parent, dataBase)
 
-    fun isNotOutdated(timeSeconds: Long) = startTime >= timeSeconds
+    fun isNotOutdated(timeSeconds: Long) = endTime >= timeSeconds
 }

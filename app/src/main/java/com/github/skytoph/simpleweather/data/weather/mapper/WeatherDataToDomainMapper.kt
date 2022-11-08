@@ -4,10 +4,10 @@ import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.FindForecastedPop
 import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
 import com.github.skytoph.simpleweather.data.weather.model.content.current.CurrentWeatherData
-import com.github.skytoph.simpleweather.data.weather.model.content.forecast.WarningData
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.DailyForecastData
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.ForecastData
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.HourlyForecastData
+import com.github.skytoph.simpleweather.data.weather.model.content.forecast.WarningData
 import com.github.skytoph.simpleweather.data.weather.model.content.horizon.HorizonData
 import com.github.skytoph.simpleweather.data.weather.model.content.indicators.IndicatorsData
 import com.github.skytoph.simpleweather.data.weather.model.identifier.IdentifierData
@@ -56,9 +56,10 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
                     }
                     val warningMapper = object : WarningDataToDomainMapper {
                         override fun map(
-                            name: String, startTime: Long, description: String,
+                            name: String, startTime: Long, endTime: Long, description: String,
                         ): WarningDomain = WarningDomain(name,
                             timezone.withOffset(startTime),
+                            forecastTime > startTime,
                             forecast.map(findPopMapper, startTime, indicators.map()),
                             description)
                     }

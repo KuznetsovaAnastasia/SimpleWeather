@@ -12,9 +12,13 @@ data class AlertCloud(
     @field:Json(name = "start")
     private val startTime: Long,
 
+    @field:Json(name = "end")
+    private val endTime: Long,
+
     @field:Json(name = "description")
     private val description: String,
 ) : Mappable<WarningData, WarningDataMapper> {
 
-    override fun map(mapper: WarningDataMapper): WarningData = mapper.map(name, startTime, description)
+    override fun map(mapper: WarningDataMapper): WarningData =
+        mapper.map(name, startTime, endTime, description)
 }

@@ -21,13 +21,14 @@ data class ForecastDomain(
 
 data class WarningDomain(
     private val event: String,
-    private val startTime: Long,
+    private val time: Long,
+    private val started: Boolean,
     private val precipitationProb: Double,
     private val description: String,
 ) : Mappable<WarningUi, WarningDomainToUiMapper> {
 
     override fun map(mapper: WarningDomainToUiMapper): WarningUi =
-        mapper.map(event, startTime, precipitationProb, description)
+        mapper.map(event, time, started, precipitationProb, description)
 }
 
 data class HourlyDomain(
