@@ -10,7 +10,7 @@
 
     <string name="warning">Попередження</string>
     <string name="rain_percent">% опадів</string>
-    <string name="expected_rain_time">Очік. час</string>
+    <string name="expected_warning_start_time">Очік. час</string>
     <string name="sunrise_and_sunset"><![CDATA[світанок & захід сонця]]></string>
     <string name="time_duration_format">%d Год. %02d Хв.</string>
 
@@ -28,9 +28,8 @@
 
     <string name="error_service_unavailable">Сервіс недоступний</string>
     <string name="error_no_connection">Інтернет-вз\'язок відсутній</string>
-    <string name="error_no_cached_data">Немає збережений локацій</string>
+    <string name="error_no_cached_data">Немає збережених локацій</string>
     <string name="error_empty_request">Почніть вводити запит для пошуку локації</string>
-    <string name="error_empty_favorites">Немає збережений локацій</string>
     <string name="error_no_results">Не вдалось знайти локацію</string>
     <string name="error_location_is_not_saved">Ці данні було видалено</string>
     <string name="error_can_not_update_location">Не вдалось оновити назву локації</string>
@@ -41,4 +40,5 @@
     <string name="general_header">Загальні</string>
     <string name="units_title">Одиниці вимірювання температури</string>
     <string name="time_title">Використовувати 24-часовий формат</string>
+    <string name="expected_warning_end_time">Очік. час</string>
 </resources>
