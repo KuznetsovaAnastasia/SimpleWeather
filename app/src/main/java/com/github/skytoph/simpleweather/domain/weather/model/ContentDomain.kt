@@ -1,10 +1,7 @@
 package com.github.skytoph.simpleweather.domain.weather.model
 
 import com.github.skytoph.simpleweather.core.Mappable
-import com.github.skytoph.simpleweather.domain.weather.mapper.ContentUiMapper
-import com.github.skytoph.simpleweather.domain.weather.mapper.CurrentWeatherDomainToUiMapper
-import com.github.skytoph.simpleweather.domain.weather.mapper.HorizonDomainToUiMapper
-import com.github.skytoph.simpleweather.domain.weather.mapper.IndicatorsDomainToUiMapper
+import com.github.skytoph.simpleweather.domain.weather.mapper.*
 import com.github.skytoph.simpleweather.presentation.weather.model.CurrentWeatherUi
 import com.github.skytoph.simpleweather.presentation.weather.model.HorizonUi
 import com.github.skytoph.simpleweather.presentation.weather.model.IndicatorsUi
@@ -19,6 +16,10 @@ data class ContentDomain(
 
     override fun map(mapper: ContentUiMapper): WeatherUi =
         mapper.map(currentWeather, indicators, horizon, forecast)
+
+    fun map(mapper: OutdatedWeatherUiMapper): WeatherUi.Outdated = currentWeather.map(mapper)
+
+    fun isOutdated(): Boolean = forecast.isOutdated()
 }
 
 data class CurrentWeatherDomain(
@@ -29,6 +30,9 @@ data class CurrentWeatherDomain(
 
     override fun map(mapper: CurrentWeatherDomainToUiMapper): CurrentWeatherUi =
         mapper.map(city, temperature, weatherId)
+
+    fun map(mapper: OutdatedWeatherUiMapper): WeatherUi.Outdated =
+        mapper.map(city)
 }
 
 data class IndicatorsDomain(

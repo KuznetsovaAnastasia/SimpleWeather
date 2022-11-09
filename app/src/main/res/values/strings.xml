@@ -39,6 +39,7 @@
     <string name="error_no_results">Can\'t find location</string>
     <string name="error_location_is_not_saved">This data was deleted</string>
     <string name="error_can_not_update_location">Can not update location after language change</string>
+    <string name="error_outdated_forecast">Weather forecast is outdated, try to refresh it</string>
 
     <!--    Delete confirmation dialog-->
     <string name="confirm">Yes</string>
@@ -67,4 +68,6 @@
     <string name="key_time" translatable="false">time</string>
     <string name="key_language" translatable="false">language</string>
     <string name="key_units" translatable="false">unit</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_settings">Settings</string>
 </resources>

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.core.presentation.MarginItemDecoration
+import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 import com.github.skytoph.simpleweather.databinding.FragmentWeatherBinding
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.FAVORITE_KEY
 import com.github.skytoph.simpleweather.presentation.weather.WeatherViewModel.Companion.PLACE_ID_KEY
@@ -18,6 +19,8 @@ import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.Da
 import com.github.skytoph.simpleweather.presentation.weather.adapter.forecast.HourlyForecastAdapter
 import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.NotScrollableLayoutManager
 import com.github.skytoph.simpleweather.presentation.weather.adapter.warning.WarningAdapter
+import com.github.skytoph.simpleweather.presentation.weather.model.ForecastUi
+import com.github.skytoph.simpleweather.presentation.weather.model.WarningUi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,17 +31,21 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentWeatherBinding
         get() = FragmentWeatherBinding::inflate
 
+    private lateinit var warningAdapter: WarningAdapter
+    private lateinit var hourlyForecastAdapter: HourlyForecastAdapter
+    private lateinit var dailyForecastAdapter: DailyForecastAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val warningAdapter = WarningAdapter()
+        warningAdapter = WarningAdapter()
         binding.warningsRecyclerview.apply {
             adapter = warningAdapter
             layoutManager = NotScrollableLayoutManager(context)
             addItemDecoration(MarginItemDecoration(spaceBottom = resources.getDimensionPixelSize(R.dimen.warning_item_bottom_margin)))
         }
 
-        val hourlyForecastAdapter = HourlyForecastAdapter()
+        hourlyForecastAdapter = HourlyForecastAdapter()
         binding.forecastHourlyRecyclerview.apply {
             adapter = hourlyForecastAdapter
             hourlyForecastAdapter.stateRestorationPolicy =
@@ -46,8 +53,8 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
             addItemDecoration(MarginItemDecoration(spaceRight = resources.getDimensionPixelSize(R.dimen.forecast_item_right_margin)))
         }
 
-        val dailyForecastAdapter = DailyForecastAdapter()
-        binding.forecastWeeklyRecyclerview.apply {
+        dailyForecastAdapter = DailyForecastAdapter()
+        binding.forecastDailyRecyclerview.apply {
             adapter = dailyForecastAdapter
             layoutManager = NotScrollableLayoutManager(context)
             addItemDecoration(MarginItemDecoration(spaceBottom = resources.getDimensionPixelSize(R.dimen.forecast_item_bottom_margin)))
@@ -55,25 +62,32 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
 
         viewModel.observe(this) { weather ->
             binding.apply {
-                weather.show(locationView,
+                weather.show(weatherError,
+                    locationView,
                     indicatorsView,
                     sunriseSunsetView,
-                    forecastWeeklyRecyclerview,
-                    submitLists = { warnings, hourly, daily ->
-                        warningAdapter.submitList(warnings)
-                        hourlyForecastAdapter.submitList(hourly)
-                        dailyForecastAdapter.submitList(daily)
-                        forecastHourlyRecyclerview.doOnPreDraw {
-                            forecastHourlyRecyclerview.scrollToPosition(0)
-                        }
-                    })
+                    listOf(forecastDailyRecyclerview, forecastHourlyRecyclerview),
+                    showLists)
             }
         }
         viewModel.observeRefresh(this) { refresh ->
-            if(refresh) viewModel.refreshFromCache()
+            if (refresh) viewModel.refreshFromCache()
         }
         viewModel.getWeather(savedInstanceState == null)
     }
+
+    private val showLists: (List<WarningUi>, List<ForecastUi.Hourly>, List<ForecastUi.Daily>) -> Unit =
+        { warnings, hourly, daily ->
+            binding.apply {
+                warningAdapter.submitList(warnings)
+                hourlyForecastAdapter.submitList(hourly)
+                dailyForecastAdapter.submitList(daily)
+                forecastHourlyRecyclerview.apply {
+                    if (hourly.isEmpty()) Visibility.Gone().apply(this)
+                    else doOnPreDraw { scrollToPosition(0) }
+                }
+            }
+        }
 
     companion object {
         fun newInstance(placeId: String, favorite: Boolean): WeatherFragment =

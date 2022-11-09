@@ -13,10 +13,12 @@ data class ForecastDomain(
     private val warnings: List<WarningDomain>,
     private val hourly: List<HourlyDomain>,
     private val daily: List<DailyDomain>,
-): Mappable<ListUi, ForecastListUiMapper>{
+) : Mappable<ListUi, ForecastListUiMapper> {
 
     override fun map(mapper: ForecastListUiMapper): ListUi =
         mapper.map(hourly, daily, warnings)
+
+    fun isOutdated() = daily.isEmpty()
 }
 
 data class WarningDomain(

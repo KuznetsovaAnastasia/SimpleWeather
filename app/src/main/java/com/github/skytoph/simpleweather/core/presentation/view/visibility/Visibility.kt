@@ -4,11 +4,11 @@ import android.view.View
 
 interface Visibility {
 
-    fun apply(view: View)
+    fun apply(vararg views: View)
 
     abstract class Abstract(private val visibility: Int) : Visibility {
 
-        override fun apply(view: View) {
+        override fun apply(vararg views: View) = views.forEach { view ->
             view.visibility = visibility
         }
     }

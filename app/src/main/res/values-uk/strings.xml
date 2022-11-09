@@ -41,4 +41,7 @@
     <string name="units_title">Одиниці вимірювання температури</string>
     <string name="time_title">Використовувати 24-часовий формат</string>
     <string name="expected_warning_end_time">Очік. час</string>
+    <string name="error_outdated_forecast">Дані про прогноз погоди застаріли, спробуйте оновити</string>
+    <string name="action_delete">Видалити</string>
+    <string name="action_settings">Налаштування</string>
 </resources>

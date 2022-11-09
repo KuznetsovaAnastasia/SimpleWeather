@@ -12,26 +12,32 @@ interface WeatherDomainToUiMapper : Mapper<WeatherUi> {
         private val weatherMapper: CurrentWeatherDomainToUiMapper,
         private val indicatorsMapper: IndicatorsDomainToUiMapper,
         private val horizonMapper: HorizonDomainToUiMapper,
-
         private val forecastMapper: ForecastListUiMapper,
     ) : WeatherDomainToUiMapper {
 
         override fun map(id: String, content: ContentDomain): WeatherUi {
-            val contentMapper = object : ContentUiMapper {
-                override fun map(
-                    currentWeather: CurrentWeatherDomain,
-                    indicators: IndicatorsDomain,
-                    horizon: HorizonDomain,
-                    forecast: ForecastDomain,
-                ) = WeatherUi.Base(
-                    id,
-                    currentWeather.map(weatherMapper),
-                    indicators.map(indicatorsMapper),
-                    horizon.map(horizonMapper),
-                    forecast.map(forecastMapper)
-                )
+            return if (content.isOutdated()) {
+                val mapper = object : OutdatedWeatherUiMapper {
+                    override fun map(location: String) = WeatherUi.Outdated(id, location)
+                }
+                content.map(mapper)
+            } else {
+                val contentMapper = object : ContentUiMapper {
+                    override fun map(
+                        currentWeather: CurrentWeatherDomain,
+                        indicators: IndicatorsDomain,
+                        horizon: HorizonDomain,
+                        forecast: ForecastDomain,
+                    ) = WeatherUi.Base(
+                        id,
+                        currentWeather.map(weatherMapper),
+                        indicators.map(indicatorsMapper),
+                        horizon.map(horizonMapper),
+                        forecast.map(forecastMapper)
+                    )
+                }
+                content.map(contentMapper)
             }
-            return content.map(contentMapper)
         }
     }
 }

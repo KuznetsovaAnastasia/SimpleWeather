@@ -1,7 +1,9 @@
 package com.github.skytoph.simpleweather.data.weather.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.DailyForecastFilter
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.FindForecastedPop
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.HourlyForecastFilter
 import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
 import com.github.skytoph.simpleweather.data.weather.model.content.current.CurrentWeatherData
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.DailyForecastData
@@ -25,6 +27,8 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
         private val currentMapper: CurrentWeatherDataToDomainMapper,
         private val horizonDomainMapper: HorizonDataToDomainMapper,
         private val findPopMapper: FindForecastedPop,
+        private val hourlyFilter: HourlyForecastFilter,
+        private val dailyFilter: DailyForecastFilter,
     ) : WeatherDataToDomainMapper, Mapper.ToDomain<WeatherDomain>() {
 
         override fun map(
@@ -80,8 +84,8 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
                             dailyForecast: List<DailyForecastData>,
                         ): ForecastDomain = ForecastDomain(
                             alerts.map { it.map(warningMapper) },
-                            hourlyForecast.map { it.map(hourlyMapper) },
-                            dailyForecast.map { it.map(dailyMapper) })
+                            hourlyFilter.filter(hourlyForecast).map { it.map(hourlyMapper) },
+                            dailyFilter.filter(dailyForecast).map { it.map(dailyMapper) })
                     }
                     return ContentDomain(
                         currentWeather.map(currentMapper),

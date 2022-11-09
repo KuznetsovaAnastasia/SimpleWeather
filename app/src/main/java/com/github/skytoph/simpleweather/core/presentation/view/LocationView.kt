@@ -44,4 +44,9 @@ class LocationView : LinearLayout {
         visibility = View.VISIBLE
         weather.show(weatherImage, cityTextView, degreesTextView)
     }
+
+    fun errorState() {
+        weatherImage.setImageResource(R.drawable.ic_clouds_gray)
+        degreesTextView.text = "?"
+    }
 }

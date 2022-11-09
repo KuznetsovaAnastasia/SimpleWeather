@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="20dp"
             android:visibility="gone"
-            tools:text="@string/error_no_cached_data"
+            android:text="@string/error_no_cached_data"
             tools:visibility="visible" />
     </FrameLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

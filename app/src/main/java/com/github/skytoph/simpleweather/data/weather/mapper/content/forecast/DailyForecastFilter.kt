@@ -2,6 +2,7 @@ package com.github.skytoph.simpleweather.data.weather.mapper.content.forecast
 
 import com.github.skytoph.simpleweather.core.data.TimeProvider
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.DailyForecastData
+import com.github.skytoph.simpleweather.domain.weather.model.DailyDomain
 import javax.inject.Inject
 
 interface DailyForecastFilter {

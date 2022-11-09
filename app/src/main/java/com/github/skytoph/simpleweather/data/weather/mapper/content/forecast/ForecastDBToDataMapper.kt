@@ -18,8 +18,6 @@ interface ForecastDBToDataMapper : Mapper<ForecastData> {
         private val warningsMapper: WarningListDataMapper,
         private val hourlyMapper: HourlyForecastListDataMapper,
         private val dailyMapper: DailyForecastListDataMapper,
-        private val hourlyFilter: HourlyForecastFilter,
-        private val dailyFilter: DailyForecastFilter,
     ) : ForecastDBToDataMapper {
 
         override fun map(
@@ -27,7 +25,7 @@ interface ForecastDBToDataMapper : Mapper<ForecastData> {
             hourly: List<HourlyForecastDB>,
             daily: List<DailyForecastDB>,
         ): ForecastData = ForecastData(warningsMapper.map(warnings),
-            hourlyFilter.filter(hourlyMapper.map(hourly)),
-            dailyFilter.filter(dailyMapper.map(daily)))
+            hourlyMapper.map(hourly),
+            dailyMapper.map(daily))
     }
 }
