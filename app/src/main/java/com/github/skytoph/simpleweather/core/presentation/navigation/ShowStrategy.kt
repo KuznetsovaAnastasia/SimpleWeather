@@ -33,8 +33,8 @@ abstract class ShowStrategy {
             fragmentManager: FragmentManager,
         ) {
             fragmentManager.beginTransaction()
-                .add(container, fragment)
                 .also { t -> fragmentManager.findFragmentById(container)?.let { t.hide(it) } }
+                .add(container, fragment)
                 .addToBackStack(id)
                 .commit()
         }
