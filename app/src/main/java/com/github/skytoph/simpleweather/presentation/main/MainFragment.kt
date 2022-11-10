@@ -72,10 +72,6 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
         searchView.setOnQueryTextListener(SearchQueryListener { query ->
             viewModel.getPredictions(query)
         })
-        searchView.findViewById<SearchView.SearchAutoComplete?>(R.id.search_src_text).onFocusChangeListener =
-            FocusChangeListener(notFocused = {
-                if (searchView.query.isNullOrBlank()) viewModel.goBack()
-            })
     }
 
     private fun Menu.hideExcept(id: Int) {

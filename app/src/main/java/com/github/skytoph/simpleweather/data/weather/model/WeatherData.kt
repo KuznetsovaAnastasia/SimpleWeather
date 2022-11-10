@@ -43,11 +43,13 @@ data class WeatherData(
     override suspend fun save(source: SaveItem<WeatherData>) =
         source.saveOrUpdate(identifier.map(), this)
 
-    fun update(mapper: UpdateWeather): WeatherData =mapper.update(identifier, time, content)
+    fun update(mapper: UpdateWeather): WeatherData = mapper.update(identifier, time, content)
 
-    fun update(mapper: UpdateWeatherLocation): WeatherData = mapper.update(identifier, time, content)
+    fun update(mapper: UpdateWeatherLocation): WeatherData =
+        mapper.update(identifier, time, content)
 
-    override suspend fun update(source: UpdateItem<WeatherData, IdentifierData>): WeatherData = source.update(this)
+    override suspend fun update(source: UpdateItem<WeatherData, IdentifierData>): WeatherData =
+        source.update(this)
 
     override suspend fun updateLocation(source: UpdateItem<WeatherData, IdentifierData>): WeatherData =
         source.updateLocation(this, identifier)

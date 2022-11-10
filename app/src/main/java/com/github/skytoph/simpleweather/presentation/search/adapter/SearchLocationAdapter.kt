@@ -55,8 +55,9 @@ class SearchLocationAdapter(private val listener: LocationClickListener) :
     }
 
     class LocationDiffCallback : BaseDiffUtil<SearchItemUi>()
-    interface LocationClickListener {
-        fun open(id: String)
+
+    fun interface LocationClickListener {
+        fun open(id: String, title: String)
     }
 
     enum class ViewType {

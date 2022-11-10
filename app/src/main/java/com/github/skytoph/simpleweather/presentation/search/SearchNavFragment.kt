@@ -9,7 +9,7 @@ class SearchNavFragment(
     @IdRes private val container: Int,
     strategy: ShowStrategy = ShowStrategy.ADD,
 ) : NavigationScreen(TAG,
-    SearchResultFragment::class.java,
+    SearchFragment::class.java,
     container,
     strategy) {
 

@@ -1,0 +1,19 @@
+package com.github.skytoph.simpleweather.data.search.cache.mapper
+
+import com.github.skytoph.simpleweather.core.Mapper
+import com.github.skytoph.simpleweather.core.data.TimeProvider
+import com.github.skytoph.simpleweather.data.search.cache.SearchHistoryData
+import javax.inject.Inject
+
+interface SearchHistoryDataMapper : Mapper<SearchHistoryData> {
+    fun map(id: String, location: String, time: Long = -1): SearchHistoryData
+
+    class Base @Inject constructor(private val timeProvider: TimeProvider) :
+        SearchHistoryDataMapper {
+
+        override fun map(id: String, location: String, time: Long): SearchHistoryData {
+            val itemTime = if (time > 0) time else timeProvider.currentTimeInSeconds()
+            return SearchHistoryData(id, location, itemTime)
+        }
+    }
+}

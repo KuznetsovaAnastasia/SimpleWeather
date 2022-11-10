@@ -15,7 +15,7 @@ interface UpdateForecastWork {
             val constraints =
                 Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
             val request =
-                PeriodicWorkRequestBuilder<UpdateWorker>(1, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
+                PeriodicWorkRequestBuilder<UpdateWorker>(6, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
                     .setConstraints(constraints)
                     .build()
             workManager.enqueueUniquePeriodicWork(WORK_NAME,

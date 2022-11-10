@@ -29,6 +29,8 @@
     <dimen name="warning_item_bottom_margin">11dp</dimen>
     <dimen name="forecast_item_bottom_margin">4dp</dimen>
     <dimen name="forecast_item_right_margin">8dp</dimen>
+    <dimen name="history_item_right_margin">10dp</dimen>
+    <dimen name="prediction_item_bottom_margin">4dp</dimen>
     <dimen name="location_search_item_image">88dp</dimen>
     <dimen name="search_result_horizontal_padding">24dp</dimen>
     <dimen name="toolbar_collapsed_end_padding">56dp</dimen>

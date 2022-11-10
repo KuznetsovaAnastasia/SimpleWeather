@@ -5,7 +5,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.skytoph.simpleweather.domain.search.ValidIdInteractor
+import com.github.skytoph.simpleweather.domain.search.SearchDetailsInteractor
+import com.github.skytoph.simpleweather.presentation.search.model.SearchHistoryUi
 import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,17 +17,31 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchPredictionViewModel @Inject constructor(
     private val searchCommunication: SearchCommunication.Observe,
-    private val interactor: ValidIdInteractor,
+    private val interactor: SearchDetailsInteractor,
+    private val searchHistory: HistoryCommunication,
     private val navigation: SearchNavigator,
 ) : ViewModel() {
 
-    fun showDetails(@IdRes container: Int, id: String) = viewModelScope.launch(Dispatchers.IO) {
-        val validId = interactor.validId(id)
-        val favorite = interactor.isFavorite(validId)
+    fun showDetails(@IdRes container: Int, id: String, title: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            interactor.saveSearchResult(id, title)
+            val validId = interactor.validId(id)
+            val favorite = interactor.isFavorite(validId)
+            withContext(Dispatchers.Main) {
+                refreshHistory()
+                navigation.showPredictionDetails(container, validId, favorite)
+            }
+        }
+
+    fun refreshHistory() = viewModelScope.launch(Dispatchers.IO) {
+        val history = interactor.searchHistory()
         withContext(Dispatchers.Main) {
-            navigation.showPredictionDetails(container, validId, favorite)
+            searchHistory.show(history)
         }
     }
+
+    fun observeHistory(owner: LifecycleOwner, observer: Observer<List<SearchHistoryUi>>) =
+        searchHistory.observe(owner, observer)
 
     fun observe(owner: LifecycleOwner, observer: Observer<List<SearchItemUi>>) =
         searchCommunication.observe(owner, observer)

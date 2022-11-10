@@ -5,10 +5,14 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 interface TimeProvider {
+    fun currentTimeInSeconds(): Long
     fun currentHoursInSeconds(): Long
     fun currentDayInSeconds(): Long
 
     class Base @Inject constructor() : TimeProvider {
+
+        override fun currentTimeInSeconds(): Long =
+            TimeUnit.MILLISECONDS.toSeconds(Calendar.getInstance().timeInMillis)
 
         override fun currentHoursInSeconds(): Long =
             TimeUnit.HOURS.toSeconds(
