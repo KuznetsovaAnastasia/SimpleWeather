@@ -42,6 +42,9 @@
         <item name="fontFamily">@font/poppins</item>
         <item name="android:textColor">?attr/highlightedTextColor</item>
         <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="HighlightedCapsValue" parent="HighlightedValue">
         <item name="android:textAllCaps">true</item>
     </style>
 
@@ -89,11 +92,6 @@
     <style name="SearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <!--        <item name="android:paddingStart">20dp</item>-->
-        <!--        <item name="android:layout_marginEnd">20dp</item>-->
-        <!--        <item name="android:paddingTop">10dp</item>-->
-        <!--        <item name="android:paddingBottom">10dp</item>-->
-        <!--        <item name="android:background">@drawable/searchview_background</item>-->
         <item name="android:textColorHint">?titleTextColor</item>
         <item name="android:textColor">?attr/mainTitleTextColor</item>
         <item name="searchIcon">@drawable/ic_search</item>
