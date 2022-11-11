@@ -2,6 +2,7 @@ package com.github.skytoph.simpleweather.presentation.favorites
 
 import android.view.View
 import androidx.fragment.app.FragmentManager
+import com.github.skytoph.simpleweather.R
 
 sealed class FavoritesState {
     abstract fun show(errorView: View, fragmentManager: FragmentManager, vararg content: View)
@@ -25,9 +26,13 @@ sealed class FavoritesState {
 
     class Delete(private val delete: () -> Unit) : FavoritesState() {
         override fun show(errorView: View, fragmentManager: FragmentManager, vararg content: View) {
-            DeleteConfirmationDialogFragment
-                .newInstance(delete)
-                .show(fragmentManager, DeleteConfirmationDialogFragment.TAG)
+            ConfirmationDialogFragment
+                .newInstance(delete, R.string.delete_location)
+                .show(fragmentManager, TAG)
+        }
+
+        private companion object {
+            const val TAG = "DeleteConfirmationDialog"
         }
     }
 }

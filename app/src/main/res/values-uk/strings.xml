@@ -44,4 +44,6 @@
     <string name="error_outdated_forecast">Дані про прогноз погоди застаріли, спробуйте оновити</string>
     <string name="action_delete">Видалити</string>
     <string name="action_settings">Налаштування</string>
+    <string name="clear_search_history_confirmation">Ви впевнені що хочете очистити історію пошуку?</string>
+    <string name="title_clear_search_history">Очистити історію пошуку</string>
 </resources>

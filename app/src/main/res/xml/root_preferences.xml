@@ -27,6 +27,11 @@
             app:summaryOn="@string/time_summary_on"
             app:title="@string/time_title" />
 
+        <Preference
+            app:key="@string/key_clear_search_history"
+            app:singleLineTitle="false"
+            app:title="@string/title_clear_search_history" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

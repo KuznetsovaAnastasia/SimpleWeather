@@ -41,13 +41,19 @@
     <string name="error_can_not_update_location">Can not update location after language change</string>
     <string name="error_outdated_forecast">Weather forecast is outdated, try to refresh it</string>
 
-    <!--    Delete confirmation dialog-->
+    <!--    Dialog actions-->
     <string name="confirm">Yes</string>
-    <string name="delete_location">Are you sure you want to delete this location from favorites?</string>
     <string name="dismiss">Cancel</string>
+
+    <!--    Delete confirmation dialog-->
+    <string name="delete_location">Are you sure you want to delete this location from favorites?</string>
+
+    <!--    Clear search history confirmation dialog-->
+    <string name="clear_search_history_confirmation">Are you sure you want to clear search history?</string>
 
     <!-- Preference Titles -->
     <string name="general_header">General</string>
+    <string name="title_clear_search_history">Clear search history</string>
 
     <!-- Units Preferences -->
     <string name="units_title">Units</string>
@@ -68,6 +74,9 @@
     <string name="key_time" translatable="false">time</string>
     <string name="key_language" translatable="false">language</string>
     <string name="key_units" translatable="false">unit</string>
+    <string name="key_clear_search_history" translatable="false">Settings</string>
+
+    <!--    Menu titles-->
     <string name="action_delete">Delete</string>
     <string name="action_settings">Settings</string>
 </resources>
