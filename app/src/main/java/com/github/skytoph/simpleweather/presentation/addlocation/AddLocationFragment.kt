@@ -29,7 +29,9 @@ class AddLocationFragment : BaseFragment<AddLocationViewModel, FragmentAddLocati
         val button = binding.messageButton
         val favorite = requireArguments().getBoolean(FAVORITE_KEY)
         viewModel.observe(this) { state ->
-            binding.apply { state.show(button, errorView, weatherAddContainer, progressBar) }
+            binding.apply {
+                state.show(weatherAddContainer, button, errorView) { viewModel.showProgress(it) }
+            }
         }
         if (!favorite) button.setOnClickListener {
             viewModel.saveWeather()

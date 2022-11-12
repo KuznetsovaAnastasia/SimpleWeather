@@ -12,15 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:visibility="invisible"
-            tools:visibility="visible" />
-
         <com.github.skytoph.simpleweather.core.presentation.view.MessageButton
             android:id="@+id/message_button"
             style="@style/MessageButton"

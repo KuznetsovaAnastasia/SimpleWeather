@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.skytoph.simpleweather.domain.search.SearchDetailsInteractor
+import com.github.skytoph.simpleweather.presentation.addlocation.Loading
+import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
 import com.github.skytoph.simpleweather.presentation.search.model.SearchHistoryUi
 import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,12 +19,14 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchPredictionViewModel @Inject constructor(
     private val searchCommunication: SearchCommunication.Observe,
+    private val loadingCommunication: LoadingCommunication.Update,
     private val interactor: SearchDetailsInteractor,
     private val searchHistory: HistoryCommunication,
     private val navigation: SearchNavigator,
 ) : ViewModel() {
 
-    fun showDetails(@IdRes container: Int, id: String, title: String) =
+    fun showDetails(@IdRes container: Int, id: String, title: String) {
+        loadingCommunication.show(Loading.INITIAL)
         viewModelScope.launch(Dispatchers.IO) {
             interactor.saveSearchResult(id, title)
             val validId = interactor.validId(id)
@@ -32,6 +36,7 @@ class SearchPredictionViewModel @Inject constructor(
                 navigation.showPredictionDetails(container, validId, favorite)
             }
         }
+    }
 
     fun refreshHistory() = viewModelScope.launch(Dispatchers.IO) {
         val history = interactor.searchHistory()
