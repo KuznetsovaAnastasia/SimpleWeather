@@ -21,7 +21,6 @@ class MainContentViewModel @Inject constructor(
     private val interactor: SearchInteractor,
     private val uiMapper: SearchResultsDomainToUiMapper,
     private val searchCommunication: SearchCommunication.Update,
-    private val messageCommunication: MessageCommunication.Observe,
     ) : ViewModel() {
 
     fun getPredictions(query: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -41,7 +40,4 @@ class MainContentViewModel @Inject constructor(
     fun showSettings(@IdRes container: Int) = navigator.showSettings(container)
 
     fun goBack() = navigator.goBack()
-
-    fun observeMessages(owner: LifecycleOwner, observer: Observer<UiMessage>) =
-        messageCommunication.observe(owner, observer)
 }

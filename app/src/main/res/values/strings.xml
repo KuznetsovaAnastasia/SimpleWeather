@@ -30,6 +30,9 @@
     <string name="indicator_rain">% rain</string>
     <string name="indicator_aq" translatable="false">aq</string>
 
+    <!--    Messages-->
+    <string name="search_history_cleared">Search history cleared</string>
+
     <!--    Error messages-->
     <string name="error_general">Something went wrong, can not load the data</string>
     <string name="error_service_unavailable">Service unavailable</string>
