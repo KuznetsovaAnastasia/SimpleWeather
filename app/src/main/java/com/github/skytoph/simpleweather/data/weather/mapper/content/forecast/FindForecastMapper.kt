@@ -3,6 +3,7 @@ package com.github.skytoph.simpleweather.data.weather.mapper.content.forecast
 import com.github.skytoph.simpleweather.core.data.TimeProvider
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.DailyForecastDB
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.HourlyForecastDB
+import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.MappableToCurrent
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.MappableToForecast
 import javax.inject.Inject
 

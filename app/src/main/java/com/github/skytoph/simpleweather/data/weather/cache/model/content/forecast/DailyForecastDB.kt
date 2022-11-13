@@ -3,8 +3,10 @@ package com.github.skytoph.simpleweather.data.weather.cache.model.content.foreca
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.data.weather.mapper.content.current.CurrentForecastDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.DailyForecastDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.indicators.IndicatorsDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.content.current.CurrentWeatherData
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.DailyForecastData
+import com.github.skytoph.simpleweather.data.weather.model.content.indicators.IndicatorsData
 import io.realm.RealmObject
 import io.realm.annotations.RealmClass
 
@@ -18,12 +20,16 @@ open class DailyForecastDB : RealmObject(),
     var tempMax: Double = 0.0
     var weatherId: Int = 0
     var precipitationProb: Double = 0.0
+    var uvi: Double = 0.0
 
     override fun map(mapper: DailyForecastDataMapper): DailyForecastData =
-        mapper.map(time, tempMin, tempMax, weatherId, precipitationProb)
+        mapper.map(time, tempMin, tempMax, weatherId, precipitationProb, uvi)
 
     override fun isCurrent(seconds: Long) = time == seconds
 
     override fun map(mapper: CurrentForecastDataMapper): CurrentWeatherData =
         mapper.map(weatherId, arrayOf(tempMin, tempMax).average())
+
+    override fun map(mapper: IndicatorsDataMapper): IndicatorsData =
+        mapper.map(uvi, precipitationProb)
 }

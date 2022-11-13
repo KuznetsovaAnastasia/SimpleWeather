@@ -8,6 +8,8 @@ import com.github.skytoph.simpleweather.data.weather.mapper.content.current.Curr
 import com.github.skytoph.simpleweather.data.weather.mapper.content.current.ForecastToCurrentDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.*
 import com.github.skytoph.simpleweather.data.weather.mapper.content.horizon.HorizonDataMapper
+import com.github.skytoph.simpleweather.data.weather.cloud.mapper.IndicatorsCloudToDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.indicators.ForecastToIndicatorsMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.indicators.IndicatorsDataMapper
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeatherMapper
 import dagger.Binds
@@ -41,7 +43,10 @@ abstract class WeatherDataMapperModule {
     abstract fun currentWeatherMapper(mapper: CurrentWeatherDataMapper.Base): CurrentWeatherDataMapper
 
     @Binds
-    abstract fun indicatorsMapper(mapper: IndicatorsDataMapper.Base): IndicatorsDataMapper
+    abstract fun indicatorsMapper(mapper: IndicatorsCloudToDataMapper.Base): IndicatorsCloudToDataMapper
+
+    @Binds
+    abstract fun indicatorsDataMapper(mapper: ForecastToIndicatorsMapper.Base): ForecastToIndicatorsMapper
 
     @Binds
     abstract fun horizonMapper(mapper: HorizonDataMapper.Base): HorizonDataMapper

@@ -9,7 +9,7 @@ import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.War
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.DailyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.HourlyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.horizon.HorizonDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.content.indicators.IndicatorsDataMapper
+import com.github.skytoph.simpleweather.data.weather.cloud.mapper.IndicatorsCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
 import com.github.skytoph.simpleweather.data.weather.model.content.current.CurrentWeatherData
@@ -33,7 +33,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
     ): WeatherData
 
     class Base @Inject constructor(
-        private val indicatorsMapper: IndicatorsDataMapper,
+        private val indicatorsMapper: IndicatorsCloudToDataMapper,
         private val horizonMapper: HorizonDataMapper,
         private val warningsMapper: WarningListDataMapper,
         private val hourlyMapper: HourlyForecastListDataMapper,

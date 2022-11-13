@@ -14,8 +14,8 @@ open class ContentDB : RealmObject(), Mappable<ContentData, ContentDBToDataMappe
     @RealmField(name = FIELD_LOCATION)
     var location: String = ""
 
-    @RealmField(name = FIELD_INDICATORS)
-    var indicators: IndicatorsDB? = null
+    @RealmField(name = FIELD_AIR_QUALITY)
+    var airQuality: Int = -1
 
     @RealmField(name = FIELD_HORIZON)
     var horizon: HorizonDB? = null
@@ -25,11 +25,11 @@ open class ContentDB : RealmObject(), Mappable<ContentData, ContentDBToDataMappe
 
     companion object {
         const val FIELD_LOCATION = "location"
-        const val FIELD_INDICATORS = "indicators"
+        const val FIELD_AIR_QUALITY = "air_quality"
         const val FIELD_HORIZON = "horizon"
         const val FIELD_FORECAST = "forecast"
     }
 
     override fun map(mapper: ContentDBToDataMapper): ContentData =
-        mapper.map(location, indicators!!, horizon!!, forecast!!)
+        mapper.map(location, airQuality, horizon!!, forecast!!)
 }

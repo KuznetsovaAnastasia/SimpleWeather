@@ -11,7 +11,6 @@ import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.Dai
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.HourlyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.WarningListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.horizon.HorizonDataMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.content.indicators.IndicatorsDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.ForecastData
@@ -30,7 +29,7 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
     class Base @Inject constructor(
         private val idMapper: IdMapper,
         private val currentMapper: CurrentWeatherDataMapper,
-        private val indicatorsMapper: IndicatorsDataMapper,
+        private val indicatorsMapper: IndicatorsCloudToDataMapper,
         private val horizonMapper: HorizonDataMapper,
         private val warningsMapper: WarningListDataMapper,
         private val hourlyMapper: HourlyForecastListDataMapper,

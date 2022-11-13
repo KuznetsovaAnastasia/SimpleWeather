@@ -39,10 +39,12 @@ data class HourlyForecastCloud(
     private val weather: List<WeatherTypeCloud>,
     @field:Json(name = "pop")
     private val precipitationProb: Double,
+    @field:Json(name = "uvi")
+    private val uvi: Double,
 ) : Mappable<HourlyForecastData, HourlyForecastDataMapper>, MappableTo<Double> {
 
     override fun map(mapper: HourlyForecastDataMapper): HourlyForecastData =
-        mapper.map(time, temp, weather[0].map(), precipitationProb)
+        mapper.map(time, temp, weather[0].map(), precipitationProb, uvi)
 
     override fun map(): Double = precipitationProb
 }

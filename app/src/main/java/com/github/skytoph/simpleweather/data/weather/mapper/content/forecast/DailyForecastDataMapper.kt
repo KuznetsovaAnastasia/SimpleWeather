@@ -12,6 +12,7 @@ interface DailyForecastDataMapper : Mapper<DailyForecastData> {
         tempMax: Double,
         weatherId: Int,
         pop: Double,
+        uvi: Double,
     ): DailyForecastData
 
     fun map(
@@ -19,6 +20,7 @@ interface DailyForecastDataMapper : Mapper<DailyForecastData> {
         temp: Pair<Double, Double>,
         weatherId: Int,
         pop: Double,
+        uvi: Double,
     ): DailyForecastData
 
     class Base @Inject constructor() : DailyForecastDataMapper {
@@ -29,13 +31,15 @@ interface DailyForecastDataMapper : Mapper<DailyForecastData> {
             tempMax: Double,
             weatherId: Int,
             pop: Double,
-        ) = DailyForecastData(time, Pair(tempMin, tempMax), weatherId, pop)
+            uvi: Double,
+        ) = DailyForecastData(time, Pair(tempMin, tempMax), weatherId, pop, uvi)
 
         override fun map(
             time: Long,
             temp: Pair<Double, Double>,
             weatherId: Int,
             pop: Double,
-        ) = DailyForecastData(time, temp, weatherId, pop)
+            uvi: Double,
+        ) = DailyForecastData(time, temp, weatherId, pop, uvi)
     }
 }

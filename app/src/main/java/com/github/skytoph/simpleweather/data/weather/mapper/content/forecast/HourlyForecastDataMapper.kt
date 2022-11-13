@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 interface HourlyForecastDataMapper : Mapper<HourlyForecastData> {
 
-    fun map(time: Long, temp: Double, weatherId: Int, pop: Double): HourlyForecastData
+    fun map(time: Long, temp: Double, weatherId: Int, pop: Double, uvi: Double): HourlyForecastData
 
     class Base @Inject constructor() : HourlyForecastDataMapper {
 
@@ -15,6 +15,7 @@ interface HourlyForecastDataMapper : Mapper<HourlyForecastData> {
             temp: Double,
             weatherId: Int,
             pop: Double,
+            uvi: Double,
         ) = HourlyForecastData(time, temp, weatherId, pop)
     }
 }

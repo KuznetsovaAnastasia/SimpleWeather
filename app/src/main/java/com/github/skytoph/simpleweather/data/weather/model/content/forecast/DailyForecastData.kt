@@ -14,6 +14,7 @@ data class DailyForecastData(
     private val temp: Pair<Double, Double>,
     private val weatherId: Int,
     private val precipitationProb: Double,
+    private val uvi: Double,
 ) : Mappable<DailyDomain, DailyForecastDomainMapper>,
     MappableToDB.EmbeddedValid<DailyForecastDB, ForecastDB, DailyForecastDBMapper> {
 
