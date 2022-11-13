@@ -21,6 +21,9 @@ abstract class WeatherDomainMapperModule {
     abstract fun horizonDataMapper(mapper: HorizonDataToDomainMapper.Base): HorizonDataToDomainMapper
 
     @Binds
+    abstract fun sunPositionMapper(mapper: SunPositionMapper.Base): SunPositionMapper
+
+    @Binds
     abstract fun sunCalculator(calculator: SunPosition): SunPosition
 
     @Binds

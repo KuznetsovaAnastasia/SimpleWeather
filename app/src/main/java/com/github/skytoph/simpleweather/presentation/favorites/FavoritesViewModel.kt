@@ -60,7 +60,6 @@ class FavoritesViewModel @Inject constructor(
 
     fun updateState(isFavoritesEmpty: Boolean) {
         stateCommunication.show(if (isFavoritesEmpty) FavoritesState.Error else FavoritesState.Base)
-        updateChanges()
     }
 
     fun onHiddenChanged(hidden: Boolean) {

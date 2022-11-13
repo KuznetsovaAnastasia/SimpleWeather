@@ -29,6 +29,7 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
         private val findPopMapper: FindForecastedPop,
         private val hourlyFilter: HourlyForecastFilter,
         private val dailyFilter: DailyForecastFilter,
+        private val sunMapper: SunPositionMapper,
     ) : WeatherDataToDomainMapper, Mapper.ToDomain<WeatherDomain>() {
 
         override fun map(
@@ -54,18 +55,19 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
                     }
                     val horizonMapper = object : HorizonDomainMapper {
                         override fun map(sunrise: Long, sunset: Long): HorizonDomain =
-                            SunPosition(timezone.withOffset(sunrise),
-                                timezone.withOffset(sunset),
-                                forecastTime).map(horizonDomainMapper)
+                            sunMapper.map(sunrise, sunset, timezone).map(horizonDomainMapper)
                     }
                     val warningMapper = object : WarningDataToDomainMapper {
                         override fun map(
                             name: String, startTime: Long, endTime: Long, description: String,
-                        ): WarningDomain = WarningDomain(name,
-                            timezone.withOffset(startTime),
-                            forecastTime > startTime,
-                            forecast.map(findPopMapper, startTime, indicators.map()),
-                            description)
+                        ): WarningDomain {
+                            val started = forecastTime > startTime
+                            return WarningDomain(name,
+                                timezone.withOffset(if (started) endTime else startTime),
+                                started,
+                                forecast.map(findPopMapper, startTime, indicators.map()),
+                                description)
+                        }
                     }
                     val hourlyMapper = object : HourlyForecastDomainMapper {
                         override fun map(
