@@ -3,7 +3,7 @@ package com.github.skytoph.simpleweather.data.weather.mapper.content.forecast
 import com.github.skytoph.simpleweather.core.data.TimeProvider
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.DailyForecastDB
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.HourlyForecastDB
-import org.junit.Assert.*
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class FindForecastMapperTest {
@@ -12,6 +12,7 @@ class FindForecastMapperTest {
     private val timeProvider = object : TimeProvider {
         override fun currentHoursInSeconds(): Long = time
         override fun currentDayInSeconds(): Long = time
+        override fun currentTimeInSeconds(): Long = time
     }
     private val mapper = FindForecastMapper.Base(timeProvider)
 

@@ -37,14 +37,14 @@ data class CurrentWeatherDomain(
 }
 
 data class IndicatorsDomain(
-    private val time: Long,
+    private val timezone: String,
     private val uvi: Double,
     private val precipitationProb: Double,
     private val airQualityIndex: Int,
 ) : Mappable<IndicatorsUi, IndicatorsDomainToUiMapper> {
 
     override fun map(mapper: IndicatorsDomainToUiMapper): IndicatorsUi =
-        mapper.map(time, uvi, precipitationProb, airQualityIndex)
+        mapper.map(timezone, uvi, precipitationProb, airQualityIndex)
 }
 
 data class HorizonDomain(

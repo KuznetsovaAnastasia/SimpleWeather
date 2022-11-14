@@ -13,13 +13,18 @@ open class TimeDB : RealmObject(), Mappable<ForecastTimeData, TimeDBToDataMapper
     @RealmField(name = FIELD_FORECAST_TIME)
     var time: Long = 0
 
+    @RealmField(name = FIELD_TIMEZONE)
+    var timezone: String = ""
+
     @RealmField(name = FIELD_TIMEZONE_OFFSET)
     var timezoneOffset: Int = 0
 
     companion object {
         const val FIELD_FORECAST_TIME = "forecast_time"
+        const val FIELD_TIMEZONE = "timezone"
         const val FIELD_TIMEZONE_OFFSET = "offset"
     }
 
-    override fun map(mapper: TimeDBToDataMapper): ForecastTimeData = mapper.map(time, timezoneOffset)
+    override fun map(mapper: TimeDBToDataMapper): ForecastTimeData =
+        mapper.map(time, timezoneOffset, timezone)
 }

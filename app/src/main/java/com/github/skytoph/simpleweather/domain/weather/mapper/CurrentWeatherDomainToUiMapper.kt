@@ -5,6 +5,7 @@ import com.github.skytoph.simpleweather.core.domain.mapper.WeatherIdHandler
 import com.github.skytoph.simpleweather.core.util.formatter.TemperatureFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
 import com.github.skytoph.simpleweather.presentation.weather.model.CurrentWeatherUi
+import java.util.*
 import javax.inject.Inject
 
 interface CurrentWeatherDomainToUiMapper : Mapper<CurrentWeatherUi> {
@@ -20,7 +21,7 @@ interface CurrentWeatherDomainToUiMapper : Mapper<CurrentWeatherUi> {
         ): CurrentWeatherUi =
             CurrentWeatherUi(city,
                 tempFormatter.format(temperature),
-                timeFormatter.dateAndTime(updated),
+                timeFormatter.dateAndTime(updated, TimeZone.getDefault()),
                 weatherImageRes(weatherId))
     }
 }

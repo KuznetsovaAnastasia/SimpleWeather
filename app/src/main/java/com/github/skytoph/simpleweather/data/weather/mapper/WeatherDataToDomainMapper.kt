@@ -35,10 +35,11 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
             identifier: IdentifierData, time: ForecastTimeData, content: ContentData,
         ): WeatherDomain {
             val timezone = time.map(object : TimezoneMapper {
-                override fun map(timezoneOffset: Int) = TimezoneOffset.Base(timezoneOffset)
+                override fun map(timezoneOffset: Int, timezone: String) =
+                    Timezone.Base(timezone, timezoneOffset)
             })
             val forecastTime = time.map(object : TimeDomainMapper {
-                override fun map(time: Long): Long = timezone.withOffset(time)
+                override fun map(time: Long): Long = time
             })
             val currentMapper = object : CurrentWeatherDataToDomainMapper {
                 override fun map(

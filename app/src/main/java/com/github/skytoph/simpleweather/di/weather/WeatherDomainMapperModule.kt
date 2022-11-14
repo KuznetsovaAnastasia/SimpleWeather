@@ -18,6 +18,9 @@ abstract class WeatherDomainMapperModule {
     abstract fun indicatorsMapper(mapper: IndicatorsDomainMapper.Base): IndicatorsDomainMapper
 
     @Binds
+    abstract fun timezoneMapper(mapper: TimezoneToStringMapper.Base): TimezoneToStringMapper
+
+    @Binds
     abstract fun warningsMapper(mapper: WarningsDomainMapper.Base): WarningsDomainMapper
 
     @Binds

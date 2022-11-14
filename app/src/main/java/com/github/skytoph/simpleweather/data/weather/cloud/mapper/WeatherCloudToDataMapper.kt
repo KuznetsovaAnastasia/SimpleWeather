@@ -46,6 +46,7 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
             override fun map(
                 current: CurrentWeatherCloud,
                 timezoneOffset: Int,
+                timezone: String,
                 hourly: List<HourlyForecastCloud>,
                 daily: List<DailyForecastCloud>,
                 alerts: List<AlertCloud>,
@@ -66,7 +67,7 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
                             val pop = hourly[0].map()
                             return WeatherData(
                                 IdentifierData(idMapper.map(lat, lng), placeId, favorite),
-                                ForecastTimeData(dt, timezoneOffset),
+                                ForecastTimeData(dt, timezoneOffset, timezone),
                                 ContentData(currentMapper.map(weather, temp, name),
                                     indicatorsMapper.map(temp, pop, airQualityCloud.map()),
                                     horizonMapper.map(sunrise, sunset),

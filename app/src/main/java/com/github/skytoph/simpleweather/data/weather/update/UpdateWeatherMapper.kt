@@ -3,13 +3,13 @@ package com.github.skytoph.simpleweather.data.weather.update
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.airquality.cloud.AirQualityCloud
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.CurrentCloudToDataMapper
+import com.github.skytoph.simpleweather.data.weather.cloud.mapper.IndicatorsCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.model.*
-import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.WarningListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.DailyForecastListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.HourlyForecastListDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.WarningListDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.horizon.HorizonDataMapper
-import com.github.skytoph.simpleweather.data.weather.cloud.mapper.IndicatorsCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
 import com.github.skytoph.simpleweather.data.weather.model.content.current.CurrentWeatherData
@@ -60,6 +60,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                     override fun map(
                         current: CurrentWeatherCloud,
                         timezoneOffset: Int,
+                        timezone: String,
                         hourly: List<HourlyForecastCloud>,
                         daily: List<DailyForecastCloud>,
                         alerts: List<AlertCloud>,
@@ -80,7 +81,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                             val pop = hourly[0].map()
                             return WeatherData(
                                 identifier,
-                                ForecastTimeData(dt, timezoneOffset),
+                                ForecastTimeData(dt, timezoneOffset, timezone),
                                 ContentData(
                                     currentWeather.update(currentMapper),
                                     indicatorsMapper.map(uvi, pop, airQualityCloud.map()),

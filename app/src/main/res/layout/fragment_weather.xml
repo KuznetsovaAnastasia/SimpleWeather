@@ -21,7 +21,7 @@
             android:id="@+id/location_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="16dp"
             android:visibility="invisible"
             tools:visibility="visible" />
 
@@ -29,14 +29,14 @@
             android:id="@+id/weather_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_medium"
-            android:textColor="?subtitleTextColor"
-            android:text="@string/error_outdated_forecast"
             android:background="@drawable/rectangle_rounded_11"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="16dp"
+            android:text="@string/error_outdated_forecast"
+            android:textColor="?subtitleTextColor"
+            android:textSize="14sp"
             android:visibility="gone"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/warnings_recyclerview"
@@ -45,7 +45,8 @@
             android:nestedScrollingEnabled="false"
             tools:itemCount="1"
             tools:listitem="@layout/warning_item"
-            tools:paddingBottom="11dp" />
+            tools:paddingBottom="11dp"
+            tools:visibility="visible" />
 
         <com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
             android:id="@+id/indicators_view"
@@ -65,10 +66,10 @@
             android:nestedScrollingEnabled="true"
             android:orientation="horizontal"
             android:visibility="gone"
-            tools:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="5"
-            tools:listitem="@layout/forecast_hourly_item" />
+            tools:listitem="@layout/forecast_hourly_item"
+            tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/forecast_daily_recyclerview"

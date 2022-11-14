@@ -1,12 +1,19 @@
 package com.github.skytoph.simpleweather.data.weather.mapper.content.forecast
 
+import com.github.skytoph.simpleweather.core.data.TimeProvider
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.HourlyForecastData
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class FindForecastedPopTest {
 
-    private val mapper = FindForecastedPop.Base()
+    private var time = 0L
+    private val timeProvider = object : TimeProvider {
+        override fun currentTimeInSeconds(): Long = time
+        override fun currentHoursInSeconds(): Long = time
+        override fun currentDayInSeconds(): Long = time
+    }
+    private val mapper = FindForecastedPop.Base(timeProvider)
 
     private val forecast = listOf(
         HourlyForecastData(10L, 10.0, 1, 0.5),

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextClock
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.skytoph.simpleweather.R
@@ -11,7 +12,7 @@ import com.github.skytoph.simpleweather.presentation.weather.model.IndicatorsUi
 
 
 class IndicatorsView : ConstraintLayout {
-    private var timeTextView: TextView
+    private var timeView: TextClock
     private var uvTextView: TextView
     private var popTextView: TextView
     private var aqTextView: TextView
@@ -38,7 +39,7 @@ class IndicatorsView : ConstraintLayout {
             resources.getDimensionPixelSize(R.dimen.indicators_view_padding_bottom)
         )
 
-        timeTextView = findViewById(R.id.indicator_time_value)
+        timeView = findViewById(R.id.indicator_time_value)
         uvTextView = findViewById(R.id.indicator_uv_value)
         popTextView = findViewById(R.id.indicator_rain_percent_value)
         aqTextView = findViewById(R.id.indicator_aq_value)
@@ -46,6 +47,6 @@ class IndicatorsView : ConstraintLayout {
 
     fun show(weather: IndicatorsUi) {
         visibility = View.VISIBLE
-        weather.show(timeTextView, uvTextView, popTextView, aqTextView)
+        weather.show(timeView, uvTextView, popTextView, aqTextView)
     }
 }

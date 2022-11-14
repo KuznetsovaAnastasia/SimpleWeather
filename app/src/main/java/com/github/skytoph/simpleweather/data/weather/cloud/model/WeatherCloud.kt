@@ -46,6 +46,9 @@ data class WeatherCloud(
     @field:Json(name = "current")
     private val current: CurrentWeatherCloud,
 
+    @field:Json(name = "timezone")
+    private val timezone: String,
+
     @field:Json(name = "timezone_offset")
     private val timezoneOffset: Int,
 
@@ -65,6 +68,7 @@ data class WeatherCloud(
     override fun map(mapper: WeatherCloudMapper): WeatherData = mapper.map(
         current,
         timezoneOffset,
+        timezone,
         hourly ?: emptyList(),
         daily ?: emptyList(),
         alerts ?: emptyList()

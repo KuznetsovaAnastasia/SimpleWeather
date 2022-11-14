@@ -20,6 +20,9 @@ abstract class WeatherUiMapperModule {
     abstract fun indicatorsMapper(mapper: IndicatorsDomainToUiMapper.Base): IndicatorsDomainToUiMapper
 
     @Binds
+    abstract fun timezoneMapper(mapper: TimeUiMapper.Base): TimeUiMapper
+
+    @Binds
     abstract fun horizonMapper(mapper: HorizonDomainToUiMapper.Base): HorizonDomainToUiMapper
 
     @Binds

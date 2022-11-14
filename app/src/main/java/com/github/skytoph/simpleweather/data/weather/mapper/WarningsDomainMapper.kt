@@ -11,7 +11,7 @@ import javax.inject.Inject
 interface WarningsDomainMapper : Mapper<List<WarningDomain>> {
     fun map(
         warnings: List<WarningData>,
-        timezone: TimezoneOffset,
+        timezone: Timezone,
         forecast: ForecastData,
         currentPop: Double,
     ): List<WarningDomain>
@@ -22,7 +22,7 @@ interface WarningsDomainMapper : Mapper<List<WarningDomain>> {
 
         override fun map(
             warnings: List<WarningData>,
-            timezone: TimezoneOffset,
+            timezone: Timezone,
             forecast: ForecastData,
             currentPop: Double,
         ): List<WarningDomain> {
