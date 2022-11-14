@@ -10,4 +10,6 @@
     <color name="blue">#FF001F70</color>
     <color name="light_blue">#FF7CC9F2</color>
     <color name="green">#009456</color>
+
+    <color name="pointer">#C4C4C4</color>
 </resources>
