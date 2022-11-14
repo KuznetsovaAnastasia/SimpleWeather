@@ -17,14 +17,14 @@
 
     <TextView
         android:id="@+id/warning_label"
+        style="@style/WarningSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:text="@string/warning"
         app:layout_constraintStart_toEndOf="@+id/warning_image_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/WarningSmall" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/warning_forecast_image"
@@ -38,36 +38,43 @@
 
     <TextView
         android:id="@+id/warning_rain_percent_title"
+        style="@style/MediumValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
         android:text="@string/rain_percent"
+        app:layout_constraintBottom_toTopOf="@+id/warning_rain_percent_value"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/warning_label"
-        style="@style/MediumValue" />
+        app:layout_constraintTop_toTopOf="@+id/warning_exp_time_title"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/warning_rain_percent_value"
+        style="@style/MediumSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="@+id/warning_rain_percent_title"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/warning_rain_percent_title"
         app:layout_constraintTop_toBottomOf="@+id/warning_rain_percent_title"
-        tools:text="58%"
-        style="@style/MediumSubtitle" />
+        tools:text="58%" />
 
     <TextView
         android:id="@+id/warning_exp_time_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="60dp"
-        android:text="@string/expected_warning_start_time"
         style="@style/MediumValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="18dp"
+        android:gravity="center_horizontal|top"
+        android:includeFontPadding="false"
+        android:text="@string/expected_warning_start_time"
         app:layout_constraintEnd_toStartOf="@+id/warning_forecast_image"
-        app:layout_constraintTop_toBottomOf="@+id/warning_label" />
+        app:layout_constraintStart_toEndOf="@+id/warning_rain_percent_title"
+        app:layout_constraintTop_toBottomOf="@+id/warning_label"
+        tools:lines="2" />
 
     <TextView
         android:id="@+id/warning_exp_time_value"
@@ -87,7 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
-        tools:text="@string/warning_rainfall"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/warning_rain_percent_value" />
+        app:layout_constraintTop_toBottomOf="@id/warning_exp_time_value"
+        tools:text="@string/warning_rainfall" />
 </merge>

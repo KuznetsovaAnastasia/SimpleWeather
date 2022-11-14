@@ -10,7 +10,7 @@
 
     <string name="warning">Попередження</string>
     <string name="rain_percent">% опадів</string>
-    <string name="expected_warning_start_time">Очік. час</string>
+    <string name="expected_warning_start_time">Очік. час початку</string>
     <string name="sunrise_and_sunset"><![CDATA[світанок & захід сонця]]></string>
     <string name="time_duration_format">%d Год. %02d Хв.</string>
 
@@ -40,7 +40,7 @@
     <string name="general_header">Загальні</string>
     <string name="units_title">Одиниці вимірювання температури</string>
     <string name="time_title">Використовувати 24-часовий формат</string>
-    <string name="expected_warning_end_time">Очік. час</string>
+    <string name="expected_warning_end_time">Очік. час закінчення</string>
     <string name="error_outdated_forecast">Дані про прогноз погоди застаріли, спробуйте оновити</string>
     <string name="action_delete">Видалити</string>
     <string name="action_settings">Налаштування</string>
