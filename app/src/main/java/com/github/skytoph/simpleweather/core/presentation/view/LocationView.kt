@@ -16,6 +16,7 @@ class LocationView : LinearLayout {
     private var weatherImage: ImageView
     private var cityTextView: TextView
     private var degreesTextView: TextView
+    private var updateTextView: TextView
 
     //region constructors
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int)
@@ -35,6 +36,7 @@ class LocationView : LinearLayout {
         weatherImage = findViewById(R.id.location_weather_image)
         cityTextView = findViewById(R.id.location_city)
         degreesTextView = findViewById(R.id.location_degrees)
+        updateTextView = findViewById(R.id.location_update_time)
 
         orientation = VERTICAL
         gravity = Gravity.CENTER
@@ -42,7 +44,7 @@ class LocationView : LinearLayout {
 
     fun show(weather: CurrentWeatherUi) {
         visibility = View.VISIBLE
-        weather.show(weatherImage, cityTextView, degreesTextView)
+        weather.show(weatherImage, cityTextView, degreesTextView, updateTextView)
     }
 
     fun errorState() {

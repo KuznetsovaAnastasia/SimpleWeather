@@ -17,6 +17,9 @@ abstract class UtilityModule {
     abstract fun timeFormatter(formatter: TimeFormatter.Base): TimeFormatter
 
     @Binds
+    abstract fun timePattern(formatter: FormatPatterns.Base): FormatPatterns
+
+    @Binds
     abstract fun probabilityFormatter(formatter: ProbabilityFormatter.Base): ProbabilityFormatter
 
     @Binds

@@ -8,26 +8,34 @@ import javax.inject.Inject
 
 interface TimeFormatter {
     fun timeFull(seconds: Long): String
+    fun dateAndTime(seconds: Long): String
     fun dayInWeek(seconds: Long): String
     fun duration(seconds: Long): Pair<Int, Int>
 
     class Base @Inject constructor(
         private val resources: LocaleProvider,
-        private val format: TimeFormat,
+        private val patterns: FormatPatterns,
     ) : TimeFormatter {
 
-        override fun timeFull(seconds: Long): String {
-            val timePattern = if (format.is24HourChosen()) "HH:mm" else "hh:mm a"
-            return SimpleDateFormat(timePattern, resources.locale())
-                .also { it.timeZone = TimeZone.getTimeZone("GMT") }
+        override fun timeFull(seconds: Long): String =
+            SimpleDateFormat(patterns.hours(), resources.locale())
+                .also { it.timeZone = TimeZone.getTimeZone(patterns.timezone()) }
                 .format(Date(TimeUnit.SECONDS.toMillis(seconds)))
-        }
+
+        override fun dateAndTime(seconds: Long): String =
+            SimpleDateFormat(patterns.dateAndHours(), resources.locale())
+                .format(Date(TimeUnit.SECONDS.toMillis(seconds)))
 
         override fun dayInWeek(seconds: Long): String =
-            SimpleDateFormat("EEEE", resources.locale())
+            SimpleDateFormat(patterns.dayInWeek(), resources.locale())
                 .format(Date(TimeUnit.SECONDS.toMillis(seconds)))
+                .capitalize()
 
         override fun duration(seconds: Long) =
             Pair((seconds / 3600).toInt(), ((seconds % 3600) / 60).toInt())
+
+        private fun String.capitalize() =
+            this.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+
     }
 }

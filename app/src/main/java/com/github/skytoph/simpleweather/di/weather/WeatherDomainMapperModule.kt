@@ -15,7 +15,10 @@ abstract class WeatherDomainMapperModule {
     abstract fun domainMapper(mapper: WeatherDataToDomainMapper.Base): WeatherDataToDomainMapper
 
     @Binds
-    abstract fun weatherMapper(mapper: CurrentWeatherDataToDomainMapper.Base): CurrentWeatherDataToDomainMapper
+    abstract fun indicatorsMapper(mapper: IndicatorsDomainMapper.Base): IndicatorsDomainMapper
+
+    @Binds
+    abstract fun warningsMapper(mapper: WarningsDomainMapper.Base): WarningsDomainMapper
 
     @Binds
     abstract fun horizonDataMapper(mapper: HorizonDataToDomainMapper.Base): HorizonDataToDomainMapper

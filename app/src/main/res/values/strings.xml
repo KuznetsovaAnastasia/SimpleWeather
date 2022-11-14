@@ -23,6 +23,7 @@
 
     <!--    LocationView strings-->
     <string name="temperature_degrees" translatable="false">%1$s°</string>
+    <string name="last_update_time">updated: %1$s</string>
 
     <!--    IndicatorsView strings-->
     <string name="indicator_time">Time</string>
