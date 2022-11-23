@@ -6,6 +6,7 @@ import com.github.skytoph.simpleweather.core.data.DataBase
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.forecast.DailyForecastDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.DailyForecastDB
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.ForecastDB
+import com.github.skytoph.simpleweather.data.weather.model.content.horizon.HorizonData
 import com.github.skytoph.simpleweather.domain.weather.mapper.DailyForecastDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.model.DailyDomain
 
@@ -15,6 +16,7 @@ data class DailyForecastData(
     private val weatherId: Int,
     private val precipitationProb: Double,
     private val uvi: Double,
+    private val horizon: HorizonData,
 ) : Mappable<DailyDomain, DailyForecastDomainMapper>,
     MappableToDB.EmbeddedValid<DailyForecastDB, ForecastDB, DailyForecastDBMapper> {
 
@@ -26,7 +28,14 @@ data class DailyForecastData(
         dataBase: DataBase,
         parent: ForecastDB,
     ): DailyForecastDB =
-        mapper.map(time, temp.first, temp.second, weatherId, precipitationProb, parent, dataBase)
+        mapper.map(time,
+            temp.first,
+            temp.second,
+            weatherId,
+            precipitationProb,
+            horizon,
+            parent,
+            dataBase)
 
     fun isNotOutdated(seconds: Long) = time >= seconds
 }

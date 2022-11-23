@@ -1,7 +1,6 @@
 package com.github.skytoph.simpleweather.data.weather.mapper.content
 
 import com.github.skytoph.simpleweather.core.Mapper
-import com.github.skytoph.simpleweather.data.weather.cache.model.content.HorizonDB
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.ForecastDB
 import com.github.skytoph.simpleweather.data.weather.mapper.content.current.ForecastToCurrentDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.FindForecastMapper
@@ -15,7 +14,6 @@ interface ContentDBToDataMapper : Mapper<ContentData> {
     fun map(
         location: String,
         airQuality: Int,
-        horizon: HorizonDB,
         forecast: ForecastDB,
     ): ContentData
 
@@ -30,13 +28,12 @@ interface ContentDBToDataMapper : Mapper<ContentData> {
         override fun map(
             location: String,
             airQuality: Int,
-            horizon: HorizonDB,
             forecast: ForecastDB,
         ): ContentData {
-            val currentForecast = forecast.map(findForecast)
+            val currentForecast = forecast.findWeather(findForecast)
             return ContentData(currentMapper.map(currentForecast, location),
                 indicatorsMapper.map(currentForecast, airQuality),
-                horizon.map(horizonMapper),
+                forecast.findHorizon(findForecast).map(horizonMapper),
                 forecast.map(forecastMapper))
         }
     }

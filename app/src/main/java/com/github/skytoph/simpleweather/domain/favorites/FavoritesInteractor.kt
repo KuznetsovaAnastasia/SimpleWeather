@@ -13,7 +13,7 @@ interface FavoritesInteractor {
     fun saveRefreshLocationIntention()
     suspend fun removeFavorite(id: String)
     suspend fun refreshFavorites()
-    suspend fun refreshLocations(ids: List<String>)
+    suspend fun refreshLocations(ids: List<String>): Boolean
     fun savedPage(): Int
     fun savePage(position: Int)
 
@@ -37,13 +37,20 @@ interface FavoritesInteractor {
             }
         }
 
-        override suspend fun refreshLocations(ids: List<String>) = try {
-            ids.forEach { id ->
-                if (refreshLocation.intentionSaved(id))
-                    repository.updateLocationName(id).also { it.saveState(refreshLocation) }
+        override suspend fun refreshLocations(ids: List<String>): Boolean {
+            var refreshed = false
+            try {
+                ids.forEach { id ->
+                    if (refreshLocation.intentionSaved(id))
+                        repository.updateLocationName(id).also {
+                            it.saveState(refreshLocation)
+                            refreshed = true
+                        }
+                }
+            } catch (exception: Exception) {
+                errorHandler.handle(exception)
             }
-        } catch (exception: Exception) {
-            errorHandler.handle(exception)
+            return refreshed
         }
 
         override fun saveRefreshLocationIntention() = favoriteIDs().forEach {

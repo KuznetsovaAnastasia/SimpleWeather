@@ -9,18 +9,28 @@ import com.squareup.moshi.Json
 data class DailyForecastCloud(
     @field:Json(name = "dt")
     private val time: Long,
+
     @field:Json(name = "temp")
     private val temp: DailyTempCloud,
+
     @field:Json(name = "weather")
     private val weather: List<WeatherTypeCloud>,
+
     @field:Json(name = "pop")
     private val precipitationProb: Double,
+
     @field:Json(name = "uvi")
     private val uvi: Double,
+
+    @field:Json(name = "sunrise")
+    private val sunrise: Long,
+
+    @field:Json(name = "sunset")
+    private val sunset: Long,
 ) : Mappable<DailyForecastData, DailyForecastDataMapper>, MappableTo<Double> {
 
     override fun map(mapper: DailyForecastDataMapper): DailyForecastData =
-        mapper.map(time, temp.map(), weather[0].map(), precipitationProb, uvi)
+        mapper.map(time, temp.map(), weather[0].map(), precipitationProb, uvi, sunrise, sunset)
 
     override fun map(): Double = precipitationProb
 }

@@ -4,10 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
 import com.github.skytoph.simpleweather.domain.favorites.FavoritesInteractor
-import com.github.skytoph.simpleweather.presentation.addlocation.Loading
-import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,12 +20,14 @@ class FavoritesViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun initialize(firstCreated: Boolean) {
+        if (firstCreated) stateCommunication.show(FavoritesState.Hidden)
+
         val favorites = getFavorites()
         viewModelScope.launch(Dispatchers.IO) {
-            interactor.refreshLocations(favorites)
+            val refreshed = interactor.refreshLocations(favorites)
             withContext(Dispatchers.Main) {
-                updateChanges()
                 if (firstCreated) communication.show(favorites)
+                if (refreshed) updateChanges()
             }
         }
     }

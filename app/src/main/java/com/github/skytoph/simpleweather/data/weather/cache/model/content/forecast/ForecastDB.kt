@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast
 
 import com.github.skytoph.simpleweather.core.Mappable
+import com.github.skytoph.simpleweather.data.weather.cache.model.content.MappableToHorizon
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.FindForecastMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.ForecastDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.ForecastData
@@ -30,5 +31,7 @@ open class ForecastDB : RealmObject(), Mappable<ForecastData, ForecastDBToDataMa
     override fun map(mapper: ForecastDBToDataMapper): ForecastData =
         mapper.map(warnings, hourly, daily)
 
-    fun map(mapper: FindForecastMapper): MappableToForecast = mapper.map(hourly, daily)
+    fun findWeather(mapper: FindForecastMapper): MappableToForecast = mapper.map(hourly, daily)
+
+    fun findHorizon(mapper: FindForecastMapper): MappableToHorizon = mapper.map(daily)
 }

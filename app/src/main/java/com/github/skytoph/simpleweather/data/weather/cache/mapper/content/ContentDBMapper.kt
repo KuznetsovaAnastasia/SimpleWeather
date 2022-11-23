@@ -4,7 +4,6 @@ import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.data.DataBase
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.current.CurrentDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.forecast.ForecastDBMapper
-import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.horizon.HorizonDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.indicators.IndicatorsDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.ContentDB
@@ -24,10 +23,8 @@ interface ContentDBMapper : Mapper<ContentDB> {
         database: DataBase,
     ): ContentDB
 
-    class Base @Inject constructor(
-        private val horizonMapper: HorizonDBMapper,
-        private val forecastMapper: ForecastDBMapper,
-    ) : ContentDBMapper {
+    class Base @Inject constructor(private val forecastMapper: ForecastDBMapper) :
+        ContentDBMapper {
 
         override fun map(
             currentWeather: CurrentWeatherData,
@@ -48,7 +45,6 @@ interface ContentDBMapper : Mapper<ContentDB> {
                         this@apply.airQuality = airQuality
                     }
                 })
-                this.horizon = horizon.map(horizonMapper)
                 forecast.map(forecastMapper, database, this)
             }
     }

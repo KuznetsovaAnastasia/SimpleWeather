@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.di.core
 
 import com.github.skytoph.simpleweather.core.util.formatter.*
+import com.github.skytoph.simpleweather.core.util.time.TimeConverter
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,6 +16,9 @@ abstract class UtilityModule {
 
     @Binds
     abstract fun timeFormatter(formatter: TimeFormatter.Base): TimeFormatter
+
+    @Binds
+    abstract fun timeConverter(converter: TimeConverter.Base): TimeConverter
 
     @Binds
     abstract fun timePattern(formatter: FormatPatterns.Base): FormatPatterns
