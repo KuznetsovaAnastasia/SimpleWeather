@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.data.weather.update
 
 import com.github.skytoph.simpleweather.core.Mapper
+import com.github.skytoph.simpleweather.core.data.TimeProvider
 import com.github.skytoph.simpleweather.data.airquality.cloud.AirQualityCloud
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.CurrentCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.IndicatorsCloudToDataMapper
@@ -27,10 +28,9 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
         airQualityCloud: AirQualityCloud,
     ): WeatherData
 
-    fun update(
-        weatherData: WeatherData,
-        location: String,
-    ): WeatherData
+    fun update(weatherData: WeatherData, location: String): WeatherData
+
+    fun update(weatherData: WeatherData): WeatherData
 
     class Base @Inject constructor(
         private val indicatorsMapper: IndicatorsCloudToDataMapper,
@@ -38,6 +38,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
         private val warningsMapper: WarningListDataMapper,
         private val hourlyMapper: HourlyForecastListDataMapper,
         private val dailyMapper: DailyForecastListDataMapper,
+        private val timeProvider: TimeProvider,
     ) : UpdateWeatherMapper {
 
         override fun update(
@@ -98,10 +99,10 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
         })
 
         override fun update(weatherData: WeatherData, location: String): WeatherData =
-            weatherData.update(object : UpdateWeatherLocation {
+            weatherData.update(object : UpdateWeather {
                 override fun update(
                     identifier: IdentifierData, time: ForecastTimeData, content: ContentData,
-                ): WeatherData = content.update(object : UpdateContentLocation {
+                ): WeatherData = content.update(object : UpdateForecastContent {
                     override fun update(
                         currentWeather: CurrentWeatherData,
                         indicators: IndicatorsData,
@@ -116,6 +117,20 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                                     horizon,
                                     forecast))
                     })
+                })
+            })
+
+        override fun update(weatherData: WeatherData): WeatherData =
+            weatherData.update(object : UpdateWeather {
+                override fun update(
+                    identifier: IdentifierData, time: ForecastTimeData, content: ContentData,
+                ): WeatherData = time.update(object : UpdateForecastTime {
+                    override fun update(timezoneOffset: Int, timezone: String): WeatherData =
+                        WeatherData(identifier,
+                            ForecastTimeData(timeProvider.currentTimeInSeconds(),
+                                timezoneOffset,
+                                timezone),
+                            content)
                 })
             })
     }

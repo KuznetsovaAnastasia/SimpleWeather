@@ -5,6 +5,7 @@ import com.github.skytoph.simpleweather.data.weather.cache.WeatherCacheDataSourc
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.WeatherCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
+import com.github.skytoph.simpleweather.domain.weather.mapper.CompareTimeWithCurrent
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,6 +15,7 @@ class BaseWeatherRepository @Inject constructor(
     private val cloudDataSource: WeatherCloudDataSource,
     private val cacheMapper: WeatherDBToDataMapper,
     private val cachedWeather: WeatherCache,
+    private val timeMapper: CompareTimeWithCurrent,
 ) : WeatherRepository.Base {
 
     override fun cachedIDs(): List<String> =
@@ -33,9 +35,11 @@ class BaseWeatherRepository @Inject constructor(
 
     override suspend fun saveWeather() = cachedWeather.save(cacheDataSource)
 
-    override suspend fun refreshAll() = cacheDataSource.readAll().forEach {
-        updateAndSave(it.map(cacheMapper))
-    }
+    override suspend fun refreshAll() =
+        cacheDataSource.readAll().map { it.map(cacheMapper) }.forEach { forecast ->
+            if (forecast.updatedLately(timeMapper)) forecast.update(cacheDataSource)
+            else updateAndSave(forecast)
+        }
 
     private suspend fun updateAndSave(data: WeatherData): WeatherData =
         data.update(cloudDataSource).also { it.save(cacheDataSource) }

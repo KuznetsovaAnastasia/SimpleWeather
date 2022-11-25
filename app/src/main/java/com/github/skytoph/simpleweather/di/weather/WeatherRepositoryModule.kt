@@ -2,6 +2,7 @@ package com.github.skytoph.simpleweather.di.weather
 
 import com.github.skytoph.simpleweather.domain.weather.BaseWeatherRepository
 import com.github.skytoph.simpleweather.domain.weather.WeatherRepository
+import com.github.skytoph.simpleweather.domain.weather.mapper.CompareTimeWithCurrent
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,4 +29,7 @@ abstract class WeatherRepositoryModule {
 
     @Binds
     abstract fun repositoryContains(repository: BaseWeatherRepository): WeatherRepository.Contains
+
+    @Binds
+    abstract fun compareTime(compare: CompareTimeWithCurrent.Base): CompareTimeWithCurrent
 }

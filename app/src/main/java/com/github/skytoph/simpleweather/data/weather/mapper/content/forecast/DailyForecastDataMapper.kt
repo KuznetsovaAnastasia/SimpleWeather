@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.data.weather.mapper.content.forecast
 
 import com.github.skytoph.simpleweather.core.Mapper
-import com.github.skytoph.simpleweather.core.util.time.TimeConverter
+import com.github.skytoph.simpleweather.core.util.time.RoundedTime
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.HorizonDB
 import com.github.skytoph.simpleweather.data.weather.mapper.content.horizon.HorizonDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.DailyForecastData
@@ -29,10 +29,8 @@ interface DailyForecastDataMapper : Mapper<DailyForecastData> {
         sunset: Long,
     ): DailyForecastData
 
-    class Base @Inject constructor(
-        private val horizonMapper: HorizonDataMapper,
-        private val timeConverter: TimeConverter,
-    ) : DailyForecastDataMapper {
+    class Base @Inject constructor(private val horizonMapper: HorizonDataMapper) :
+        DailyForecastDataMapper {
 
         override fun map(
             time: Long,
@@ -42,7 +40,7 @@ interface DailyForecastDataMapper : Mapper<DailyForecastData> {
             pop: Double,
             uvi: Double,
             horizon: HorizonDB,
-        ) = DailyForecastData(timeConverter.roundToDay(time),
+        ) = DailyForecastData(RoundedTime(time).roundToDay(),
             Pair(tempMin, tempMax),
             weatherId,
             pop,
@@ -57,7 +55,7 @@ interface DailyForecastDataMapper : Mapper<DailyForecastData> {
             uvi: Double,
             sunrise: Long,
             sunset: Long,
-        ) = DailyForecastData(timeConverter.roundToDay(time),
+        ) = DailyForecastData(RoundedTime(time).roundToDay(),
             temp,
             weatherId,
             pop,

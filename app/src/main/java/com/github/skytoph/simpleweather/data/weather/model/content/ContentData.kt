@@ -13,7 +13,7 @@ import com.github.skytoph.simpleweather.data.weather.model.content.forecast.Fore
 import com.github.skytoph.simpleweather.data.weather.model.content.horizon.HorizonData
 import com.github.skytoph.simpleweather.data.weather.model.content.indicators.IndicatorsData
 import com.github.skytoph.simpleweather.data.weather.update.UpdateContent
-import com.github.skytoph.simpleweather.data.weather.update.UpdateContentLocation
+import com.github.skytoph.simpleweather.data.weather.update.UpdateForecastContent
 import com.github.skytoph.simpleweather.domain.weather.model.ContentDomain
 
 data class ContentData(
@@ -33,6 +33,6 @@ data class ContentData(
     fun update(mapper: UpdateContent) =
         mapper.update(currentWeather, indicators, horizon, forecast)
 
-    fun update(mapper: UpdateContentLocation): WeatherData =
+    fun update(mapper: UpdateForecastContent): WeatherData =
         mapper.update(currentWeather, indicators, horizon, forecast)
 }

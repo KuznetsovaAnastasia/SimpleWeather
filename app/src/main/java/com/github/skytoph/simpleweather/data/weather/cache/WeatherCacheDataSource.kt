@@ -3,16 +3,20 @@ package com.github.skytoph.simpleweather.data.weather.cache
 import com.github.skytoph.simpleweather.core.data.DataBase
 import com.github.skytoph.simpleweather.core.data.RealmProvider
 import com.github.skytoph.simpleweather.core.data.SaveItem
+import com.github.skytoph.simpleweather.core.data.UpdateItemTime
 import com.github.skytoph.simpleweather.core.exception.DataIsNotCachedException
 import com.github.skytoph.simpleweather.core.exception.NoCachedDataException
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDataDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
+import com.github.skytoph.simpleweather.data.weather.model.identifier.IdentifierData
+import com.github.skytoph.simpleweather.data.weather.update.UpdateWeatherMapper
 import io.realm.Realm
 import javax.inject.Inject
 import javax.inject.Singleton
 
-interface WeatherCacheDataSource : SaveItem<WeatherData> {
+interface WeatherCacheDataSource : SaveItem<WeatherData>,
+    UpdateItemTime<WeatherData, IdentifierData> {
 
     fun read(id: String): WeatherDB
     fun readAll(): List<WeatherDB>
@@ -23,6 +27,7 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
     class Base @Inject constructor(
         private val realmProvider: RealmProvider,
         private val mapper: WeatherDataDBMapper,
+        private val updateMapper: UpdateWeatherMapper,
     ) : WeatherCacheDataSource {
 
         override fun read(id: String): WeatherDB = realmProvider.provide().use { realm ->
@@ -52,6 +57,9 @@ interface WeatherCacheDataSource : SaveItem<WeatherData> {
                     it.insert(data.map(mapper, DataBase(it)))
                 }
             }
+
+        override suspend fun updateTime(data: WeatherData, id: IdentifierData) =
+            saveOrUpdate(id.map(), updateMapper.update(data))
 
         private fun findRealmObject(realm: Realm, id: String) =
             realm.where(WeatherDB::class.java).equalTo(WeatherDB.FIELD_ID, id).findFirst()
