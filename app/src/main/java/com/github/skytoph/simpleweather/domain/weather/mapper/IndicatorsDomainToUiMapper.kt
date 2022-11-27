@@ -2,7 +2,9 @@ package com.github.skytoph.simpleweather.domain.weather.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.util.formatter.ProbabilityFormatter
+import com.github.skytoph.simpleweather.presentation.weather.model.AirQualityUi
 import com.github.skytoph.simpleweather.presentation.weather.model.IndicatorsUi
+import com.github.skytoph.simpleweather.presentation.weather.model.UltravioletIndexUi
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -17,7 +19,7 @@ interface IndicatorsDomainToUiMapper : Mapper<IndicatorsUi> {
     class Base @Inject constructor(
         private val timeMapper: TimeUiMapper,
         private val probabilityFormatter: ProbabilityFormatter,
-    ) : IndicatorsDomainToUiMapper {
+    ) : IndicatorsDomainToUiMapper, IndicatorsTooltipMapper() {
 
         override fun map(
             timezone: String,
@@ -26,9 +28,9 @@ interface IndicatorsDomainToUiMapper : Mapper<IndicatorsUi> {
             airQualityIndex: Int,
         ) = IndicatorsUi(
             timeMapper.map(timezone),
-            uvi.roundToInt().toString(),
             probabilityFormatter.format(precipitationProb),
-            airQualityIndex.toString()
+            uvi.roundToInt().let { UltravioletIndexUi(it.toString(), uv(it)) },
+            AirQualityUi(airQualityIndex.toString(), aq(airQualityIndex))
         )
     }
 }

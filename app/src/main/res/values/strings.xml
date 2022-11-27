@@ -85,4 +85,20 @@
     <!--    Menu titles-->
     <string name="action_delete">Delete</string>
     <string name="action_settings">Settings</string>
+
+<!--    Tooltips-->
+    <string name="tooltip_air_quality_text">AQ – air quality index. Possible values: 1–5, where %1$s</string>
+    <string name="tooltip_air_quality_1">1 - Good</string>
+    <string name="tooltip_air_quality_2">2 - Fair</string>
+    <string name="tooltip_air_quality_3">3 - Moderate</string>
+    <string name="tooltip_air_quality_4">4 - Poor</string>
+    <string name="tooltip_air_quality_5">5 - Very Poor</string>
+    <string name="tooltip_value_unknown">"? - unknown, can't load value"</string>
+
+    <string name="tooltip_ultraviolet_index_text">UV – Ultraviolet index\n%1$s</string>
+    <string name="tooltip_ultraviolet_index_low">0–2 is Low</string>
+    <string name="tooltip_ultraviolet_index_moderate">3–5 is Moderate</string>
+    <string name="tooltip_ultraviolet_index_high">6–7 is High</string>
+    <string name="tooltip_ultraviolet_index_very_high">8–10 is Very High</string>
+    <string name="tooltip_ultraviolet_index_extreme">11+ is Extreme</string>
 </resources>

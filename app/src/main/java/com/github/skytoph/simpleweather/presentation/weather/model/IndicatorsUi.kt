@@ -5,9 +5,9 @@ import android.widget.TextView
 
 data class IndicatorsUi(
     private val timeFormat: CurrentTimeUi,
-    private val uv: String,
     private val pop: String,
-    private val aq: String,
+    private val uv: UltravioletIndexUi,
+    private val aq: AirQualityUi,
 ) {
 
     fun show(
@@ -17,8 +17,8 @@ data class IndicatorsUi(
         aqTextView: TextView,
     ) {
         timeFormat.show(timeView)
-        uvTextView.text = uv
         popTextView.text = pop
-        aqTextView.text = aq
+        uv.show(uvTextView)
+        aq.show(aqTextView)
     }
 }

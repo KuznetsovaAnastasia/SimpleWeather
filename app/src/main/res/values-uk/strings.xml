@@ -48,4 +48,18 @@
     <string name="title_clear_search_history">Очистити історію пошуку</string>
     <string name="search_history_cleared">Історія пошуку очищена</string>
     <string name="last_update_time">оновлено:  %1$s</string>
+
+    <string name="tooltip_air_quality_text">AQ – індекс якості повітря\n%1$s</string>
+    <string name="tooltip_air_quality_1">1 - Добре</string>
+    <string name="tooltip_air_quality_2">2 - Досить добре</string>
+    <string name="tooltip_air_quality_3">3 - Середньо</string>
+    <string name="tooltip_air_quality_4">4 - Погано</string>
+    <string name="tooltip_air_quality_5">5 - Дуже погано</string>
+    <string name="tooltip_value_unknown">\? - невідомо, не вдалось отримати значення</string>
+    <string name="tooltip_ultraviolet_index_text">UV - Ультрафіолетовий індекс\n%1$s</string>
+    <string name="tooltip_ultraviolet_index_low">0–2 Низький</string>
+    <string name="tooltip_ultraviolet_index_moderate">3–5 Середній</string>
+    <string name="tooltip_ultraviolet_index_extreme">11+ Надмірний</string>
+    <string name="tooltip_ultraviolet_index_very_high">8–10 Дуже високий</string>
+    <string name="tooltip_ultraviolet_index_high">6–7 Високий</string>
 </resources>
