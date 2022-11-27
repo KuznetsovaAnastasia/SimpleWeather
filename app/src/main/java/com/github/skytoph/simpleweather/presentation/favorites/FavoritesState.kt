@@ -1,19 +1,31 @@
 package com.github.skytoph.simpleweather.presentation.favorites
 
+import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import com.github.skytoph.simpleweather.R
 
 sealed class FavoritesState {
-    abstract fun show(errorView: View, fragmentManager: FragmentManager, vararg content: View)
+    abstract fun show(
+        errorView: View,
+        fragmentManager: FragmentManager,
+        contentMenuItem: MenuItem,
+        vararg content: View,
+    )
 
     abstract class Abstract(
         private val contentVisibility: Int,
         private val errorViewVisibility: Int,
     ) : FavoritesState() {
 
-        override fun show(errorView: View, fragmentManager: FragmentManager, vararg content: View) {
+        override fun show(
+            errorView: View,
+            fragmentManager: FragmentManager,
+            contentMenuItem: MenuItem,
+            vararg content: View
+        ) {
             content.forEach { it.visibility = contentVisibility }
+            contentMenuItem.isVisible = contentVisibility == View.VISIBLE
             errorView.visibility = errorViewVisibility
         }
     }
@@ -25,7 +37,12 @@ sealed class FavoritesState {
     object Error : Abstract(View.GONE, View.VISIBLE)
 
     class Delete(private val delete: () -> Unit) : FavoritesState() {
-        override fun show(errorView: View, fragmentManager: FragmentManager, vararg content: View) {
+        override fun show(
+            errorView: View,
+            fragmentManager: FragmentManager,
+            contentMenuItem: MenuItem,
+            vararg content: View
+        ) {
             ConfirmationDialogFragment
                 .newInstance(delete, R.string.delete_location)
                 .show(fragmentManager, TAG)

@@ -64,7 +64,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         }
 
         viewModel.observeState(this) { state ->
-            state.show(binding.errorView, parentFragmentManager, tabLayout)
+            state.show(binding.errorView, parentFragmentManager, deleteMenuItem, tabLayout)
         }
 
         viewPager.doOnPreDraw { viewPager.setCurrentItem(viewModel.savedPage(), false) }
