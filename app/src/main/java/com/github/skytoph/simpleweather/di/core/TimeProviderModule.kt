@@ -1,6 +1,6 @@
 package com.github.skytoph.simpleweather.di.core
 
-import com.github.skytoph.simpleweather.core.data.TimeProvider
+import com.github.skytoph.simpleweather.core.util.time.CurrentTime
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -11,5 +11,5 @@ import dagger.hilt.components.SingletonComponent
 abstract class TimeProviderModule {
 
     @Binds
-    abstract fun time(time: TimeProvider.Base): TimeProvider
+    abstract fun time(time: CurrentTime.Base): CurrentTime
 }

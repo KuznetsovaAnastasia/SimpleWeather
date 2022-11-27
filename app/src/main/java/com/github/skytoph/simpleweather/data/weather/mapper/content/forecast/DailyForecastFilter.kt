@@ -1,17 +1,16 @@
 package com.github.skytoph.simpleweather.data.weather.mapper.content.forecast
 
-import com.github.skytoph.simpleweather.core.data.TimeProvider
+import com.github.skytoph.simpleweather.core.util.time.CurrentTime
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.DailyForecastData
-import com.github.skytoph.simpleweather.domain.weather.model.DailyDomain
 import javax.inject.Inject
 
 interface DailyForecastFilter {
     fun filter(forecast: List<DailyForecastData>): List<DailyForecastData>
 
-    class Base @Inject constructor(private val timeProvider: TimeProvider) : DailyForecastFilter {
+    class Base @Inject constructor(private val currentTime: CurrentTime) : DailyForecastFilter {
 
         override fun filter(forecast: List<DailyForecastData>): List<DailyForecastData> {
-            val dayInSeconds = timeProvider.currentDayInSeconds()
+            val dayInSeconds = currentTime.dayInSeconds()
             return forecast.filter { it.isNotOutdated(dayInSeconds) }
         }
     }

@@ -1,15 +1,24 @@
 package com.github.skytoph.simpleweather.core.util.time
 
-class RoundedTime(private val seconds: Long) : RoundTime {
+import java.util.concurrent.TimeUnit
 
-    override fun roundToDay(): Long = seconds - seconds % dayDivider
+class RoundedTime(private val time: TimeMillis) : RoundTime {
 
-    override fun roundToHours(): Long = seconds - seconds % hourDivider
+    override fun roundToDay(): Long = time.rounded(dayDivider)
+
+    override fun roundToHours(): Long = time.rounded(hourDivider)
 
     private companion object {
-        const val dayDivider = 86_400
+        const val dayDivider = 86_400 //todo replace
         const val hourDivider = 3_600
     }
+}
+
+abstract class TimeMillis(private val time: Long) {
+    fun rounded(divider: Int) = time - time % divider
+
+    class Base(millis: Long) : TimeMillis(TimeUnit.MILLISECONDS.toSeconds(millis))
+    class FromSeconds(seconds: Long) : TimeMillis(seconds)
 }
 
 interface RoundTime {

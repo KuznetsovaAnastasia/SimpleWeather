@@ -32,7 +32,7 @@ interface TimeFormatter {
         private fun format(
             pattern: String,
             seconds: Long,
-            timeZone: TimeZone = TimeZone.getTimeZone(patterns.timezone()),
+            timeZone: TimeZone = TimeZone.getTimeZone(patterns.timezoneDefault()),
         ) = SimpleDateFormat(pattern, resources.locale())
             .also { it.timeZone = timeZone }
             .format(Date(TimeUnit.SECONDS.toMillis(seconds)))
