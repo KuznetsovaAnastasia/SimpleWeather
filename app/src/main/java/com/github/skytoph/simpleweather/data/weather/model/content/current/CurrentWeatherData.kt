@@ -2,7 +2,7 @@ package com.github.skytoph.simpleweather.data.weather.model.content.current
 
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.current.CurrentDBMapper
-import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDataToDomainMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.CurrentWeatherDomainMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.github.skytoph.simpleweather.data.weather.update.UpdateCurrentWeather
 import com.github.skytoph.simpleweather.data.weather.update.UpdateCurrentWeatherLocation
@@ -12,9 +12,9 @@ data class CurrentWeatherData(
     private val weatherId: Int,
     private val temperature: Double,
     private val location: String,
-) : Mappable<CurrentWeatherDomain, CurrentWeatherDataToDomainMapper> {
+) : Mappable<CurrentWeatherDomain, CurrentWeatherDomainMapper> {
 
-    override fun map(mapper: CurrentWeatherDataToDomainMapper): CurrentWeatherDomain =
+    override fun map(mapper: CurrentWeatherDomainMapper): CurrentWeatherDomain =
         mapper.map(weatherId, temperature, location)
 
     fun map(mapper: CurrentDBMapper) = mapper.map(location)

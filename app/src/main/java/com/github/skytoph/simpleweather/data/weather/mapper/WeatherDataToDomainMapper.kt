@@ -2,7 +2,6 @@ package com.github.skytoph.simpleweather.data.weather.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.DailyForecastFilter
-import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.HourlyForecastFilter
 import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
 import com.github.skytoph.simpleweather.data.weather.model.content.current.CurrentWeatherData
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.DailyForecastData
@@ -14,7 +13,7 @@ import com.github.skytoph.simpleweather.data.weather.model.content.indicators.In
 import com.github.skytoph.simpleweather.data.weather.model.identifier.IdentifierData
 import com.github.skytoph.simpleweather.data.weather.model.time.ForecastTimeData
 import com.github.skytoph.simpleweather.domain.weather.mapper.DailyForecastDomainMapper
-import com.github.skytoph.simpleweather.domain.weather.mapper.HourlyForecastDomainMapper
+import com.github.skytoph.simpleweather.domain.weather.mapper.HourlyForecastListDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.model.*
 import javax.inject.Inject
 
@@ -23,9 +22,10 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
     fun map(identifier: IdentifierData, time: ForecastTimeData, content: ContentData): WeatherDomain
 
     class Base @Inject constructor(
+        private val currentMapper: CurrentWeatherDataToDomainMapper,
         private val indicatorsMapper: IndicatorsDomainMapper,
         private val horizonDomainMapper: HorizonDataToDomainMapper,
-        private val hourlyFilter: HourlyForecastFilter,
+        private val hourlyMapper: HourlyForecastListDomainMapper,
         private val dailyFilter: DailyForecastFilter,
         private val sunMapper: SunPositionMapper,
         private val warningMapper: WarningsDomainMapper,
@@ -38,14 +38,6 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
                 override fun map(timezoneOffset: Int, timezone: String) =
                     Timezone.Base(timezone, timezoneOffset)
             })
-            val forecastTime = time.map(object : TimeDomainMapper {
-                override fun map(time: Long): Long = time
-            })
-            val currentMapper = object : CurrentWeatherDataToDomainMapper {
-                override fun map(
-                    weatherId: Int, temperature: Double, location: String,
-                ) = CurrentWeatherDomain(location, temperature, weatherId, forecastTime)
-            }
             val contentMapper = object : ContentDataToDomainMapper {
                 override fun map(
                     currentWeather: CurrentWeatherData,
@@ -53,15 +45,7 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
                     horizon: HorizonData,
                     forecast: ForecastData,
                 ): ContentDomain {
-                    val horizonMapper = object : HorizonDomainMapper {
-                        override fun map(sunrise: Long, sunset: Long): HorizonDomain =
-                            sunMapper.map(sunrise, sunset, timezone).map(horizonDomainMapper)
-                    }
-                    val hourlyMapper = object : HourlyForecastDomainMapper {
-                        override fun map(
-                            time: Long, temp: Double, weatherId: Int, pop: Double,
-                        ) = HourlyDomain(timezone.withOffset(time), temp, weatherId, pop)
-                    }
+                    val sunPosition = sunMapper.map(horizon, timezone)
                     val dailyMapper = object : DailyForecastDomainMapper {
                         override fun map(
                             time: Long, temp: Pair<Double, Double>, weatherId: Int, pop: Double,
@@ -74,13 +58,13 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
                             dailyForecast: List<DailyForecastData>,
                         ): ForecastDomain = ForecastDomain(
                             warningMapper.map(alerts, timezone, forecast, indicators.map()),
-                            hourlyFilter.filter(hourlyForecast).map { it.map(hourlyMapper) },
+                            hourlyMapper.map(hourlyForecast, sunPosition, timezone),
                             dailyFilter.filter(dailyForecast).map { it.map(dailyMapper) })
                     }
                     return ContentDomain(
-                        currentWeather.map(currentMapper),
+                        currentMapper.map(currentWeather, sunPosition, time, timezone),
                         indicatorsMapper.map(indicators, timezone),
-                        horizon.map(horizonMapper),
+                        sunPosition.map(horizonDomainMapper),
                         forecast.map(forecastMapper)
                     )
                 }

@@ -18,9 +18,9 @@ interface CurrentTime {
             TimeUnit.MILLISECONDS.toSeconds(inMillis())
 
         override fun hoursInSeconds(): Long =
-            RoundedTime(TimeMillis.Base(inMillis())).roundToHours()
+            RoundedTime(TimeSeconds.FromMillis(inMillis())).roundToHours()
 
         override fun dayInSeconds(): Long =
-            RoundedTime(TimeMillis.Base(inMillis())).roundToDay()
+            RoundedTime(TimeSeconds.FromMillis(inMillis())).roundToDay()
     }
 }

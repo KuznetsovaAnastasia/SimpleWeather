@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.domain.weather.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
-import com.github.skytoph.simpleweather.core.domain.mapper.WeatherIdHandler
+import com.github.skytoph.simpleweather.core.domain.mapper.WeatherImageId
 import com.github.skytoph.simpleweather.core.util.formatter.ProbabilityFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TemperatureFormatter
 import com.github.skytoph.simpleweather.core.util.formatter.TimeFormatter
@@ -16,7 +16,7 @@ interface DailyForecastToUiMapper : Mapper<ForecastUi.Daily> {
         private val tempFormatter: TemperatureFormatter,
         private val timeFormatter: TimeFormatter,
         private val probabilityFormatter: ProbabilityFormatter,
-    ) : DailyForecastToUiMapper, WeatherIdHandler() {
+    ) : DailyForecastToUiMapper, WeatherImageId() {
 
         override fun map(time: Long, temp: Pair<Double, Double>, weatherId: Int, pop: Double) =
             ForecastUi.Daily(timeFormatter.dayInWeek(time),

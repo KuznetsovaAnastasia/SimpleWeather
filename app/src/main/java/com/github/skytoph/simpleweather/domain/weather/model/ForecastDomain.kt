@@ -38,10 +38,11 @@ data class HourlyDomain(
     private val temp: Double,
     private val weatherId: Int,
     private val precipitationProb: Double,
+    private val isDaytime: Boolean,
 ) : Mappable<ForecastUi.Hourly, HourlyForecastToUiMapper> {
 
     override fun map(mapper: HourlyForecastToUiMapper): ForecastUi.Hourly =
-        mapper.map(time, temp, weatherId, precipitationProb)
+        mapper.map(time, temp, weatherId, precipitationProb, isDaytime)
 }
 
 data class DailyDomain(

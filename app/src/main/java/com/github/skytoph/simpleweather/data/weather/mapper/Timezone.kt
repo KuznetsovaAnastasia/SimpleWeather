@@ -13,7 +13,7 @@ interface Timezone : Mappable<String, TimezoneToStringMapper> {
     }
 }
 
-interface TimezoneMapper {
+interface TimezoneMapper : Mapper<Timezone> {
     fun map(timezoneOffset: Int, timezone: String): Timezone
 }
 

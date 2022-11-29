@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.data.weather.mapper
 
 import com.github.skytoph.simpleweather.core.Mappable
+import com.github.skytoph.simpleweather.data.weather.model.content.horizon.IsDaytime
 import com.github.skytoph.simpleweather.domain.weather.model.HorizonDomain
 
 class SunPosition(sunrise: Long, sunset: Long, current: Long) :

@@ -2,7 +2,7 @@ package com.github.skytoph.simpleweather.data.weather.mapper.content.forecast
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.util.time.RoundedTime
-import com.github.skytoph.simpleweather.core.util.time.TimeMillis
+import com.github.skytoph.simpleweather.core.util.time.TimeSeconds
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.HorizonDB
 import com.github.skytoph.simpleweather.data.weather.mapper.content.horizon.HorizonDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.content.forecast.DailyForecastData
@@ -41,7 +41,7 @@ interface DailyForecastDataMapper : Mapper<DailyForecastData> {
             pop: Double,
             uvi: Double,
             horizon: HorizonDB,
-        ) = DailyForecastData(RoundedTime(TimeMillis.FromSeconds(time)).roundToDay(),
+        ) = DailyForecastData(RoundedTime(TimeSeconds.Base(time)).roundToDay(),
             Pair(tempMin, tempMax),
             weatherId,
             pop,
@@ -56,7 +56,7 @@ interface DailyForecastDataMapper : Mapper<DailyForecastData> {
             uvi: Double,
             sunrise: Long,
             sunset: Long,
-        ) = DailyForecastData(RoundedTime(TimeMillis.FromSeconds(time)).roundToDay(),
+        ) = DailyForecastData(RoundedTime(TimeSeconds.Base(time)).roundToDay(),
             temp,
             weatherId,
             pop,

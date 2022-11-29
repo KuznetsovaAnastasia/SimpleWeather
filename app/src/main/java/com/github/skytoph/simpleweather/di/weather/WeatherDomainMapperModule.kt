@@ -2,6 +2,8 @@ package com.github.skytoph.simpleweather.di.weather
 
 import com.github.skytoph.simpleweather.data.weather.mapper.*
 import com.github.skytoph.simpleweather.data.weather.mapper.content.forecast.FindForecastedPop
+import com.github.skytoph.simpleweather.domain.weather.mapper.HourlyForecastDataToDomainMapper
+import com.github.skytoph.simpleweather.domain.weather.mapper.HourlyForecastListDomainMapper
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,6 +15,9 @@ abstract class WeatherDomainMapperModule {
 
     @Binds
     abstract fun domainMapper(mapper: WeatherDataToDomainMapper.Base): WeatherDataToDomainMapper
+
+    @Binds
+    abstract fun currentMapper(mapper: CurrentWeatherDataToDomainMapper.Base): CurrentWeatherDataToDomainMapper
 
     @Binds
     abstract fun indicatorsMapper(mapper: IndicatorsDomainMapper.Base): IndicatorsDomainMapper
@@ -34,4 +39,10 @@ abstract class WeatherDomainMapperModule {
 
     @Binds
     abstract fun findPopMapper(mapper: FindForecastedPop.Base): FindForecastedPop
+
+    @Binds
+    abstract fun hourlyMapper(mapper: HourlyForecastDataToDomainMapper.Base): HourlyForecastDataToDomainMapper
+
+    @Binds
+    abstract fun hourlyListMapper(mapper: HourlyForecastListDomainMapper.Base): HourlyForecastListDomainMapper
 }

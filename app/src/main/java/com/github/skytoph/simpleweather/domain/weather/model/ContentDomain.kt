@@ -27,10 +27,11 @@ data class CurrentWeatherDomain(
     private val temperature: Double,
     private val weatherId: Int,
     private val updated: Long,
+    private val isDayNow: Boolean,
 ) : Mappable<CurrentWeatherUi, CurrentWeatherDomainToUiMapper> {
 
     override fun map(mapper: CurrentWeatherDomainToUiMapper): CurrentWeatherUi =
-        mapper.map(city, temperature, weatherId, updated)
+        mapper.map(city, temperature, weatherId, updated, isDayNow)
 
     fun map(mapper: OutdatedWeatherUiMapper): WeatherUi.Outdated =
         mapper.map(city)

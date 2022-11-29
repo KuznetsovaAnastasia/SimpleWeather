@@ -1,8 +1,11 @@
 package com.github.skytoph.simpleweather.data.weather.mapper
 
+import com.github.skytoph.simpleweather.core.util.time.RoundedTime
+import com.github.skytoph.simpleweather.core.util.time.TimeSeconds
+import com.github.skytoph.simpleweather.data.weather.model.content.horizon.IsDaytime
 import java.util.concurrent.TimeUnit
 
-interface CalculateSunPosition {
+interface CalculateSunPosition : IsDaytime {
     fun dayLength(): Int
     fun remainingDaylight(): Int
     fun sunPosition(): Double
@@ -39,6 +42,12 @@ interface CalculateSunPosition {
 
                 else -> 0.0
             }
+        }
+
+        override fun isDaytime(time: Long): Boolean {
+            val roundedSunrise = RoundedTime(TimeSeconds.Base(sunrise.toLong())).roundToHalfHours()
+            val roundedSunset = RoundedTime(TimeSeconds.Base(sunset.toLong())).roundToHalfHours()
+            return time.mod(DATE_MOD) in roundedSunrise until roundedSunset
         }
 
         private companion object {
