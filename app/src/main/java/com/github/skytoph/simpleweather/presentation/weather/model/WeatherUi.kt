@@ -2,6 +2,7 @@ package com.github.skytoph.simpleweather.presentation.weather.model
 
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.github.skytoph.simpleweather.core.presentation.communication.Communication
 import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
@@ -12,7 +13,7 @@ import com.github.skytoph.simpleweather.presentation.weather.WeatherCommunicatio
 
 sealed class WeatherUi : ShowWeatherUi() {
     abstract fun show(communication: LoadingCommunication.Update)
-    abstract fun show(communication: WeatherCommunication)
+    abstract fun show(communication: Communication.Update<WeatherUi>)
 
     data class Base(
         private val id: String,
@@ -42,7 +43,7 @@ sealed class WeatherUi : ShowWeatherUi() {
         override fun show(communication: LoadingCommunication.Update) =
             communication.show(Loading.SUCCESS)
 
-        override fun show(communication: WeatherCommunication) = communication.show(this)
+        override fun show(communication: Communication.Update<WeatherUi>) = communication.show(this)
     }
 
     data class Outdated(private val id: String, private val location: String) : WeatherUi() {
@@ -63,13 +64,13 @@ sealed class WeatherUi : ShowWeatherUi() {
         override fun show(communication: LoadingCommunication.Update) =
             communication.show(Loading.FAIL)
 
-        override fun show(communication: WeatherCommunication) = Unit
+        override fun show(communication: Communication.Update<WeatherUi>) = Unit
     }
 
     object Fail : WeatherUi() {
         override fun show(communication: LoadingCommunication.Update) =
             communication.show(Loading.FAIL)
 
-        override fun show(communication: WeatherCommunication) = Unit
+        override fun show(communication: Communication.Update<WeatherUi>) = Unit
     }
 }

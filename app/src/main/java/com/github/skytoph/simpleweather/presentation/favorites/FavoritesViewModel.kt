@@ -24,10 +24,10 @@ class FavoritesViewModel @Inject constructor(
 
         val favorites = getFavorites()
         viewModelScope.launch(Dispatchers.IO) {
-            val refreshed = interactor.refreshLocations(favorites)
+            interactor.refreshLocations(favorites) { updateChanges() }
+            interactor.refreshFavorites(firstCreated)
             withContext(Dispatchers.Main) {
                 if (firstCreated) communication.show(favorites)
-                if (refreshed) updateChanges()
             }
         }
     }

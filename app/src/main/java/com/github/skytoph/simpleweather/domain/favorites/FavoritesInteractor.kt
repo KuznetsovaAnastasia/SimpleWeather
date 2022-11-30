@@ -4,6 +4,7 @@ import com.github.skytoph.simpleweather.core.ErrorHandler
 import com.github.skytoph.simpleweather.data.pages.PagesDataSource
 import com.github.skytoph.simpleweather.domain.weather.RefreshLocation
 import com.github.skytoph.simpleweather.domain.weather.WeatherRepository
+import com.github.skytoph.simpleweather.domain.weather.mapper.DataUpdatedLatelyCriteria
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
@@ -12,8 +13,8 @@ interface FavoritesInteractor {
     fun favoriteIDs(): List<String>
     fun saveRefreshLocationIntention()
     suspend fun removeFavorite(id: String)
-    suspend fun refreshFavorites()
-    suspend fun refreshLocations(ids: List<String>): Boolean
+    suspend fun refreshFavorites(firstUpdate: Boolean = false)
+    suspend fun refreshLocations(ids: List<String>, applyChanges: suspend () -> Unit)
     fun savedPage(): Int
     fun savePage(position: Int)
 
@@ -29,29 +30,28 @@ interface FavoritesInteractor {
 
         override suspend fun removeFavorite(id: String) = repository.delete(id)
 
-        override suspend fun refreshFavorites() {
+        override suspend fun refreshFavorites(firstUpdate: Boolean) {
             try {
-                repository.refreshAll()
+                val dataUpdatedLatelyCriteria =
+                    if (firstUpdate) DataUpdatedLatelyCriteria.DAYS else DataUpdatedLatelyCriteria.HOURS
+                repository.refreshAll(dataUpdatedLatelyCriteria)
             } catch (error: Exception) {
                 errorHandler.handle(error)
             }
         }
 
-        override suspend fun refreshLocations(ids: List<String>): Boolean {
-            var refreshed = false
+        override suspend fun refreshLocations(ids: List<String>, applyChanges: suspend () -> Unit) =
             try {
                 ids.forEach { id ->
                     if (refreshLocation.intentionSaved(id))
                         repository.updateLocationName(id).also {
                             it.saveState(refreshLocation)
-                            refreshed = true
+                            applyChanges()
                         }
                 }
             } catch (exception: Exception) {
                 errorHandler.handle(exception)
             }
-            return refreshed
-        }
 
         override fun saveRefreshLocationIntention() = favoriteIDs().forEach {
             refreshLocation.saveIntention(it)

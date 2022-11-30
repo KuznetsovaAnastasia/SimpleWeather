@@ -13,6 +13,7 @@ import com.github.skytoph.simpleweather.data.weather.model.time.ForecastTimeData
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeather
 import com.github.skytoph.simpleweather.domain.weather.RefreshLocation
 import com.github.skytoph.simpleweather.domain.weather.SaveState
+import com.github.skytoph.simpleweather.domain.weather.mapper.DataUpdatedLatelyCriteria
 import com.github.skytoph.simpleweather.domain.weather.mapper.CompareTimeWithCurrent
 import com.github.skytoph.simpleweather.domain.weather.mapper.CurrentTimeComparable
 import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
@@ -50,8 +51,9 @@ data class WeatherData(
     override suspend fun updateLocation(source: UpdateItem<WeatherData, IdentifierData>): WeatherData =
         source.updateLocation(this, identifier)
 
-    override suspend fun update(source: UpdateItemTime<WeatherData, IdentifierData>) =
+    override suspend fun updateTime(source: UpdateItemTime<WeatherData, IdentifierData>) =
         source.updateTime(this, identifier)
 
-    override fun updatedLately(mapper: CompareTimeWithCurrent): Boolean = time.updatedLately(mapper)
+    override fun updatedLately(mapper: CompareTimeWithCurrent, criteria: DataUpdatedLatelyCriteria): Boolean =
+        time.updatedLately(mapper, criteria)
 }

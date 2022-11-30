@@ -1,11 +1,12 @@
 package com.github.skytoph.simpleweather.domain.weather
 
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
+import com.github.skytoph.simpleweather.domain.weather.mapper.DataUpdatedLatelyCriteria
 
 interface WeatherRepository {
 
     interface RefreshAll {
-        suspend fun refreshAll()
+        suspend fun refreshAll(criteria: DataUpdatedLatelyCriteria = DataUpdatedLatelyCriteria.BASE)
     }
 
     interface Save {

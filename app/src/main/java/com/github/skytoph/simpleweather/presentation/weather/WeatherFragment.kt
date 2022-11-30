@@ -99,10 +99,7 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
                 warningAdapter.submitList(warnings)
                 hourlyForecastAdapter.submitList(hourly)
                 dailyForecastAdapter.submitList(daily)
-                forecastHourlyRecyclerview.apply {
-                    if (hourly.isEmpty()) Visibility.Gone().apply(this)
-                    else doOnPreDraw { scrollToPosition(0) }
-                }
+                if (hourly.isEmpty()) Visibility.Gone().apply(forecastHourlyRecyclerview)
             }
         }
 

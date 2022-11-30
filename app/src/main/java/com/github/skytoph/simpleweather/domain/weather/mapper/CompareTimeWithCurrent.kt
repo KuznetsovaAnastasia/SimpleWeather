@@ -6,16 +6,30 @@ import com.github.skytoph.simpleweather.core.util.time.CurrentTime
 import javax.inject.Inject
 
 interface CompareTimeWithCurrent {
-    fun sameHour(seconds: Long): Boolean
+    fun compare(seconds: Long, criteria: DataUpdatedLatelyCriteria): Boolean
 
     class Base @Inject constructor(private val currentTime: CurrentTime) :
         CompareTimeWithCurrent {
 
-        override fun sameHour(seconds: Long): Boolean =
-            RoundedTime(TimeSeconds.Base(seconds)).roundToHours() == currentTime.hoursInSeconds()
+        override fun compare(seconds: Long, criteria: DataUpdatedLatelyCriteria): Boolean =
+            when (criteria) {
+                DataUpdatedLatelyCriteria.HOURS -> CompareTime.Hours(currentTime).compare(seconds)
+                DataUpdatedLatelyCriteria.DAYS -> CompareTime.Day(currentTime).compare(seconds)
+                else -> false
+            }
     }
 }
 
-interface CurrentTimeComparable {
-    fun updatedLately(mapper: CompareTimeWithCurrent): Boolean
+abstract class CompareTime(protected val time: CurrentTime) {
+    abstract fun compare(seconds: Long): Boolean
+
+    class Hours(time: CurrentTime) : CompareTime(time) {
+        override fun compare(seconds: Long) =
+            RoundedTime(TimeSeconds.Base(seconds)).roundToHours() == time.hoursInSeconds()
+    }
+
+    class Day(time: CurrentTime) : CompareTime(time) {
+        override fun compare(seconds: Long): Boolean =
+            RoundedTime(TimeSeconds.Base(seconds)).roundToDay() == time.dayInSeconds()
+    }
 }
