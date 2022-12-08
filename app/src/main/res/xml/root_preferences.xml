@@ -12,7 +12,6 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="@string/language_eng"
             app:entries="@array/lang_entries"
             app:entryValues="@array/lang_values"
             app:key="@string/key_language"
