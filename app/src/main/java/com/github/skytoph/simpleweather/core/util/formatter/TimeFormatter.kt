@@ -24,7 +24,8 @@ interface TimeFormatter {
             format(patterns.dateAndHours(), seconds, timeZone)
 
         override fun dayInWeek(seconds: Long): String =
-            format(patterns.dayInWeek(), seconds).capitalize()
+            SimpleDateFormat(patterns.dayInWeek(), resources.locale())
+                .format(Date(TimeUnit.SECONDS.toMillis(seconds))).capitalize()
 
         override fun duration(seconds: Long) =
             Pair((seconds / 3600).toInt(), ((seconds % 3600) / 60).toInt())
