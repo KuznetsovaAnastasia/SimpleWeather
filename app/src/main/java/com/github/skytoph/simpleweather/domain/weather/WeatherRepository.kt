@@ -21,15 +21,18 @@ interface WeatherRepository {
         suspend fun delete(id: String)
     }
 
-    interface Mutable : RefreshAll, Delete {
+    interface Mutable : RefreshAll, Delete, Save, Get {
         suspend fun updateLocationName(id: String): WeatherData
         fun cachedIDs(): List<String>
     }
 
-    interface Update {
+    interface Get {
+        suspend fun getCloudWeather(id: String): WeatherData
+    }
+
+    interface Update : Get {
         suspend fun updateCloudWeather(id: String): WeatherData
         suspend fun getCachedWeather(id: String): WeatherData
-        suspend fun getCloudWeather(id: String): WeatherData
     }
 
     interface Base : Mutable, Update, RefreshAll, Save, Contains

@@ -5,12 +5,10 @@ import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloud
 import com.google.android.libraries.places.api.model.Place
 import javax.inject.Inject
 
-interface PlaceToCloudMapper : Mapper<PlaceCloud> {
-
+interface PlaceToCloudMapper : Mapper<PlaceCloud>, PlaceNameMapper {
     fun map(place: Place): PlaceCloud
-    fun mapToName(place: Place): String
 
-    class Base @Inject constructor() : PlaceToCloudMapper {
+    class Base @Inject constructor() : PlaceToCloudMapper, PlaceNameMapper.Abstract() {
 
         override fun map(place: Place): PlaceCloud {
             return PlaceCloud(
@@ -19,11 +17,5 @@ interface PlaceToCloudMapper : Mapper<PlaceCloud> {
                 place.latLng!!.latitude,
                 place.latLng!!.longitude)
         }
-
-        override fun mapToName(place: Place) = place.addressComponents?.asList()?.let {
-            it.find { component -> component.types.contains("locality") }?.name
-                ?: it.find { component -> component.types.contains("political") }?.name
-                ?: it.firstOrNull()?.name
-        } ?: "Unknown"
     }
 }

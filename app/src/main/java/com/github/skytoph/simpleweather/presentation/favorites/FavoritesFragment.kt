@@ -1,12 +1,17 @@
 package com.github.skytoph.simpleweather.presentation.favorites
 
+import android.Manifest
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
@@ -19,7 +24,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBinding>(),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -30,13 +34,47 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
 
+    private lateinit var request: ActivityResultLauncher<Array<String>>
+
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentFavoritesBinding
         get() = FragmentFavoritesBinding::inflate
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        request =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                if (permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false))
+                    viewModel.saveCurrentLocation()
+                else viewModel.showEmptyState()
+            }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = FavoritesAdapter(this, viewModel.getFavorites())
+        val deleteMenuItem =
+            requireActivity().findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_delete)
+
+        viewModel.observeState(viewLifecycleOwner) { stateList ->
+            stateList.forEach { state ->
+                state.show(binding.errorView,
+                    parentFragmentManager,
+                    deleteMenuItem,
+                    requireActivity().findViewById(R.id.toolbar_progress_bar),
+                    tabLayout) {
+                    if (locationPermissionGranted()) viewModel.saveCurrentLocation()
+                    else request.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
+                }
+            }
+        }
+
+        viewModel.initialize(savedInstanceState == null) { favorites ->
+            adapter = FavoritesAdapter(this, favorites)
+        }
+        deleteMenuItem.setOnMenuItemClickListener {
+            viewModel.delete(adapter.getItem(tabLayout.selectedTabPosition))
+            true
+        }
 
         viewPager = binding.viewPagerFavorites
         viewPager.adapter = adapter
@@ -45,15 +83,8 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         tabLayout = requireActivity().findViewById(R.id.tab_layout_dots)
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
 
-        val deleteMenuItem =
-            requireActivity().findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_delete)
-        deleteMenuItem.setOnMenuItemClickListener {
-            viewModel.delete(adapter.getItem(tabLayout.selectedTabPosition))
-            true
-        }
-
         binding.refresh.setOnRefreshListener {
-            viewModel.refresh {
+            viewModel.refresh(adapter.itemCount == 0) {
                 binding.refresh.isRefreshing = false
             }
         }
@@ -63,13 +94,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
             viewModel.updateState(favorites.isEmpty())
         }
 
-        viewModel.observeState(this) { state ->
-            state.show(binding.errorView, parentFragmentManager, deleteMenuItem, tabLayout)
-        }
-
         viewPager.doOnPreDraw { viewPager.setCurrentItem(viewModel.savedPage(), false) }
-
-        viewModel.initialize(savedInstanceState == null)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -103,4 +128,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
                 viewModel.updateChanges()
             else -> Unit
         }
+
+    private fun locationPermissionGranted() = ContextCompat.checkSelfPermission(requireContext(),
+        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
 }

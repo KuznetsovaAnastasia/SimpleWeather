@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.di.weather
 
 import com.github.skytoph.simpleweather.data.airquality.AirQualityCloudDataSource
+import com.github.skytoph.simpleweather.data.location.CurrentLocation
 import com.github.skytoph.simpleweather.data.location.cloud.FindPlace
 import com.github.skytoph.simpleweather.data.location.cloud.LocationCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.cache.WeatherCacheDataSource
@@ -43,6 +44,10 @@ abstract class WeatherDataSourceModule {
     @Binds
     @Singleton
     abstract fun placeSearch(source: LocationCloudDataSource.Base): LocationCloudDataSource.PlaceSearch
+
+    @Binds
+    @Singleton
+    abstract fun currentPlace(source: CurrentLocation.Base): CurrentLocation
 
     @Binds
     @Singleton

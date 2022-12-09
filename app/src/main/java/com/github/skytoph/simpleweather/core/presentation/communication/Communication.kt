@@ -15,12 +15,29 @@ abstract class Communication {
         fun show(data: T)
     }
 
-    interface Mutable<T> : Observe<T>, Update<T>
+    interface MultipleMutable<T> : Observe<List<T>>, UpdateMultiple<T>
 
     abstract class Abstract<T>(protected val data: MutableLiveData<T>) : Mutable<T> {
 
         override fun observe(owner: LifecycleOwner, observer: Observer<T>) =
             data.observe(owner, observer)
+    }
+
+    interface Mutable<T> : Observe<T>, Update<T>
+
+    interface UpdateMultiple<T> {
+        fun show(vararg data: T)
+    }
+
+    abstract class MultipleUiUpdates<T>(protected val data: MutableLiveData<List<T>> = MutableLiveData()) :
+        MultipleMutable<T> {
+
+        override fun observe(owner: LifecycleOwner, observer: Observer<List<T>>) =
+            data.observe(owner, observer)
+
+        override fun show(vararg data: T) {
+            this.data.value = data.asList()
+        }
     }
 
     abstract class ImmutableUpdate<T>(protected val data: LiveData<T>) : Observe<T> {
