@@ -12,7 +12,7 @@ abstract class ShowStrategy {
         fragmentManager: FragmentManager,
     )
 
-    object REPLACE : ShowStrategy() {
+    object Add : ShowStrategy() {
         override fun show(
             id: String,
             fragment: Fragment,
@@ -20,12 +20,12 @@ abstract class ShowStrategy {
             fragmentManager: FragmentManager,
         ) {
             fragmentManager.beginTransaction()
-                .replace(container, fragment)
+                .add(container, fragment)
                 .commit()
         }
     }
 
-    object ADD : ShowStrategy() {
+    object Replace : ShowStrategy() {
         override fun show(
             id: String,
             fragment: Fragment,
@@ -33,8 +33,7 @@ abstract class ShowStrategy {
             fragmentManager: FragmentManager,
         ) {
             fragmentManager.beginTransaction()
-                .also { t -> fragmentManager.findFragmentById(container)?.let { t.hide(it) } }
-                .add(container, fragment)
+                .replace(container, fragment)
                 .addToBackStack(id)
                 .commit()
         }

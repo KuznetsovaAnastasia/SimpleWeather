@@ -8,4 +8,4 @@ class FavoritesNavFragment(@IdRes private val container: Int) :
     NavigationScreen("FavoritesNavigationScreen",
         FavoritesFragment::class.java,
         container,
-        ShowStrategy.REPLACE)
+        ShowStrategy.Add)

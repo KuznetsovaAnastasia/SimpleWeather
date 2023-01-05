@@ -7,7 +7,7 @@ import com.github.skytoph.simpleweather.core.presentation.navigation.ShowStrateg
 
 class SearchNavFragment(
     @IdRes private val container: Int,
-    strategy: ShowStrategy = ShowStrategy.ADD,
+    strategy: ShowStrategy = ShowStrategy.Replace,
 ) : NavigationScreen(TAG,
     SearchFragment::class.java,
     container,

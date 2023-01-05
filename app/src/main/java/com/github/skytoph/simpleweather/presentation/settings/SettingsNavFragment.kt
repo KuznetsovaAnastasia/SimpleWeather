@@ -8,4 +8,4 @@ class SettingsNavFragment(@IdRes private val container: Int) :
     NavigationScreen("SettingsNavigationScreen",
         SettingsFragment::class.java,
         container,
-        ShowStrategy.ADD)
+        ShowStrategy.Replace)

@@ -12,7 +12,7 @@ class WeatherNavFragment(
 ) : NavigationScreen("WeatherFragment$id",
     WeatherFragment::class.java,
     container,
-    ShowStrategy.REPLACE) {
+    ShowStrategy.Add) {
 
     override fun fragment(): BaseFragment<*, *> = WeatherFragment.newInstance(id, favorite)
 }

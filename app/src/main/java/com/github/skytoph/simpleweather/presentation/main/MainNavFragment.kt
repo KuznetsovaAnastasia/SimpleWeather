@@ -8,4 +8,4 @@ class MainNavFragment(@IdRes private val container: Int) :
     NavigationScreen("MainNavigationScreen",
         MainFragment::class.java,
         container,
-        ShowStrategy.REPLACE)
+        ShowStrategy.Add)

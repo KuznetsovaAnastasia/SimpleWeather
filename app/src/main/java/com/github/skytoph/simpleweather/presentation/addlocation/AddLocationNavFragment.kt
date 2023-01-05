@@ -8,7 +8,7 @@ class AddLocationNavFragment(
     @IdRes container: Int,
     private val id: String,
     private val favorite: Boolean = false,
-    strategy: ShowStrategy = ShowStrategy.ADD,
+    strategy: ShowStrategy = ShowStrategy.Replace,
 ) : NavigationScreen("AddLocationFragment$id",
     AddLocationFragment::class.java,
     container,
