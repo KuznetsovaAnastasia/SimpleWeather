@@ -101,11 +101,6 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-    fun onHiddenChanged(hidden: Boolean) {
-        stateCommunication.show(if (hidden) FavoritesState.Hidden else FavoritesState.Base)
-        if (!hidden) refreshFavorites()
-    }
-
     fun updateLocations() = interactor.saveRefreshLocationIntention()
 
     fun savedPage(): Int = interactor.savedPage()

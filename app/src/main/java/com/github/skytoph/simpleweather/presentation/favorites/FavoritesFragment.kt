@@ -97,10 +97,6 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         viewPager.doOnPreDraw { viewPager.setCurrentItem(viewModel.savedPage(), false) }
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        viewModel.onHiddenChanged(hidden)
-    }
-
     override fun onResume() {
         viewModel.updateChanges()
         PreferenceManager.getDefaultSharedPreferences(context)

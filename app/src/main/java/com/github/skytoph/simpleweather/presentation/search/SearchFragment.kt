@@ -57,11 +57,6 @@ class SearchFragment :
         if (savedInstanceState == null) viewModel.refreshHistory()
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        if (!hidden) viewModel.refreshHistory()
-        super.onHiddenChanged(hidden)
-    }
-
     override fun onDestroy() {
         requireActivity().findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_search)
             .collapseActionView()
