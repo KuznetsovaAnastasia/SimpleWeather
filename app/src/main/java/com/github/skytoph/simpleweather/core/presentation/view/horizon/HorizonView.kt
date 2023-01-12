@@ -28,6 +28,7 @@ class HorizonView : View {
     private val pSunset = PointF()
     private val pSunriseTime = PointF()
     private val pSunsetTime = PointF()
+    private val pLineEnd = PointF()
 
     private lateinit var fontFamily: String
     private lateinit var sunsetTimeValue: String
@@ -35,6 +36,7 @@ class HorizonView : View {
 
     @ColorRes
     private var titleColor: Int = 0
+
     @ColorRes
     private var valueColor: Int = 0
 
@@ -65,7 +67,16 @@ class HorizonView : View {
         textDrawer = TextDrawer(paint, resourceManager)
         sunDrawer = DrawableDrawer(resourceManager)
         pointsCalculator = HorizonCurveCalculator(
-            listOf(pNightStart, pMidnight, pSunrise, pMidday, pSunset, pSunriseTime, pSunsetTime)
+            listOf(
+                pNightStart,
+                pMidnight,
+                pSunrise,
+                pMidday,
+                pSunset,
+                pSunriseTime,
+                pSunsetTime,
+                pLineEnd
+            )
         )
     }
 
@@ -86,13 +97,6 @@ class HorizonView : View {
         sunsetTimeValue = sunset
         t = sunPosition.toFloat()
         invalidate()
-    }
-
-    private fun computeHorizonPoints() {
-        val halfSunSize = resources.getDimension(R.dimen.horizon_sun_size) / 2
-        pointsCalculator.calculatePositions(
-            width.toFloat(), height.toFloat(), halfSunSize,
-        )
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -119,9 +123,15 @@ class HorizonView : View {
         return result
     }
 
-    override fun onDraw(canvas: Canvas) {
-        computeHorizonPoints()
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        pointsCalculator.calculatePositions(
+            width.toFloat(),
+            height.toFloat(),
+            halfSunSize = resources.getDimension(R.dimen.horizon_sun_size) / 2,
+        )
+    }
 
+    override fun onDraw(canvas: Canvas) {
         curveDrawer.drawCurve(canvas, pNightStart, pMidnight, pSunrise, R.color.blue)
         curveDrawer.drawCurve(canvas, pSunrise, pMidday, pSunset, R.color.light_blue)
 
@@ -139,8 +149,7 @@ class HorizonView : View {
     private fun drawLines(canvas: Canvas) {
         lineDrawer.prepare(titleColor)
 
-        val pointEnd = PointF().apply { x = width.toFloat(); y = pNightStart.y }
-        lineDrawer.drawLine(canvas, pNightStart, pointEnd)
+        lineDrawer.drawLine(canvas, pNightStart, pLineEnd)
         lineDrawer.drawLine(canvas, pSunrise, pSunriseTime)
         lineDrawer.drawLine(canvas, pSunset, pSunsetTime)
     }

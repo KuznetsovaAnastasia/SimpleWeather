@@ -89,5 +89,6 @@ class HorizonCurveCalculator(private val points: List<PointF>) {
             x = points[4].x
             y = points[4].y - lineHeight
         }
+        points[7].apply { x = width; y = points[0].y }
     }
 }
