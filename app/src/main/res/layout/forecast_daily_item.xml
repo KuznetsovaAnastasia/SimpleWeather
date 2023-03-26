@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/forecast_image"
         android:layout_width="@dimen/forecast_image_size"
         android:layout_height="@dimen/forecast_image_size"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/weather_clouds" />
 
     <TextView
         android:id="@+id/forecast_time"
         style="@style/MediumSubtitle"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/forecast_image"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Wednesday" />
 
     <TextView
@@ -27,11 +30,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_weight="1"
         android:includeFontPadding="false"
         android:textAlignment="viewEnd"
         android:textColor="?attr/mainTitleTextColor"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/forecast_temp_min"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="+109°" />
 
     <TextView
@@ -39,11 +44,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_weight="1"
         android:includeFontPadding="false"
         android:textAlignment="viewEnd"
         android:textColor="?attr/mainTitleTextColor"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/forecast_pop"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="-200°" />
 
     <TextView
@@ -51,10 +58,12 @@
         style="@style/MediumValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:drawableStart="@drawable/ic_drop"
         android:drawablePadding="2dp"
         android:includeFontPadding="false"
         app:drawableStartCompat="@drawable/ic_drop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="100%" />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
