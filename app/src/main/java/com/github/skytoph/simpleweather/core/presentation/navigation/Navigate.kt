@@ -4,9 +4,9 @@ import androidx.fragment.app.FragmentManager
 
 class Navigate(
     private val action: NavigationAction,
-    private val container: Int = 0,
+    private val tag: String = "",
 ) : ShowScreen {
 
     override fun show(fragmentManager: FragmentManager) =
-        action.show(fragmentManager, container)
+        action.show(fragmentManager, tag)
 }

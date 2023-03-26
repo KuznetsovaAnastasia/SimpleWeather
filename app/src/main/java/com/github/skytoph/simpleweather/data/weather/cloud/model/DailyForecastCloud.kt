@@ -7,38 +7,38 @@ import com.github.skytoph.simpleweather.data.weather.model.content.forecast.Dail
 import com.squareup.moshi.Json
 
 data class DailyForecastCloud(
-    @field:Json(name = "dt")
-    private val time: Long,
+    @Json(name = "dt")
+    private val dt: Long,
 
-    @field:Json(name = "temp")
+    @Json(name = "temp")
     private val temp: DailyTempCloud,
 
-    @field:Json(name = "weather")
+    @Json(name = "weather")
     private val weather: List<WeatherTypeCloud>,
 
-    @field:Json(name = "pop")
-    private val precipitationProb: Double,
+    @Json(name = "pop")
+    private val pop: Double,
 
-    @field:Json(name = "uvi")
+    @Json(name = "uvi")
     private val uvi: Double,
 
-    @field:Json(name = "sunrise")
+    @Json(name = "sunrise")
     private val sunrise: Long,
 
-    @field:Json(name = "sunset")
+    @Json(name = "sunset")
     private val sunset: Long,
 ) : Mappable<DailyForecastData, DailyForecastDataMapper>, MappableTo<Double> {
 
     override fun map(mapper: DailyForecastDataMapper): DailyForecastData =
-        mapper.map(time, temp.map(), weather[0].map(), precipitationProb, uvi, sunrise, sunset)
+        mapper.map(dt, temp.map(), weather[0].map(), pop, uvi, sunrise, sunset)
 
-    override fun map(): Double = precipitationProb
+    override fun map(): Double = pop
 }
 
 data class DailyTempCloud(
-    @field:Json(name = "min")
+    @Json(name = "min")
     private val min: Double,
-    @field:Json(name = "max")
+    @Json(name = "max")
     private val max: Double,
 ) : MappableTo<Pair<Double, Double>> {
 

@@ -41,9 +41,11 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .registerOnSharedPreferenceChangeListener(this)
         request =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                if (permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false))
+                if (permissions.get(Manifest.permission.ACCESS_FINE_LOCATION) == true)
                     viewModel.saveCurrentLocation()
                 else viewModel.showEmptyState()
             }
@@ -52,16 +54,20 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val activity = requireActivity()
+
         val deleteMenuItem =
-            requireActivity().findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_delete)
+            activity.findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_delete)
 
         viewModel.observeState(viewLifecycleOwner) { stateList ->
             stateList.forEach { state ->
-                state.show(binding.errorView,
+                state.show(
+                    binding.errorView,
                     parentFragmentManager,
                     deleteMenuItem,
-                    requireActivity().findViewById(R.id.toolbar_progress_bar),
-                    tabLayout) {
+                    activity.findViewById(R.id.toolbar_progress_bar),
+                    tabLayout
+                ) {
                     if (locationPermissionGranted()) viewModel.saveCurrentLocation()
                     else request.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
                 }
@@ -71,7 +77,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         viewModel.initialize(savedInstanceState == null) { favorites ->
             adapter = FavoritesAdapter(this, favorites)
         }
-        deleteMenuItem.setOnMenuItemClickListener {
+        deleteMenuItem?.setOnMenuItemClickListener {
             viewModel.delete(adapter.getItem(tabLayout.selectedTabPosition))
             true
         }
@@ -80,7 +86,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 1
 
-        tabLayout = requireActivity().findViewById(R.id.tab_layout_dots)
+        tabLayout = activity.findViewById(R.id.tab_layout_dots)
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
 
         binding.refresh.setOnRefreshListener {
@@ -99,16 +105,18 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
 
     override fun onResume() {
         viewModel.updateChanges()
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .registerOnSharedPreferenceChangeListener(this)
         super.onResume()
     }
 
     override fun onPause() {
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .unregisterOnSharedPreferenceChangeListener(this)
         viewModel.saveCurrentPage(viewPager.currentItem)
         super.onPause()
+    }
+
+    override fun onDestroy() {
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .unregisterOnSharedPreferenceChangeListener(this)
+        super.onDestroy()
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) =
@@ -125,6 +133,8 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
             else -> Unit
         }
 
-    private fun locationPermissionGranted() = ContextCompat.checkSelfPermission(requireContext(),
-        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+    private fun locationPermissionGranted() = ContextCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
 }

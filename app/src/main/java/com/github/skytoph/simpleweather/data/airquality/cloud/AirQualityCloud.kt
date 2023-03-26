@@ -4,26 +4,26 @@ import com.github.skytoph.simpleweather.core.MappableTo
 import com.squareup.moshi.Json
 
 data class AirQualityCloud(
-    @field:Json(name = "list")
-    private val airQualityList: List<AirQualityListItemCloud>?,
+    @Json(name = "list")
+    private val list: List<AirQualityListItemCloud>?,
 ) : MappableTo<Int> {
 
-    override fun map(): Int = if (airQualityList.isNullOrEmpty()) -1 else airQualityList[0].map()
+    override fun map(): Int = if (list.isNullOrEmpty()) -1 else list[0].map()
 }
 
 data class AirQualityListItemCloud(
-    @field:Json(name = "main")
-    private val airQualityIndex: AirQualityIndexCloud,
-    @field:Json(name = "dt")
-    private val time: Long,
+    @Json(name = "main")
+    private val main: AirQualityIndexCloud,
+    @Json(name = "dt")
+    private val dt: Long,
 ) : MappableTo<Int> {
 
-    override fun map(): Int = airQualityIndex.map()
+    override fun map(): Int = main.map()
 }
 
 
 data class AirQualityIndexCloud(
-    @field:Json(name = "aqi")
+    @Json(name = "aqi")
     private val aqi: Int,
 ) : MappableTo<Int> {
 

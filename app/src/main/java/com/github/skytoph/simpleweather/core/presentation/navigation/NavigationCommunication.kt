@@ -13,5 +13,5 @@ interface NavigationCommunication {
     interface Mutable : Update, Observe
 
     @Singleton
-    class Base @Inject constructor() : Communication.SinglePostUpdate<ShowScreen>(), Mutable
+    class Base @Inject constructor() : Communication.SingleUiUpdate<ShowScreen>(), Mutable
 }

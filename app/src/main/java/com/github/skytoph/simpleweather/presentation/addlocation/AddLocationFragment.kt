@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.R
@@ -24,7 +25,8 @@ class AddLocationFragment : BaseFragment<AddLocationViewModel, FragmentAddLocati
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.showWeather(R.id.weather_add_container)
+        if (savedInstanceState == null)
+            viewModel.showWeather(childFragmentManager, R.id.weather_add_container)
 
         val button = binding.messageButton
         val favorite = requireArguments().getBoolean(FAVORITE_KEY)
@@ -36,6 +38,12 @@ class AddLocationFragment : BaseFragment<AddLocationViewModel, FragmentAddLocati
         if (!favorite) button.setOnClickListener {
             viewModel.saveWeather()
         }
+
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                viewModel.goBackToSearch()
+//            }
+//        })
     }
 
     companion object {

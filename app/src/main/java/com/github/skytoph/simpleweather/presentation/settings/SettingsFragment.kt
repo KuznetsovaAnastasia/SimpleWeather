@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.presentation.settings
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
+import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -9,7 +9,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.presentation.favorites.ConfirmationDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Locale
+import java.util.*
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -27,8 +27,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceScreen.findPreference<Preference>(getString(R.string.key_clear_search_history))
             ?.setOnPreferenceClickListener {
                 ConfirmationDialogFragment
-                    .newInstance({ viewModel.clearSearchHistory() },
-                        R.string.clear_search_history_confirmation)
+                    .newInstance(
+                        { viewModel.clearSearchHistory() },
+                        R.string.clear_search_history_confirmation
+                    )
                     .show(parentFragmentManager, DIALOG_TAG)
                 true
             }

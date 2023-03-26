@@ -6,19 +6,19 @@ import com.github.skytoph.simpleweather.data.weather.model.content.forecast.Warn
 import com.squareup.moshi.Json
 
 data class AlertCloud(
-    @field:Json(name = "event")
-    private val name: String,
+    @Json(name = "event")
+    private val event: String,
 
-    @field:Json(name = "start")
-    private val startTime: Long,
+    @Json(name = "start")
+    private val start: Long,
 
-    @field:Json(name = "end")
-    private val endTime: Long,
+    @Json(name = "end")
+    private val end: Long,
 
-    @field:Json(name = "description")
+    @Json(name = "description")
     private val description: String,
 ) : Mappable<WarningData, WarningDataMapper> {
 
     override fun map(mapper: WarningDataMapper): WarningData =
-        mapper.map(name, startTime, endTime, description)
+        mapper.map(event, start, end, description)
 }

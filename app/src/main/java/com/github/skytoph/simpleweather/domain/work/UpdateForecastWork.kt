@@ -19,7 +19,7 @@ interface UpdateForecastWork {
                     .setConstraints(constraints)
                     .build()
             workManager.enqueueUniquePeriodicWork(WORK_NAME,
-                ExistingPeriodicWorkPolicy.KEEP,
+                ExistingPeriodicWorkPolicy.REPLACE,
                 request)
             workManager.getWorkInfosForUniqueWorkLiveData(WORK_NAME).observe(owner, observer)
         }

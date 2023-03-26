@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.presentation.search
 
 import androidx.annotation.IdRes
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -25,7 +26,16 @@ class SearchPredictionViewModel @Inject constructor(
     private val navigation: SearchNavigator,
 ) : ViewModel() {
 
-    fun showDetails(@IdRes container: Int, id: String, title: String) {
+    init {
+        refreshHistory()
+    }
+
+    fun showDetails(
+        fragmentManager: FragmentManager,
+        @IdRes container: Int,
+        id: String,
+        title: String
+    ) {
         loadingCommunication.show(Loading.INITIAL)
         viewModelScope.launch(Dispatchers.IO) {
             interactor.saveSearchResult(id, title)
@@ -33,12 +43,12 @@ class SearchPredictionViewModel @Inject constructor(
             val favorite = interactor.isFavorite(validId)
             withContext(Dispatchers.Main) {
                 refreshHistory()
-                navigation.showPredictionDetails(container, validId, favorite)
+                navigation.showSearchDetails(fragmentManager, container, validId, favorite)
             }
         }
     }
 
-    fun refreshHistory() = viewModelScope.launch(Dispatchers.IO) {
+    private fun refreshHistory() = viewModelScope.launch(Dispatchers.IO) {
         val history = interactor.searchHistory()
         withContext(Dispatchers.Main) {
             searchHistory.show(history)

@@ -15,7 +15,8 @@ abstract class BaseFragment<T : ViewModel, B : ViewBinding> : Fragment() {
 
     protected abstract val viewModel: T
 
-    protected lateinit var binding: B
+    private var _binding: B? = null
+    protected val binding: B get() = _binding!!
 
     protected abstract val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> B
 
@@ -24,7 +25,7 @@ abstract class BaseFragment<T : ViewModel, B : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = bindingInflation.invoke(inflater, container, false)
+        _binding = bindingInflation.invoke(inflater, container, false)
         return binding.root
     }
 
@@ -36,5 +37,10 @@ abstract class BaseFragment<T : ViewModel, B : ViewBinding> : Fragment() {
         val inputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

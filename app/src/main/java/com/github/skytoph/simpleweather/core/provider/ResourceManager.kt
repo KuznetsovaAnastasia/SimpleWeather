@@ -3,7 +3,6 @@ package com.github.skytoph.simpleweather.core.provider
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
 import dagger.hilt.android.qualifiers.ApplicationContext

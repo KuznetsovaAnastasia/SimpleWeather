@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
@@ -28,17 +30,18 @@ class SearchFragment :
         super.onViewCreated(view, savedInstanceState)
 
         val showDetails: (id: String, title: String) -> Unit = { id, title ->
-            hideKeyboard()
-            viewModel.showDetails(R.id.fragment_container, id, title)
+//            hideKeyboard()
+            viewModel.showDetails(childFragmentManager, R.id.fragment_container, id, title)
         }
 
         val historyAdapter = SearchHistoryAdapter(showDetails)
         binding.searchHistoryRecyclerview.apply {
             adapter = historyAdapter
             addItemDecoration(
-                MarginItemDecoration(spaceRight = resources.getDimensionPixelSize(R.dimen.history_item_right_margin)))
+                MarginItemDecoration(spaceRight = resources.getDimensionPixelSize(R.dimen.history_item_right_margin))
+            )
 
-            viewModel.observeHistory(this@SearchFragment) { history ->
+            viewModel.observeHistory(viewLifecycleOwner) { history ->
                 historyAdapter.submitList(history)
                 doOnPreDraw { scrollToPosition(0) }
             }
@@ -48,18 +51,11 @@ class SearchFragment :
         binding.searchPredictionRecyclerView.apply {
             adapter = predictionAdapter
             addItemDecoration(
-                MarginItemDecoration(spaceBottom = resources.getDimensionPixelSize(R.dimen.prediction_item_bottom_margin)))
+                MarginItemDecoration(spaceBottom = resources.getDimensionPixelSize(R.dimen.prediction_item_bottom_margin))
+            )
         }
         viewModel.observe(this) { locations ->
             predictionAdapter.submitList(locations.toMutableList())
         }
-
-        if (savedInstanceState == null) viewModel.refreshHistory()
-    }
-
-    override fun onDestroy() {
-        requireActivity().findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_search)
-            .collapseActionView()
-        super.onDestroy()
     }
 }

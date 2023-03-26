@@ -1,5 +1,12 @@
 package com.github.skytoph.simpleweather.presentation.search
 
+import androidx.fragment.app.FragmentManager
+
 interface SearchNavigator {
-    fun showPredictionDetails(container: Int, id: String, favorite: Boolean)
+    fun showSearchDetails(
+        fragmentManager: FragmentManager,
+        container: Int,
+        id: String,
+        favorite: Boolean
+    )
 }

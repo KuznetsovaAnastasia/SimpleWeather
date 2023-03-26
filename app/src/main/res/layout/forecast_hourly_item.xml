@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/forecast_layout"
     android:layout_width="wrap_content"
@@ -41,6 +42,7 @@
         android:drawableStart="@drawable/ic_drop"
         android:drawablePadding="2dp"
         android:includeFontPadding="false"
+        app:drawableStartCompat="@drawable/ic_drop"
         tools:text="10%" />
 
 </LinearLayout>

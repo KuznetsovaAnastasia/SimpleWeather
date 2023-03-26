@@ -37,37 +37,37 @@ import com.squareup.moshi.Json
  */
 
 data class WeatherCloud(
-    @field:Json(name = "lat")
+    @Json(name = "lat")
     private val lat: Double,
 
-    @field:Json(name = "lon")
+    @Json(name = "lon")
     private val lon: Double,
 
-    @field:Json(name = "current")
+    @Json(name = "current")
     private val current: CurrentWeatherCloud,
 
-    @field:Json(name = "timezone")
+    @Json(name = "timezone")
     private val timezone: String,
 
-    @field:Json(name = "timezone_offset")
-    private val timezoneOffset: Int,
+    @Json(name = "timezone_offset")
+    private val timezone_offset: Int,
 
-    @field:Json(name = "pop")
-    private val precipitationProb: Double,
+    @Json(name = "pop")
+    private val pop: Double,
 
-    @field:Json(name = "hourly")
+    @Json(name = "hourly")
     private val hourly: List<HourlyForecastCloud>?,
 
-    @field:Json(name = "daily")
+    @Json(name = "daily")
     private val daily: List<DailyForecastCloud>?,
 
-    @field:Json(name = "alerts")
+    @Json(name = "alerts")
     private val alerts: List<AlertCloud>?,
 ) : Mappable<WeatherData, WeatherCloudMapper> {
 
     override fun map(mapper: WeatherCloudMapper): WeatherData = mapper.map(
         current,
-        timezoneOffset,
+        timezone_offset,
         timezone,
         hourly ?: emptyList(),
         daily ?: emptyList(),

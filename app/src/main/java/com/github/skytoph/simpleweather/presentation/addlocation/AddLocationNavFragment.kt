@@ -8,11 +8,15 @@ class AddLocationNavFragment(
     @IdRes container: Int,
     private val id: String,
     private val favorite: Boolean = false,
-    strategy: ShowStrategy = ShowStrategy.Replace,
-) : NavigationScreen("AddLocationFragment$id",
+    strategy: ShowStrategy= ShowStrategy.Replace
+) : NavigationScreen(TAG,
     AddLocationFragment::class.java,
     container,
     strategy) {
 
     override fun fragment() = AddLocationFragment.newInstance(id, favorite)
+
+    companion object {
+        const val TAG = "AddLocationFragment"
+    }
 }

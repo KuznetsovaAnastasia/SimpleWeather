@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.presentation.addlocation
 
 import androidx.annotation.IdRes
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.*
 import com.github.skytoph.simpleweather.core.presentation.StateMapper
 import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
@@ -23,7 +24,8 @@ class AddLocationViewModel @Inject constructor(
     private val placeId: String = state[PLACE_ID_KEY]!!
     private val favorite: Boolean = state[FAVORITE_KEY]!!
 
-    fun showWeather(@IdRes container: Int) = navigator.showWeather(container, placeId, favorite)
+    fun showWeather(fragmentManager: FragmentManager, @IdRes container: Int) =
+        navigator.showWeather(fragmentManager, container, placeId, favorite)
 
     fun saveWeather() = viewModelScope.launch(Dispatchers.IO) {
         interactor.save()

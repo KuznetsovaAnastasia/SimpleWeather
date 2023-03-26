@@ -9,10 +9,13 @@ class WeatherNavFragment(
     @IdRes container: Int,
     private val id: String,
     private val favorite: Boolean = false,
-) : NavigationScreen("WeatherFragment$id",
+    strategy: ShowStrategy = ShowStrategy.Add,
+) : NavigationScreen(
+    "WeatherFragment$id",
     WeatherFragment::class.java,
     container,
-    ShowStrategy.Add) {
+    strategy
+) {
 
     override fun fragment(): BaseFragment<*, *> = WeatherFragment.newInstance(id, favorite)
 }

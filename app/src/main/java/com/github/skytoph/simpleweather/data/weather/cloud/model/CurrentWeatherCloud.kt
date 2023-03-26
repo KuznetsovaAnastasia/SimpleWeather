@@ -5,23 +5,23 @@ import com.github.skytoph.simpleweather.data.weather.cloud.mapper.CurrentCloudTo
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.squareup.moshi.Json
 
-class CurrentWeatherCloud(
-    @field:Json(name = "dt")
+data class CurrentWeatherCloud(
+    @Json(name = "dt")
     private val dt: Long,
 
-    @field:Json(name = "temp")
+    @Json(name = "temp")
     private val temp: Double,
 
-    @field:Json(name = "sunrise")
+    @Json(name = "sunrise")
     private val sunrise: Long,
 
-    @field:Json(name = "sunset")
+    @Json(name = "sunset")
     private val sunset: Long,
 
-    @field:Json(name = "uvi")
+    @Json(name = "uvi")
     private val uvi: Double,
 
-    @field:Json(name = "weather")
+    @Json(name = "weather")
     private val weather: List<WeatherTypeCloud>,
 
     ) : Mappable<WeatherData, CurrentCloudToDataMapper> {

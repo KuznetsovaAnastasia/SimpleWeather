@@ -6,15 +6,15 @@ import com.github.skytoph.simpleweather.data.search.mapper.SearchItemCloudToData
 import com.squareup.moshi.Json
 
 data class PredictionCloud(
-    @field:Json(name = "name")
+    @Json(name = "name")
     private val name: String,
-    @field:Json(name = "lat")
+    @Json(name = "lat")
     private val lat: Double,
-    @field:Json(name = "lon")
+    @Json(name = "lon")
     private val lon: Double,
-    @field:Json(name = "country")
+    @Json(name = "country")
     private val country: String,
-    @field:Json(name = "state")
+    @Json(name = "state")
     private val state: String,
 ) : Mappable<SearchItemData, SearchItemCloudToDataMapper> {
 

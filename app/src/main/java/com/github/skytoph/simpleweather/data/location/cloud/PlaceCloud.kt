@@ -7,13 +7,13 @@ import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.squareup.moshi.Json
 
 data class PlaceCloud(
-    @field:Json(name = "id")
+    @Json(name = "id")
     private val id: String,
-    @field:Json(name = "name")
+    @Json(name = "name")
     private val name: String,
-    @field:Json(name = "lat")
+    @Json(name = "lat")
     private val lat: Double,
-    @field:Json(name = "lon")
+    @Json(name = "lon")
     private val lng: Double,
 ) : IdMapper.MappableToStringId, MappableTo<String>, Mappable<WeatherData, PlaceCloudMapper> {
 

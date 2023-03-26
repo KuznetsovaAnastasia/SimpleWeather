@@ -6,6 +6,7 @@ import com.github.skytoph.simpleweather.presentation.addlocation.AddLocationNavi
 import com.github.skytoph.simpleweather.presentation.main.MainContentNavigator
 import com.github.skytoph.simpleweather.presentation.main.MainNavigator
 import com.github.skytoph.simpleweather.presentation.search.SearchNavigator
+import com.github.skytoph.simpleweather.presentation.settings.SettingsNavigator
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -26,6 +27,9 @@ abstract class NavigationModule {
 
     @Binds
     abstract fun mainNav(navigator: Navigator.Base): MainNavigator
+
+    @Binds
+    abstract fun settingsNav(navigator: Navigator.Base): SettingsNavigator
 
     @Binds
     abstract fun navigationCommunication(communication: NavigationCommunication.Base): NavigationCommunication.Mutable

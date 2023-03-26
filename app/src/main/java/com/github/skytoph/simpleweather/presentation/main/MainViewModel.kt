@@ -3,7 +3,7 @@ package com.github.skytoph.simpleweather.presentation.main
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.work.*
+import androidx.work.WorkInfo
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.communication.MessageCommunication
 import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
