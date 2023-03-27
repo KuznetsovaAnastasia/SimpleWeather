@@ -3,13 +3,14 @@ package com.github.skytoph.simpleweather.presentation.addlocation
 import android.view.View
 import android.widget.TextView
 import com.github.skytoph.simpleweather.core.presentation.view.MessageButton
+import com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper
 
 sealed class State {
     abstract fun show(
         content: View,
         button: MessageButton,
         errorView: TextView,
-        progress: (Boolean) -> Unit,
+        progress: ShimmerWrapper,
     )
 
     abstract class Abstract(
@@ -22,12 +23,12 @@ sealed class State {
             content: View,
             button: MessageButton,
             errorView: TextView,
-            progress: (Boolean) -> Unit,
+            progress: ShimmerWrapper,
         ) {
             content.visibility = contentVisibility
             button.visibility = buttonVisibility
             errorView.visibility = errorVisibility
-            progress(progressVisible)
+            progress.show(progressVisible, progressVisible)
         }
     }
 
@@ -39,7 +40,7 @@ sealed class State {
             content: View,
             button: MessageButton,
             errorView: TextView,
-            progress: (Boolean) -> Unit,
+            progress: ShimmerWrapper,
         ) {
             super.show(content, button, errorView, progress)
             button.setClickedStyle()

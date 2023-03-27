@@ -35,19 +35,23 @@
             <TextView
                 android:id="@+id/error_view"
                 style="@style/ErrorMessageView"
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:layout_marginHorizontal="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
                 android:text="@string/error_general"
-                android:layout_gravity="center" />
+                android:visibility="gone"
+                tools:visibility="visible" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/weather_add_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="41dp" />
+
+            <include
+                android:id="@+id/placeholder"
+                layout="@layout/placeholder_weather" />
         </FrameLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
