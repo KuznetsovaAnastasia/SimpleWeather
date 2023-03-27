@@ -48,11 +48,15 @@ class FavoritesViewModel @Inject constructor(
 
     fun refresh(isFavoritesEmpty: Boolean, hideRefreshing: () -> Unit) {
         if (isFavoritesEmpty) requestPermissions().also { hideRefreshing() }
-        else viewModelScope.launch(Dispatchers.IO) {
-            interactor.refreshFavorites()
-            withContext(Dispatchers.Main) {
-                updateChanges()
-                hideRefreshing()
+        else {
+            stateCommunication.show(FavoritesState.Progress)
+            viewModelScope.launch(Dispatchers.IO) {
+                interactor.refreshFavorites()
+                withContext(Dispatchers.Main) {
+                    updateChanges()
+                    hideRefreshing()
+                    stateCommunication.show(FavoritesState.Base)
+                }
             }
         }
     }

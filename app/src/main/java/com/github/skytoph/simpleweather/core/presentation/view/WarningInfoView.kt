@@ -3,9 +3,12 @@ package com.github.skytoph.simpleweather.core.presentation.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
+import androidx.transition.TransitionManager
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.presentation.weather.model.WarningUi
+
 
 class WarningInfoView : WarningView {
 
@@ -25,6 +28,8 @@ class WarningInfoView : WarningView {
     private var warningText: TextView
     private var descriptionText: TextView
 
+    private var collapsed = true
+
     init {
         inflate(R.layout.view_warning)
 
@@ -34,10 +39,22 @@ class WarningInfoView : WarningView {
         expTimeLabel = findViewById(R.id.warning_exp_time_title)
         warningText = findViewById(R.id.warning_text)
         descriptionText = findViewById(R.id.warning_description)
+
+        descriptionText.maxLines = DESCRIPTION_MAX_LINES
+
+        setOnClickListener {
+            descriptionText.maxLines = if (collapsed) Integer.MAX_VALUE else DESCRIPTION_MAX_LINES
+            TransitionManager.beginDelayedTransition(this as ViewGroup)
+            collapsed = !collapsed
+        }
     }
 
     override fun show(warning: WarningUi) {
         visibility = View.VISIBLE
         warning.show(warningText, descriptionText, expTimeText, expTimeLabel)
+    }
+
+    private companion object {
+        const val DESCRIPTION_MAX_LINES = 2
     }
 }
