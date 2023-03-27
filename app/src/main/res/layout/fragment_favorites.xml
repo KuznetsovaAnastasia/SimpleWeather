@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper
+        android:id="@+id/shimmer_favorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -25,5 +26,5 @@
             android:visibility="gone"
             android:text="@string/error_no_cached_data"
             tools:visibility="visible" />
-    </FrameLayout>
+    </com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

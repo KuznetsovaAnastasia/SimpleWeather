@@ -2,29 +2,17 @@ package com.github.skytoph.simpleweather.presentation.favorites
 
 import android.view.MenuItem
 import android.view.View
-import android.widget.ProgressBar
 import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentManager
 import com.github.skytoph.simpleweather.R
+import com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper
 
 sealed class FavoritesState : ShowFavorites() {
-    override fun show(
-        errorView: View,
-        fragmentManager: FragmentManager,
-        contentMenuItem: MenuItem,
-        progress: ProgressBar,
-        vararg content: View,
-        requestPermission: () -> Unit,
-    ) {
-        show(requestPermission)
-        show(progress)
-        show(fragmentManager)
-        show(errorView, contentMenuItem, *content)
-    }
 
     abstract class Abstract(
         private val contentVisibility: Int,
         private val errorViewVisibility: Int,
+        private val isProgressVisible: Boolean,
     ) : FavoritesState() {
 
         override fun show(
@@ -36,13 +24,15 @@ sealed class FavoritesState : ShowFavorites() {
             contentMenuItem.isVisible = contentVisibility == View.VISIBLE
             errorView.visibility = errorViewVisibility
         }
+
+        override fun show(progress: ShimmerWrapper) = progress.show(isProgressVisible)
     }
 
-    object Base : Abstract(View.VISIBLE, View.GONE)
+    object Hidden : Abstract(View.GONE, View.GONE, true)
 
-    object Hidden : Abstract(View.GONE, View.GONE)
+    object Base : Abstract(View.VISIBLE, View.GONE, false)
 
-    object Empty : Abstract(View.GONE, View.VISIBLE)
+    object Empty : Abstract(View.GONE, View.VISIBLE, false)
 
     object RequestPermission : FavoritesState() {
         override fun show(requestPermission: () -> Unit) {
@@ -50,10 +40,8 @@ sealed class FavoritesState : ShowFavorites() {
         }
     }
 
-    class Progress(private val show: Boolean) : FavoritesState() {
-        override fun show(progress: ProgressBar) {
-            progress.visibility = if (show) View.VISIBLE else View.INVISIBLE
-        }
+    object Progress : FavoritesState() {
+        override fun show(progress: ShimmerWrapper) = progress.show(true)
     }
 
     abstract class Dialog(

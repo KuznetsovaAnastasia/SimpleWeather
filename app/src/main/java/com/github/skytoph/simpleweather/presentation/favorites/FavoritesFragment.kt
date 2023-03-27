@@ -17,6 +17,7 @@ import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
 import androidx.viewpager2.widget.ViewPager2
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentFavoritesBinding
@@ -65,7 +66,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
                     binding.errorView,
                     parentFragmentManager,
                     deleteMenuItem,
-                    activity.findViewById(R.id.toolbar_progress_bar),
+                    binding.shimmerFavorites,
                     tabLayout
                 ) {
                     if (locationPermissionGranted()) viewModel.saveCurrentLocation()

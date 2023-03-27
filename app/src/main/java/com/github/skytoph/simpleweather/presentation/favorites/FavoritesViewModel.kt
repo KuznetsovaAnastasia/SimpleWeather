@@ -30,12 +30,11 @@ class FavoritesViewModel @Inject constructor(
     }
 
     private fun refreshAndShow(favorites: List<String>) {
-        stateCommunication.show(FavoritesState.Progress(true), FavoritesState.Hidden)
+        stateCommunication.show(FavoritesState.Hidden)
         viewModelScope.launch(Dispatchers.IO) {
             interactor.refreshFavorites(true)
             withContext(Dispatchers.Main) {
                 communication.show(favorites)
-                showProgress(false)
                 updateChanges()
             }
         }
@@ -47,15 +46,13 @@ class FavoritesViewModel @Inject constructor(
 
     private fun refreshFavorites() = communication.show(interactor.favoriteIDs())
 
-    private fun showProgress(show: Boolean) = stateCommunication.show(FavoritesState.Progress(show))
-
-    fun refresh(isFavoritesEmpty: Boolean, hideProgress: () -> Unit) {
-        if (isFavoritesEmpty) requestPermissions().also { hideProgress() }
+    fun refresh(isFavoritesEmpty: Boolean, hideRefreshing: () -> Unit) {
+        if (isFavoritesEmpty) requestPermissions().also { hideRefreshing() }
         else viewModelScope.launch(Dispatchers.IO) {
             interactor.refreshFavorites()
             withContext(Dispatchers.Main) {
                 updateChanges()
-                hideProgress()
+                hideRefreshing()
             }
         }
     }
@@ -91,11 +88,10 @@ class FavoritesViewModel @Inject constructor(
     }
 
     fun saveCurrentLocation() {
-        showProgress(true)
+        stateCommunication.show(FavoritesState.Progress)
         viewModelScope.launch(Dispatchers.IO) {
             interactor.saveCurrentLocation()
             withContext(Dispatchers.Main) {
-                showProgress(false)
                 refreshFavorites()
             }
         }
