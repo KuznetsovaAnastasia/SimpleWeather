@@ -8,18 +8,18 @@ import com.github.skytoph.simpleweather.data.location.cloud.LocationCloudDataSou
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.identifier.IdentifierDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.model.identifier.IdentifierDB
 import com.github.skytoph.simpleweather.domain.weather.RefreshLocation
-import com.github.skytoph.simpleweather.domain.weather.SaveState
+import com.github.skytoph.simpleweather.domain.weather.SaveStateRefreshed
 
 data class IdentifierData(
     private val id: String,
     private val placeId: String,
     private val favorite: Boolean,
     private val priority: Int = 0,
-) : SaveState, IdMapper.MappableToCoordinates,
+) : SaveStateRefreshed, IdMapper.MappableToCoordinates,
     MappableToDB.Base<IdentifierDB, IdentifierDBMapper>,
     MappableTo<String> {
 
-    override fun saveState(refreshLocation: RefreshLocation.SaveRefreshed) =
+    override fun saveStateRefreshed(refreshLocation: RefreshLocation.SaveRefreshed) =
         refreshLocation.locationRefreshed(id)
 
     override fun map(mapper: IdMapper): Pair<Double, Double> = mapper.map(id)

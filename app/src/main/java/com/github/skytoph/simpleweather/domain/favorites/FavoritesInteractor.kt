@@ -43,20 +43,21 @@ interface FavoritesInteractor {
             }
         }
 
-        override suspend fun refreshLocations(ids: List<String>, applyChanges: suspend () -> Unit) =
+        override suspend fun refreshLocations(ids: List<String>, applyChanges: suspend () -> Unit) {
             try {
                 var locationUpdated = false
                 ids.forEach { id ->
                     if (refreshLocation.intentionSaved(id))
                         repository.updateLocationName(id).also {
-                            it.saveState(refreshLocation)
-                            locationUpdated = locationUpdated || true
+                            it.saveStateRefreshed(refreshLocation)
+                            locationUpdated = true
                         }
                 }
-                if (locationUpdated) applyChanges() else Unit
+                if (locationUpdated) applyChanges()
             } catch (exception: Exception) {
                 errorHandler.handle(exception)
             }
+        }
 
         override fun saveRefreshLocationIntention() = favoriteIDs().forEach {
             refreshLocation.saveIntention(it)

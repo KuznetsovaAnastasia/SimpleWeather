@@ -12,7 +12,7 @@ import com.github.skytoph.simpleweather.data.weather.model.identifier.Identifier
 import com.github.skytoph.simpleweather.data.weather.model.time.ForecastTimeData
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeather
 import com.github.skytoph.simpleweather.domain.weather.RefreshLocation
-import com.github.skytoph.simpleweather.domain.weather.SaveState
+import com.github.skytoph.simpleweather.domain.weather.SaveStateRefreshed
 import com.github.skytoph.simpleweather.domain.weather.mapper.DataUpdatedLatelyCriteria
 import com.github.skytoph.simpleweather.domain.weather.mapper.CompareTimeWithCurrent
 import com.github.skytoph.simpleweather.domain.weather.mapper.CurrentTimeComparable
@@ -25,12 +25,12 @@ data class WeatherData(
 ) : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
     MappableToDB.Base<WeatherDB, WeatherDataDBMapper>,
     Item<WeatherData, IdentifierData>,
-    SaveState,
+    SaveStateRefreshed,
     IdMapper.MappableToCoordinates,
     CurrentTimeComparable {
 
-    override fun saveState(refreshLocation: RefreshLocation.SaveRefreshed) =
-        identifier.saveState(refreshLocation)
+    override fun saveStateRefreshed(refreshLocation: RefreshLocation.SaveRefreshed) =
+        identifier.saveStateRefreshed(refreshLocation)
 
     override fun map(mapper: WeatherDataToDomainMapper): WeatherDomain =
         mapper.map(identifier, time, content)
