@@ -4,9 +4,9 @@ import com.github.skytoph.simpleweather.core.presentation.communication.Communic
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
-interface FavoritesStateCommunication : Communication.MultipleMutable<FavoritesState> {
+interface FavoritesStateCommunication : Communication.Mutable<FavoritesState> {
 
     @ViewModelScoped
-    class Base @Inject constructor() : Communication.MultipleUiUpdates<FavoritesState>(),
+    class Base @Inject constructor() : Communication.SingleUiUpdate<FavoritesState>(),
         FavoritesStateCommunication
 }

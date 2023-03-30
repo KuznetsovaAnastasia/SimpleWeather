@@ -6,6 +6,7 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentManager
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper
+import com.google.android.material.tabs.TabLayout
 
 sealed class FavoritesState : ShowFavorites() {
 
@@ -18,9 +19,9 @@ sealed class FavoritesState : ShowFavorites() {
         override fun show(
             errorView: View,
             contentMenuItem: MenuItem,
-            vararg content: View,
+            tabLayout: TabLayout,
         ) {
-            content.forEach { it.visibility = contentVisibility }
+            tabLayout.visibility = contentVisibility
             contentMenuItem.isVisible = contentVisibility == View.VISIBLE
             errorView.visibility = errorViewVisibility
         }
@@ -28,11 +29,17 @@ sealed class FavoritesState : ShowFavorites() {
         override fun show(progress: ShimmerWrapper) = progress.show(isProgressVisible)
     }
 
-    object Hidden : Abstract(View.GONE, View.GONE, true)
+    class Base(private val favorites: List<String>) : Abstract(View.VISIBLE, View.GONE, false) {
+        override fun show(submitFavorites: (List<String>) -> Unit) {
+            submitFavorites(favorites)
+        }
+    }
 
-    object Base : Abstract(View.VISIBLE, View.GONE, false)
-
-    object Empty : Abstract(View.GONE, View.VISIBLE, false)
+    object Empty : Abstract(View.GONE, View.VISIBLE, false) {
+        override fun show(submitFavorites: (List<String>) -> Unit) {
+            submitFavorites(emptyList())
+        }
+    }
 
     object RequestPermission : FavoritesState() {
         override fun show(requestPermission: () -> Unit) {
@@ -40,8 +47,8 @@ sealed class FavoritesState : ShowFavorites() {
         }
     }
 
-    object Progress : FavoritesState() {
-        override fun show(progress: ShimmerWrapper) = progress.show(true)
+    class Progress(private val visible: Boolean = false) : FavoritesState() {
+        override fun show(progress: ShimmerWrapper) = progress.show(visible)
     }
 
     abstract class Dialog(

@@ -17,7 +17,6 @@ import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
 import androidx.viewpager2.widget.ViewPager2
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentFavoritesBinding
@@ -35,22 +34,15 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
 
-    private lateinit var request: ActivityResultLauncher<Array<String>>
+    private val request: ActivityResultLauncher<Array<String>> by lazy {
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true)
+                viewModel.saveCurrentLocation()
+        }
+    }
 
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentFavoritesBinding
         get() = FragmentFavoritesBinding::inflate
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .registerOnSharedPreferenceChangeListener(this)
-        request =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                if (permissions.get(Manifest.permission.ACCESS_FINE_LOCATION) == true)
-                    viewModel.saveCurrentLocation()
-                else viewModel.showEmptyState()
-            }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,19 +52,16 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         val deleteMenuItem =
             activity.findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_delete)
 
-        viewModel.observeState(viewLifecycleOwner) { stateList ->
-            stateList.forEach { state ->
-                state.show(
-                    binding.errorView,
-                    parentFragmentManager,
-                    deleteMenuItem,
-                    binding.shimmerFavorites,
-                    tabLayout
-                ) {
-                    if (locationPermissionGranted()) viewModel.saveCurrentLocation()
-                    else request.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
-                }
-            }
+        viewModel.observeState(viewLifecycleOwner) { state ->
+            state.show(
+                binding.errorView,
+                parentFragmentManager,
+                deleteMenuItem,
+                binding.shimmerFavorites,
+                tabLayout,
+                requestPermission = ::requestLocation,
+                submitFavorites = { adapter.submitList(it) }
+            )
         }
 
         viewModel.initialize(savedInstanceState == null) { favorites ->
@@ -96,28 +85,38 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
             }
         }
 
-        viewModel.observe(this) { favorites ->
-            adapter.submitList(favorites)
-            viewModel.updateState(favorites.isEmpty())
-        }
-
         viewPager.doOnPreDraw { viewPager.setCurrentItem(viewModel.savedPage(), false) }
     }
 
-    override fun onResume() {
-        viewModel.updateChanges()
-        super.onResume()
+    private fun requestLocation() {
+        val permission = ContextCompat.checkSelfPermission(
+            requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+        if (permission == PackageManager.PERMISSION_GRANTED) viewModel.saveCurrentLocation()
+        else request.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
     }
 
-    override fun onPause() {
-        viewModel.saveCurrentPage(viewPager.currentItem)
-        super.onPause()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onDestroy() {
         PreferenceManager.getDefaultSharedPreferences(context)
             .unregisterOnSharedPreferenceChangeListener(this)
         super.onDestroy()
+    }
+
+    override fun onResume() {
+        viewModel.refreshFavorites()
+        viewModel.updateWeatherContent()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        viewModel.saveCurrentPage(viewPager.currentItem)
+        super.onPause()
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) =
@@ -130,12 +129,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
                 viewModel.updateLocations()
             }
             resources.getString(R.string.key_units), resources.getString(R.string.key_time) ->
-                viewModel.updateChanges()
+                viewModel.updateWeatherContent()
             else -> Unit
         }
-
-    private fun locationPermissionGranted() = ContextCompat.checkSelfPermission(
-        requireContext(),
-        Manifest.permission.ACCESS_COARSE_LOCATION
-    ) == PackageManager.PERMISSION_GRANTED
 }

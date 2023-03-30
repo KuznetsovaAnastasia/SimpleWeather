@@ -14,54 +14,46 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
     private val interactor: FavoritesInteractor,
-    private val communication: FavoritesCommunication,
-    private val refreshCommunication: RefreshCommunication.Update,
     private val stateCommunication: FavoritesStateCommunication,
+    private val refreshCommunication: RefreshCommunication.Update,
 ) : ViewModel() {
+
+    init {
+        if (interactor.favoriteIDs().isEmpty()) requestPermissions()
+    }
 
     fun initialize(firstCreated: Boolean, submitFavorites: (List<String>) -> Unit) {
         val favorites = interactor.favoriteIDs().also { submitFavorites(it) }
-        when {
-            !firstCreated -> refreshLocations(favorites)
-            favorites.isEmpty() ->
-                stateCommunication.show(FavoritesState.Empty, addCurrentLocationState())
-            else -> refreshAndShow(favorites)
-        }
-    }
-
-    private fun refreshAndShow(favorites: List<String>) {
-        stateCommunication.show(FavoritesState.Hidden)
-        viewModelScope.launch(Dispatchers.IO) {
-            interactor.refreshFavorites(true)
-            withContext(Dispatchers.Main) {
-                communication.show(favorites)
-                updateChanges()
-            }
-        }
+        if (!firstCreated) refreshLocations(favorites)
     }
 
     private fun refreshLocations(favorites: List<String>) = viewModelScope.launch(Dispatchers.IO) {
-        interactor.refreshLocations(favorites) { withContext(Dispatchers.Main) { updateChanges() } }
+        interactor.refreshLocations(favorites) { withContext(Dispatchers.Main) { updateWeatherContent() } }
     }
 
-    private fun refreshFavorites() = communication.show(interactor.favoriteIDs())
+    fun refreshFavorites(ids: List<String>? = null) {
+        val favorites = ids ?: interactor.favoriteIDs()
+        val state =
+            if (favorites.isEmpty()) FavoritesState.Empty else FavoritesState.Base(favorites)
+        stateCommunication.show(state)
+    }
 
     fun refresh(isFavoritesEmpty: Boolean, hideRefreshing: () -> Unit) {
         if (isFavoritesEmpty) requestPermissions().also { hideRefreshing() }
         else {
-            stateCommunication.show(FavoritesState.Progress)
+            stateCommunication.show(FavoritesState.Progress(true))
             viewModelScope.launch(Dispatchers.IO) {
                 interactor.refreshFavorites()
                 withContext(Dispatchers.Main) {
-                    updateChanges()
+                    stateCommunication.show(FavoritesState.Progress(false))
+                    updateWeatherContent()
                     hideRefreshing()
-                    stateCommunication.show(FavoritesState.Base)
                 }
             }
         }
     }
 
-    fun updateChanges() = refreshCommunication.show(true)
+    fun updateWeatherContent() = refreshCommunication.show(true)
 
     fun delete(id: String) = stateCommunication.show(FavoritesState.Delete {
         viewModelScope.launch(Dispatchers.IO) {
@@ -70,29 +62,15 @@ class FavoritesViewModel @Inject constructor(
         }
     })
 
-    fun observe(owner: LifecycleOwner, observer: Observer<List<String>>) =
-        communication.observe(owner, observer)
-
-    fun observeState(owner: LifecycleOwner, observer: Observer<List<FavoritesState>>) =
+    fun observeState(owner: LifecycleOwner, observer: Observer<FavoritesState>) =
         stateCommunication.observe(owner, observer)
 
-    fun updateState(isFavoritesEmpty: Boolean) {
-        if (isFavoritesEmpty) showEmptyState()
-        else stateCommunication.show(FavoritesState.Base)
-    }
-
-    private fun requestPermissions() = stateCommunication.show(addCurrentLocationState())
-
-    private fun addCurrentLocationState() = FavoritesState.AddCurrentLocation {
+    private fun requestPermissions() = stateCommunication.show(FavoritesState.AddCurrentLocation {
         stateCommunication.show(FavoritesState.RequestPermission)
-    }
-
-    fun showEmptyState() {
-        stateCommunication.show(FavoritesState.Empty)
-    }
+    })
 
     fun saveCurrentLocation() {
-        stateCommunication.show(FavoritesState.Progress)
+        stateCommunication.show(FavoritesState.Progress(true))
         viewModelScope.launch(Dispatchers.IO) {
             interactor.saveCurrentLocation()
             withContext(Dispatchers.Main) {
