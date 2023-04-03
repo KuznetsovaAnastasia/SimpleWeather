@@ -19,7 +19,7 @@ class FavoritesViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-        if (interactor.favoriteIDs().isEmpty()) requestPermissions()
+        refresh(interactor.favoriteIDs().isEmpty())
     }
 
     fun initialize(firstCreated: Boolean, submitFavorites: (List<String>) -> Unit) {
@@ -38,7 +38,7 @@ class FavoritesViewModel @Inject constructor(
         stateCommunication.show(state)
     }
 
-    fun refresh(isFavoritesEmpty: Boolean, hideRefreshing: () -> Unit) {
+    fun refresh(isFavoritesEmpty: Boolean, hideRefreshing: () -> Unit = {}) {
         if (isFavoritesEmpty) requestPermissions().also { hideRefreshing() }
         else {
             stateCommunication.show(FavoritesState.Progress(true))

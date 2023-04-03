@@ -1,10 +1,7 @@
 package com.github.skytoph.simpleweather.domain.weather.model
 
 import com.github.skytoph.simpleweather.core.Mappable
-import com.github.skytoph.simpleweather.domain.weather.mapper.DailyForecastToUiMapper
-import com.github.skytoph.simpleweather.domain.weather.mapper.ForecastListUiMapper
-import com.github.skytoph.simpleweather.domain.weather.mapper.HourlyForecastToUiMapper
-import com.github.skytoph.simpleweather.domain.weather.mapper.WarningDomainToUiMapper
+import com.github.skytoph.simpleweather.domain.weather.mapper.*
 import com.github.skytoph.simpleweather.presentation.weather.model.ForecastUi
 import com.github.skytoph.simpleweather.presentation.weather.model.ListUi
 import com.github.skytoph.simpleweather.presentation.weather.model.WarningUi
@@ -27,10 +24,16 @@ data class WarningDomain(
     private val started: Boolean,
     private val precipitationProb: Double,
     private val description: String,
-) : Mappable<WarningUi, WarningDomainToUiMapper> {
+) : MappableToWarningUi {
 
-    override fun map(mapper: WarningDomainToUiMapper): WarningUi =
+    override fun map(mapper: WarningDomainToUiMapper): WarningUi.Basic =
+        mapper.map(event, time, started, description)
+
+    override fun map(mapper: WarningRainDomainToUiMapper): WarningUi.Rain =
         mapper.map(event, time, started, precipitationProb, description)
+
+    fun containsRain(): Boolean =
+        event.contains("rain", true).or(event.contains("thunderstorm", true))
 }
 
 data class HourlyDomain(

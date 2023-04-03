@@ -14,7 +14,9 @@ import com.github.skytoph.simpleweather.presentation.weather.model.WarningUi
 import javax.inject.Inject
 
 class WarningAdapter @Inject constructor() :
-    ListAdapter<WarningUi, WarningAdapter.WarningViewHolder<out WarningView>>(WarningItemDiffCallback()) {
+    ListAdapter<WarningUi, WarningAdapter.WarningViewHolder<out WarningView>>(
+        WarningItemDiffCallback()
+    ) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -22,19 +24,22 @@ class WarningAdapter @Inject constructor() :
     ): WarningViewHolder<out WarningView> =
         when (viewType) {
             WarningType.RAINY.ordinal ->
-                WarningViewHolder<WarningRainView>(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.warning_rain_item, parent, false))
+                WarningViewHolder<WarningRainView>(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.warning_rain_item, parent, false)
+                )
             else ->
-                WarningViewHolder<WarningInfoView>(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.warning_item, parent, false))
+                WarningViewHolder<WarningInfoView>(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.warning_item, parent, false)
+                )
         }
 
     override fun onBindViewHolder(holder: WarningViewHolder<out WarningView>, position: Int) =
         holder.bind(getItem(position))
 
     override fun getItemViewType(position: Int): Int =
-        if (getItem(position) is WarningUi.Rain && position == 0)
-            WarningType.RAINY.ordinal
+        if (getItem(position) is WarningUi.Rain) WarningType.RAINY.ordinal
         else WarningType.BASIC.ordinal
 
     class WarningViewHolder<V : WarningView>(itemView: View) : RecyclerView.ViewHolder(itemView) {

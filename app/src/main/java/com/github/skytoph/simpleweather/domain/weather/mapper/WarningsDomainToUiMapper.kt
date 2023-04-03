@@ -9,11 +9,17 @@ interface WarningsDomainToUiMapper : Mapper<List<WarningUi>> {
 
     fun map(warnings: List<WarningDomain>): List<WarningUi>
 
-    class Base @Inject constructor(private val mapper: WarningDomainToUiMapper) : WarningsDomainToUiMapper {
+    class Base @Inject constructor(
+        private val mapper: WarningDomainToUiMapper,
+        private val mapperRain: WarningRainDomainToUiMapper
+    ) : WarningsDomainToUiMapper {
 
-        override fun map(warnings: List<WarningDomain>): List<WarningUi> =
-            warnings.map { it.map(mapper) }.filter { it.isDescribed() }.distinct()
-
+        override fun map(warnings: List<WarningDomain>): List<WarningUi> = warnings
+            .mapIndexed { index, warning ->
+                if (index == 0 && warning.containsRain()) warning.map(mapperRain)
+                else warning.map(mapper)
+            }
+            .filter { it.isDescribed() }
+            .distinct()
     }
-
 }
