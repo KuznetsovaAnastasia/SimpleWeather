@@ -31,11 +31,16 @@ class AddLocationFragment : BaseFragment<AddLocationViewModel, FragmentAddLocati
         val favorite = requireArguments().getBoolean(FAVORITE_KEY)
         viewModel.observe(this) { state ->
             binding.apply {
-                state.show(weatherAddContainer, button, errorView, binding.placeholder.placeholderShimmer)
+                state.show(
+                    weatherAddContainer,
+                    button,
+                    errorView,
+                    binding.placeholder.placeholderShimmer
+                )
             }
         }
         if (!favorite) button.setOnClickListener {
-            viewModel.saveWeather()
+            viewModel.saveWeather { button.setClickedStyle() }
         }
     }
 

@@ -9,6 +9,7 @@ import com.github.skytoph.simpleweather.domain.addlocation.AddLocationInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +18,6 @@ class AddLocationViewModel @Inject constructor(
     private val interactor: AddLocationInteractor,
     private val navigator: AddLocationNavigator,
     private val loadingCommunication: LoadingCommunication.Observe,
-    private val progressCommunication: ProgressCommunication.Update,
     private val stateMapper: StateMapper<Loading, State>,
 ) : ViewModel() {
 
@@ -27,8 +27,12 @@ class AddLocationViewModel @Inject constructor(
     fun showWeather(fragmentManager: FragmentManager, @IdRes container: Int) =
         navigator.showWeather(fragmentManager, container, placeId, favorite)
 
-    fun saveWeather() = viewModelScope.launch(Dispatchers.IO) {
-        interactor.save()
+    fun saveWeather(successCallback: () -> Unit) = viewModelScope.launch(Dispatchers.IO) {
+        interactor.save {
+            withContext(Dispatchers.Main) {
+                successCallback()
+            }
+        }
     }
 
     fun observe(owner: LifecycleOwner, observer: Observer<State>) {
@@ -37,8 +41,6 @@ class AddLocationViewModel @Inject constructor(
             observer.onChanged(stateMapper.map(it))
         }
     }
-
-    fun showProgress(show: Boolean) = progressCommunication.show(show)
 
     companion object {
         const val PLACE_ID_KEY = "placeId"

@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.domain.weather
 
+import com.github.skytoph.simpleweather.core.exception.FavoritesLimitException
 import com.github.skytoph.simpleweather.data.weather.WeatherCache
 import com.github.skytoph.simpleweather.data.weather.cache.WeatherCacheDataSource
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
@@ -33,6 +34,10 @@ class BaseWeatherRepository @Inject constructor(
 
     override suspend fun updateLocationName(id: String): WeatherData =
         getCachedWeather(id).updateLocation(cloudDataSource).also { it.save(cacheDataSource) }
+
+    override suspend fun checkReachingLimit(limit: Int) {
+        if (cachedIDs().size >= limit) throw FavoritesLimitException(limit)
+    }
 
     override suspend fun saveWeather() = cachedWeather.save(cacheDataSource)
 

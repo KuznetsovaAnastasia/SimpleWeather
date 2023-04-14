@@ -11,6 +11,7 @@ interface WeatherRepository {
 
     interface Save {
         suspend fun saveWeather()
+        suspend fun checkReachingLimit(limit: Int)
     }
 
     interface Contains {
