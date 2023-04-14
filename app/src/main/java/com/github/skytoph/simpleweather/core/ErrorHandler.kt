@@ -12,7 +12,7 @@ interface ErrorHandler {
         Mapper.UiAbstract<UiMessage>(), ErrorHandler {
 
         override fun handle(e: Exception) =
-            errorCommunication.show(UiMessage.SnackbarIndefinite(messageRes(e)))
+            errorCommunication.show(UiMessage.SnackbarShort(messageRes(e)))
                 .also { Log.e("ErrorTag", e.toString() + "\n" + e.stackTraceToString()) }
     }
 }

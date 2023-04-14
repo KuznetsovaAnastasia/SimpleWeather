@@ -33,6 +33,7 @@
     <string name="error_no_results">Не вдалось знайти локацію</string>
     <string name="error_location_is_not_saved">Ці данні було видалено</string>
     <string name="error_can_not_update_location">Не вдалось оновити назву локації</string>
+    <string name="error_favorites_limit">Не вдалось зберегти локацію, кількість збережених локацій досягла ліміту</string>
 
     <string name="delete_location">Ви дійсно хочете видалити цю локацію зі списку збережених?</string>
     <string name="dismiss">Скасувати</string>

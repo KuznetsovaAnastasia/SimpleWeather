@@ -29,3 +29,8 @@ class CanNotUpdateLocationException : Exception() {
     override val message: String
         get() = "can't update location after language change"
 }
+
+class FavoritesLimitException(private val limit: Int) : Exception() {
+    override val message: String
+        get() = "the number of favorite locations has reached the limit of $limit"
+}

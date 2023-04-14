@@ -4,13 +4,11 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.view.View.OnClickListener
 import androidx.core.content.res.ResourcesCompat
 import com.github.skytoph.simpleweather.R
 import com.google.android.material.button.MaterialButton
 
 class MessageButton : MaterialButton {
-    private var listener = OnClickListener {}
     private var clickedDrawable: Drawable? = null
     private var clickedText: String = ""
     private var clickedColor: ColorStateList? = null
@@ -47,17 +45,6 @@ class MessageButton : MaterialButton {
                 recycle()
             }
         }
-    }
-
-    init {
-        super.setOnClickListener { view ->
-            listener.onClick(view)
-            setClickedStyle()
-        }
-    }
-
-    override fun setOnClickListener(l: OnClickListener?) {
-        l?.let { listener = l }
     }
 
     fun setClickedStyle() {
