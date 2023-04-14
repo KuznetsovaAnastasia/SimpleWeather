@@ -12,6 +12,7 @@ class ShimmerWrapper @JvmOverloads constructor(
     fun show(loadingVisible: Boolean, layoutVisible: Boolean = true) {
         if (loadingVisible) {
             showShimmer(true)
+            startShimmer()
         } else {
             stopShimmer()
             hideShimmer()
