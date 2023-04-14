@@ -28,8 +28,6 @@ class WarningInfoView : WarningView {
     private var warningText: TextView
     private var descriptionText: TextView
 
-    private var collapsed = true
-
     init {
         inflate(R.layout.view_warning)
 
@@ -43,15 +41,15 @@ class WarningInfoView : WarningView {
         descriptionText.maxLines = DESCRIPTION_MAX_LINES
 
         setOnClickListener {
-            descriptionText.maxLines = if (collapsed) Integer.MAX_VALUE else DESCRIPTION_MAX_LINES
+            descriptionText.maxLines =
+                if (descriptionText.maxLines == DESCRIPTION_MAX_LINES) Integer.MAX_VALUE else DESCRIPTION_MAX_LINES
             TransitionManager.beginDelayedTransition(this as ViewGroup)
-            collapsed = !collapsed
         }
     }
 
     override fun show(warning: WarningUi) {
-        visibility = View.VISIBLE
         warning.show(warningText, descriptionText, expTimeText, expTimeLabel)
+        descriptionText.maxLines = DESCRIPTION_MAX_LINES
     }
 
     private companion object {
