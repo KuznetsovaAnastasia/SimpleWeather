@@ -34,12 +34,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
 
-    private val request: ActivityResultLauncher<Array<String>> by lazy {
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true)
-                viewModel.saveCurrentLocation()
-        }
-    }
+    private lateinit var request: ActivityResultLauncher<Array<String>>
 
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentFavoritesBinding
         get() = FragmentFavoritesBinding::inflate
@@ -100,6 +95,10 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         super.onCreate(savedInstanceState)
         PreferenceManager.getDefaultSharedPreferences(context)
             .registerOnSharedPreferenceChangeListener(this)
+        request = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true)
+                viewModel.saveCurrentLocation()
+        }
     }
 
     override fun onDestroy() {
