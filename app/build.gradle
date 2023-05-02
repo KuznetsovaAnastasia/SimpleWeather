@@ -23,12 +23,27 @@ android {
         resConfigs("en", "uk")
     }
 
-    buildTypes {
+    Properties properties = new Properties()
+    properties.load(new FileInputStream(file(".signing")))
+
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            storeFile file(properties['keystore'])
+            storePassword properties['keystore.password']
+            keyAlias properties['keyAlias']
+            keyPassword properties['keyPassword']
         }
     }
+    buildTypes {
+        release {
+            debuggable true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
