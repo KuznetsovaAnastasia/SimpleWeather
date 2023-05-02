@@ -75,7 +75,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
 
         binding.refresh.setOnRefreshListener {
-            viewModel.refresh(adapter.itemCount == 0) {
+            viewModel.refresh {
                 binding.refresh.isRefreshing = false
             }
         }
