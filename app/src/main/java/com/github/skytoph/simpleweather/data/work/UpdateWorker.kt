@@ -1,7 +1,6 @@
 package com.github.skytoph.simpleweather.data.work
 
 import android.content.Context
-import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -16,15 +15,20 @@ class UpdateWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val interactor: UpdateForecastInteractor,
+    private val notification: LoadingNotification,
 ) : CoroutineWorker(appContext, workerParams) {
 
-    override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        Log.e(this::class.simpleName, "doWork: start working")
-        try {
-            interactor.updateForecasts()
-            Result.success()
-        } catch (e: Exception) {
-            Result.failure()
+    override suspend fun doWork(): Result {
+        setForeground(notification.createForegroundInfo())
+        return withContext(Dispatchers.IO) {
+            return@withContext try {
+                interactor.updateForecasts()
+                notification.cancel()
+                Result.success()
+            } catch (e: Exception) {
+                notification.cancel()
+                Result.failure()
+            }
         }
     }
 }
