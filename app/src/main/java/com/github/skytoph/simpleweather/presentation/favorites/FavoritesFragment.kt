@@ -75,7 +75,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
 
         binding.refresh.setOnRefreshListener {
-            viewModel.refresh {
+            viewModel.refresh(viewLifecycleOwner) {
                 binding.refresh.isRefreshing = false
             }
         }
@@ -95,10 +95,11 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         super.onCreate(savedInstanceState)
         PreferenceManager.getDefaultSharedPreferences(context)
             .registerOnSharedPreferenceChangeListener(this)
-        request = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true)
-                viewModel.saveCurrentLocation()
-        }
+        request =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true)
+                    viewModel.saveCurrentLocation()
+            }
     }
 
     override fun onDestroy() {

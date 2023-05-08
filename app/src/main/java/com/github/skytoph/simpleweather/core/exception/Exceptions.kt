@@ -34,3 +34,8 @@ class FavoritesLimitException(private val limit: Int) : Exception() {
     override val message: String
         get() = "the number of favorite locations has reached the limit of $limit"
 }
+
+class RefreshForecastsException : Exception() {
+    override val message: String
+        get() = "can't update forecast data"
+}

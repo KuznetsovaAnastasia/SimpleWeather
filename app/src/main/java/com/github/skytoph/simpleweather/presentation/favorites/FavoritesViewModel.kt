@@ -4,7 +4,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.WorkInfo
 import com.github.skytoph.simpleweather.domain.favorites.FavoritesInteractor
+import com.github.skytoph.simpleweather.domain.work.UpdateForecastWork
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,6 +18,7 @@ class FavoritesViewModel @Inject constructor(
     private val interactor: FavoritesInteractor,
     private val stateCommunication: FavoritesStateCommunication,
     private val refreshCommunication: RefreshCommunication.Update,
+    private val worker: UpdateForecastWork.Once,
 ) : ViewModel() {
 
     init {
@@ -38,23 +41,25 @@ class FavoritesViewModel @Inject constructor(
         stateCommunication.show(state)
     }
 
-    fun refresh(hideRefreshing: () -> Unit = {}) {
-        val isFavoritesEmpty = interactor.favoriteIDs().isEmpty()
-        if (isFavoritesEmpty) {
-            requestPermissions().also { hideRefreshing() }
-        }
-        else {
-            stateCommunication.show(FavoritesState.Progress(true))
-            viewModelScope.launch(Dispatchers.IO) {
-                interactor.refreshFavorites()
-                withContext(Dispatchers.Main) {
-                    stateCommunication.show(FavoritesState.Progress(false))
-                    updateWeatherContent()
-                    hideRefreshing()
-                }
-            }
+    fun refresh(lifecycleOwner: LifecycleOwner? = null, hideRefreshing: () -> Unit = {}) {
+        if (interactor.favoriteIDs().isEmpty()) {
+            requestPermissions()
+            hideRefreshing()
+        } else {
+            worker.scheduleWork()
+            lifecycleOwner?.let { observeUpdatingWork(lifecycleOwner, hideRefreshing) }
         }
     }
+
+    private fun observeUpdatingWork(lifecycleOwner: LifecycleOwner, hideRefreshing: () -> Unit) =
+        worker.observeWork(lifecycleOwner) { info ->
+            if (info?.state != WorkInfo.State.RUNNING)
+                hideRefreshing()
+            if (info?.state == WorkInfo.State.FAILED)
+                interactor.handleUpdatingError()
+            else if (info?.state == WorkInfo.State.SUCCEEDED)
+                updateWeatherContent()
+        }
 
     fun updateWeatherContent() = refreshCommunication.show(true)
 
@@ -68,9 +73,10 @@ class FavoritesViewModel @Inject constructor(
     fun observeState(owner: LifecycleOwner, observer: Observer<FavoritesState>) =
         stateCommunication.observe(owner, observer)
 
-    private fun requestPermissions() = stateCommunication.show(FavoritesState.AddCurrentLocation {
-        stateCommunication.show(FavoritesState.RequestPermission)
-    })
+    private fun requestPermissions() =
+        stateCommunication.show(FavoritesState.AddCurrentLocation {
+            stateCommunication.show(FavoritesState.RequestPermission)
+        })
 
     fun saveCurrentLocation() {
         stateCommunication.show(FavoritesState.Progress(true))

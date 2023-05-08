@@ -1,11 +1,11 @@
 package com.github.skytoph.simpleweather.domain.favorites
 
 import com.github.skytoph.simpleweather.core.ErrorHandler
+import com.github.skytoph.simpleweather.core.exception.RefreshForecastsException
 import com.github.skytoph.simpleweather.data.pages.PagesDataSource
 import com.github.skytoph.simpleweather.domain.search.LocationsRepository
 import com.github.skytoph.simpleweather.domain.weather.RefreshLocation
 import com.github.skytoph.simpleweather.domain.weather.WeatherRepository
-import com.github.skytoph.simpleweather.domain.weather.mapper.DataUpdatedLatelyCriteria
 import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
@@ -14,11 +14,11 @@ interface FavoritesInteractor {
     fun favoriteIDs(): List<String>
     fun saveRefreshLocationIntention()
     suspend fun removeFavorite(id: String)
-    suspend fun refreshFavorites(firstUpdate: Boolean = false)
     suspend fun refreshLocations(ids: List<String>, applyChanges: suspend () -> Unit)
     suspend fun saveCurrentLocation()
     fun savedPage(): Int
     fun savePage(position: Int)
+    fun handleUpdatingError()
 
     @ViewModelScoped
     class Base @Inject constructor(
@@ -33,15 +33,7 @@ interface FavoritesInteractor {
 
         override suspend fun removeFavorite(id: String) = repository.delete(id)
 
-        override suspend fun refreshFavorites(firstUpdate: Boolean) {
-            try {
-                val dataUpdatedLatelyCriteria =
-                    if (firstUpdate) DataUpdatedLatelyCriteria.DAYS else DataUpdatedLatelyCriteria.HOURS
-                repository.refreshAll(dataUpdatedLatelyCriteria)
-            } catch (error: Exception) {
-                errorHandler.handle(error)
-            }
-        }
+        override fun handleUpdatingError() = errorHandler.handle(RefreshForecastsException())
 
         override suspend fun refreshLocations(ids: List<String>, applyChanges: suspend () -> Unit) {
             try {
