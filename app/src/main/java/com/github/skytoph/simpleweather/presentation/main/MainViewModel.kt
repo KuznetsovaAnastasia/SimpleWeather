@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
     private val progressCommunication: ProgressCommunication.Mutable,
     private val messageCommunication: MessageCommunication.Observe,
     private val refreshCommunication: RefreshCommunication.Update,
-    private val worker: UpdateForecastWork,
+    private val worker: UpdateForecastWork.Periodically,
 ) : ViewModel() {
 
     fun showMain() = navigator.showMain(R.id.fragment_container)
@@ -34,9 +34,10 @@ class MainViewModel @Inject constructor(
     fun observeProgress(owner: LifecycleOwner, observer: Observer<Boolean>) =
         progressCommunication.observe(owner, observer)
 
-    fun scheduleUpdateForecast(owner: LifecycleOwner) =
-        worker.scheduleWork(owner) { info ->
-            when (info[0].state) {
+    fun scheduleUpdateForecast(owner: LifecycleOwner) {
+        worker.scheduleWork()
+        worker.observeWork(owner) { info ->
+            when (info?.state) {
                 WorkInfo.State.RUNNING -> progressCommunication.show(true)
                 WorkInfo.State.ENQUEUED -> {
                     progressCommunication.show(false)
@@ -44,4 +45,5 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
+    }
 }

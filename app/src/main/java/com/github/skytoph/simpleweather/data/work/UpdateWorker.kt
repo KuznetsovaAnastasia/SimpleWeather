@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.github.skytoph.simpleweather.domain.weather.mapper.UpdatedLately
 import com.github.skytoph.simpleweather.domain.work.UpdateForecastInteractor
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -22,13 +23,27 @@ class UpdateWorker @AssistedInject constructor(
         setForeground(notification.createForegroundInfo())
         return withContext(Dispatchers.IO) {
             return@withContext try {
-                interactor.updateForecasts()
+                val criteria = map(inputData.getInt(ARG_CRITERIA, CRITERIA_ANY))
+                interactor.updateForecasts(criteria)
                 notification.cancel()
                 Result.success()
             } catch (e: Exception) {
                 notification.cancel()
-                Result.failure()
+                Result.retry()
             }
         }
+    }
+
+    private fun map(input: Int): UpdatedLately = when (input) {
+        CRITERIA_DAY -> UpdatedLately.LastDay
+        CRITERIA_HOUR -> UpdatedLately.LastHour
+        else -> UpdatedLately.Anytime
+    }
+
+    companion object {
+        const val CRITERIA_ANY = 1000
+        const val CRITERIA_DAY = 1001
+        const val CRITERIA_HOUR = 1002
+        const val ARG_CRITERIA = "arg_update_criteria"
     }
 }

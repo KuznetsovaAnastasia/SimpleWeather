@@ -4,28 +4,71 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.work.*
 import com.github.skytoph.simpleweather.data.work.UpdateWorker
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 interface UpdateForecastWork {
-    fun scheduleWork(owner: LifecycleOwner, observer: Observer<List<WorkInfo>>)
+    fun scheduleWork()
+    fun observeWork(owner: LifecycleOwner, observer: Observer<WorkInfo>)
 
-    class Base(private val workManager: WorkManager) : UpdateForecastWork {
+    abstract class Abstract(protected val workManager: WorkManager) : UpdateForecastWork {
+        protected lateinit var workId: UUID
 
-        override fun scheduleWork(owner: LifecycleOwner, observer: Observer<List<WorkInfo>>) {
-            val constraints =
-                Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        override fun observeWork(owner: LifecycleOwner, observer: Observer<WorkInfo>) {
+            workManager.getWorkInfoByIdLiveData(workId).observe(owner, observer)
+        }
+    }
+
+    class Periodically(workManager: WorkManager) : Abstract(workManager) {
+
+        override fun scheduleWork() {
+            val data =
+                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, UpdateWorker.CRITERIA_DAY).build()
             val request =
                 PeriodicWorkRequestBuilder<UpdateWorker>(6, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
-                    .setConstraints(constraints)
+                    .setConstraints(
+                        Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+                    )
+                    .setBackoffCriteria(
+                        BackoffPolicy.LINEAR,
+                        PeriodicWorkRequest.MIN_BACKOFF_MILLIS,
+                        TimeUnit.MILLISECONDS
+                    )
+                    .setInputData(data)
                     .build()
-            workManager.enqueueUniquePeriodicWork(WORK_NAME,
-                ExistingPeriodicWorkPolicy.REPLACE,
-                request)
-            workManager.getWorkInfosForUniqueWorkLiveData(WORK_NAME).observe(owner, observer)
+            workManager.enqueueUniquePeriodicWork(
+                WORK_NAME, ExistingPeriodicWorkPolicy.REPLACE, request
+            )
+            workId = request.id
         }
 
         private companion object {
-            const val WORK_NAME = "update_weather_forecasts_work"
+            const val WORK_NAME = "update_weather_forecasts_periodically_work"
+        }
+    }
+
+    class Once(workManager: WorkManager) : Abstract(workManager) {
+
+        override fun scheduleWork() {
+            val data =
+                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, UpdateWorker.CRITERIA_HOUR).build()
+            val request = OneTimeWorkRequestBuilder<UpdateWorker>()
+                .setConstraints(
+                    Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+                )
+                .setBackoffCriteria(
+                    BackoffPolicy.LINEAR,
+                    OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
+                    TimeUnit.MILLISECONDS
+                )
+                .setInputData(data)
+                .build()
+            workManager.enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, request)
+            workId = request.id
+        }
+
+        private companion object {
+            const val WORK_NAME = "update_weather_forecasts_once_work"
         }
     }
 }

@@ -14,6 +14,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 object UpdateForecastWorkModule {
 
     @Provides
-    fun work(@ApplicationContext context: Context): UpdateForecastWork =
-        UpdateForecastWork.Base(WorkManager.getInstance(context))
+    fun periodically(@ApplicationContext context: Context): UpdateForecastWork.Periodically =
+        UpdateForecastWork.Periodically(WorkManager.getInstance(context))
+
+    @Provides
+    fun once(@ApplicationContext context: Context): UpdateForecastWork.Once =
+        UpdateForecastWork.Once(WorkManager.getInstance(context))
 }
