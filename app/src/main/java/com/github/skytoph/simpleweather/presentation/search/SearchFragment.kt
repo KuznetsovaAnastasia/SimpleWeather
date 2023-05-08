@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.R
@@ -30,7 +27,6 @@ class SearchFragment :
         super.onViewCreated(view, savedInstanceState)
 
         val showDetails: (id: String, title: String) -> Unit = { id, title ->
-//            hideKeyboard()
             viewModel.showDetails(childFragmentManager, R.id.fragment_container, id, title)
         }
 
@@ -57,5 +53,10 @@ class SearchFragment :
         viewModel.observe(this) { locations ->
             predictionAdapter.submitList(locations.toMutableList())
         }
+    }
+
+    override fun onResume() {
+        viewModel.refreshHistory()
+        super.onResume()
     }
 }

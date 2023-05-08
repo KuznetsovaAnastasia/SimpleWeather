@@ -42,13 +42,12 @@ class SearchPredictionViewModel @Inject constructor(
             val validId = interactor.validId(id)
             val favorite = interactor.isFavorite(validId)
             withContext(Dispatchers.Main) {
-                refreshHistory()
                 navigation.showSearchDetails(fragmentManager, container, validId, favorite)
             }
         }
     }
 
-    private fun refreshHistory() = viewModelScope.launch(Dispatchers.IO) {
+    fun refreshHistory() = viewModelScope.launch(Dispatchers.IO) {
         val history = interactor.searchHistory()
         withContext(Dispatchers.Main) {
             searchHistory.show(history)
