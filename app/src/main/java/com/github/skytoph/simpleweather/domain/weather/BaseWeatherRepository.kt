@@ -7,7 +7,7 @@ import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDat
 import com.github.skytoph.simpleweather.data.weather.cloud.WeatherCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.github.skytoph.simpleweather.domain.weather.mapper.CompareTimeWithCurrent
-import com.github.skytoph.simpleweather.domain.weather.mapper.DataUpdatedLatelyCriteria
+import com.github.skytoph.simpleweather.domain.weather.mapper.UpdatedLately
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -41,7 +41,7 @@ class BaseWeatherRepository @Inject constructor(
 
     override suspend fun saveWeather() = cachedWeather.save(cacheDataSource)
 
-    override suspend fun refreshAll(criteria: DataUpdatedLatelyCriteria) =
+    override suspend fun refreshAll(criteria: UpdatedLately) =
         cacheDataSource.readAll().map { it.map(cacheMapper) }.forEach { forecast ->
             if (!forecast.updatedLately(timeMapper, criteria)) updateAndSave(forecast)
         }

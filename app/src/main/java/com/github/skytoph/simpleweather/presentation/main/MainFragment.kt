@@ -27,7 +27,6 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentMainBinding
         get() = FragmentMainBinding::inflate
 
-    private lateinit var searchView: SearchView
     private lateinit var searchMenuItem: MenuItem
     private lateinit var menuItemExpandListener: MenuItemExpandListener
     private lateinit var toolbar: Toolbar
@@ -56,7 +55,11 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
                 override fun handleOnBackPressed() {
                     if (searchMenuItem.isActionViewExpanded && !searchView.isFocused)
                         searchMenuItem.collapseActionView()
-                    else viewModel.goBack()
+                    else {
+                        viewModel.goBack()
+                        isEnabled = false
+                        requireActivity().onBackPressedDispatcher.onBackPressed()
+                    }
                 }
             })
 
@@ -102,7 +105,6 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
         this.updatePadding(0, 0, toolbarPadding, 0)
         this.menu.hideExcept(R.id.action_search)
     }
-
 
     private fun Menu.hideExcept(id: Int) {
         forEach { item -> if (item.itemId != id) item.isVisible = false }
