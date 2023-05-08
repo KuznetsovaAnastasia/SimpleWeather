@@ -2,11 +2,7 @@ package com.github.skytoph.simpleweather.presentation.main
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -39,8 +35,8 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
 
         searchMenuItem = toolbar.menu.findItem(R.id.action_search)
 
-        searchView = searchMenuItem.actionView as SearchView
-        setupSearchView()
+        val searchView = searchMenuItem.actionView as SearchView
+        searchView.setup()
 
         menuItemExpandListener = MenuItemExpandListener(expand = {
             toolbar.hideMenu()
@@ -50,7 +46,8 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
             viewModel.goBack()
         })
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (searchMenuItem.isActionViewExpanded && !searchView.isFocused)
@@ -84,13 +81,13 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
         searchMenuItem.setOnActionExpandListener(null)
     }
 
-    private fun setupSearchView() {
-        searchView.maxWidth = Integer.MAX_VALUE
-        searchView.findViewById<View?>(R.id.search_bar)
+    private fun SearchView.setup() {
+        this.maxWidth = Integer.MAX_VALUE
+        this.findViewById<View?>(R.id.search_bar)
             ?.setBackgroundResource(R.drawable.rectangle_rounded_15)
-        searchView.findViewById<View?>(R.id.search_plate)
+        this.findViewById<View?>(R.id.search_plate)
             ?.setBackgroundColor(Color.TRANSPARENT)
-        searchView.setOnQueryTextListener(SearchQueryListener { query ->
+        this.setOnQueryTextListener(SearchQueryListener { query ->
             viewModel.getPredictions(query)
         })
     }
