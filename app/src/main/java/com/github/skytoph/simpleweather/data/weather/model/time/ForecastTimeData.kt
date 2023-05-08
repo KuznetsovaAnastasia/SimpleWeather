@@ -7,9 +7,9 @@ import com.github.skytoph.simpleweather.data.weather.cache.model.time.TimeDB
 import com.github.skytoph.simpleweather.data.weather.mapper.*
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.github.skytoph.simpleweather.data.weather.update.UpdateForecastTime
-import com.github.skytoph.simpleweather.domain.weather.mapper.DataUpdatedLatelyCriteria
 import com.github.skytoph.simpleweather.domain.weather.mapper.CompareTimeWithCurrent
 import com.github.skytoph.simpleweather.domain.weather.mapper.CurrentTimeComparable
+import com.github.skytoph.simpleweather.domain.weather.mapper.UpdatedLately
 import com.github.skytoph.simpleweather.domain.weather.model.CurrentWeatherDomain
 
 data class ForecastTimeData(
@@ -30,6 +30,6 @@ data class ForecastTimeData(
 
     fun update(mapper: UpdateForecastTime): WeatherData = mapper.update(timezoneOffset, timezone)
 
-    override fun updatedLately(mapper: CompareTimeWithCurrent, criteria: DataUpdatedLatelyCriteria): Boolean =
+    override fun updatedLately(mapper: CompareTimeWithCurrent, criteria: UpdatedLately): Boolean =
         mapper.compare(time, criteria)
 }
