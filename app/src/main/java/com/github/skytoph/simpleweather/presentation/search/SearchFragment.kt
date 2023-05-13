@@ -16,9 +16,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment :
-    BaseFragment<SearchPredictionViewModel, FragmentSearchBinding>() {
+    BaseFragment<SearchViewModel, FragmentSearchBinding>() {
 
-    override val viewModel by viewModels<SearchPredictionViewModel>()
+    override val viewModel by viewModels<SearchViewModel>()
 
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentSearchBinding
         get() = FragmentSearchBinding::inflate

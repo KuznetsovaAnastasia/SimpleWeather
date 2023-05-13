@@ -18,7 +18,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchPredictionViewModel @Inject constructor(
+class SearchViewModel @Inject constructor(
     private val searchCommunication: SearchCommunication.Observe,
     private val loadingCommunication: LoadingCommunication.Update,
     private val interactor: SearchDetailsInteractor,
