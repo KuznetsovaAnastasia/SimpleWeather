@@ -19,7 +19,7 @@ interface LoadingCommunication {
     interface Mutable : Update, Observe
 
     @Singleton
-    class Base @Inject constructor() : Communication.UiUpdate<Loading>(), Mutable {
+    class Base @Inject constructor() : Communication.SingleUiUpdate<Loading>(), Mutable {
 
         override fun <T> map(mapper: LiveDataMapper, map: (Loading) -> T): LiveData<T> =
             mapper.map(data, map)

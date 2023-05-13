@@ -29,14 +29,10 @@ class AddLocationFragment : BaseFragment<AddLocationViewModel, FragmentAddLocati
 
         val button = binding.messageButton
         val favorite = requireArguments().getBoolean(FAVORITE_KEY)
+        val shimmerView = binding.placeholder.placeholderShimmer
         viewModel.observe(this) { state ->
             binding.apply {
-                state.show(
-                    weatherAddContainer,
-                    button,
-                    errorView,
-                    binding.placeholder.placeholderShimmer
-                )
+                state.show(weatherAddContainer, button, errorView, shimmerView)
             }
         }
         if (!favorite) button.setOnClickListener {

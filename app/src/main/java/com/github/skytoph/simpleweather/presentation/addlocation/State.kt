@@ -7,10 +7,7 @@ import com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWr
 
 sealed class State {
     abstract fun show(
-        content: View,
-        button: MessageButton,
-        errorView: TextView,
-        progress: ShimmerWrapper,
+        content: View, button: MessageButton, errorView: TextView, progress: ShimmerWrapper,
     )
 
     abstract class Abstract(
@@ -20,10 +17,7 @@ sealed class State {
         private val progressVisible: Boolean,
     ) : State() {
         override fun show(
-            content: View,
-            button: MessageButton,
-            errorView: TextView,
-            progress: ShimmerWrapper,
+            content: View, button: MessageButton, errorView: TextView, progress: ShimmerWrapper,
         ) {
             content.visibility = contentVisibility
             button.visibility = buttonVisibility
@@ -32,33 +26,38 @@ sealed class State {
         }
     }
 
-    object Favorite : Abstract(contentVisibility = View.VISIBLE,
+    object Favorite : Abstract(
+        contentVisibility = View.VISIBLE,
         buttonVisibility = View.VISIBLE,
         errorVisibility = View.GONE,
-        progressVisible = false) {
+        progressVisible = false
+    ) {
         override fun show(
-            content: View,
-            button: MessageButton,
-            errorView: TextView,
-            progress: ShimmerWrapper,
+            content: View, button: MessageButton, errorView: TextView, progress: ShimmerWrapper,
         ) {
             super.show(content, button, errorView, progress)
             button.setClickedStyle()
         }
     }
 
-    object Initial : Abstract(contentVisibility = View.VISIBLE,
+    object Initial : Abstract(
+        contentVisibility = View.VISIBLE,
         buttonVisibility = View.INVISIBLE,
         errorVisibility = View.INVISIBLE,
-        progressVisible = true)
+        progressVisible = true
+    )
 
-    object Success : Abstract(contentVisibility = View.VISIBLE,
+    object Success : Abstract(
+        contentVisibility = View.VISIBLE,
         buttonVisibility = View.VISIBLE,
         errorVisibility = View.INVISIBLE,
-        progressVisible = false)
+        progressVisible = false
+    )
 
-    object Fail : Abstract(contentVisibility = View.GONE,
+    object Fail : Abstract(
+        contentVisibility = View.GONE,
         buttonVisibility = View.GONE,
         errorVisibility = View.VISIBLE,
-        progressVisible = false)
+        progressVisible = false
+    )
 }
