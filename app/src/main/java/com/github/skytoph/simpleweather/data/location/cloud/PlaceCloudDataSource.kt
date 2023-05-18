@@ -17,6 +17,7 @@ interface PlaceCloudDataSource {
 
     class Base @Inject constructor(
         private val findPlace: FindPlace,
+        private val coordinatesDataSource: PlaceCoordinatesDataSource,
         private val mapper: PlaceToCloudMapper,
         private val idMapper: IdMapper,
     ) : PlaceCloudDataSource, PlaceSearch {
@@ -30,10 +31,8 @@ interface PlaceCloudDataSource {
             )
         )
 
-        override suspend fun placeCoordinates(placeId: String): String {
-            val latLng = findPlace.find(placeId, Place.Field.LAT_LNG).latLng
-            return idMapper.map(latLng?.latitude ?: 0.0, latLng?.longitude ?: 0.0)
-        }
+        override suspend fun placeCoordinates(placeId: String): String =
+            coordinatesDataSource.find(placeId).map(idMapper)
 
         override suspend fun placeName(placeId: String): String =
             mapper.mapToName(findPlace.find(placeId, Place.Field.ADDRESS_COMPONENTS))

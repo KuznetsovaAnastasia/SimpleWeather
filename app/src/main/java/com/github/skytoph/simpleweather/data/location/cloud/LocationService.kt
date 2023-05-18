@@ -11,6 +11,5 @@ interface LocationService {
     fun getLocation(
         @Query(value = "lat", encoded = true) lat: String,
         @Query(value = "lon", encoded = true) lng: String,
-    ): Call<List<PlaceCloud>>
-
+    ): Call<List<LocationCloud>>
 }
