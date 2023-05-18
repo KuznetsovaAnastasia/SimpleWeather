@@ -3,7 +3,7 @@ package com.github.skytoph.simpleweather.data.weather.cloud.mapper
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.data.airquality.cloud.AirQualityCloud
 import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
-import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloud
+import com.github.skytoph.simpleweather.data.location.cloud.PlaceData
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.model.*
 import com.github.skytoph.simpleweather.data.weather.mapper.content.current.CurrentWeatherDataMapper
@@ -22,7 +22,7 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
     fun map(
         weatherCloud: WeatherCloud,
         airQualityCloud: AirQualityCloud,
-        locationCloud: PlaceCloud,
+        locationCloud: PlaceData,
         favorite: Boolean = false,
     ): WeatherData
 
@@ -39,7 +39,7 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
         override fun map(
             weatherCloud: WeatherCloud,
             airQualityCloud: AirQualityCloud,
-            locationCloud: PlaceCloud,
+            locationCloud: PlaceData,
             favorite: Boolean,
         ): WeatherData = weatherCloud.map(object : WeatherCloudMapper {
 

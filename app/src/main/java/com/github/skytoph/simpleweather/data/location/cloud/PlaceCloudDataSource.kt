@@ -11,7 +11,7 @@ interface PlaceCloudDataSource {
     }
 
     interface PlaceSearch : PlaceNameSearch {
-        suspend fun place(placeId: String): PlaceCloud
+        suspend fun place(placeId: String): PlaceData
         suspend fun placeCoordinates(placeId: String): String
     }
 
@@ -21,7 +21,7 @@ interface PlaceCloudDataSource {
         private val idMapper: IdMapper,
     ) : PlaceCloudDataSource, PlaceSearch {
 
-        override suspend fun place(placeId: String): PlaceCloud = mapper.map(
+        override suspend fun place(placeId: String): PlaceData = mapper.map(
             findPlace.find(
                 placeId,
                 Place.Field.ADDRESS_COMPONENTS,

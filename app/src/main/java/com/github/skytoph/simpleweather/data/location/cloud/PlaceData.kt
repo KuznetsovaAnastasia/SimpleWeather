@@ -4,16 +4,11 @@ import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.core.MappableTo
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
-import com.squareup.moshi.Json
 
-data class PlaceCloud(
-    @Json(name = "id")
+data class PlaceData(
     private val id: String,
-    @Json(name = "name")
     private val name: String,
-    @Json(name = "lat")
     private val lat: Double,
-    @Json(name = "lon")
     private val lng: Double,
 ) : IdMapper.MappableToStringId, MappableTo<String>, Mappable<WeatherData, PlaceCloudMapper> {
 
