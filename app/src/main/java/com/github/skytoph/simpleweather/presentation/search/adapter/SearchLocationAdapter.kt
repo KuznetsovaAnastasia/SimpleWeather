@@ -34,10 +34,11 @@ class SearchLocationAdapter(private val listener: LocationClickListener) :
 
         class Base(itemView: View, private val listener: LocationClickListener) :
             LocationViewHolder(itemView) {
+            private val titleTextView = itemView.findViewById<TextView>(R.id.search_item_title)
+            private val subtitleTextView =
+                itemView.findViewById<TextView>(R.id.search_item_subtitle)
 
             override fun bind(item: SearchItemUi) {
-                val titleTextView = itemView.findViewById<TextView>(R.id.search_item_title)
-                val subtitleTextView = itemView.findViewById<TextView>(R.id.search_item_subtitle)
                 item.show(titleTextView, subtitleTextView)
                 itemView.setOnClickListener {
                     item.select(listener)
