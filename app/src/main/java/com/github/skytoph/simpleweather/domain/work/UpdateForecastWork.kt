@@ -23,7 +23,8 @@ interface UpdateForecastWork {
 
         override fun scheduleWork() {
             val data =
-                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, UpdateWorker.CRITERIA_DAY).build()
+                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, UpdateWorker.CRITERIA_DAY)
+                    .putBoolean(UpdateWorker.ARG_RETRY, true).build()
             val request =
                 PeriodicWorkRequestBuilder<UpdateWorker>(6, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
                     .setConstraints(
@@ -51,7 +52,8 @@ interface UpdateForecastWork {
 
         override fun scheduleWork() {
             val data =
-                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, UpdateWorker.CRITERIA_HOUR).build()
+                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, UpdateWorker.CRITERIA_HOUR)
+                    .putBoolean(UpdateWorker.ARG_RETRY, false).build()
             val request = OneTimeWorkRequestBuilder<UpdateWorker>()
                 .setConstraints(
                     Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()

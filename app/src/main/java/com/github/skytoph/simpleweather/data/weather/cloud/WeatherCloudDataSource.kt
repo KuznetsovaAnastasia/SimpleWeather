@@ -3,7 +3,7 @@ package com.github.skytoph.simpleweather.data.weather.cloud
 import com.github.skytoph.simpleweather.core.data.UpdateItem
 import com.github.skytoph.simpleweather.data.airquality.AirQualityCloudDataSource
 import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
-import com.github.skytoph.simpleweather.data.location.cloud.LocationCloudDataSource
+import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.github.skytoph.simpleweather.data.weather.model.identifier.IdentifierData
@@ -11,12 +11,12 @@ import com.github.skytoph.simpleweather.data.weather.update.UpdateWeatherMapper
 import javax.inject.Inject
 
 interface WeatherCloudDataSource : UpdateItem<WeatherData, IdentifierData> {
-    suspend fun fetch(placeId: String): WeatherData
+    suspend fun fetch(id: String): WeatherData
 
     class Base @Inject constructor(
         private val forecastCloudDataSource: ForecastCloudDataSource,
         private val airQualityCloudDataSource: AirQualityCloudDataSource,
-        private val placeCloudDataSource: LocationCloudDataSource.PlaceSearch,
+        private val placeCloudDataSource: PlaceCloudDataSource.PlaceSearch,
         private val cloudMapper: WeatherCloudToDataMapper,
         private val updateMapper: UpdateWeatherMapper,
         private val idMapper: IdMapper,

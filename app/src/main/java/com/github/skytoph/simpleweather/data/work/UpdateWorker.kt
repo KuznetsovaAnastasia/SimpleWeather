@@ -29,7 +29,8 @@ class UpdateWorker @AssistedInject constructor(
                 Result.success()
             } catch (e: Exception) {
                 notification.cancel()
-                Result.retry()
+                val retry = inputData.getBoolean(ARG_RETRY, false)
+                if (retry) Result.retry() else Result.failure()
             }
         }
     }
@@ -45,5 +46,6 @@ class UpdateWorker @AssistedInject constructor(
         const val CRITERIA_DAY = 1001
         const val CRITERIA_HOUR = 1002
         const val ARG_CRITERIA = "arg_update_criteria"
+        const val ARG_RETRY = "arg_retry"
     }
 }
