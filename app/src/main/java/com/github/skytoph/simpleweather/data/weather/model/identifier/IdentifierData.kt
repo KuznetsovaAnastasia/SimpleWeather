@@ -4,7 +4,7 @@ import com.github.skytoph.simpleweather.core.MappableTo
 import com.github.skytoph.simpleweather.core.MappableToDB
 import com.github.skytoph.simpleweather.core.data.DataBase
 import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
-import com.github.skytoph.simpleweather.data.location.cloud.LocationCloudDataSource
+import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloudDataSource
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.identifier.IdentifierDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.model.identifier.IdentifierDB
 import com.github.skytoph.simpleweather.domain.weather.RefreshLocation
@@ -29,5 +29,5 @@ data class IdentifierData(
 
     override fun map(): String = id
 
-    suspend fun placeName(source: LocationCloudDataSource.PlaceNameSearch) = source.placeName(placeId)
+    suspend fun placeName(source: PlaceCloudDataSource.PlaceNameSearch) = source.placeName(placeId)
 }

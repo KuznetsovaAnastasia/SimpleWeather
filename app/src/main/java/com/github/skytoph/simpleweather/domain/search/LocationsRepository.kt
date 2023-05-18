@@ -2,7 +2,7 @@ package com.github.skytoph.simpleweather.domain.search
 
 import androidx.annotation.RequiresPermission
 import com.github.skytoph.simpleweather.data.location.CurrentLocation
-import com.github.skytoph.simpleweather.data.location.cloud.LocationCloudDataSource
+import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloudDataSource
 import com.github.skytoph.simpleweather.data.search.cache.SearchHistoryCache
 import com.github.skytoph.simpleweather.data.search.cache.SearchHistoryData
 import com.github.skytoph.simpleweather.data.search.cache.mapper.SearchHistoryDataMapper
@@ -17,7 +17,7 @@ interface LocationsRepository {
     suspend fun searchHistory(): List<SearchHistoryData>
 
     class Base @Inject constructor(
-        private val placeCloudDataSource: LocationCloudDataSource.PlaceSearch,
+        private val placeCloudDataSource: PlaceCloudDataSource.PlaceSearch,
         private val searchHistoryCache: SearchHistoryCache,
         private val currentLocation: CurrentLocation,
         private val listMapper: SearchHistoryListDataMapper,
