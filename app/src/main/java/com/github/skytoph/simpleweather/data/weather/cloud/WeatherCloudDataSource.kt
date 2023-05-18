@@ -8,6 +8,8 @@ import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudTo
 import com.github.skytoph.simpleweather.data.weather.model.WeatherData
 import com.github.skytoph.simpleweather.data.weather.model.identifier.IdentifierData
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeatherMapper
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
 interface WeatherCloudDataSource : UpdateItem<WeatherData, IdentifierData> {
@@ -22,19 +24,19 @@ interface WeatherCloudDataSource : UpdateItem<WeatherData, IdentifierData> {
         private val idMapper: IdMapper,
     ) : WeatherCloudDataSource {
 
-        override suspend fun fetch(placeId: String): WeatherData {
-            val location = placeCloudDataSource.place(placeId)
+        override suspend fun fetch(id: String): WeatherData = coroutineScope {
+            val location = placeCloudDataSource.place(id)
             val coordinates = idMapper.map(location.map(idMapper))
-            val forecast = forecastCloudDataSource.getForecast(coordinates)
-            val airQuality = airQualityCloudDataSource.getAirQuality(coordinates)
-            return cloudMapper.map(forecast, airQuality, location, false)
+            val forecast = async { forecastCloudDataSource.getForecast(coordinates) }
+            val airQuality = async { airQualityCloudDataSource.getAirQuality(coordinates) }
+            cloudMapper.map(forecast.await(), airQuality.await(), location, false)
         }
 
-        override suspend fun update(data: WeatherData): WeatherData {
+        override suspend fun update(data: WeatherData): WeatherData = coroutineScope {
             val coordinates = data.map(idMapper)
-            val forecast = forecastCloudDataSource.getForecast(coordinates)
-            val airQuality = airQualityCloudDataSource.getAirQuality(coordinates)
-            return updateMapper.update(data, forecast, airQuality)
+            val forecast = async { forecastCloudDataSource.getForecast(coordinates) }
+            val airQuality = async { airQualityCloudDataSource.getAirQuality(coordinates) }
+            updateMapper.update(data, forecast.await(), airQuality.await())
         }
 
         override suspend fun updateLocation(data: WeatherData, id: IdentifierData): WeatherData =
