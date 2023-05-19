@@ -33,7 +33,7 @@ interface WeatherCloudDataSource : UpdateItem<WeatherData, IdentifierData> {
         }
 
         override suspend fun update(data: WeatherData): WeatherData = coroutineScope {
-            val coordinates = data.map(idMapper)
+            val coordinates = data.mapToCoordinates(idMapper)
             val forecast = async { forecastCloudDataSource.getForecast(coordinates) }
             val airQuality = async { airQualityCloudDataSource.getAirQuality(coordinates) }
             updateMapper.update(data, forecast.await(), airQuality.await())

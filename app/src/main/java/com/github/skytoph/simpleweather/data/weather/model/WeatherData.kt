@@ -38,7 +38,8 @@ data class WeatherData(
     override fun map(mapper: WeatherDataDBMapper, dataBase: DataBase): WeatherDB =
         mapper.map(identifier, time, content, dataBase)
 
-    override fun map(mapper: IdMapper): Pair<Double, Double> = identifier.map(mapper)
+    override fun mapToCoordinates(mapper: IdMapper): Pair<Double, Double> =
+        identifier.mapToCoordinates(mapper)
 
     override suspend fun save(source: SaveItem<WeatherData>) =
         source.saveOrUpdate(identifier.map(), this)

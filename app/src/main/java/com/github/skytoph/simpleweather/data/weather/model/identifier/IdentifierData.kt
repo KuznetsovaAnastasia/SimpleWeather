@@ -22,7 +22,7 @@ data class IdentifierData(
     override fun saveStateRefreshed(refreshLocation: RefreshLocation.SaveRefreshed) =
         refreshLocation.locationRefreshed(id)
 
-    override fun map(mapper: IdMapper): Pair<Double, Double> = mapper.map(id)
+    override fun mapToCoordinates(mapper: IdMapper): Pair<Double, Double> = mapper.map(id)
 
     override fun map(mapper: IdentifierDBMapper, dataBase: DataBase): IdentifierDB =
         mapper.map(id, placeId, priority, dataBase)
