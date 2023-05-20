@@ -1,6 +1,6 @@
 package com.github.skytoph.simpleweather.data.location.cloud
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 //"results": [
 //        {
@@ -11,24 +11,24 @@ import com.google.gson.annotations.SerializedName
 //                    "lat": 37.4224428,
 //                    "lng": -122.0842467
 data class PlaceJson(
-    @SerializedName("results")
+    @Json(name = "results")
     val results: List<ResultJson>
 )
 
 data class ResultJson(
-    @SerializedName("geometry")
+    @Json(name = "geometry")
     val geometry: GeometryJson
 )
 
 data class GeometryJson(
-    @SerializedName("location")
+    @Json(name = "location")
     val location: LocationJson,
 )
 
 data class LocationJson(
-    @SerializedName("lat")
+    @Json(name = "lat")
     val lat: Double,
-    @SerializedName("lon")
+    @Json(name = "lon")
     val lng: Double,
 )
 
