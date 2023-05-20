@@ -10,26 +10,24 @@ interface PlaceCloudDataSource {
         suspend fun placeName(placeId: String): String
     }
 
-    interface PlaceSearch : PlaceNameSearch {
+    interface PlaceSearch {
         suspend fun place(placeId: String): PlaceData
         suspend fun placeCoordinates(placeId: String): String
     }
 
+    interface Search : PlaceNameSearch, PlaceSearch
+
     class Base @Inject constructor(
         private val findPlace: FindPlace,
         private val coordinatesDataSource: PlaceCoordinatesDataSource,
+        private val nameDataSource: LocationNameDataSource,
+        private val mapperData: PlaceDataMapper,
         private val mapper: PlaceToCloudMapper,
         private val idMapper: IdMapper,
-    ) : PlaceCloudDataSource, PlaceSearch {
+    ) : PlaceCloudDataSource, Search {
 
-        override suspend fun place(placeId: String): PlaceData = mapper.map(
-            findPlace.find(
-                placeId,
-                Place.Field.ADDRESS_COMPONENTS,
-                Place.Field.LAT_LNG,
-                Place.Field.ID
-            )
-        )
+        override suspend fun place(placeId: String): PlaceData =
+            nameDataSource.find(idMapper.map(placeCoordinates(placeId))).map(mapperData)
 
         override suspend fun placeCoordinates(placeId: String): String =
             coordinatesDataSource.find(placeId).map(idMapper)

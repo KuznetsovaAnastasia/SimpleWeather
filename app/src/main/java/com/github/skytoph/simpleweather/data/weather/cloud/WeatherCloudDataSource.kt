@@ -18,7 +18,7 @@ interface WeatherCloudDataSource : UpdateItem<WeatherData, IdentifierData> {
     class Base @Inject constructor(
         private val forecastCloudDataSource: ForecastCloudDataSource,
         private val airQualityCloudDataSource: AirQualityCloudDataSource,
-        private val placeCloudDataSource: PlaceCloudDataSource.PlaceSearch,
+        private val placeCloudDataSource: PlaceCloudDataSource.Search,
         private val cloudMapper: WeatherCloudToDataMapper,
         private val updateMapper: UpdateWeatherMapper,
         private val idMapper: IdMapper,
