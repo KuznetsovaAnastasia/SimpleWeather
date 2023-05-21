@@ -18,7 +18,7 @@ interface WeatherCloudDataSource : UpdateItem<WeatherData, IdentifierData> {
     class Base @Inject constructor(
         private val forecastCloudDataSource: ForecastCloudDataSource,
         private val airQualityCloudDataSource: AirQualityCloudDataSource,
-        private val placeCloudDataSource: PlaceCloudDataSource.Search,
+        private val placeCloudDataSource: PlaceCloudDataSource,
         private val cloudMapper: WeatherCloudToDataMapper,
         private val updateMapper: UpdateWeatherMapper,
         private val idMapper: IdMapper,
@@ -38,8 +38,5 @@ interface WeatherCloudDataSource : UpdateItem<WeatherData, IdentifierData> {
             val airQuality = async { airQualityCloudDataSource.getAirQuality(coordinates) }
             updateMapper.update(data, forecast.await(), airQuality.await())
         }
-
-        override suspend fun updateLocation(data: WeatherData, id: IdentifierData): WeatherData =
-            updateMapper.update(data, id.placeName(placeCloudDataSource))
     }
 }

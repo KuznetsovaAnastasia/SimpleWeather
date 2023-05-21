@@ -32,9 +32,6 @@ class BaseWeatherRepository @Inject constructor(
     override suspend fun updateCloudWeather(id: String): WeatherData =
         updateAndSave(getCachedWeather(id))
 
-    override suspend fun updateLocationName(id: String): WeatherData =
-        getCachedWeather(id).updateLocation(cloudDataSource).also { it.save(cacheDataSource) }
-
     override suspend fun checkReachingLimit(limit: Int) {
         if (cachedIDs().size >= limit) throw FavoritesLimitException(limit)
     }

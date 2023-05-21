@@ -25,13 +25,8 @@ class FavoritesViewModel @Inject constructor(
         refresh()
     }
 
-    fun initialize(firstCreated: Boolean, submitFavorites: (List<String>) -> Unit) {
-        val favorites = interactor.favoriteIDs().also { submitFavorites(it) }
-        if (!firstCreated) refreshLocations(favorites)
-    }
-
-    private fun refreshLocations(favorites: List<String>) = viewModelScope.launch(Dispatchers.IO) {
-        interactor.refreshLocations(favorites) { withContext(Dispatchers.Main) { updateWeatherContent() } }
+    fun initialize(submitFavorites: (List<String>) -> Unit) {
+        submitFavorites(interactor.favoriteIDs())
     }
 
     fun refreshFavorites(ids: List<String>? = null) {
@@ -87,8 +82,6 @@ class FavoritesViewModel @Inject constructor(
             }
         }
     }
-
-    fun updateLocations() = interactor.saveRefreshLocationIntention()
 
     fun savedPage(): Int = interactor.savedPage()
 

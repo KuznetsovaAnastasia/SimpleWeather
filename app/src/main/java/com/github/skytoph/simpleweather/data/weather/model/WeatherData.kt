@@ -11,8 +11,6 @@ import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
 import com.github.skytoph.simpleweather.data.weather.model.identifier.IdentifierData
 import com.github.skytoph.simpleweather.data.weather.model.time.ForecastTimeData
 import com.github.skytoph.simpleweather.data.weather.update.UpdateWeather
-import com.github.skytoph.simpleweather.domain.weather.RefreshLocation
-import com.github.skytoph.simpleweather.domain.weather.SaveStateRefreshed
 import com.github.skytoph.simpleweather.domain.weather.mapper.CompareTimeWithCurrent
 import com.github.skytoph.simpleweather.domain.weather.mapper.CurrentTimeComparable
 import com.github.skytoph.simpleweather.domain.weather.mapper.UpdatedLately
@@ -25,12 +23,8 @@ data class WeatherData(
 ) : Mappable<WeatherDomain, WeatherDataToDomainMapper>,
     MappableToDB.Base<WeatherDB, WeatherDataDBMapper>,
     Item<WeatherData, IdentifierData>,
-    SaveStateRefreshed,
     IdMapper.MappableToCoordinates,
     CurrentTimeComparable {
-
-    override fun saveStateRefreshed(refreshLocation: RefreshLocation.SaveRefreshed) =
-        identifier.saveStateRefreshed(refreshLocation)
 
     override fun map(mapper: WeatherDataToDomainMapper): WeatherDomain =
         mapper.map(identifier, time, content)
@@ -48,9 +42,6 @@ data class WeatherData(
 
     override suspend fun update(source: UpdateItem<WeatherData, IdentifierData>): WeatherData =
         source.update(this)
-
-    override suspend fun updateLocation(source: UpdateItem<WeatherData, IdentifierData>): WeatherData =
-        source.updateLocation(this, identifier)
 
     override suspend fun updateTime(source: UpdateItemTime<WeatherData, IdentifierData>) =
         source.updateTime(this, identifier)

@@ -9,10 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.os.LocaleListCompat
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
@@ -59,7 +57,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
             )
         }
 
-        viewModel.initialize(savedInstanceState == null) { favorites ->
+        viewModel.initialize { favorites ->
             adapter = FavoritesAdapter(this, favorites)
         }
         deleteMenuItem?.setOnMenuItemClickListener {
@@ -121,14 +119,9 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) =
         when (key) {
-            resources.getString(R.string.key_language) -> {
-                val language =
-                    sharedPreferences.getString(key, resources.getString(R.string.language_eng))
-                val locale = LocaleListCompat.forLanguageTags(language)
-                AppCompatDelegate.setApplicationLocales(locale)
-                viewModel.updateLocations()
-            }
-            resources.getString(R.string.key_units), resources.getString(R.string.key_time) ->
+            resources.getString(R.string.key_units), resources.getString(R.string.key_time), resources.getString(
+                R.string.key_language
+            ) ->
                 viewModel.updateWeatherContent()
             else -> Unit
         }

@@ -6,7 +6,6 @@ interface SaveItemToCache<T> {
 
 interface UpdateCachedItem<T, I> {
     suspend fun update(source: UpdateItem<T, I>): T
-    suspend fun updateLocation(source: UpdateItem<T, I>): T
 }
 
 interface UpdateCachedItemTime<T, I> {
@@ -22,9 +21,6 @@ interface CachedItem<T, I> : Item<T, I> {
     class Empty<T, I> : CachedItem<T, I> {
         override suspend fun save(source: SaveItem<T>) {}
         override suspend fun update(source: UpdateItem<T, I>): T =
-            throw IllegalStateException("can not update empty item")
-
-        override suspend fun updateLocation(source: UpdateItem<T, I>): T =
             throw IllegalStateException("can not update empty item")
 
         override suspend fun updateTime(source: UpdateItemTime<T, I>) =
@@ -50,9 +46,6 @@ abstract class BaseCache<T, I> : CachedItem<T, I> {
 
     override suspend fun updateTime(source: UpdateItemTime<T, I>) =
         cached.updateTime(source)
-
-    override suspend fun updateLocation(source: UpdateItem<T, I>): T =
-        cached.updateLocation(source)
 
     override fun clear() {
         cached = CachedItem.Empty()

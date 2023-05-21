@@ -17,7 +17,7 @@ interface LocationsRepository {
     suspend fun searchHistory(): List<SearchHistoryData>
 
     class Base @Inject constructor(
-        private val placeCloudDataSource: PlaceCloudDataSource.PlaceSearch,
+        private val placeCloudDataSource: PlaceCloudDataSource,
         private val searchHistoryCache: SearchHistoryCache,
         private val currentLocation: CurrentLocation,
         private val listMapper: SearchHistoryListDataMapper,

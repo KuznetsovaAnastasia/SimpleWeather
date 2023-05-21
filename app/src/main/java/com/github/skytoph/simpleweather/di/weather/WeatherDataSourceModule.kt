@@ -42,15 +42,7 @@ abstract class WeatherDataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun placeNameSearch(source: PlaceCloudDataSource.Base): PlaceCloudDataSource.PlaceNameSearch
-
-    @Binds
-    @Singleton
-    abstract fun placeSearch(source: PlaceCloudDataSource.Base): PlaceCloudDataSource.PlaceSearch
-
-    @Binds
-    @Singleton
-    abstract fun search(source: PlaceCloudDataSource.Base): PlaceCloudDataSource.Search
+    abstract fun placeNameSearch(source: PlaceCloudDataSource.Base): PlaceCloudDataSource
 
     @Binds
     @Singleton

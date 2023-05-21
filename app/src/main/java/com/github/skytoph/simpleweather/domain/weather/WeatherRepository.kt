@@ -23,7 +23,6 @@ interface WeatherRepository {
     }
 
     interface Mutable : RefreshAll, Delete, Save, Get {
-        suspend fun updateLocationName(id: String): WeatherData
         fun cachedIDs(): List<String>
     }
 
