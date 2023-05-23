@@ -3,7 +3,7 @@ package com.github.skytoph.simpleweather.presentation.weather
 import androidx.lifecycle.*
 import com.github.skytoph.simpleweather.domain.weather.WeatherInteractor
 import com.github.skytoph.simpleweather.presentation.addlocation.Loading
-import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
+import com.github.skytoph.simpleweather.presentation.addlocation.WeatherLoadingCommunication
 import com.github.skytoph.simpleweather.presentation.favorites.RefreshCommunication
 import com.github.skytoph.simpleweather.presentation.weather.model.WeatherUi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ class WeatherViewModel @Inject constructor(
     state: SavedStateHandle,
     private val interactor: WeatherInteractor,
     private val weatherCommunication: WeatherCommunication,
-    private val loadingCommunication: LoadingCommunication.Update,
+    private val loadingCommunication: WeatherLoadingCommunication.Update,
     private val refreshCommunication: RefreshCommunication.Observe,
 ) : ViewModel() {
 

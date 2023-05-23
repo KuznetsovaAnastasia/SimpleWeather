@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.skytoph.simpleweather.domain.search.SearchDetailsInteractor
 import com.github.skytoph.simpleweather.presentation.addlocation.Loading
-import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
+import com.github.skytoph.simpleweather.presentation.addlocation.WeatherLoadingCommunication
 import com.github.skytoph.simpleweather.presentation.search.model.SearchHistoryUi
 import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchCommunication: SearchCommunication.Observe,
-    private val loadingCommunication: LoadingCommunication.Update,
+    private val loadingCommunication: WeatherLoadingCommunication.Update,
     private val interactor: SearchDetailsInteractor,
     private val searchHistory: HistoryCommunication,
     private val navigation: SearchNavigator,

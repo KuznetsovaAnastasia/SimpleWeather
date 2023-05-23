@@ -8,11 +8,10 @@ import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
 import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
 import com.github.skytoph.simpleweather.presentation.addlocation.Loading
-import com.github.skytoph.simpleweather.presentation.addlocation.LoadingCommunication
-import com.github.skytoph.simpleweather.presentation.weather.WeatherCommunication
+import com.github.skytoph.simpleweather.presentation.addlocation.WeatherLoadingCommunication
 
 sealed class WeatherUi : ShowWeatherUi() {
-    abstract fun show(communication: LoadingCommunication.Update)
+    abstract fun show(communication: WeatherLoadingCommunication.Update)
     abstract fun show(communication: Communication.Update<WeatherUi>)
 
     data class Base(
@@ -40,7 +39,7 @@ sealed class WeatherUi : ShowWeatherUi() {
             listUi.show(submitLists)
         }
 
-        override fun show(communication: LoadingCommunication.Update) =
+        override fun show(communication: WeatherLoadingCommunication.Update) =
             communication.show(Loading.SUCCESS)
 
         override fun show(communication: Communication.Update<WeatherUi>) = communication.show(this)
@@ -61,14 +60,14 @@ sealed class WeatherUi : ShowWeatherUi() {
             locationView.errorState()
         }
 
-        override fun show(communication: LoadingCommunication.Update) =
+        override fun show(communication: WeatherLoadingCommunication.Update) =
             communication.show(Loading.FAIL)
 
         override fun show(communication: Communication.Update<WeatherUi>) = Unit
     }
 
     object Fail : WeatherUi() {
-        override fun show(communication: LoadingCommunication.Update) =
+        override fun show(communication: WeatherLoadingCommunication.Update) =
             communication.show(Loading.FAIL)
 
         override fun show(communication: Communication.Update<WeatherUi>) = Unit

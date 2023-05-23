@@ -4,7 +4,6 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.*
 import com.github.skytoph.simpleweather.core.presentation.StateMapper
-import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
 import com.github.skytoph.simpleweather.domain.addlocation.AddLocationInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +16,7 @@ class AddLocationViewModel @Inject constructor(
     state: SavedStateHandle,
     private val interactor: AddLocationInteractor,
     private val navigator: AddLocationNavigator,
-    private val loadingCommunication: LoadingCommunication.Observe,
+    private val loadingCommunication: WeatherLoadingCommunication.Observe,
     private val stateMapper: StateMapper<Loading, State>,
 ) : ViewModel() {
 

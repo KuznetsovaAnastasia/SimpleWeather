@@ -7,7 +7,7 @@ import com.github.skytoph.simpleweather.core.presentation.communication.Communic
 import javax.inject.Inject
 import javax.inject.Singleton
 
-interface LoadingCommunication {
+interface WeatherLoadingCommunication {
 
     interface Update : Communication.Update<Loading>
 
