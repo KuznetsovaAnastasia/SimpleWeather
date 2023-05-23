@@ -67,4 +67,5 @@
     <string name="tooltip_ultraviolet_index_very_high">8–10 Дуже високий</string>
     <string name="tooltip_ultraviolet_index_high">6–7 Високий</string>
     <string name="add_current_location">Чи бажаєте отримати прогноз погоди для поточного месцезнаходження? Для цього додаток потребує дозвіл на отримання геолокації.</string>
+    <string name="title_about_app">Про додаток</string>
 </resources>

@@ -64,6 +64,7 @@
     <!-- Preference Titles -->
     <string name="general_header">General</string>
     <string name="title_clear_search_history">Clear search history</string>
+    <string name="title_about_app">About app</string>
 
     <!-- Units Preferences -->
     <string name="units_title">Units</string>
@@ -85,6 +86,7 @@
     <string name="key_language" translatable="false">language</string>
     <string name="key_units" translatable="false">unit</string>
     <string name="key_clear_search_history" translatable="false">clear_history</string>
+    <string name="key_about" translatable="false">about_app</string>
 
     <!--    Menu titles-->
     <string name="action_delete">Delete</string>
