@@ -6,15 +6,11 @@ import javax.inject.Inject
 
 interface CurrentWeatherDataMapper : Mapper<CurrentWeatherData> {
 
-    fun map(weatherId: Int, temperature: Double, location: String): CurrentWeatherData
+    fun map(weatherId: Int, temperature: Double, location: Map<String, String>): CurrentWeatherData
 
     class Base @Inject constructor() : CurrentWeatherDataMapper {
 
-        override fun map(
-            weatherId: Int,
-            temperature: Double,
-            location: String,
-        ): CurrentWeatherData =
+        override fun map(weatherId: Int, temperature: Double, location: Map<String, String>) =
             CurrentWeatherData(weatherId, temperature, location)
     }
 }

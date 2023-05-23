@@ -27,4 +27,7 @@ abstract class UtilityModule {
 
     @Binds
     abstract fun temperatureFormat(format: TemperatureFormat.Base): TemperatureFormat
+
+    @Binds
+    abstract fun locationFormat(format: LocationFormatter.Base): LocationFormatter
 }

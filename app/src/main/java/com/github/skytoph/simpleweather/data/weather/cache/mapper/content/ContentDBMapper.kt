@@ -2,7 +2,7 @@ package com.github.skytoph.simpleweather.data.weather.cache.mapper.content
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.data.DataBase
-import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.current.CurrentDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.current.LocationDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.forecast.ForecastDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.indicators.IndicatorsDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.model.WeatherDB
@@ -23,8 +23,10 @@ interface ContentDBMapper : Mapper<ContentDB> {
         database: DataBase,
     ): ContentDB
 
-    class Base @Inject constructor(private val forecastMapper: ForecastDBMapper) :
-        ContentDBMapper {
+    class Base @Inject constructor(
+        private val forecastMapper: ForecastDBMapper,
+        private val locationMapper: LocationDBMapper,
+    ) : ContentDBMapper {
 
         override fun map(
             currentWeather: CurrentWeatherData,
@@ -35,16 +37,12 @@ interface ContentDBMapper : Mapper<ContentDB> {
             database: DataBase,
         ): ContentDB =
             database.createEmbeddedObject<ContentDB>(parent, WeatherDB.FIELD_CONTENT).apply {
-                currentWeather.map(object : CurrentDBMapper {
-                    override fun map(location: String) {
-                        this@apply.location = location
-                    }
-                })
                 indicators.map(object : IndicatorsDBMapper {
                     override fun map(airQuality: Int) {
                         this@apply.airQuality = airQuality
                     }
                 })
+                currentWeather.map(locationMapper, database, this)
                 forecast.map(forecastMapper, database, this)
             }
     }

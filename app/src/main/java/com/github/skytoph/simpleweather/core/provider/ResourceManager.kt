@@ -29,7 +29,6 @@ interface ResourceManager : PreferencesProvider, ResourceProvider, LocaleProvide
         override fun defaultPreferences(): SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(context)
 
-        override fun locale(): Locale =
-            Locale.getDefault() ?: Locale.ENGLISH
+        override fun locale(): Locale = Locale.getDefault() ?: Locale.ENGLISH
     }
 }

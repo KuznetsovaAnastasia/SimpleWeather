@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.domain.weather.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
+import com.github.skytoph.simpleweather.core.util.formatter.LocationFormatter
 import com.github.skytoph.simpleweather.domain.weather.model.*
 import com.github.skytoph.simpleweather.presentation.weather.model.WeatherUi
 import javax.inject.Inject
@@ -13,12 +14,14 @@ interface WeatherDomainToUiMapper : Mapper<WeatherUi> {
         private val indicatorsMapper: IndicatorsDomainToUiMapper,
         private val horizonMapper: HorizonDomainToUiMapper,
         private val forecastMapper: ForecastListUiMapper,
+        private val locationLocale: LocationFormatter,
     ) : WeatherDomainToUiMapper {
 
         override fun map(id: String, content: ContentDomain): WeatherUi {
             return if (content.isOutdated()) {
                 val mapper = object : OutdatedWeatherUiMapper {
-                    override fun map(location: String) = WeatherUi.Outdated(id, location)
+                    override fun map(location: Map<String, String>) =
+                        WeatherUi.Outdated(id, locationLocale.map(location))
                 }
                 content.map(mapper)
             } else {

@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.data.location.cloud
 
+import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudToDataMapper
 import javax.inject.Inject
 
 interface PlaceCloudDataSource {
@@ -9,7 +10,7 @@ interface PlaceCloudDataSource {
     class Base @Inject constructor(
         private val coordinatesDataSource: PlaceCoordinatesDataSource,
         private val nameDataSource: LocationNameDataSource,
-        private val mapperData: PlaceDataMapper,
+        private val mapperData: PlaceCloudToDataMapper,
         private val idMapper: IdMapper,
     ) : PlaceCloudDataSource {
 

@@ -1,10 +1,13 @@
 package com.github.skytoph.simpleweather.di.weather
 
-import com.github.skytoph.simpleweather.data.location.cloud.PlaceDataMapper
+import com.github.skytoph.simpleweather.data.location.mapper.LocalNameDataMapper
+import com.github.skytoph.simpleweather.data.location.mapper.LocationDataMapper
+import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudToDataMapper
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceToCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.IndicatorsCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudToDataMapper
+import com.github.skytoph.simpleweather.data.weather.mapper.LocationCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.ContentDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.current.CurrentWeatherDataMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.content.current.ForecastToCurrentDataMapper
@@ -76,5 +79,14 @@ abstract class WeatherDataMapperModule {
     abstract fun dbToDataMapper(mapper: WeatherDBToDataMapper.Base): WeatherDBToDataMapper
 
     @Binds
-    abstract fun placeMapper(mapper: PlaceDataMapper.Base): PlaceDataMapper
+    abstract fun placeMapper(mapper: PlaceCloudToDataMapper.Base): PlaceCloudToDataMapper
+
+    @Binds
+    abstract fun locationCloudToDataMapper(mapper: LocationCloudToDataMapper.Base): LocationCloudToDataMapper
+
+    @Binds
+    abstract fun locationMapper(mapper: LocationDataMapper.Base): LocationDataMapper
+
+    @Binds
+    abstract fun localNameMapper(mapper: LocalNameDataMapper.Base): LocalNameDataMapper
 }

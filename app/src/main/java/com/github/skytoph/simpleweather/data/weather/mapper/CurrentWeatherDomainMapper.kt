@@ -3,14 +3,15 @@ package com.github.skytoph.simpleweather.data.weather.mapper
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.util.time.CurrentTime
 import com.github.skytoph.simpleweather.data.weather.model.content.current.CurrentWeatherData
-import com.github.skytoph.simpleweather.data.weather.model.content.horizon.HorizonData
 import com.github.skytoph.simpleweather.data.weather.model.content.horizon.IsDaytime
 import com.github.skytoph.simpleweather.data.weather.model.time.ForecastTimeData
 import com.github.skytoph.simpleweather.domain.weather.model.CurrentWeatherDomain
 import javax.inject.Inject
 
 interface CurrentWeatherDomainMapper : Mapper<CurrentWeatherDomain> {
-    fun map(weatherId: Int, temperature: Double, location: String): CurrentWeatherDomain
+    fun map(
+        weatherId: Int, temperature: Double, location: Map<String, String>
+    ): CurrentWeatherDomain
 }
 
 interface CurrentWeatherDataToDomainMapper : Mapper<CurrentWeatherDomain> {
@@ -31,7 +32,7 @@ interface CurrentWeatherDataToDomainMapper : Mapper<CurrentWeatherDomain> {
             timezone: Timezone,
         ): CurrentWeatherDomain = weather.map(object : CurrentWeatherDomainMapper {
             override fun map(
-                weatherId: Int, temperature: Double, location: String,
+                weatherId: Int, temperature: Double, location: Map<String, String>,
             ) = forecastTime.map(object : TimeDomainMapper {
                 override fun map(time: Long): CurrentWeatherDomain {
                     val isDaytime =

@@ -23,7 +23,7 @@ data class ContentDomain(
 }
 
 data class CurrentWeatherDomain(
-    private val city: String,
+    private val location: Map<String, String>,
     private val temperature: Double,
     private val weatherId: Int,
     private val updated: Long,
@@ -31,10 +31,10 @@ data class CurrentWeatherDomain(
 ) : Mappable<CurrentWeatherUi, CurrentWeatherDomainToUiMapper> {
 
     override fun map(mapper: CurrentWeatherDomainToUiMapper): CurrentWeatherUi =
-        mapper.map(city, temperature, weatherId, updated, isDayNow)
+        mapper.map(location, temperature, weatherId, updated, isDayNow)
 
     fun map(mapper: OutdatedWeatherUiMapper): WeatherUi.Outdated =
-        mapper.map(city)
+        mapper.map(location)
 }
 
 data class IndicatorsDomain(

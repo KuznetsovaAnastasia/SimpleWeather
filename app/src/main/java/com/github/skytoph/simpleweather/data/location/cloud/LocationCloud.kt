@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.data.location.cloud
 
 import com.github.skytoph.simpleweather.core.Mappable
+import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudToDataMapper
 import com.squareup.moshi.Json
 
 /*
@@ -19,27 +20,28 @@ data class LocationCloud(
     private val namesLocal: Map<String, String?>,
     private val lat: Double,
     private val lng: Double,
-) : Mappable<PlaceData, PlaceDataMapper> {
+) : Mappable<PlaceData, PlaceCloudToDataMapper> {
 
-    override fun map(mapper: PlaceDataMapper): PlaceData = mapper.map(name, namesLocal, lat, lng)
+    override fun map(mapper: PlaceCloudToDataMapper): PlaceData =
+        mapper.map(name, namesLocal, lat, lng)
 }
 
 data class LocationNamesJson(
     @Json(name = "name")
     val name: String,
     @Json(name = "local_names")
-    val namesLocal: LocalNameJson?,
+    val local_names: LocalNameJson?,
     @Json(name = "lat")
     val lat: Double,
     @Json(name = "lon")
-    val lng: Double,
+    val lon: Double,
 )
 
 data class LocalNameJson(
     @Json(name = "en")
-    val nameEn: String?,
+    val en: String?,
     @Json(name = "uk")
-    val nameUk: String?,
+    val uk: String?,
 ) {
 
     companion object {

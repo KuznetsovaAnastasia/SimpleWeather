@@ -4,6 +4,7 @@ import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.data.weather.cache.model.content.forecast.ForecastDB
 import com.github.skytoph.simpleweather.data.weather.mapper.content.ContentDBToDataMapper
 import com.github.skytoph.simpleweather.data.weather.model.content.ContentData
+import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.RealmClass
 import io.realm.annotations.RealmField
@@ -12,7 +13,7 @@ import io.realm.annotations.RealmField
 open class ContentDB : RealmObject(), Mappable<ContentData, ContentDBToDataMapper> {
 
     @RealmField(name = FIELD_LOCATION)
-    var location: String = ""
+    var location: RealmList<LocationDB> = RealmList()
 
     @RealmField(name = FIELD_AIR_QUALITY)
     var airQuality: Int = -1

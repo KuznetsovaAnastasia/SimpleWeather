@@ -3,10 +3,10 @@ package com.github.skytoph.simpleweather.di.weather
 import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.WeatherDataDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.ContentDBMapper
-import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.current.CurrentDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.current.LocalNameDBMapper
+import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.current.LocationDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.forecast.*
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.horizon.HorizonDBMapper
-import com.github.skytoph.simpleweather.data.weather.cache.mapper.content.indicators.IndicatorsDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.identifier.IdentifierDBMapper
 import com.github.skytoph.simpleweather.data.weather.cache.mapper.time.TimeDBMapper
 import com.github.skytoph.simpleweather.data.weather.mapper.time.TimeDBToDataMapper
@@ -57,6 +57,12 @@ abstract class WeatherDBMapperModule {
 
     @Binds
     abstract fun dailyForecastListMapper(mapper: DailyForecastListDBMapper.Base): DailyForecastListDBMapper
+
+    @Binds
+    abstract fun placeMapper(mapper: LocationDBMapper.Base): LocationDBMapper
+
+    @Binds
+    abstract fun placeNameMapper(mapper: LocalNameDBMapper.Base): LocalNameDBMapper
 
     @Binds
     abstract fun idMapper(mapper: IdMapper.Base): IdMapper

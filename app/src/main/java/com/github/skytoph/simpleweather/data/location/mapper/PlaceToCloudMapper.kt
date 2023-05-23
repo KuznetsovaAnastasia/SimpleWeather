@@ -8,12 +8,13 @@ import javax.inject.Inject
 interface PlaceToCloudMapper : Mapper<PlaceData>, PlaceNameMapper {
     fun map(place: Place): PlaceData
 
-    class Base @Inject constructor() : PlaceToCloudMapper, PlaceNameMapper.Abstract() {
+    class Base @Inject constructor(private val mapper: LocalNameDataMapper) : PlaceToCloudMapper,
+        PlaceNameMapper.Abstract() {
 
         override fun map(place: Place): PlaceData {
             return PlaceData(
                 place.id!!,
-                mapToName(place),
+                mapOf(mapper.map(name = mapToName(place))),
                 place.latLng!!.latitude,
                 place.latLng!!.longitude
             )

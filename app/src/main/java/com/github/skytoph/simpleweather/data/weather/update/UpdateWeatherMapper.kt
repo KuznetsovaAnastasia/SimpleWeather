@@ -28,7 +28,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
         airQualityCloud: AirQualityCloud,
     ): WeatherData
 
-    fun update(weatherData: WeatherData, location: String): WeatherData
+    fun update(weatherData: WeatherData, location: Map<String, String>): WeatherData
 
     fun update(weatherData: WeatherData): WeatherData
 
@@ -76,7 +76,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                             weather: Int,
                         ): WeatherData {
                             val currentMapper = object : UpdateCurrentWeather {
-                                override fun update(location: String) =
+                                override fun update(location: Map<String, String>) =
                                     CurrentWeatherData(weather, temp, location)
                             }
                             val pop = hourly[0].map()
@@ -87,9 +87,11 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                                     currentWeather.update(currentMapper),
                                     indicatorsMapper.map(uvi, pop, airQualityCloud.map()),
                                     horizonMapper.map(sunrise, sunset),
-                                    ForecastData(warningsMapper.map(alerts),
+                                    ForecastData(
+                                        warningsMapper.map(alerts),
                                         hourlyMapper.map(hourly),
-                                        dailyMapper.map(daily))
+                                        dailyMapper.map(daily)
+                                    )
                                 )
                             )
                         }
@@ -98,7 +100,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
             })
         })
 
-        override fun update(weatherData: WeatherData, location: String): WeatherData =
+        override fun update(weatherData: WeatherData, location: Map<String, String>): WeatherData =
             weatherData.update(object : UpdateWeather {
                 override fun update(
                     identifier: IdentifierData, time: ForecastTimeData, content: ContentData,
@@ -110,12 +112,16 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                         forecast: ForecastData,
                     ): WeatherData = currentWeather.update(object : UpdateCurrentWeatherLocation {
                         override fun update(weatherId: Int, temperature: Double) =
-                            WeatherData(identifier,
+                            WeatherData(
+                                identifier,
                                 time,
-                                ContentData(CurrentWeatherData(weatherId, temperature, location),
+                                ContentData(
+                                    CurrentWeatherData(weatherId, temperature, location),
                                     indicators,
                                     horizon,
-                                    forecast))
+                                    forecast
+                                )
+                            )
                     })
                 })
             })
@@ -126,11 +132,15 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                     identifier: IdentifierData, time: ForecastTimeData, content: ContentData,
                 ): WeatherData = time.update(object : UpdateForecastTime {
                     override fun update(timezoneOffset: Int, timezone: String): WeatherData =
-                        WeatherData(identifier,
-                            ForecastTimeData(currentTime.inSeconds(),
+                        WeatherData(
+                            identifier,
+                            ForecastTimeData(
+                                currentTime.inSeconds(),
                                 timezoneOffset,
-                                timezone),
-                            content)
+                                timezone
+                            ),
+                            content
+                        )
                 })
             })
     }
