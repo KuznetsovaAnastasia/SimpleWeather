@@ -27,6 +27,7 @@ class SearchFragment :
         super.onViewCreated(view, savedInstanceState)
 
         val showDetails: (id: String, title: String) -> Unit = { id, title ->
+            binding.searchShimmer.show(false)
             viewModel.showDetails(childFragmentManager, R.id.fragment_container, id, title)
         }
 
@@ -52,6 +53,9 @@ class SearchFragment :
         }
         viewModel.observe(this) { locations ->
             predictionAdapter.submitList(locations.toMutableList())
+        }
+        viewModel.observeLoading(this) { show ->
+            binding.searchShimmer.show(show)
         }
     }
 

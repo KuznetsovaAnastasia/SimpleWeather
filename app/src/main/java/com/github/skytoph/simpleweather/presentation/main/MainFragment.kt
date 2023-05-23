@@ -88,6 +88,7 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
         this.findViewById<View?>(R.id.search_plate)
             ?.setBackgroundColor(Color.TRANSPARENT)
         this.setOnQueryTextListener(SearchQueryListener { query ->
+            viewModel.startLoading()
             viewModel.getPredictions(query)
         })
     }

@@ -21,6 +21,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val searchCommunication: SearchCommunication.Observe,
     private val loadingCommunication: WeatherLoadingCommunication.Update,
+    private val searchLoading: SearchLoadingCommunication.Observe,
     private val interactor: SearchDetailsInteractor,
     private val searchHistory: HistoryCommunication,
     private val navigation: SearchNavigator,
@@ -56,6 +57,9 @@ class SearchViewModel @Inject constructor(
 
     fun observeHistory(owner: LifecycleOwner, observer: Observer<List<SearchHistoryUi>>) =
         searchHistory.observe(owner, observer)
+
+    fun observeLoading(owner: LifecycleOwner, observer: Observer<Boolean>) =
+        searchLoading.observe(owner, observer)
 
     fun observe(owner: LifecycleOwner, observer: Observer<List<SearchItemUi>>) =
         searchCommunication.observe(owner, observer)

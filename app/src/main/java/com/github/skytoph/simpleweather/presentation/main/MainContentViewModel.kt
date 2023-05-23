@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.skytoph.simpleweather.domain.search.SearchInteractor
 import com.github.skytoph.simpleweather.domain.search.SearchResultsDomainToUiMapper
 import com.github.skytoph.simpleweather.presentation.search.SearchCommunication
+import com.github.skytoph.simpleweather.presentation.search.SearchLoadingCommunication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ class MainContentViewModel @Inject constructor(
     private val interactor: SearchInteractor,
     private val uiMapper: SearchResultsDomainToUiMapper,
     private val searchCommunication: SearchCommunication.Update,
+    private val searchLoading: SearchLoadingCommunication.Update,
     private val stateCommunication: MainStateCommunication,
 ) : ViewModel() {
 
@@ -31,6 +33,7 @@ class MainContentViewModel @Inject constructor(
     fun getPredictions(query: String) = viewModelScope.launch(Dispatchers.IO) {
         interactor.search(query) { predictions ->
             searchCommunication.show(uiMapper.map(predictions))
+            searchLoading.show(false)
         }
     }
 
@@ -45,4 +48,6 @@ class MainContentViewModel @Inject constructor(
         stateCommunication.observe(owner, observer)
 
     fun goBack() = navigator.goBack()
+
+    fun startLoading() = searchLoading.show(true)
 }

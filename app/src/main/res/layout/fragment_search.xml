@@ -16,12 +16,19 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/search_history_item" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_prediction_recycler_view"
+    <com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper
+        android:id="@+id/search_shimmer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="@dimen/search_result_horizontal_padding"
-        android:paddingTop="15dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/prediction_item" />
+        app:shimmer_auto_start="false">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_prediction_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/search_result_horizontal_padding"
+            android:paddingTop="15dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/prediction_item" />
+    </com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper>
 </LinearLayout>
