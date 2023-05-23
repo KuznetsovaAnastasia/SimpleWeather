@@ -15,7 +15,8 @@ interface PlaceCloudDataSource {
     ) : PlaceCloudDataSource {
 
         override suspend fun place(placeId: String): PlaceData =
-            nameDataSource.find(idMapper.map(placeCoordinates(placeId))).map(mapperData)
+            nameDataSource.find(coordinatesDataSource.find(placeId).mapToCoordinates(idMapper))
+                .map(mapperData)
 
         override suspend fun placeCoordinates(placeId: String): String =
             coordinatesDataSource.find(placeId).map(idMapper)

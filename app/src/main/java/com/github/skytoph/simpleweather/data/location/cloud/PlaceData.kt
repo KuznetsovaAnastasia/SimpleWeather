@@ -9,8 +9,8 @@ data class PlaceData(
     private val names: Map<String, String>,
     private val lat: Double,
     private val lng: Double,
-) : IdMapper.MappableToStringId, Mappable<WeatherData, PlaceCloudMapper> {
+) : IdMapper.MappableToCoordinates, Mappable<WeatherData, PlaceCloudMapper> {
 
     override fun map(mapper: PlaceCloudMapper) = mapper.map(id, names, lat, lng)
-    override fun map(mapper: IdMapper) = mapper.map(lat, lng)
+    override fun mapToCoordinates(mapper: IdMapper) = mapper.mapToCoordinates(lat, lng)
 }
