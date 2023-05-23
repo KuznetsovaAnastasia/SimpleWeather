@@ -1,7 +1,6 @@
 package com.github.skytoph.simpleweather.presentation.settings
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -29,6 +28,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 ConfirmationDialogFragment
                     .newInstance(
                         { viewModel.clearSearchHistory() },
+                        {},
                         R.string.clear_search_history_confirmation
                     )
                     .show(parentFragmentManager, DIALOG_TAG)

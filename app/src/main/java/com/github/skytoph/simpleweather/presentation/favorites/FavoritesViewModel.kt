@@ -38,6 +38,7 @@ class FavoritesViewModel @Inject constructor(
 
     fun refresh(lifecycleOwner: LifecycleOwner? = null, hideRefreshing: () -> Unit = {}) {
         if (interactor.favoriteIDs().isEmpty()) {
+            stateCommunication.show(FavoritesState.Progress(true))
             requestPermissions()
             hideRefreshing()
         } else {
@@ -69,9 +70,11 @@ class FavoritesViewModel @Inject constructor(
         stateCommunication.observe(owner, observer)
 
     private fun requestPermissions() =
-        stateCommunication.show(FavoritesState.AddCurrentLocation {
+        stateCommunication.show(FavoritesState.AddCurrentLocation(addCurrentLocation = {
             stateCommunication.show(FavoritesState.RequestPermission)
-        })
+        }, cancel = {
+            stateCommunication.show(FavoritesState.Progress(false))
+        }))
 
     fun saveCurrentLocation() {
         stateCommunication.show(FavoritesState.Progress(true))

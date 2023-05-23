@@ -53,19 +53,25 @@ sealed class FavoritesState : ShowFavorites() {
 
     abstract class Dialog(
         private val action: () -> Unit,
+        private val cancel: () -> Unit,
         @StringRes private val title: Int,
         private val tag: String,
     ) : FavoritesState() {
         override fun show(fragmentManager: FragmentManager) {
             ConfirmationDialogFragment
-                .newInstance(action, title)
+                .newInstance(action, cancel, title)
                 .show(fragmentManager, tag)
         }
     }
 
-    class AddCurrentLocation(addCurrentLocation: () -> Unit) :
-        Dialog(addCurrentLocation, R.string.add_current_location, "AddCurrentLocationDialog")
+    class AddCurrentLocation(addCurrentLocation: () -> Unit, cancel: () -> Unit) :
+        Dialog(
+            addCurrentLocation,
+            cancel,
+            R.string.add_current_location,
+            "AddCurrentLocationDialog"
+        )
 
     class Delete(delete: () -> Unit) :
-        Dialog(delete, R.string.delete_location, "DeleteConfirmationDialog")
+        Dialog(delete, {}, R.string.delete_location, "DeleteConfirmationDialog")
 }
