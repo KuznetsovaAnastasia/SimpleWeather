@@ -1,14 +1,13 @@
 package com.github.skytoph.simpleweather.presentation.settings
 
-import androidx.fragment.app.FragmentManager
+import androidx.annotation.IdRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.communication.MessageCommunication
 import com.github.skytoph.simpleweather.core.presentation.error.UiMessage
-import com.github.skytoph.simpleweather.core.presentation.navigation.NavigateBack
-import com.github.skytoph.simpleweather.core.presentation.navigation.Navigator
 import com.github.skytoph.simpleweather.domain.settings.SettingsInteractor
+import com.github.skytoph.simpleweather.presentation.settings.nav.SettingsNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,7 +27,5 @@ class SettingsViewModel @Inject constructor(
             withContext(Dispatchers.Main) { messages.show(UiMessage.SnackbarShort(R.string.search_history_cleared)) }
         }
 
-    fun goBack() = navigation.goBack()
+    fun showAbout(@IdRes container: Int) = navigation.showAbout(container)
 }
-
-interface SettingsNavigator:NavigateBack

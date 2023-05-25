@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.main
+package com.github.skytoph.simpleweather.presentation.main.communication
 
 import com.github.skytoph.simpleweather.core.presentation.communication.Communication
 import dagger.hilt.android.scopes.ViewModelScoped

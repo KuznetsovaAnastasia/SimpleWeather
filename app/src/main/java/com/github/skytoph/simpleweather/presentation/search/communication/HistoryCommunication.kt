@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.search
+package com.github.skytoph.simpleweather.presentation.search.communication
 
 import com.github.skytoph.simpleweather.core.presentation.communication.Communication
 import com.github.skytoph.simpleweather.presentation.search.model.SearchHistoryUi
@@ -8,5 +8,6 @@ import javax.inject.Inject
 interface HistoryCommunication: Communication.Mutable<List<SearchHistoryUi>> {
 
     @ViewModelScoped
-    class Base @Inject constructor() : Communication.UiUpdate<List<SearchHistoryUi>>(), HistoryCommunication
+    class Base @Inject constructor() : Communication.UiUpdate<List<SearchHistoryUi>>(),
+        HistoryCommunication
 }

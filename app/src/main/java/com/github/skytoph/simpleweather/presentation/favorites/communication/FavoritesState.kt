@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.favorites
+package com.github.skytoph.simpleweather.presentation.favorites.communication
 
 import android.view.MenuItem
 import android.view.View
@@ -6,6 +6,8 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentManager
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper
+import com.github.skytoph.simpleweather.presentation.favorites.ConfirmationDialogFragment
+import com.github.skytoph.simpleweather.presentation.favorites.ShowFavorites
 import com.google.android.material.tabs.TabLayout
 
 sealed class FavoritesState : ShowFavorites() {
@@ -58,8 +60,7 @@ sealed class FavoritesState : ShowFavorites() {
         private val tag: String,
     ) : FavoritesState() {
         override fun show(fragmentManager: FragmentManager) {
-            ConfirmationDialogFragment
-                .newInstance(action, cancel, title)
+            ConfirmationDialogFragment.newInstance(action, cancel, title)
                 .show(fragmentManager, tag)
         }
     }

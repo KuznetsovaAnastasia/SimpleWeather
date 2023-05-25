@@ -10,7 +10,8 @@ import com.github.skytoph.simpleweather.core.presentation.communication.Progress
 import com.github.skytoph.simpleweather.core.presentation.error.UiMessage
 import com.github.skytoph.simpleweather.core.presentation.navigation.ShowScreen
 import com.github.skytoph.simpleweather.domain.work.UpdateForecastWork
-import com.github.skytoph.simpleweather.presentation.favorites.RefreshCommunication
+import com.github.skytoph.simpleweather.presentation.favorites.communication.RefreshCommunication
+import com.github.skytoph.simpleweather.presentation.main.nav.MainNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

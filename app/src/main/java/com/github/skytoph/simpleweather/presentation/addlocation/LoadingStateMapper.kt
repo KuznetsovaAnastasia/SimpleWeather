@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.presentation.addlocation
 
 import com.github.skytoph.simpleweather.core.presentation.StateMapper
+import com.github.skytoph.simpleweather.presentation.addlocation.communication.Loading
 import javax.inject.Inject
 
 interface LoadingStateMapper: StateMapper<Loading, State> {

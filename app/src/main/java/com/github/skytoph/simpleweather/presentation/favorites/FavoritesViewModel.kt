@@ -7,6 +7,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.work.WorkInfo
 import com.github.skytoph.simpleweather.domain.favorites.FavoritesInteractor
 import com.github.skytoph.simpleweather.domain.work.UpdateForecastWork
+import com.github.skytoph.simpleweather.presentation.favorites.communication.FavoritesState
+import com.github.skytoph.simpleweather.presentation.favorites.communication.FavoritesStateCommunication
+import com.github.skytoph.simpleweather.presentation.favorites.communication.RefreshCommunication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

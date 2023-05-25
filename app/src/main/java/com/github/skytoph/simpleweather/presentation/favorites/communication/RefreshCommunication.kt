@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.favorites
+package com.github.skytoph.simpleweather.presentation.favorites.communication
 
 import com.github.skytoph.simpleweather.core.presentation.communication.Communication
 import javax.inject.Inject

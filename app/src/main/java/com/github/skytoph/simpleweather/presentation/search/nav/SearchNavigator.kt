@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.search
+package com.github.skytoph.simpleweather.presentation.search.nav
 
 import androidx.fragment.app.FragmentManager
 

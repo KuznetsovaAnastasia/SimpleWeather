@@ -1,9 +1,10 @@
-package com.github.skytoph.simpleweather.presentation.weather
+package com.github.skytoph.simpleweather.presentation.weather.nav
 
 import androidx.annotation.IdRes
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.core.presentation.navigation.NavigationScreen
 import com.github.skytoph.simpleweather.core.presentation.navigation.ShowStrategy
+import com.github.skytoph.simpleweather.presentation.weather.WeatherFragment
 
 class WeatherNavFragment(
     @IdRes container: Int,

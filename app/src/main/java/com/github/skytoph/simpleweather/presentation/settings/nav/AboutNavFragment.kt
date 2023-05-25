@@ -1,12 +1,13 @@
-package com.github.skytoph.simpleweather.presentation.settings
+package com.github.skytoph.simpleweather.presentation.settings.nav
 
 import androidx.annotation.IdRes
 import com.github.skytoph.simpleweather.core.presentation.navigation.NavigationScreen
 import com.github.skytoph.simpleweather.core.presentation.navigation.ShowStrategy
+import com.github.skytoph.simpleweather.presentation.settings.SettingsFragment
 
-class SettingsNavFragment(
+class AboutNavFragment(
     @IdRes private val container: Int,
-    strategy: ShowStrategy =ShowStrategy.Replace,
+    strategy: ShowStrategy = ShowStrategy.Replace,
 ) : NavigationScreen(
     TAG,
     SettingsFragment::class.java,
@@ -15,6 +16,6 @@ class SettingsNavFragment(
 ) {
 
     companion object {
-        const val TAG = "SettingsNavigationScreen"
+        const val TAG = "AboutNavigationScreen"
     }
 }

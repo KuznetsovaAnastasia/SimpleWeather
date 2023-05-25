@@ -7,10 +7,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.skytoph.simpleweather.domain.search.SearchDetailsInteractor
-import com.github.skytoph.simpleweather.presentation.addlocation.Loading
-import com.github.skytoph.simpleweather.presentation.addlocation.WeatherLoadingCommunication
+import com.github.skytoph.simpleweather.presentation.addlocation.communication.Loading
+import com.github.skytoph.simpleweather.presentation.addlocation.communication.WeatherLoadingCommunication
+import com.github.skytoph.simpleweather.presentation.search.communication.HistoryCommunication
+import com.github.skytoph.simpleweather.presentation.search.communication.SearchCommunication
+import com.github.skytoph.simpleweather.presentation.search.communication.SearchLoadingCommunication
 import com.github.skytoph.simpleweather.presentation.search.model.SearchHistoryUi
 import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
+import com.github.skytoph.simpleweather.presentation.search.nav.SearchNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

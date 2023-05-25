@@ -5,6 +5,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.*
 import com.github.skytoph.simpleweather.core.presentation.StateMapper
 import com.github.skytoph.simpleweather.domain.addlocation.AddLocationInteractor
+import com.github.skytoph.simpleweather.presentation.addlocation.communication.Loading
+import com.github.skytoph.simpleweather.presentation.addlocation.communication.WeatherLoadingCommunication
+import com.github.skytoph.simpleweather.presentation.addlocation.nav.AddLocationNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,7 +1,6 @@
-package com.github.skytoph.simpleweather.presentation.main
+package com.github.skytoph.simpleweather.presentation.main.nav
 
 import androidx.annotation.IdRes
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.github.skytoph.simpleweather.core.presentation.navigation.ShowScreen

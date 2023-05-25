@@ -1,6 +1,6 @@
 package com.github.skytoph.simpleweather.di.core
 
-import com.github.skytoph.simpleweather.presentation.favorites.RefreshCommunication
+import com.github.skytoph.simpleweather.presentation.favorites.communication.RefreshCommunication
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

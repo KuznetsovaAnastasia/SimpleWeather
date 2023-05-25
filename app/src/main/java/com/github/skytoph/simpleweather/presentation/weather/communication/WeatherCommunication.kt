@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.weather
+package com.github.skytoph.simpleweather.presentation.weather.communication
 
 import com.github.skytoph.simpleweather.core.presentation.communication.Communication
 import com.github.skytoph.simpleweather.presentation.weather.model.WeatherUi

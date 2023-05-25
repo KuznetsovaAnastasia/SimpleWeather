@@ -1,7 +1,8 @@
-package com.github.skytoph.simpleweather.presentation.main
+package com.github.skytoph.simpleweather.presentation.main.communication
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
+import com.github.skytoph.simpleweather.presentation.main.nav.MainContentNavigator
 
 abstract class MainState(protected val navigation: MainContentNavigator) {
     abstract fun show(fragmentManager: FragmentManager, @IdRes container: Int)

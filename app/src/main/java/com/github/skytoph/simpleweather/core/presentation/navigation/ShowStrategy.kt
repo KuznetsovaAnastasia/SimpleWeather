@@ -3,7 +3,6 @@ package com.github.skytoph.simpleweather.core.presentation.navigation
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.github.skytoph.simpleweather.presentation.main.MainNavFragment
 
 abstract class ShowStrategy {
     abstract fun show(

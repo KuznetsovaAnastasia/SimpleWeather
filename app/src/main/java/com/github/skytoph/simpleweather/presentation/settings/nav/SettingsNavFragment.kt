@@ -1,20 +1,21 @@
-package com.github.skytoph.simpleweather.presentation.favorites
+package com.github.skytoph.simpleweather.presentation.settings.nav
 
 import androidx.annotation.IdRes
 import com.github.skytoph.simpleweather.core.presentation.navigation.NavigationScreen
 import com.github.skytoph.simpleweather.core.presentation.navigation.ShowStrategy
+import com.github.skytoph.simpleweather.presentation.settings.SettingsFragment
 
-class FavoritesNavFragment(
+class SettingsNavFragment(
     @IdRes private val container: Int,
-    strategy: ShowStrategy=ShowStrategy.Add
+    strategy: ShowStrategy =ShowStrategy.Replace,
 ) : NavigationScreen(
     TAG,
-    FavoritesFragment::class.java,
+    SettingsFragment::class.java,
     container,
     strategy
 ) {
 
     companion object {
-        const val TAG = "FavoritesNavigationScreen"
+        const val TAG = "SettingsNavigationScreen"
     }
 }

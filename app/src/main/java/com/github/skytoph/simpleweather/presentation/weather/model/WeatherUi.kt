@@ -7,8 +7,8 @@ import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
 import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
-import com.github.skytoph.simpleweather.presentation.addlocation.Loading
-import com.github.skytoph.simpleweather.presentation.addlocation.WeatherLoadingCommunication
+import com.github.skytoph.simpleweather.presentation.addlocation.communication.Loading
+import com.github.skytoph.simpleweather.presentation.addlocation.communication.WeatherLoadingCommunication
 
 sealed class WeatherUi : ShowWeatherUi() {
     abstract fun show(communication: WeatherLoadingCommunication.Update)

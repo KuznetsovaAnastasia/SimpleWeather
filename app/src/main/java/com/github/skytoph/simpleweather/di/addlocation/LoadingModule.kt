@@ -1,6 +1,6 @@
 package com.github.skytoph.simpleweather.di.addlocation
 
-import com.github.skytoph.simpleweather.presentation.addlocation.WeatherLoadingCommunication
+import com.github.skytoph.simpleweather.presentation.addlocation.communication.WeatherLoadingCommunication
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

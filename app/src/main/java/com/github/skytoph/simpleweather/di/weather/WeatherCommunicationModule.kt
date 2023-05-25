@@ -1,6 +1,6 @@
 package com.github.skytoph.simpleweather.di.weather
 
-import com.github.skytoph.simpleweather.presentation.weather.WeatherCommunication
+import com.github.skytoph.simpleweather.presentation.weather.communication.WeatherCommunication
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

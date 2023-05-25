@@ -1,6 +1,6 @@
 package com.github.skytoph.simpleweather.di.favorites
 
-import com.github.skytoph.simpleweather.presentation.favorites.FavoritesStateCommunication
+import com.github.skytoph.simpleweather.presentation.favorites.communication.FavoritesStateCommunication
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

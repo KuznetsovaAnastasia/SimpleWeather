@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.addlocation
+package com.github.skytoph.simpleweather.presentation.addlocation.communication
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

@@ -1,6 +1,6 @@
 package com.github.skytoph.simpleweather.di.search
 
-import com.github.skytoph.simpleweather.presentation.search.HistoryCommunication
+import com.github.skytoph.simpleweather.presentation.search.communication.HistoryCommunication
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

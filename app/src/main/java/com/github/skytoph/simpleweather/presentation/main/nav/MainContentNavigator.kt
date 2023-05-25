@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.main
+package com.github.skytoph.simpleweather.presentation.main.nav
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager

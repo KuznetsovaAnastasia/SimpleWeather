@@ -1,4 +1,4 @@
-package com.github.skytoph.simpleweather.presentation.favorites
+package com.github.skytoph.simpleweather.presentation.favorites.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil

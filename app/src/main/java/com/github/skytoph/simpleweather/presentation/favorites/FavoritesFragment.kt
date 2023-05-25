@@ -20,6 +20,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentFavoritesBinding
+import com.github.skytoph.simpleweather.presentation.favorites.adapter.FavoritesAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint

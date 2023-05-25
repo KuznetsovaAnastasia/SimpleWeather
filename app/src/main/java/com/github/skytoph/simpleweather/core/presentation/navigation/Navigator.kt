@@ -4,17 +4,18 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import com.github.skytoph.simpleweather.presentation.addlocation.AddLocationNavFragment
-import com.github.skytoph.simpleweather.presentation.addlocation.AddLocationNavigator
-import com.github.skytoph.simpleweather.presentation.favorites.FavoritesNavFragment
-import com.github.skytoph.simpleweather.presentation.main.MainContentNavigator
-import com.github.skytoph.simpleweather.presentation.main.MainNavFragment
-import com.github.skytoph.simpleweather.presentation.main.MainNavigator
-import com.github.skytoph.simpleweather.presentation.search.SearchNavFragment
-import com.github.skytoph.simpleweather.presentation.search.SearchNavigator
-import com.github.skytoph.simpleweather.presentation.settings.SettingsNavFragment
-import com.github.skytoph.simpleweather.presentation.settings.SettingsNavigator
-import com.github.skytoph.simpleweather.presentation.weather.WeatherNavFragment
+import com.github.skytoph.simpleweather.presentation.addlocation.nav.AddLocationNavFragment
+import com.github.skytoph.simpleweather.presentation.addlocation.nav.AddLocationNavigator
+import com.github.skytoph.simpleweather.presentation.favorites.nav.FavoritesNavFragment
+import com.github.skytoph.simpleweather.presentation.main.nav.MainContentNavigator
+import com.github.skytoph.simpleweather.presentation.main.nav.MainNavFragment
+import com.github.skytoph.simpleweather.presentation.main.nav.MainNavigator
+import com.github.skytoph.simpleweather.presentation.search.nav.SearchNavFragment
+import com.github.skytoph.simpleweather.presentation.search.nav.SearchNavigator
+import com.github.skytoph.simpleweather.presentation.settings.nav.AboutNavFragment
+import com.github.skytoph.simpleweather.presentation.settings.nav.SettingsNavFragment
+import com.github.skytoph.simpleweather.presentation.settings.nav.SettingsNavigator
+import com.github.skytoph.simpleweather.presentation.weather.nav.WeatherNavFragment
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -36,6 +37,9 @@ interface Navigator : AddLocationNavigator, SearchNavigator, MainContentNavigato
 
         override fun showSettings(@IdRes container: Int) =
             communication.show(SettingsNavFragment(container))
+
+        override fun showAbout(@IdRes container: Int) =
+            communication.show(AboutNavFragment(container))
 
         override fun showSearch(fragmentManager: FragmentManager, @IdRes container: Int) {
             communication.show(
