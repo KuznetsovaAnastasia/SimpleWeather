@@ -18,8 +18,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-        setupClearHistoryPreference()
         setupLanguagePreference()
+        setupClearHistoryPreference()
+        setupAboutPreference()
+    }
+
+    private fun setupLanguagePreference() {
+        val preference =
+            preferenceScreen.findPreference<ListPreference>(getString(R.string.key_language))
+        val language = Locale.getDefault().language
+        val indexOfValue = preference?.findIndexOfValue(language).takeIf { it != -1 } ?: 0
+        preference?.setValueIndex(indexOfValue)
     }
 
     private fun setupClearHistoryPreference() {
@@ -36,12 +45,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
     }
 
-    private fun setupLanguagePreference() {
-        val preference =
-            preferenceScreen.findPreference<ListPreference>(getString(R.string.key_language))
-        val language = Locale.getDefault().language
-        val indexOfValue = preference?.findIndexOfValue(language).takeIf { it != -1 } ?: 0
-        preference?.setValueIndex(indexOfValue)
+    private fun setupAboutPreference() {
+        preferenceScreen.findPreference<Preference>(getString(R.string.key_about))
+            ?.setOnPreferenceClickListener {
+                viewModel.showAbout(R.id.fragment_container)
+                true
+            }
     }
 
     private companion object {

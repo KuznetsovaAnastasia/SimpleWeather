@@ -37,10 +37,10 @@ interface UpdateForecastWork {
                     )
                     .setInputData(data)
                     .build()
+            workId = request.id
             workManager.enqueueUniquePeriodicWork(
                 WORK_NAME, ExistingPeriodicWorkPolicy.REPLACE, request
             )
-            workId = request.id
         }
 
         private companion object {
@@ -65,8 +65,8 @@ interface UpdateForecastWork {
                 )
                 .setInputData(data)
                 .build()
-            workManager.enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, request)
             workId = request.id
+            workManager.enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, request)
         }
 
         private companion object {

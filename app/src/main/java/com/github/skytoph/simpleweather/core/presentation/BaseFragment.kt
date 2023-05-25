@@ -11,9 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<T : ViewModel, B : ViewBinding> : Fragment() {
-
-    protected abstract val viewModel: T
+abstract class BaseBindingFragment<B : ViewBinding> : Fragment() {
 
     private var _binding: B? = null
     protected val binding: B get() = _binding!!
@@ -43,4 +41,8 @@ abstract class BaseFragment<T : ViewModel, B : ViewBinding> : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+}
+
+abstract class BaseFragment<M : ViewModel, B : ViewBinding> : BaseBindingFragment<B>() {
+    protected abstract val viewModel: M
 }

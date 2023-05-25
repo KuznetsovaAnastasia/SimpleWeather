@@ -98,7 +98,7 @@
     <string name="notification_loading_channel_description">Weather forecast data update notification</string>
     <string name="notification_loading_title">Updating weather forecast</string>
 
-<!--    Tooltips-->
+    <!--    Tooltips-->
     <string name="tooltip_air_quality_text">AQ – air quality index. Possible values: 1–5, where %1$s</string>
     <string name="tooltip_air_quality_1">1 - Good</string>
     <string name="tooltip_air_quality_2">2 - Fair</string>
