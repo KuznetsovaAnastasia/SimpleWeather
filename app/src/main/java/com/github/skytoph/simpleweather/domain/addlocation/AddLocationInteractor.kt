@@ -6,18 +6,33 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
 interface AddLocationInteractor {
+    suspend fun isFavorite(placeId: String): Boolean
+    suspend fun validId(placeId: String): String
     suspend fun save(successCallback: suspend () -> Unit)
 
     @ViewModelScoped
     class Base @Inject constructor(
-        private val repository: WeatherRepository.Save,
+        private val weatherRepository: WeatherRepository.Save,
         private val errorHandler: ErrorHandler,
     ) : AddLocationInteractor {
 
+        override suspend fun isFavorite(placeId: String): Boolean = try {
+            weatherRepository.cachedId(placeId)
+            true
+        } catch (e: Exception) {
+            false
+        }
+
+        override suspend fun validId(placeId: String): String = try {
+            weatherRepository.cachedId(placeId)
+        } catch (exception: Exception) {
+            placeId
+        }
+
         override suspend fun save(successCallback: suspend () -> Unit) {
             try {
-                repository.checkReachingLimit(MAX_SAVED_FAVORITES)
-                repository.saveWeather()
+                weatherRepository.checkReachingLimit(MAX_SAVED_FAVORITES)
+                weatherRepository.saveWeather()
                 successCallback()
             } catch (e: Exception) {
                 errorHandler.handle(e)
@@ -25,7 +40,7 @@ interface AddLocationInteractor {
         }
 
         private companion object {
-            const val MAX_SAVED_FAVORITES = 3
+            const val MAX_SAVED_FAVORITES = 5
         }
     }
 }

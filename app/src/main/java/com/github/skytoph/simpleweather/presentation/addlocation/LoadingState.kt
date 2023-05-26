@@ -5,7 +5,7 @@ import android.widget.TextView
 import com.github.skytoph.simpleweather.core.presentation.view.MessageButton
 import com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper
 
-sealed class State {
+sealed class LoadingState {
     abstract fun show(
         content: View, button: MessageButton, errorView: TextView, progress: ShimmerWrapper,
     )
@@ -15,7 +15,7 @@ sealed class State {
         private val buttonVisibility: Int,
         private val errorVisibility: Int,
         private val progressVisible: Boolean,
-    ) : State() {
+    ) : LoadingState() {
         override fun show(
             content: View, button: MessageButton, errorView: TextView, progress: ShimmerWrapper,
         ) {

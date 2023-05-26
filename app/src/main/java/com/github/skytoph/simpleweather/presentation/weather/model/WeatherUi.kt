@@ -7,7 +7,7 @@ import com.github.skytoph.simpleweather.core.presentation.view.IndicatorsView
 import com.github.skytoph.simpleweather.core.presentation.view.LocationView
 import com.github.skytoph.simpleweather.core.presentation.view.SunriseSunsetView
 import com.github.skytoph.simpleweather.core.presentation.view.visibility.Visibility
-import com.github.skytoph.simpleweather.presentation.addlocation.communication.Loading
+import com.github.skytoph.simpleweather.presentation.addlocation.LoadingState
 import com.github.skytoph.simpleweather.presentation.addlocation.communication.WeatherLoadingCommunication
 
 sealed class WeatherUi : ShowWeatherUi() {
@@ -40,7 +40,7 @@ sealed class WeatherUi : ShowWeatherUi() {
         }
 
         override fun show(communication: WeatherLoadingCommunication.Update) =
-            communication.show(Loading.SUCCESS)
+            communication.show(LoadingState.Success)
 
         override fun show(communication: Communication.Update<WeatherUi>) = communication.show(this)
     }
@@ -61,14 +61,14 @@ sealed class WeatherUi : ShowWeatherUi() {
         }
 
         override fun show(communication: WeatherLoadingCommunication.Update) =
-            communication.show(Loading.FAIL)
+            communication.show(LoadingState.Fail)
 
         override fun show(communication: Communication.Update<WeatherUi>) = Unit
     }
 
     object Fail : WeatherUi() {
         override fun show(communication: WeatherLoadingCommunication.Update) =
-            communication.show(Loading.FAIL)
+            communication.show(LoadingState.Fail)
 
         override fun show(communication: Communication.Update<WeatherUi>) = Unit
     }

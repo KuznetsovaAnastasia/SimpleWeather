@@ -8,7 +8,6 @@ import com.github.skytoph.simpleweather.presentation.addlocation.AddLocationFrag
 class AddLocationNavFragment(
     @IdRes container: Int,
     private val id: String,
-    private val favorite: Boolean = false,
     strategy: ShowStrategy = ShowStrategy.Replace
 ) : NavigationScreen(
     TAG,
@@ -17,7 +16,7 @@ class AddLocationNavFragment(
     strategy
 ) {
 
-    override fun fragment() = AddLocationFragment.newInstance(id, favorite)
+    override fun fragment() = AddLocationFragment.newInstance(id)
 
     companion object {
         const val TAG = "AddLocationFragment"

@@ -27,7 +27,6 @@ class SearchFragment :
         super.onViewCreated(view, savedInstanceState)
 
         val showDetails: (id: String, title: String) -> Unit = { id, title ->
-            binding.searchShimmer.show(false)
             viewModel.showDetails(childFragmentManager, R.id.fragment_container, id, title)
         }
 

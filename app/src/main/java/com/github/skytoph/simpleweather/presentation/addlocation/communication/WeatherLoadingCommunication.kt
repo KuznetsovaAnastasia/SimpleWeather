@@ -1,35 +1,18 @@
 package com.github.skytoph.simpleweather.presentation.addlocation.communication
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import com.github.skytoph.simpleweather.core.presentation.LiveDataMapper
 import com.github.skytoph.simpleweather.core.presentation.communication.Communication
+import com.github.skytoph.simpleweather.presentation.addlocation.LoadingState
 import javax.inject.Inject
 import javax.inject.Singleton
 
 interface WeatherLoadingCommunication {
 
-    interface Update : Communication.Update<Loading>
+    interface Update : Communication.Update<LoadingState>
 
-    interface Observe : Communication.Observe<Loading> {
-        fun <T> map(mapper: LiveDataMapper, map: (Loading) -> T): LiveData<T>
-        fun removeObserver(owner: LifecycleOwner)
-    }
+    interface Observe : Communication.Observe<LoadingState>
 
     interface Mutable : Update, Observe
 
     @Singleton
-    class Base @Inject constructor() : Communication.SingleUiUpdate<Loading>(), Mutable {
-
-        override fun <T> map(mapper: LiveDataMapper, map: (Loading) -> T): LiveData<T> =
-            mapper.map(data, map)
-
-        override fun removeObserver(owner: LifecycleOwner) = data.removeObservers(owner)
-    }
-}
-
-enum class Loading {
-    INITIAL,
-    SUCCESS,
-    FAIL
+    class Base @Inject constructor() : Communication.SingleUiUpdate<LoadingState>(), Mutable
 }

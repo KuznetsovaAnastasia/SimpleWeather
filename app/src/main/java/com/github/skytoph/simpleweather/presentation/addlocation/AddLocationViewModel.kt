@@ -3,9 +3,7 @@ package com.github.skytoph.simpleweather.presentation.addlocation
 import androidx.annotation.IdRes
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.*
-import com.github.skytoph.simpleweather.core.presentation.StateMapper
 import com.github.skytoph.simpleweather.domain.addlocation.AddLocationInteractor
-import com.github.skytoph.simpleweather.presentation.addlocation.communication.Loading
 import com.github.skytoph.simpleweather.presentation.addlocation.communication.WeatherLoadingCommunication
 import com.github.skytoph.simpleweather.presentation.addlocation.nav.AddLocationNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,14 +18,19 @@ class AddLocationViewModel @Inject constructor(
     private val interactor: AddLocationInteractor,
     private val navigator: AddLocationNavigator,
     private val loadingCommunication: WeatherLoadingCommunication.Observe,
-    private val stateMapper: StateMapper<Loading, State>,
 ) : ViewModel() {
 
     private val placeId: String = state[PLACE_ID_KEY]!!
-    private val favorite: Boolean = state[FAVORITE_KEY]!!
 
-    fun showWeather(fragmentManager: FragmentManager, @IdRes container: Int) =
-        navigator.showWeather(fragmentManager, container, placeId, favorite)
+    fun showWeather(
+        fragmentManager: FragmentManager, @IdRes container: Int, callback: (Boolean) -> Unit
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val validId = interactor.validId(placeId)
+        val favorite = interactor.isFavorite(validId)
+        withContext(Dispatchers.Main) {
+            navigator.showWeather(fragmentManager, container, validId, favorite.also(callback))
+        }
+    }
 
     fun saveWeather(successCallback: () -> Unit) = viewModelScope.launch(Dispatchers.IO) {
         interactor.save {
@@ -37,15 +40,10 @@ class AddLocationViewModel @Inject constructor(
         }
     }
 
-    fun observe(owner: LifecycleOwner, observer: Observer<State>) {
-        if (favorite) return observer.onChanged(State.Favorite)
-        else loadingCommunication.observe(owner) {
-            observer.onChanged(stateMapper.map(it))
-        }
-    }
+    fun observe(owner: LifecycleOwner, observer: Observer<LoadingState>) =
+        loadingCommunication.observe(owner, observer)
 
     companion object {
         const val PLACE_ID_KEY = "placeId"
-        const val FAVORITE_KEY = "favorite"
     }
 }

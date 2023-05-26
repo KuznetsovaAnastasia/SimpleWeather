@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.skytoph.simpleweather.domain.search.SearchDetailsInteractor
-import com.github.skytoph.simpleweather.presentation.addlocation.communication.Loading
+import com.github.skytoph.simpleweather.presentation.addlocation.LoadingState
 import com.github.skytoph.simpleweather.presentation.addlocation.communication.WeatherLoadingCommunication
 import com.github.skytoph.simpleweather.presentation.search.communication.HistoryCommunication
 import com.github.skytoph.simpleweather.presentation.search.communication.SearchCommunication
@@ -25,7 +25,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val searchCommunication: SearchCommunication.Observe,
     private val loadingCommunication: WeatherLoadingCommunication.Update,
-    private val searchLoading: SearchLoadingCommunication.Observe,
+    private val searchLoading: SearchLoadingCommunication.Mutable,
     private val interactor: SearchDetailsInteractor,
     private val searchHistory: HistoryCommunication,
     private val navigation: SearchNavigator,
@@ -41,13 +41,13 @@ class SearchViewModel @Inject constructor(
         id: String,
         title: String
     ) {
-        loadingCommunication.show(Loading.INITIAL)
+        loadingCommunication.show(LoadingState.Initial)
+        searchLoading.show(true)
         viewModelScope.launch(Dispatchers.IO) {
             interactor.saveSearchResult(id, title)
-            val validId = interactor.validId(id)
-            val favorite = interactor.isFavorite(validId)
             withContext(Dispatchers.Main) {
-                navigation.showSearchDetails(fragmentManager, container, validId, favorite)
+                searchLoading.show(false)
+                navigation.showSearchDetails(fragmentManager, container, id)
             }
         }
     }

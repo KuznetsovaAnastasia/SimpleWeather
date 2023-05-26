@@ -28,8 +28,5 @@ abstract class WeatherRepositoryModule {
     abstract fun repositorySave(repository: BaseWeatherRepository): WeatherRepository.Save
 
     @Binds
-    abstract fun repositoryContains(repository: BaseWeatherRepository): WeatherRepository.Contains
-
-    @Binds
     abstract fun compareTime(compare: CompareTimeWithCurrent.Base): CompareTimeWithCurrent
 }

@@ -12,10 +12,7 @@ interface WeatherRepository {
     interface Save {
         suspend fun saveWeather()
         suspend fun checkReachingLimit(limit: Int)
-    }
-
-    interface Contains {
-        suspend fun contains(id: String): Boolean
+        suspend fun cachedId(placeId: String): String
     }
 
     interface Delete {
@@ -35,5 +32,5 @@ interface WeatherRepository {
         suspend fun getCachedWeather(id: String): WeatherData
     }
 
-    interface Base : Mutable, Update, RefreshAll, Save, Contains
+    interface Base : Mutable, Update, RefreshAll, Save
 }

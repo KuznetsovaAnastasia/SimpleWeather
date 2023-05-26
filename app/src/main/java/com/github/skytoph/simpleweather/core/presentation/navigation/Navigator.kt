@@ -49,15 +49,8 @@ interface Navigator : AddLocationNavigator, SearchNavigator, MainContentNavigato
         }
 
         override fun showSearchDetails(
-            fragmentManager: FragmentManager, @IdRes container: Int, id: String, favorite: Boolean
-        ) = communication.show(
-            AddLocationNavFragment(
-                container,
-                id,
-                favorite,
-                ShowStrategy.Replace
-            )
-        )
+            fragmentManager: FragmentManager, @IdRes container: Int, id: String
+        ) = communication.show(AddLocationNavFragment(container, id, ShowStrategy.Replace))
 
         override fun showWeather(
             fragmentManager: FragmentManager,

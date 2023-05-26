@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
 import com.github.skytoph.simpleweather.databinding.FragmentAddLocationBinding
-import com.github.skytoph.simpleweather.presentation.addlocation.AddLocationViewModel.Companion.FAVORITE_KEY
 import com.github.skytoph.simpleweather.presentation.addlocation.AddLocationViewModel.Companion.PLACE_ID_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,26 +23,26 @@ class AddLocationFragment : BaseFragment<AddLocationViewModel, FragmentAddLocati
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState == null)
-            viewModel.showWeather(childFragmentManager, R.id.weather_add_container)
-
         val button = binding.messageButton
-        val favorite = requireArguments().getBoolean(FAVORITE_KEY)
         val shimmerView = binding.placeholder.placeholderShimmer
         viewModel.observe(this) { state ->
             binding.apply {
                 state.show(weatherAddContainer, button, errorView, shimmerView)
             }
         }
-        if (!favorite) button.setOnClickListener {
-            viewModel.saveWeather { button.setClickedStyle() }
-        }
+
+        if (savedInstanceState == null)
+            viewModel.showWeather(childFragmentManager, R.id.weather_add_container) { favorite ->
+                if (!favorite) button.setOnClickListener {
+                    viewModel.saveWeather { button.setClickedStyle() }
+                }
+            }
     }
 
     companion object {
-        fun newInstance(placeId: String, favorite: Boolean): AddLocationFragment =
+        fun newInstance(placeId: String): AddLocationFragment =
             AddLocationFragment().apply {
-                arguments = bundleOf(PLACE_ID_KEY to placeId, FAVORITE_KEY to favorite)
+                arguments = bundleOf(PLACE_ID_KEY to placeId)
             }
     }
 }
