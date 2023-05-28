@@ -14,9 +14,11 @@ interface PlaceCloudDataSource {
         private val idMapper: IdMapper,
     ) : PlaceCloudDataSource {
 
-        override suspend fun place(placeId: String): PlaceData =
-            nameDataSource.find(coordinatesDataSource.find(placeId).mapToCoordinates(idMapper))
-                .map(mapperData)
+        override suspend fun place(placeId: String): PlaceData {
+            val coordinates = coordinatesDataSource.find(placeId).mapToCoordinates(idMapper)
+            val locationCloud = nameDataSource.find(coordinates)
+            return mapperData.map(locationCloud, placeId)
+        }
 
         override suspend fun placeCoordinates(placeId: String): String =
             coordinatesDataSource.find(placeId).map(idMapper)

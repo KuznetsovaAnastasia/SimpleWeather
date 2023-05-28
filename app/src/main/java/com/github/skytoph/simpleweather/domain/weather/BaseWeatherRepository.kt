@@ -48,11 +48,4 @@ class BaseWeatherRepository @Inject constructor(
 
     override suspend fun delete(id: String) =
         cacheDataSource.remove(id)
-
-    override suspend fun contains(id: String): Boolean = try {
-        cacheDataSource.read(id)
-        true
-    } catch (exception: Exception) {
-        false
-    }
 }

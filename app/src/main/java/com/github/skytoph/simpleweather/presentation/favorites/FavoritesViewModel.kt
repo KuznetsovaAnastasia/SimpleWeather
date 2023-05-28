@@ -24,12 +24,9 @@ class FavoritesViewModel @Inject constructor(
     private val worker: UpdateForecastWork.Once,
 ) : ViewModel() {
 
-    init {
-        refresh()
-    }
-
-    fun initialize(submitFavorites: (List<String>) -> Unit) {
+    fun initialize(lifecycleOwner: LifecycleOwner, submitFavorites: (List<String>) -> Unit) {
         submitFavorites(interactor.favoriteIDs())
+        refresh(lifecycleOwner)
     }
 
     fun refreshFavorites(ids: List<String>? = null) {
@@ -39,24 +36,28 @@ class FavoritesViewModel @Inject constructor(
         stateCommunication.show(state)
     }
 
-    fun refresh(lifecycleOwner: LifecycleOwner? = null, hideRefreshing: () -> Unit = {}) {
+    fun refresh(lifecycleOwner: LifecycleOwner, hideRefreshing: () -> Unit = {}) {
         if (interactor.favoriteIDs().isEmpty()) {
             stateCommunication.show(FavoritesState.Progress(true))
             requestPermissions()
             hideRefreshing()
         } else {
             worker.scheduleWork()
-            lifecycleOwner?.let { observeUpdatingWork(lifecycleOwner, hideRefreshing) }
+            observeUpdatingWork(lifecycleOwner, hideRefreshing)
         }
     }
 
     private fun observeUpdatingWork(lifecycleOwner: LifecycleOwner, hideRefreshing: () -> Unit) =
         worker.observeWork(lifecycleOwner) { info ->
-            if (info?.state != WorkInfo.State.RUNNING)
+            val state = info?.state
+            if (state != WorkInfo.State.RUNNING) {
                 hideRefreshing()
-            if (info?.state == WorkInfo.State.FAILED)
+                stateCommunication.show(FavoritesState.Progress(false))
+            } else
+                stateCommunication.show(FavoritesState.Progress(true))
+            if (state == WorkInfo.State.FAILED)
                 interactor.handleUpdatingError()
-            else if (info?.state == WorkInfo.State.SUCCEEDED)
+            else if (state == WorkInfo.State.SUCCEEDED)
                 updateWeatherContent()
         }
 

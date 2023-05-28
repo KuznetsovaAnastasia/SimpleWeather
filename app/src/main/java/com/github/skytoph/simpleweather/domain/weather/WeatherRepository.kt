@@ -9,27 +9,29 @@ interface WeatherRepository {
         suspend fun refreshAll(criteria: UpdatedLately = UpdatedLately.LastDay)
     }
 
-    interface Save {
+    interface Save : GetCached {
         suspend fun saveWeather()
         suspend fun checkReachingLimit(limit: Int)
-        suspend fun cachedId(placeId: String): String
     }
 
     interface Delete {
         suspend fun delete(id: String)
     }
 
-    interface Mutable : RefreshAll, Delete, Save, Get {
+    interface Mutable : RefreshAll, Delete, Save, GetCloud {
         fun cachedIDs(): List<String>
     }
 
-    interface Get {
+    interface GetCloud {
         suspend fun getCloudWeather(id: String): WeatherData
     }
 
-    interface Update : Get {
-        suspend fun updateCloudWeather(id: String): WeatherData
+    interface GetCached {
         suspend fun getCachedWeather(id: String): WeatherData
+    }
+
+    interface Update : GetCloud, GetCached {
+        suspend fun updateCloudWeather(id: String): WeatherData
     }
 
     interface Base : Mutable, Update, RefreshAll, Save

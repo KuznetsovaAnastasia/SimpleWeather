@@ -53,39 +53,34 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
             ): WeatherData = locationCloud.map(object : PlaceCloudMapper {
 
                 override fun map(
-                    placeId: String,
-                    location: Map<String, String>,
-                    lat: Double,
-                    lng: Double
-                ) =
+                    placeId: String, location: Map<String, String>, lat: Double, lng: Double
+                ) = current.map(object : CurrentCloudToDataMapper {
 
-                    current.map(object : CurrentCloudToDataMapper {
-
-                        override fun map(
-                            dt: Long,
-                            temp: Double,
-                            sunrise: Long,
-                            sunset: Long,
-                            uvi: Double,
-                            weather: Int,
-                        ): WeatherData {
-                            val pop = hourly[0].map()
-                            return WeatherData(
-                                IdentifierData(idMapper.map(lat, lng), placeId, favorite),
-                                ForecastTimeData(dt, timezoneOffset, timezone),
-                                ContentData(
-                                    currentMapper.map(weather, temp, location),
-                                    indicatorsMapper.map(temp, pop, airQualityCloud.map()),
-                                    horizonMapper.map(sunrise, sunset),
-                                    ForecastData(
-                                        warningsMapper.map(alerts),
-                                        hourlyMapper.map(hourly),
-                                        dailyMapper.map(daily)
-                                    )
+                    override fun map(
+                        dt: Long,
+                        temp: Double,
+                        sunrise: Long,
+                        sunset: Long,
+                        uvi: Double,
+                        weather: Int,
+                    ): WeatherData {
+                        val pop = hourly[0].map()
+                        return WeatherData(
+                            IdentifierData(placeId, lat, lng, favorite),
+                            ForecastTimeData(dt, timezoneOffset, timezone),
+                            ContentData(
+                                currentMapper.map(weather, temp, location),
+                                indicatorsMapper.map(temp, pop, airQualityCloud.map()),
+                                horizonMapper.map(sunrise, sunset),
+                                ForecastData(
+                                    warningsMapper.map(alerts),
+                                    hourlyMapper.map(hourly),
+                                    dailyMapper.map(daily)
                                 )
                             )
-                        }
-                    })
+                        )
+                    }
+                })
             })
         })
     }

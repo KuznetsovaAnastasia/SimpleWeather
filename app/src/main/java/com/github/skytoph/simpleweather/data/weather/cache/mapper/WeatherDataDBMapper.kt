@@ -20,9 +20,9 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
     ): WeatherDB
 
     class Base @Inject constructor(
-        private val identifierMapper: IdentifierDBMapper,
         private val timeMapper: TimeDBMapper,
         private val contentMapper: ContentDBMapper,
+        private val identifierMapper: IdentifierDBMapper,
     ) : WeatherDataDBMapper {
 
         override fun map(
@@ -31,8 +31,8 @@ interface WeatherDataDBMapper : Mapper<WeatherDB> {
             content: ContentData,
             dataBase: DataBase,
         ): WeatherDB = dataBase.createObject<WeatherDB>(identifier.map()).apply {
-            this.identifier = identifier.map(identifierMapper, dataBase)
             this.time = time.map(timeMapper)
+            identifier.map(identifierMapper, dataBase, this)
             content.map(contentMapper, dataBase, this)
         }
     }

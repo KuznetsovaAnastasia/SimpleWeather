@@ -20,18 +20,17 @@ interface WeatherDBToDataMapper : Mapper<WeatherData> {
     ) : WeatherDBToDataMapper {
 
         override fun map(
-            id: String,
-            identifier: IdentifierDB,
-            time: TimeDB,
-            content: ContentDB,
+            id: String, identifier: IdentifierDB, time: TimeDB, content: ContentDB,
         ): WeatherData {
             val identifierMapper = object : IdentifierDBToDataMapper {
-                override fun map(placeId: String, priority: Int) =
-                    IdentifierData(id, placeId, true, priority)
+                override fun map(lat: Double, lon: Double, priority: Int) =
+                    IdentifierData(id, lat, lon, true, priority)
             }
-            return WeatherData(identifier.map(identifierMapper),
+            return WeatherData(
+                identifier.map(identifierMapper),
                 time.map(timeMapper),
-                content.map(contentMapper))
+                content.map(contentMapper)
+            )
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.data.location.cloud
 
 import com.github.skytoph.simpleweather.core.Mappable
-import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudToDataMapper
+import com.github.skytoph.simpleweather.data.location.mapper.PlaceDataMapper
 import com.squareup.moshi.Json
 
 /*
@@ -20,9 +20,9 @@ data class LocationCloud(
     private val namesLocal: Map<String, String?>,
     private val lat: Double,
     private val lng: Double,
-) : Mappable<PlaceData, PlaceCloudToDataMapper> {
+) : Mappable<PlaceData, PlaceDataMapper> {
 
-    override fun map(mapper: PlaceCloudToDataMapper): PlaceData =
+    override fun map(mapper: PlaceDataMapper): PlaceData =
         mapper.map(name, namesLocal, lat, lng)
 }
 

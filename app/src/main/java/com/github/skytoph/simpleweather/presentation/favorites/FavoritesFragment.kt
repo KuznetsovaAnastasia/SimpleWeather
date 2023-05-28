@@ -60,7 +60,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
             )
         }
 
-        viewModel.initialize { favorites ->
+        viewModel.initialize(lifecycleOwner = viewLifecycleOwner) { favorites ->
             adapter = FavoritesAdapter(this, favorites)
         }
         deleteMenuItem?.setOnMenuItemClickListener {

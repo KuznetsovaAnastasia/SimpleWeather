@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 interface AddLocationInteractor {
     suspend fun isFavorite(placeId: String): Boolean
-    suspend fun validId(placeId: String): String
     suspend fun save(successCallback: suspend () -> Unit)
 
     @ViewModelScoped
@@ -17,16 +16,10 @@ interface AddLocationInteractor {
     ) : AddLocationInteractor {
 
         override suspend fun isFavorite(placeId: String): Boolean = try {
-            weatherRepository.cachedId(placeId)
+            weatherRepository.getCachedWeather(placeId)
             true
         } catch (e: Exception) {
             false
-        }
-
-        override suspend fun validId(placeId: String): String = try {
-            weatherRepository.cachedId(placeId)
-        } catch (exception: Exception) {
-            placeId
         }
 
         override suspend fun save(successCallback: suspend () -> Unit) {

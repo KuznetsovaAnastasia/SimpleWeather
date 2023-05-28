@@ -25,10 +25,9 @@ class AddLocationViewModel @Inject constructor(
     fun showWeather(
         fragmentManager: FragmentManager, @IdRes container: Int, callback: (Boolean) -> Unit
     ) = viewModelScope.launch(Dispatchers.IO) {
-        val validId = interactor.validId(placeId)
-        val favorite = interactor.isFavorite(validId)
+        val favorite = interactor.isFavorite(placeId)
         withContext(Dispatchers.Main) {
-            navigator.showWeather(fragmentManager, container, validId, favorite.also(callback))
+            navigator.showWeather(fragmentManager, container, placeId, favorite.also(callback))
         }
     }
 
