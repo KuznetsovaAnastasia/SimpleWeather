@@ -1,7 +1,7 @@
 package com.github.skytoph.simpleweather.domain.search
 
 import androidx.annotation.RequiresPermission
-import com.github.skytoph.simpleweather.data.location.CurrentLocation
+import com.github.skytoph.simpleweather.data.location.CurrentLocationCoordinates
 import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloudDataSource
 import com.github.skytoph.simpleweather.data.search.cache.SearchHistoryCache
 import com.github.skytoph.simpleweather.data.search.cache.SearchHistoryData
@@ -13,13 +13,13 @@ interface LocationsRepository {
     suspend fun placeCoordinates(placeId: String): String
     suspend fun saveSearchLocation(placeId: String, location: String)
     suspend fun clearSearchHistory()
-    suspend fun currentPlaceId(): String
+    suspend fun currentPlace(): Pair<Double, Double>
     suspend fun searchHistory(): List<SearchHistoryData>
 
     class Base @Inject constructor(
         private val placeCloudDataSource: PlaceCloudDataSource,
         private val searchHistoryCache: SearchHistoryCache,
-        private val currentLocation: CurrentLocation,
+        private val currentLocation: CurrentLocationCoordinates,
         private val listMapper: SearchHistoryListDataMapper,
         private val mapper: SearchHistoryDataMapper,
     ) : LocationsRepository {
@@ -37,6 +37,7 @@ interface LocationsRepository {
             searchHistoryCache.clear()
 
         @RequiresPermission("android.permission.ACCESS_FINE_LOCATION")
-        override suspend fun currentPlaceId(): String = currentLocation.placeId()
+        override suspend fun currentPlace(): Pair<Double, Double> =
+            currentLocation.placeCoordinates()
     }
 }

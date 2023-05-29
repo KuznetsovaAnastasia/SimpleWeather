@@ -2,20 +2,37 @@ package com.github.skytoph.simpleweather.di.weather
 
 import android.content.Context
 import android.location.LocationManager
-import com.github.skytoph.simpleweather.data.location.CurrentLocation
+import com.github.skytoph.simpleweather.data.location.CurrentLocationCoordinates
+import com.github.skytoph.simpleweather.data.location.CurrentLocationId
+import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.qualifiers.ActivityContext
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(SingletonComponent::class)
 object CurrentLocationModule {
 
     @Provides
-    @ActivityScoped
-    fun currentLocation(@ActivityContext context: Context): CurrentLocation =
-        CurrentLocation.GPS(context.getSystemService(Context.LOCATION_SERVICE) as LocationManager)
+    @Singleton
+    fun currentLocation(
+        @ApplicationContext context: Context,
+        idMapper: IdMapper
+    ): CurrentLocationCoordinates =
+        CurrentLocationCoordinates.GPS(
+            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager, idMapper
+        )
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+interface CurrentLocationIdModule {
+
+    @Binds
+    @Singleton
+    fun currentLocation(source: CurrentLocationId.Base): CurrentLocationId
 }

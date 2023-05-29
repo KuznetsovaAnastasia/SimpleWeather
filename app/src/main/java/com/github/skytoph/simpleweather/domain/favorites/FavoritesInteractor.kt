@@ -33,7 +33,7 @@ interface FavoritesInteractor {
 
         override suspend fun saveCurrentLocation() {
             try {
-                repository.getCloudWeather(locationRepository.currentPlaceId())
+                repository.getCloudWeather(locationRepository.currentPlace())
                 repository.saveWeather()
             } catch (e: Exception) {
                 errorHandler.handle(e)

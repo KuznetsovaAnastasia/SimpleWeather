@@ -29,6 +29,9 @@ class BaseWeatherRepository @Inject constructor(
     override suspend fun getCloudWeather(id: String): WeatherData =
         cloudDataSource.fetch(id).also { cachedWeather.cache(it) }
 
+    override suspend fun getCloudWeather(coordinates: Pair<Double, Double>): WeatherData =
+        cloudDataSource.fetch(coordinates).also { cachedWeather.cache(it) }
+
     override suspend fun updateCloudWeather(id: String): WeatherData =
         updateAndSave(getCachedWeather(id))
 
