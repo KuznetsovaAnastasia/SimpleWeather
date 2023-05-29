@@ -24,6 +24,7 @@ interface WeatherRepository {
 
     interface GetCloud {
         suspend fun getCloudWeather(id: String): WeatherData
+        suspend fun getCloudWeather(coordinates: Pair<Double, Double>): WeatherData
     }
 
     interface GetCached {

@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.data.location.cloud
 
+import com.github.skytoph.simpleweather.core.MappableTo
 import com.squareup.moshi.Json
 
 //"results": [
@@ -17,7 +18,11 @@ data class PlaceJson(
 
 data class ResultJson(
     @Json(name = "geometry")
-    val geometry: GeometryJson
+    val geometry: GeometryJson,
+    @Json(name = "place_id")
+    val place_id: String,
+    @Json(name = "types")
+    val types: List<String>
 )
 
 data class GeometryJson(
@@ -33,10 +38,13 @@ data class LocationJson(
 )
 
 data class PlaceCoordinatesCloud(
+    private val placeId: String,
     private val lat: Double,
     private val lng: Double,
-) : IdMapper.MappableToStringId, IdMapper.MappableToCoordinates {
+    private val types: List<String>,
+) : IdMapper.MappableToStringId, IdMapper.MappableToCoordinates, MappableTo<String> {
 
+    override fun map(): String = placeId
     override fun map(mapper: IdMapper): String = mapper.map(lat, lng)
     override fun mapToCoordinates(mapper: IdMapper): Pair<Double, Double> =
         mapper.mapToCoordinates(lat, lng)
