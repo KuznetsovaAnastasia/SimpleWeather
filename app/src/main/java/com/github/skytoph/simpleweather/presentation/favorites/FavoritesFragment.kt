@@ -62,18 +62,18 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
 
         viewModel.initialize(lifecycleOwner = viewLifecycleOwner) { favorites ->
             adapter = FavoritesAdapter(this, favorites)
+
+            viewPager = binding.viewPagerFavorites
+            viewPager.adapter = adapter
+            viewPager.offscreenPageLimit = 1
+
+            tabLayout = activity.findViewById(R.id.tab_layout_dots)
+            TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
         }
         deleteMenuItem?.setOnMenuItemClickListener {
             viewModel.delete(adapter.getItem(tabLayout.selectedTabPosition))
             true
         }
-
-        viewPager = binding.viewPagerFavorites
-        viewPager.adapter = adapter
-        viewPager.offscreenPageLimit = 1
-
-        tabLayout = activity.findViewById(R.id.tab_layout_dots)
-        TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
 
         binding.refresh.setOnRefreshListener {
             viewModel.refresh(viewLifecycleOwner) {
@@ -107,12 +107,6 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         PreferenceManager.getDefaultSharedPreferences(context)
             .unregisterOnSharedPreferenceChangeListener(this)
         super.onDestroy()
-    }
-
-    override fun onResume() {
-        viewModel.refreshFavorites()
-        viewModel.updateWeatherContent()
-        super.onResume()
     }
 
     override fun onPause() {

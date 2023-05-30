@@ -32,7 +32,12 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-        refreshHistory()
+        viewModelScope.launch(Dispatchers.IO) {
+            val history = interactor.searchHistory()
+            withContext(Dispatchers.Main) {
+                searchHistory.show(history)
+            }
+        }
     }
 
     fun showDetails(
@@ -42,20 +47,14 @@ class SearchViewModel @Inject constructor(
         title: String
     ) {
         loadingCommunication.show(LoadingState.Initial)
-        searchLoading.show(true)
+        searchLoading.show(false)
+        navigation.showSearchDetails(fragmentManager, container, id)
         viewModelScope.launch(Dispatchers.IO) {
             interactor.saveSearchResult(id, title)
+            val history = interactor.searchHistory()
             withContext(Dispatchers.Main) {
-                searchLoading.show(false)
-                navigation.showSearchDetails(fragmentManager, container, id)
+                searchHistory.show(history)
             }
-        }
-    }
-
-    fun refreshHistory() = viewModelScope.launch(Dispatchers.IO) {
-        val history = interactor.searchHistory()
-        withContext(Dispatchers.Main) {
-            searchHistory.show(history)
         }
     }
 

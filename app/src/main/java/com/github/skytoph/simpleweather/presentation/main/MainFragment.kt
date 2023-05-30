@@ -25,7 +25,9 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
 
     private lateinit var searchMenuItem: MenuItem
     private lateinit var menuItemExpandListener: MenuItemExpandListener
+    private lateinit var queryListener: SearchQueryListener
     private lateinit var toolbar: Toolbar
+    private lateinit var searchView: SearchView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +37,7 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
 
         searchMenuItem = toolbar.menu.findItem(R.id.action_search)
 
-        val searchView = searchMenuItem.actionView as SearchView
+        searchView = searchMenuItem.actionView as SearchView
         searchView.setup()
 
         menuItemExpandListener = MenuItemExpandListener(expand = {
@@ -45,6 +47,11 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
             toolbar.showMenu()
             viewModel.goBack()
         })
+
+        queryListener = SearchQueryListener { query ->
+            viewModel.startLoading()
+            viewModel.getPredictions(query)
+        }
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
@@ -73,12 +80,14 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
     override fun onResume() {
         super.onResume()
         searchMenuItem.setOnActionExpandListener(menuItemExpandListener)
+        searchView.setOnQueryTextListener(queryListener)
         if (searchMenuItem.isActionViewExpanded) toolbar.hideMenu()
     }
 
     override fun onPause() {
         super.onPause()
         searchMenuItem.setOnActionExpandListener(null)
+        searchView.setOnQueryTextListener(null)
     }
 
     private fun SearchView.setup() {
@@ -87,10 +96,6 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
             ?.setBackgroundResource(R.drawable.rectangle_rounded_15)
         this.findViewById<View?>(R.id.search_plate)
             ?.setBackgroundColor(Color.TRANSPARENT)
-        this.setOnQueryTextListener(SearchQueryListener { query ->
-            viewModel.startLoading()
-            viewModel.getPredictions(query)
-        })
     }
 
     private fun Toolbar.showMenu() {

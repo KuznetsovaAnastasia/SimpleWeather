@@ -16,16 +16,16 @@ abstract class ShowFavorites {
         requestPermission: () -> Unit,
         submitFavorites: (List<String>) -> Unit,
     ) {
-        show(requestPermission)
-        show(progress)
-        show(fragmentManager)
-        show(errorView, contentMenuItem, tabLayout)
         show(submitFavorites)
+        show(progress)
+        show(errorView, contentMenuItem, tabLayout)
+        show(requestPermission)
+        show(fragmentManager)
     }
 
-    open fun show(errorView: View, contentMenuItem: MenuItem, tabLayout: TabLayout) = Unit
-    open fun show(fragmentManager: FragmentManager) = Unit
-    open fun show(progress: ShimmerWrapper) = Unit
-    open fun show(requestPermission: () -> Unit) = Unit
     open fun show(submitFavorites: (List<String>) -> Unit) = Unit
+    open fun show(progress: ShimmerWrapper) = Unit
+    open fun show(errorView: View, contentMenuItem: MenuItem, tabLayout: TabLayout) = Unit
+    open fun show(requestPermission: () -> Unit) = Unit
+    open fun show(fragmentManager: FragmentManager) = Unit
 }

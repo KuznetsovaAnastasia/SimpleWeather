@@ -8,7 +8,7 @@
 
     <com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper
         android:id="@+id/shimmer_favorites"
-        app:shimmer_auto_start="false"
+        app:shimmer_auto_start="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

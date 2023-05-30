@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.core.presentation.BaseFragment
@@ -39,7 +38,6 @@ class SearchFragment :
 
             viewModel.observeHistory(viewLifecycleOwner) { history ->
                 historyAdapter.submitList(history)
-                doOnPreDraw { scrollToPosition(0) }
             }
         }
 
@@ -56,10 +54,6 @@ class SearchFragment :
         viewModel.observeLoading(this) { show ->
             binding.searchShimmer.show(show)
         }
-    }
-
-    override fun onResume() {
-        viewModel.refreshHistory()
-        super.onResume()
+        binding.searchShimmer.hideShimmer()
     }
 }
