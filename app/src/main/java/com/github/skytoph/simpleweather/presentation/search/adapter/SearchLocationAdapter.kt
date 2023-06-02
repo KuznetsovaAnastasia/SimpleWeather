@@ -11,19 +11,22 @@ import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
 
 class SearchLocationAdapter(private val listener: LocationClickListener) :
     BaseAdapter<SearchItemUi, BaseViewHolder<SearchItemUi>>(
-        LocationDiffCallback()) {
+        LocationDiffCallback()
+    ) {
 
     override fun getItemViewType(position: Int): Int = when (getItem(position)) {
         is SearchItemUi.Location -> ViewType.LOCATION.ordinal
         is SearchItemUi.Fail -> ViewType.ERROR.ordinal
+        is SearchItemUi.Attribution -> ViewType.ATTRIBUTION.ordinal
     }
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int,
+        parent: ViewGroup, viewType: Int,
     ): BaseViewHolder<SearchItemUi> = when (viewType) {
-        ViewType.LOCATION.ordinal -> LocationViewHolder.Base(R.layout.prediction_item.inflateView(parent),
-            listener)
+        ViewType.LOCATION.ordinal ->
+            LocationViewHolder.Base(R.layout.prediction_item.inflateView(parent), listener)
+        ViewType.ATTRIBUTION.ordinal ->
+            LocationViewHolder.Attribution(R.layout.search_attribution.inflateView(parent))
         else -> LocationViewHolder.Error(R.layout.error_fullscreen.inflateView(parent))
     }
 
@@ -53,6 +56,11 @@ class SearchLocationAdapter(private val listener: LocationClickListener) :
                 item.show(messageTextView, messageTextView)
             }
         }
+
+        class Attribution(itemView: View) : LocationViewHolder(itemView) {
+
+            override fun bind(item: SearchItemUi) = Unit
+        }
     }
 
     class LocationDiffCallback : BaseDiffUtil<SearchItemUi>()
@@ -63,6 +71,7 @@ class SearchLocationAdapter(private val listener: LocationClickListener) :
 
     enum class ViewType {
         LOCATION,
-        ERROR
+        ERROR,
+        ATTRIBUTION
     }
 }

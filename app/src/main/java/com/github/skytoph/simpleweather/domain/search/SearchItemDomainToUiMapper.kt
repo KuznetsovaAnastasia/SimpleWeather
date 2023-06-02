@@ -6,7 +6,7 @@ import com.github.skytoph.simpleweather.core.provider.ResourceProvider
 import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
 import javax.inject.Inject
 
-interface SearchItemDomainToUiMapper : Mapper<SearchItemUi> {
+interface SearchItemDomainToUiMapper : Mapper<SearchItemUi>, MapAttribution {
     fun map(id: String, title: String, subtitle: String): SearchItemUi
     fun map(errorType: ErrorType): SearchItemUi
 
@@ -17,5 +17,11 @@ interface SearchItemDomainToUiMapper : Mapper<SearchItemUi> {
             SearchItemUi.Location(id, title, subtitle)
 
         override fun map(errorType: ErrorType) = SearchItemUi.Fail(errorMessage(errorType))
+
+        override fun map(): SearchItemUi = SearchItemUi.Attribution
     }
+}
+
+interface MapAttribution {
+    fun map(): SearchItemUi
 }

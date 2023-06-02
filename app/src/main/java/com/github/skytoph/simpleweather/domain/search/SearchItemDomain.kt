@@ -19,4 +19,8 @@ sealed class SearchItemDomain : Mappable<SearchItemUi, SearchItemDomainToUiMappe
         override fun map(mapper: SearchItemDomainToUiMapper): SearchItemUi =
             mapper.map(errorType)
     }
+
+    object Attribution : SearchItemDomain() {
+        override fun map(mapper: SearchItemDomainToUiMapper): SearchItemUi = mapper.map()
+    }
 }

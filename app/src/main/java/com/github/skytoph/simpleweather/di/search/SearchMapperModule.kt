@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.di.search
 
 import com.github.skytoph.simpleweather.data.search.mapper.*
+import com.github.skytoph.simpleweather.domain.search.AddAttribution
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -27,4 +28,7 @@ abstract class SearchMapperModule {
 
     @Binds
     abstract fun domainItemMapper(mapper: SearchItemDataToDomainMapper.Base): SearchItemDataToDomainMapper
+
+    @Binds
+    abstract fun attributionMapper(mapper: AddAttribution.Base): AddAttribution
 }

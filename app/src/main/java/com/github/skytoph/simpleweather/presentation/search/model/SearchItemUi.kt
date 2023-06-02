@@ -7,7 +7,7 @@ import com.github.skytoph.simpleweather.presentation.search.adapter.SearchLocati
 
 sealed interface SearchItemUi : Matcher<SearchItemUi> {
 
-    fun show(titleTextView: TextView, subtitleTextView: TextView)
+    fun show(titleTextView: TextView, subtitleTextView: TextView) = Unit
     fun select(listener: SearchLocationAdapter.LocationClickListener) = Unit
 
     data class Location(
@@ -38,6 +38,13 @@ sealed interface SearchItemUi : Matcher<SearchItemUi> {
 
         override fun matches(item: SearchItemUi): Boolean =
             item is Fail && messageId == item.messageId
+
+        override fun contentMatches(item: SearchItemUi): Boolean = matches(item)
+    }
+
+    object Attribution : SearchItemUi {
+
+        override fun matches(item: SearchItemUi): Boolean = item is Attribution
 
         override fun contentMatches(item: SearchItemUi): Boolean = matches(item)
     }
