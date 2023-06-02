@@ -11,10 +11,10 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?android:attr/colorBackground</item>
-        <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="fontFamily">@font/poppins</item>
 
+        <item name="fontFamily">@font/poppins</item>
+        <item name="googleLogo">@drawable/google_on_white</item>
 
         <item name="tabDotColor">@color/light_gray</item>
         <item name="tabDotSelectedColor">@color/blue</item>

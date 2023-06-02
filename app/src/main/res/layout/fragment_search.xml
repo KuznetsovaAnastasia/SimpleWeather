@@ -19,16 +19,30 @@
     <com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper
         android:id="@+id/search_shimmer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:shimmer_auto_start="false">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_prediction_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/search_result_horizontal_padding"
             android:paddingTop="15dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/prediction_item" />
     </com.github.skytoph.simpleweather.core.presentation.view.shimmer.ShimmerWrapper>
+
+    <TextView
+        android:id="@+id/attribution_powered_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:text="@string/attribution_powered_by"
+        android:textColor="?highlightedTextColor"
+        android:textSize="12sp"
+        app:drawableEndCompat="?googleLogo" />
 </LinearLayout>

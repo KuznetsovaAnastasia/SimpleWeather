@@ -12,6 +12,8 @@
     <attr name="highlightedTextColor" format="color" />
     <attr name="contentTextColor" format="color" />
 
+    <attr name="googleLogo" format="reference" />
+
     <declare-styleable name="HorizonView">
         <attr name="sunrise_time" format="string" />
         <attr name="sunset_time" format="string" />
