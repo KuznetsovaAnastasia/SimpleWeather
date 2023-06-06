@@ -15,6 +15,7 @@
 
         <item name="fontFamily">@font/poppins</item>
         <item name="googleLogo">@drawable/google_on_white</item>
+        <item name="openWeatherLogo">@drawable/openweather_logo</item>
 
         <item name="tabDotColor">@color/light_gray</item>
         <item name="tabDotSelectedColor">@color/blue</item>

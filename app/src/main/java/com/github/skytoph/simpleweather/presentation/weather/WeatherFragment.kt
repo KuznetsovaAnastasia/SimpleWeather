@@ -67,12 +67,15 @@ class WeatherFragment : BaseFragment<WeatherViewModel, FragmentWeatherBinding>()
 
         viewModel.observe(this) { weather ->
             binding.apply {
-                weather.show(weatherError,
+                weather.show(
+                    weatherError,
                     locationView,
                     indicatorsView,
                     sunriseSunsetView,
+                    weatherAttribution,
                     listOf(forecastDailyRecyclerview, forecastHourlyRecyclerview),
-                    showLists)
+                    showLists
+                )
             }
         }
         viewModel.observeRefresh(this) { refresh ->

@@ -14,6 +14,8 @@
 
     <attr name="googleLogo" format="reference" />
 
+    <attr name="openWeatherLogo" format="reference" />
+
     <declare-styleable name="HorizonView">
         <attr name="sunrise_time" format="string" />
         <attr name="sunset_time" format="string" />

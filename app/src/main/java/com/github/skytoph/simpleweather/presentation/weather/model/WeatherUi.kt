@@ -27,6 +27,7 @@ sealed class WeatherUi : ShowWeatherUi() {
             locationView: LocationView,
             indicatorsView: IndicatorsView,
             sunriseSunsetView: SunriseSunsetView,
+            attribution: TextView,
             recyclers: List<RecyclerView>,
             submitLists: (List<WarningUi>, List<ForecastUi.Hourly>, List<ForecastUi.Daily>) -> Unit,
         ) {
@@ -34,7 +35,10 @@ sealed class WeatherUi : ShowWeatherUi() {
             indicatorsView.show(indicator)
             sunriseSunsetView.show(horizon)
             Visibility.Visible()
-                .apply(locationView, indicatorsView, sunriseSunsetView, *recyclers.toTypedArray())
+                .apply(
+                    locationView, indicatorsView, sunriseSunsetView, attribution,
+                    *recyclers.toTypedArray()
+                )
             Visibility.Gone().apply(errorView)
             listUi.show(submitLists)
         }
@@ -52,11 +56,13 @@ sealed class WeatherUi : ShowWeatherUi() {
             locationView: LocationView,
             indicatorsView: IndicatorsView,
             sunriseSunsetView: SunriseSunsetView,
+            attribution: TextView,
             recyclers: List<RecyclerView>,
             submitLists: (List<WarningUi>, List<ForecastUi.Hourly>, List<ForecastUi.Daily>) -> Unit,
         ) {
             Visibility.Visible().apply(errorView)
-            Visibility.Gone().apply(indicatorsView, sunriseSunsetView, *recyclers.toTypedArray())
+            Visibility.Gone()
+                .apply(indicatorsView, sunriseSunsetView, attribution, *recyclers.toTypedArray())
             locationView.errorState()
         }
 

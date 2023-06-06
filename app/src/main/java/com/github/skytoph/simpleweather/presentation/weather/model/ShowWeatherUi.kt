@@ -13,6 +13,7 @@ abstract class ShowWeatherUi {
         locationView: LocationView,
         indicatorsView: IndicatorsView,
         sunriseSunsetView: SunriseSunsetView,
+        attribution: TextView,
         recyclers: List<RecyclerView>,
         submitLists: (List<WarningUi>, List<ForecastUi.Hourly>, List<ForecastUi.Daily>) -> Unit,
     ) = Unit
