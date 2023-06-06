@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Погода</string>
-    <string name="attribution_weather_provided_by">Дані прогнозу погоди від&#160;</string>
+    <string name="attribution_weather_provided_by">Дані прогнозу погоди від &#160;</string>
 
     <string name="sunset">Захід сонця</string>
     <string name="sunrise">Світанок</string>

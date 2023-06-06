@@ -96,6 +96,7 @@
         <TextView
             android:id="@+id/weather_attribution"
             style="@style/Attribution"
+            android:layout_marginTop="11dp"
             android:layout_marginBottom="33dp"
             android:gravity="bottom"
             android:text="@string/attribution_weather_provided_by"
