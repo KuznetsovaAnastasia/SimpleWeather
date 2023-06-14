@@ -9,6 +9,7 @@ import com.github.skytoph.simpleweather.core.presentation.communication.MessageC
 import com.github.skytoph.simpleweather.core.presentation.communication.ProgressCommunication
 import com.github.skytoph.simpleweather.core.presentation.error.UiMessage
 import com.github.skytoph.simpleweather.core.presentation.navigation.ShowScreen
+import com.github.skytoph.simpleweather.data.work.UpdateWorker
 import com.github.skytoph.simpleweather.domain.work.UpdateForecastWork
 import com.github.skytoph.simpleweather.presentation.favorites.communication.RefreshCommunication
 import com.github.skytoph.simpleweather.presentation.main.nav.MainNavigator
@@ -36,7 +37,7 @@ class MainViewModel @Inject constructor(
         progressCommunication.observe(owner, observer)
 
     fun scheduleUpdateForecast(owner: LifecycleOwner) {
-        worker.scheduleWork()
+        worker.scheduleWork(UpdateWorker.CRITERIA_DAY)
         worker.observeWork(owner) { info ->
             when (info?.state) {
                 WorkInfo.State.RUNNING -> progressCommunication.show(true)

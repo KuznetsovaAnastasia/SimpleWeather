@@ -8,7 +8,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 interface UpdateForecastWork {
-    fun scheduleWork()
+    fun scheduleWork(updateCriteria: Int = UpdateWorker.CRITERIA_DAY)
     fun observeWork(owner: LifecycleOwner, observer: Observer<WorkInfo>)
 
     abstract class Abstract(protected val workManager: WorkManager) : UpdateForecastWork {
@@ -21,9 +21,9 @@ interface UpdateForecastWork {
 
     class Periodically(workManager: WorkManager) : Abstract(workManager) {
 
-        override fun scheduleWork() {
+        override fun scheduleWork(updateCriteria: Int) {
             val data =
-                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, UpdateWorker.CRITERIA_DAY)
+                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, updateCriteria)
                     .putBoolean(UpdateWorker.ARG_RETRY, true).build()
             val request =
                 PeriodicWorkRequestBuilder<UpdateWorker>(6, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
@@ -50,9 +50,9 @@ interface UpdateForecastWork {
 
     class Once(workManager: WorkManager) : Abstract(workManager) {
 
-        override fun scheduleWork() {
+        override fun scheduleWork(updateCriteria: Int) {
             val data =
-                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, UpdateWorker.CRITERIA_HOUR)
+                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, UpdateWorker.CRITERIA_DAY)
                     .putBoolean(UpdateWorker.ARG_RETRY, false).build()
             val request = OneTimeWorkRequestBuilder<UpdateWorker>()
                 .setConstraints(

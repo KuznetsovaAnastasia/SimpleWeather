@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkInfo
+import com.github.skytoph.simpleweather.data.work.UpdateWorker
 import com.github.skytoph.simpleweather.domain.favorites.FavoritesInteractor
 import com.github.skytoph.simpleweather.domain.work.UpdateForecastWork
 import com.github.skytoph.simpleweather.presentation.favorites.communication.FavoritesState
@@ -26,25 +27,20 @@ class FavoritesViewModel @Inject constructor(
 
     fun initialize(lifecycleOwner: LifecycleOwner, submitFavorites: (List<String>) -> Unit) {
         submitFavorites(interactor.favoriteIDs())
-        refresh(lifecycleOwner)
+        refresh(lifecycleOwner, UpdateWorker.CRITERIA_DAY)
     }
 
-    fun refreshFavorites(ids: List<String>? = null) {
-        val favorites = ids ?: interactor.favoriteIDs()
-        val state =
-            if (favorites.isEmpty()) FavoritesState.Empty else FavoritesState.Base(favorites)
-        stateCommunication.show(state)
-    }
-
-    fun refresh(lifecycleOwner: LifecycleOwner, hideRefreshing: () -> Unit = {}) {
-        if (interactor.favoriteIDs().isEmpty()) {
-            stateCommunication.show(FavoritesState.Progress(true))
-            requestPermissions()
-            hideRefreshing()
-        } else {
-            worker.scheduleWork()
-            observeUpdatingWork(lifecycleOwner, hideRefreshing)
-        }
+    fun refresh(
+        lifecycleOwner: LifecycleOwner,
+        criteria: Int = UpdateWorker.CRITERIA_HOUR,
+        hideRefreshing: () -> Unit = {}
+    ) = if (interactor.favoriteIDs().isEmpty()) {
+        stateCommunication.show(FavoritesState.Progress(true))
+        requestPermissions()
+        hideRefreshing()
+    } else {
+        worker.scheduleWork(criteria)
+        observeUpdatingWork(lifecycleOwner, hideRefreshing)
     }
 
     private fun observeUpdatingWork(lifecycleOwner: LifecycleOwner, hideRefreshing: () -> Unit) =
@@ -69,6 +65,13 @@ class FavoritesViewModel @Inject constructor(
             withContext(Dispatchers.Main) { refreshFavorites() }
         }
     })
+
+    private fun refreshFavorites(ids: List<String>? = null) {
+        val favorites = ids ?: interactor.favoriteIDs()
+        val state =
+            if (favorites.isEmpty()) FavoritesState.Empty else FavoritesState.Base(favorites)
+        stateCommunication.show(state)
+    }
 
     fun observeState(owner: LifecycleOwner, observer: Observer<FavoritesState>) =
         stateCommunication.observe(owner, observer)
