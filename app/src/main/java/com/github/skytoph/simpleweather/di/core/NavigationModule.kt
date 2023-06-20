@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.di.core
 
+import com.github.skytoph.simpleweather.core.presentation.navigation.NavigateBack
 import com.github.skytoph.simpleweather.core.presentation.navigation.NavigationCommunication
 import com.github.skytoph.simpleweather.core.presentation.navigation.Navigator
 import com.github.skytoph.simpleweather.presentation.addlocation.nav.AddLocationNavigator
@@ -30,6 +31,9 @@ abstract class NavigationModule {
 
     @Binds
     abstract fun settingsNav(navigator: Navigator.Base): SettingsNavigator
+
+    @Binds
+    abstract fun backNav(navigator: Navigator.Base): NavigateBack
 
     @Binds
     abstract fun navigationCommunication(communication: NavigationCommunication.Base): NavigationCommunication.Mutable
