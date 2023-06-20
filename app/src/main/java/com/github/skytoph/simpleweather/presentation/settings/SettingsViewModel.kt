@@ -28,4 +28,6 @@ class SettingsViewModel @Inject constructor(
         }
 
     fun showAbout(@IdRes container: Int) = navigation.showAbout(container)
+
+    fun goBack() = navigation.goBack()
 }

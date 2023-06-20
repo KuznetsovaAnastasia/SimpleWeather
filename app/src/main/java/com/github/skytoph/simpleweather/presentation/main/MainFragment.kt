@@ -32,7 +32,7 @@ class MainFragment : BaseFragment<MainContentViewModel, FragmentMainBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar = binding.homeToolbar.toolbar
+        toolbar = binding.appbarMain.toolbarMain
         toolbar.inflateMenu(R.menu.home_menu)
 
         searchMenuItem = toolbar.menu.findItem(R.id.action_search)

@@ -22,7 +22,7 @@ abstract class BaseBindingFragment<B : ViewBinding> : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = bindingInflation.invoke(inflater, container, false)
         return binding.root
     }

@@ -1,6 +1,11 @@
 package com.github.skytoph.simpleweather.presentation.settings
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -9,6 +14,7 @@ import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.presentation.favorites.ConfirmationDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -51,6 +57,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 viewModel.showAbout(R.id.fragment_container)
                 true
             }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val layout: View = inflater.inflate(R.layout.fragment_settings, container, false)
+        val settingsContainerView = layout.findViewById<ViewGroup>(R.id.list_container)
+
+        val toolbarTitle = layout.findViewById<TextView>(R.id.toolbar_title)
+        toolbarTitle.text = resources.getString(R.string.settings)
+
+        val toolbar = layout.findViewById<Toolbar>(R.id.toolbar_settings)
+        toolbar.setNavigationIcon(R.drawable.ic_back)
+        toolbar.setNavigationOnClickListener { viewModel.goBack() }
+
+        val settingsView = super.onCreateView(inflater, settingsContainerView, savedInstanceState)
+        settingsContainerView.addView(settingsView)
+        return layout
     }
 
     private companion object {

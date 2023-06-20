@@ -46,7 +46,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         val activity = requireActivity()
 
         val deleteMenuItem =
-            activity.findViewById<Toolbar>(R.id.toolbar).menu.findItem(R.id.action_delete)
+            activity.findViewById<Toolbar>(R.id.toolbar_main).menu.findItem(R.id.action_delete)
 
         viewModel.observeState(viewLifecycleOwner) { state ->
             state.show(

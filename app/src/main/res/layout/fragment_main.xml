@@ -5,8 +5,8 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/home_toolbar"
-        layout="@layout/toolbar" />
+        android:id="@+id/appbar_main"
+        layout="@layout/appbar_main" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/weather_fragment_container"
