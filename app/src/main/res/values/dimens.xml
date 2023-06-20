@@ -36,4 +36,6 @@
     <dimen name="toolbar_collapsed_end_padding">56dp</dimen>
 
     <dimen name="forecast_image_size">32dp</dimen>
+
+    <dimen name="about_horizontal_margin">16dp</dimen>
 </resources>
