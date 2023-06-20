@@ -135,4 +135,34 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="ToolbarTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">?attr/mainTitleTextColor</item>
+    </style>
+
+    <style name="About" />
+
+    <style name="About.Title" parent="About">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/mainTitleTextColor</item>
+    </style>
+
+    <style name="About.Description" parent="About">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?mainTitleTextColor</item>
+    </style>
+
+    <style name="About.Hyperlink" parent="About.Description">
+        <item name="android:textColor">?colorSecondary</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
 </resources>

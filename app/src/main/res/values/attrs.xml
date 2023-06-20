@@ -33,4 +33,8 @@
         <attr name="buttonText" format="string" />
         <attr name="clickedText" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="ClickableLinkView">
+        <attr name="url" format="string" />
+    </declare-styleable>
 </resources>
