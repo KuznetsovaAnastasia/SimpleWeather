@@ -25,9 +25,14 @@ class FavoritesViewModel @Inject constructor(
     private val worker: UpdateForecastWork.Once,
 ) : ViewModel() {
 
+    init {
+        worker.scheduleWork(UpdateWorker.CRITERIA_DAY)
+    }
+
     fun initialize(lifecycleOwner: LifecycleOwner, submitFavorites: (List<String>) -> Unit) {
         submitFavorites(interactor.favoriteIDs())
-        refresh(lifecycleOwner, UpdateWorker.CRITERIA_DAY)
+        if (interactor.favoriteIDs().isEmpty()) requestPermissions()
+        else observeUpdatingWork(lifecycleOwner) {}
     }
 
     fun refresh(
@@ -46,11 +51,12 @@ class FavoritesViewModel @Inject constructor(
     private fun observeUpdatingWork(lifecycleOwner: LifecycleOwner, hideRefreshing: () -> Unit) =
         worker.observeWork(lifecycleOwner) { info ->
             val state = info?.state
-            if (state != WorkInfo.State.RUNNING) {
+            if (state == WorkInfo.State.RUNNING)
+                stateCommunication.show(FavoritesState.Progress(true))
+            else {
                 hideRefreshing()
                 stateCommunication.show(FavoritesState.Progress(false))
-            } else
-                stateCommunication.show(FavoritesState.Progress(true))
+            }
             if (state == WorkInfo.State.FAILED)
                 interactor.handleUpdatingError()
             else if (state == WorkInfo.State.SUCCEEDED)

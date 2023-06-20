@@ -52,7 +52,7 @@ interface UpdateForecastWork {
 
         override fun scheduleWork(updateCriteria: Int) {
             val data =
-                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, UpdateWorker.CRITERIA_DAY)
+                Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, updateCriteria)
                     .putBoolean(UpdateWorker.ARG_RETRY, false).build()
             val request = OneTimeWorkRequestBuilder<UpdateWorker>()
                 .setConstraints(
