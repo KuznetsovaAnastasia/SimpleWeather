@@ -93,15 +93,18 @@
             android:visibility="invisible"
             tools:visibility="visible" />
 
-        <TextView
+        <com.github.skytoph.simpleweather.core.presentation.view.ClickableLinkView
             android:id="@+id/weather_attribution"
             style="@style/Attribution"
+            android:layout_width="wrap_content"
             android:layout_marginTop="11dp"
             android:layout_marginBottom="33dp"
             android:gravity="bottom"
+            android:layout_gravity="end"
             android:text="@string/attribution_weather_provided_by"
             android:textColor="?subtitleTextColor"
             android:visibility="invisible"
+            app:url="@string/about_openweather_url"
             app:drawableEndCompat="?openWeatherLogo"
             tools:visibility="visible" />
     </LinearLayout>
