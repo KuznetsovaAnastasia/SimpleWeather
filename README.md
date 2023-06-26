@@ -2,7 +2,7 @@
 **Simple Weather App** is a simple Android application that fetches 7-day and 24-hour weather forecast data using the [OpenWeatherMap API](https://openweathermap.org/). It provides weather information for the user's current location or allows the user to search for a specific location using a search bar. The app uses The Place Autocomplete service from the [Google Places API](https://developers.google.com/maps/documentation/places/) to fetch location data.
 
 ## Screenshots
-<img src="https://user-images.githubusercontent.com/44202107/248884070-edef3adb-1073-4cb8-be40-f55d08df9323.jpg" width="300"> <img src="https://user-images.githubusercontent.com/44202107/248884080-b17914f6-b2e5-43ce-9ffe-f4f3d08e4b89.jpg" width="300"> <img src="https://user-images.githubusercontent.com/44202107/248884083-bea3f78e-cebd-44ff-a0ee-3ad22c55f284.jpg" width="300">
+<img src="https://user-images.githubusercontent.com/44202107/248884070-edef3adb-1073-4cb8-be40-f55d08df9323.jpg" width="250"> <img src="https://user-images.githubusercontent.com/44202107/248884080-b17914f6-b2e5-43ce-9ffe-f4f3d08e4b89.jpg" width="250"> <img src="https://user-images.githubusercontent.com/44202107/248884083-bea3f78e-cebd-44ff-a0ee-3ad22c55f284.jpg" width="250">
 
 ## Design
 The design of the Simple Weather App is based on [the work by **Pavan Kamal**](https://www.figma.com/community/file/1019097765306863573/Minimal-Weather-App), licensed under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). The original design was modified to meet the technical requirements and constraints of the app.
