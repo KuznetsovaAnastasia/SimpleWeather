@@ -20,7 +20,6 @@ interface RealmProvider {
         }
 
         private fun getConfig(): RealmConfiguration = RealmConfiguration.Builder()
-            .deleteRealmIfMigrationNeeded()
             .build()
 
         override fun provide(): Realm = Realm.getDefaultInstance()
