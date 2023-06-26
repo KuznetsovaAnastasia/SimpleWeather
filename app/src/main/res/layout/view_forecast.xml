@@ -40,5 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:text="@string/last_update_time"
+        android:visibility="invisible"
         tools:text="last update: 11.11, 12:20" />
 </merge>
