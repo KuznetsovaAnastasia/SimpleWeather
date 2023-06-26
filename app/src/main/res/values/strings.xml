@@ -122,19 +122,19 @@
     <string name="tooltip_ultraviolet_index_extreme">11+ is Extreme</string>
 
     <string name="about_design_title">Design</string>
-    <string name="about_design_description">Design description</string>
+    <string name="about_design_description">Simple Weather app uses a design based on work by <b>Pavan Kamal</b>, licensed under the <b>Creative Commons Attribution 4.0 International (CC BY 4.0)</b> license. The original design was changed to meet technical requirements.</string>
     <string name="about_ccby4_license">More about <b>CC BY 4.0 license</b></string>
-    <string name="about_original_design">Original design link</string>
-    <string name="about_designer_page">Designer on Instagram</string>
+    <string name="about_original_design">Original design by <b>Pavan Kamal</b></string>
+    <string name="about_designer_page"><b>Pavan Kamal</b> on Instagram</string>
 
     <string name="about_data_title">Data</string>
-    <string name="about_data_description">Weather Data Description</string>
+    <string name="about_data_description">Simple Weather app uses weather data provided by <b>OpenWeather</b>.\nThe <b>OpenWeather API</b> is licensed under the <b>Creative Commons Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0)</b>.\nThe data and database from <b>OpenWeather</b> are licensed by the <b>Open Data Commons Open Database License (ODbL)</b>.</string>
     <string name="about_openweather"><b>OpenWeather</b> website</string>
     <string name="about_ccbysa4_license">More about <b>CC BY-SA 4.0 license</b></string>
     <string name="about_odbl_license">More about <b>ODbL license</b></string>
 
     <string name="about_locations_title">API</string>
-    <string name="about_locations_descriptions">Api description</string>
+    <string name="about_locations_descriptions">Simple Weather app uses <b>Place Autocomplete service</b> and <b>Geocoding API</b> that are part of <b>Google Maps API</b>. By using this application, users are bound by <b>Google’s Terms of Service</b>, <b>Terms of Use</b> and <b>Privacy Policy</b>.</string>
     <string name="about_locations_terms_of_use">Google’s <b>Terms of Use</b></string>
     <string name="about_locations_terms_of_service">Google’s <b>Terms of Service</b></string>
     <string name="about_locations_privacy_policy">Google’s <b>Privacy Policy</b></string>

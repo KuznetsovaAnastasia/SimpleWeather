@@ -75,16 +75,19 @@
 
     <string name="about_app">Про додаток</string>
     <string name="about_design_title">Дизайн</string>
+    <string name="about_design_description">Цей додаток використовує дизайн на основі роботи від <b>Pavan Kamal</b>. Оригінальний дизайн ліцензований за умовами ліцензії  <b>Creative Commons Attribution 4.0 International</b> (<b>CC BY 4.0</b>). В оригінальний дизайн були внесені зміни.</string>
     <string name="about_ccby4_license">Детальніше про ліцензію <b>CC BY 4.0</b></string>
-    <string name="about_original_design">Ориганільний дизайн</string>
-    <string name="about_designer_page">Сторінка в Instagram</string>
+    <string name="about_original_design">Ориганільний дизайн від <b>Pavan Kamal</b></string>
+    <string name="about_designer_page">Сторінка <b>Pavan Kamal</b> в Instagram</string>
 
     <string name="about_data_title">Дані</string>
+    <string name="about_data_description">Додаток використовує дані прогнозу погоди, надані сервісами <b>OpenWeather</b>.\n<b>OpenWeather API</b> ліцензований за умовами ліцензії <b>Creative Commons Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0)</b>.\nДані та бази даних від <b>OpenWeather</b> ліцензовані за умовами ліцензії <b>Open Data Commons Open Database License (ODbL)</b>.</string>
     <string name="about_openweather"><b>OpenWeather</b></string>
     <string name="about_ccbysa4_license">Більше про ліцензію <b>CC BY-SA 4.0</b></string>
     <string name="about_odbl_license">Більше про ліцензію <b>ODbL</b></string>
 
     <string name="about_locations_title">API</string>
+    <string name="about_locations_descriptions">Додаток використовує сервіс<b>Place Autocomplete</b> та <b>Geocoding API</b>, які є частиною <b>Google Maps API</b>. Користуючись цим додатком, користувачі зобов’язуються дотримуватися <b>Google’s Terms of Service</b>, <b>Terms of Use</b> та <b>Privacy Policy</b>.</string>
     <string name="about_locations_terms_of_use">Google’s <b>Terms of Use</b></string>
     <string name="about_locations_terms_of_service">Google’s <b>Terms of Service</b></string>
     <string name="about_locations_privacy_policy">Google’s <b>Privacy Policy</b></string>
