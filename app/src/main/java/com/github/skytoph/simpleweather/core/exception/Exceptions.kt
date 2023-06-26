@@ -39,3 +39,8 @@ class RefreshForecastsException : Exception() {
     override val message: String
         get() = "can't update forecast data"
 }
+
+class FindCurrentLocationException : Exception() {
+    override val message: String
+        get() = "can't find current location"
+}

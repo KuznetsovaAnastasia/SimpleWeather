@@ -1,10 +1,10 @@
 package com.github.skytoph.simpleweather.di.weather
 
 import android.content.Context
-import android.location.LocationManager
 import com.github.skytoph.simpleweather.data.location.CurrentLocationCoordinates
 import com.github.skytoph.simpleweather.data.location.CurrentLocationId
 import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
+import com.google.android.gms.location.LocationServices
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -24,7 +24,7 @@ object CurrentLocationModule {
         idMapper: IdMapper
     ): CurrentLocationCoordinates =
         CurrentLocationCoordinates.GPS(
-            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager, idMapper
+            LocationServices.getFusedLocationProviderClient(context), idMapper
         )
 }
 

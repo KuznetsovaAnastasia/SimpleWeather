@@ -1,24 +1,31 @@
 package com.github.skytoph.simpleweather.data.location
 
 import android.Manifest
-import android.location.LocationManager
+import android.location.Location
 import androidx.annotation.RequiresPermission
+import com.github.skytoph.simpleweather.core.exception.FindCurrentLocationException
+import com.github.skytoph.simpleweather.core.suspended
 import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
 import javax.inject.Inject
 
 interface CurrentLocationCoordinates {
-    @RequiresPermission("android.permission.ACCESS_FINE_LOCATION")
     suspend fun placeCoordinates(): Pair<Double, Double>
 
     class GPS @Inject constructor(
-        private val locationManager: LocationManager,
-        private val idMapper: IdMapper,
+        private val client: FusedLocationProviderClient,
+        private val idMapper: IdMapper
     ) : CurrentLocationCoordinates {
 
-        @RequiresPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+        @RequiresPermission(anyOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
         override suspend fun placeCoordinates(): Pair<Double, Double> =
-            locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)?.let { location ->
-                idMapper.mapToCoordinates(location.latitude, location.longitude)
-            } ?: (0.0 to 0.0)
+            client.lastLocation.suspended()?.map()
+                ?: client.getCurrentLocation(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY, null)
+                    .suspended()?.map()
+                ?: throw FindCurrentLocationException()
+
+        private fun Location.map(): Pair<Double, Double> =
+            idMapper.mapToCoordinates(this.latitude, this.longitude)
     }
 }

@@ -39,7 +39,7 @@
     <string name="search_history_cleared">Search history cleared</string>
 
     <!--    Error messages-->
-    <string name="error_general">Something went wrong, can not load the data</string>
+    <string name="error_general">Something went wrong, unable to load the data</string>
     <string name="error_service_unavailable">Service unavailable</string>
     <string name="error_no_connection">No connection</string>
     <string name="error_no_cached_data">No saved locations</string>
@@ -49,6 +49,7 @@
     <string name="error_can_not_update_location">Can not update location after language change</string>
     <string name="error_outdated_forecast">Weather forecast is outdated, try to refresh it</string>
     <string name="error_favorites_limit">Can\'t save location, the number of favorite locations has reached the limit</string>
+    <string name="error_unable_to_find_current_location">Something went wrong, unable to find current location</string>
 
     <!--    Dialog actions-->
     <string name="confirm">Yes</string>

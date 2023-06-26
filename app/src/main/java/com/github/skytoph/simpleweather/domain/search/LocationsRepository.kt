@@ -1,6 +1,5 @@
 package com.github.skytoph.simpleweather.domain.search
 
-import androidx.annotation.RequiresPermission
 import com.github.skytoph.simpleweather.data.location.CurrentLocationCoordinates
 import com.github.skytoph.simpleweather.data.location.cloud.PlaceCloudDataSource
 import com.github.skytoph.simpleweather.data.search.cache.SearchHistoryCache
@@ -36,7 +35,6 @@ interface LocationsRepository {
         override suspend fun clearSearchHistory() =
             searchHistoryCache.clear()
 
-        @RequiresPermission("android.permission.ACCESS_FINE_LOCATION")
         override suspend fun currentPlace(): Pair<Double, Double> =
             currentLocation.placeCoordinates()
     }

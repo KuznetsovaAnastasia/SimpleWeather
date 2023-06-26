@@ -44,6 +44,7 @@ interface Mapper<T> {
             is UnknownHostException, is SocketTimeoutException, is ConnectException -> R.string.error_no_connection
             is EmptyRequestException -> R.string.error_empty_request
             is NoResultsException -> R.string.error_no_results
+            is FindCurrentLocationException -> R.string.error_unable_to_find_current_location
             is FavoritesLimitException -> R.string.error_favorites_limit
             else -> R.string.error_general
         }
