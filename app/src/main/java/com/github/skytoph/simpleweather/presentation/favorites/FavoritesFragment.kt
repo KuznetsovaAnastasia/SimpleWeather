@@ -2,16 +2,12 @@ package com.github.skytoph.simpleweather.presentation.favorites
 
 import android.Manifest
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
@@ -35,7 +31,8 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
 
-    private lateinit var request: ActivityResultLauncher<Array<String>>
+    private val permission: PermissionRequest =
+        PermissionRequest.Base(Manifest.permission.ACCESS_COARSE_LOCATION) { viewModel.saveCurrentLocation() }
 
     override val bindingInflation: (inflater: LayoutInflater, container: ViewGroup?, attachToParent: Boolean) -> FragmentFavoritesBinding
         get() = FragmentFavoritesBinding::inflate
@@ -55,7 +52,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
                 deleteMenuItem,
                 binding.shimmerFavorites,
                 tabLayout,
-                requestPermission = ::requestLocation,
+                requestPermission = { permission.request(requireContext()) },
                 submitFavorites = { adapter.submitList(it) }
             )
         }
@@ -84,23 +81,11 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         viewPager.doOnPreDraw { viewPager.setCurrentItem(viewModel.savedPage(), false) }
     }
 
-    private fun requestLocation() {
-        val permission = ContextCompat.checkSelfPermission(
-            requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION
-        )
-        if (permission == PackageManager.PERMISSION_GRANTED) viewModel.saveCurrentLocation()
-        else request.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         PreferenceManager.getDefaultSharedPreferences(context)
             .registerOnSharedPreferenceChangeListener(this)
-        request =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                if (permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true)
-                    viewModel.saveCurrentLocation()
-            }
+        permission.register(this)
     }
 
     override fun onDestroy() {
