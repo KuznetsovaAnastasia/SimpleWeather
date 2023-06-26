@@ -1,9 +1,9 @@
 package com.github.skytoph.simpleweather.core.presentation.communication
 
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 abstract class Communication {
 
@@ -15,8 +15,6 @@ abstract class Communication {
         fun show(data: T)
     }
 
-    interface MultipleMutable<T> : Observe<List<T>>, UpdateMultiple<T>
-
     abstract class Abstract<T>(protected val data: MutableLiveData<T>) : Mutable<T> {
 
         override fun observe(owner: LifecycleOwner, observer: Observer<T>) =
@@ -25,26 +23,11 @@ abstract class Communication {
 
     interface Mutable<T> : Observe<T>, Update<T>
 
-    interface UpdateMultiple<T> {
-        fun show(vararg data: T)
+    interface Handle<T> {
+        suspend fun handle(block: suspend (T) -> Unit)
     }
 
-    abstract class MultipleUiUpdates<T>(protected val data: MutableLiveData<List<T>> = MutableLiveData()) :
-        MultipleMutable<T> {
-
-        override fun observe(owner: LifecycleOwner, observer: Observer<List<T>>) =
-            data.observe(owner, observer)
-
-        override fun show(vararg data: T) {
-            this.data.value = data.asList()
-        }
-    }
-
-    abstract class ImmutableUpdate<T>(protected val data: LiveData<T>) : Observe<T> {
-
-        override fun observe(owner: LifecycleOwner, observer: Observer<T>) =
-            data.observe(owner, observer)
-    }
+    interface MutableEvents<T> : Handle<T>, Update<T>
 
     abstract class UiUpdate<T>(data: MutableLiveData<T> = MutableLiveData()) : Abstract<T>(data) {
 
@@ -58,8 +41,22 @@ abstract class Communication {
         override fun show(data: T) = this.data.postValue(data)
     }
 
-
     abstract class SingleUiUpdate<T> : UiUpdate<T>(SingleLiveEvent())
 
     abstract class SinglePostUpdate<T> : PostUpdate<T>(SingleLiveEvent())
+
+    abstract class MultipleEvents<T>(
+        private val flow: MutableSharedFlow<T> =
+            MutableSharedFlow(replay = 1, extraBufferCapacity = 5)
+    ) : MutableEvents<T> {
+
+        override fun show(data: T) {
+            flow.tryEmit(data)
+        }
+
+        override suspend fun handle(block: suspend (T) -> Unit) {
+            flow.collect { data -> block(data) }
+        }
+    }
+
 }

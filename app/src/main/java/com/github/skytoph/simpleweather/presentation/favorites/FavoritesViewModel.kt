@@ -1,9 +1,6 @@
 package com.github.skytoph.simpleweather.presentation.favorites
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.work.WorkInfo
 import com.github.skytoph.simpleweather.data.work.UpdateWorker
 import com.github.skytoph.simpleweather.domain.favorites.FavoritesInteractor
@@ -26,13 +23,18 @@ class FavoritesViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-        worker.scheduleWork(UpdateWorker.CRITERIA_DAY)
+        if (interactor.favoriteIDs().isEmpty()) {
+            stateCommunication.show(FavoritesState.Empty)
+            stateCommunication.show(FavoritesState.Progress(true))
+            requestPermissions()
+        } else
+            worker.scheduleWork(UpdateWorker.CRITERIA_DAY)
     }
 
     fun initialize(lifecycleOwner: LifecycleOwner, submitFavorites: (List<String>) -> Unit) {
         submitFavorites(interactor.favoriteIDs())
-        if (interactor.favoriteIDs().isEmpty()) requestPermissions()
-        else observeUpdatingWork(lifecycleOwner) {}
+        if (interactor.favoriteIDs().isNotEmpty())
+            observeUpdatingWork(lifecycleOwner) {}
     }
 
     fun refresh(
@@ -79,8 +81,13 @@ class FavoritesViewModel @Inject constructor(
         stateCommunication.show(state)
     }
 
-    fun observeState(owner: LifecycleOwner, observer: Observer<FavoritesState>) =
-        stateCommunication.observe(owner, observer)
+    fun observeState(lifecycleOwner: LifecycleOwner, handle: suspend (FavoritesState) -> Unit) {
+        lifecycleOwner.lifecycleScope.launchWhenCreated {
+            lifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                stateCommunication.handle(handle)
+            }
+        }
+    }
 
     private fun requestPermissions() =
         stateCommunication.show(FavoritesState.AddCurrentLocation(addCurrentLocation = {
