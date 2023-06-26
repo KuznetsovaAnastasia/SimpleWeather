@@ -31,12 +31,11 @@ class AddLocationFragment : BaseFragment<AddLocationViewModel, FragmentAddLocati
             }
         }
 
-        if (savedInstanceState == null)
-            viewModel.showWeather(childFragmentManager, R.id.weather_add_container) { favorite ->
-                if (!favorite) button.setOnClickListener {
-                    viewModel.saveWeather { button.setClickedStyle() }
-                }
+        viewModel.showWeather(childFragmentManager, R.id.weather_add_container) { favorite ->
+            if (!favorite) button.setOnClickListener {
+                viewModel.saveWeather { button.setClickedStyle() }
             }
+        }
     }
 
     companion object {
