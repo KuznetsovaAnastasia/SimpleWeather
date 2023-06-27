@@ -22,19 +22,22 @@ class FavoritesViewModel @Inject constructor(
     private val worker: UpdateForecastWork.Once,
 ) : ViewModel() {
 
-    init {
+    fun initialize(lifecycleOwner: LifecycleOwner) {
         if (interactor.favoriteIDs().isEmpty()) {
-            stateCommunication.show(FavoritesState.Empty)
-            stateCommunication.show(FavoritesState.Progress(true))
             requestPermissions()
-        } else
+        } else {
             worker.scheduleWork(UpdateWorker.CRITERIA_DAY)
+            observeUpdatingWork(lifecycleOwner) {}
+        }
     }
 
-    fun initialize(lifecycleOwner: LifecycleOwner, submitFavorites: (List<String>) -> Unit) {
+    fun initializeState() = stateCommunication.show(
+        if (interactor.favoriteIDs().isEmpty()) FavoritesState.Empty else FavoritesState.Initial
+    )
+
+    fun initializeAdapter(submitFavorites: (List<String>) -> Unit) {
         submitFavorites(interactor.favoriteIDs())
-        if (interactor.favoriteIDs().isNotEmpty())
-            observeUpdatingWork(lifecycleOwner) {}
+        stateCommunication.show(FavoritesState.Initial)
     }
 
     fun refresh(
@@ -91,17 +94,18 @@ class FavoritesViewModel @Inject constructor(
 
     private fun requestPermissions() =
         stateCommunication.show(FavoritesState.AddCurrentLocation(addCurrentLocation = {
+            stateCommunication.show(FavoritesState.Progress(true))
             stateCommunication.show(FavoritesState.RequestPermission)
         }, cancel = {
             stateCommunication.show(FavoritesState.Progress(false))
         }))
 
     fun saveCurrentLocation() {
-        stateCommunication.show(FavoritesState.Progress(true))
         viewModelScope.launch(Dispatchers.IO) {
             interactor.saveCurrentLocation()
             withContext(Dispatchers.Main) {
                 refreshFavorites()
+                stateCommunication.show(FavoritesState.Progress(false))
             }
         }
     }

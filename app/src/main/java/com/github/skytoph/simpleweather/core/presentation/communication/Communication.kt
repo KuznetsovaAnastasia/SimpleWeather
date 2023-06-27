@@ -47,7 +47,7 @@ abstract class Communication {
 
     abstract class MultipleEvents<T>(
         private val flow: MutableSharedFlow<T> =
-            MutableSharedFlow(replay = 1, extraBufferCapacity = 5)
+            MutableSharedFlow(replay = 0, extraBufferCapacity = 5)
     ) : MutableEvents<T> {
 
         override fun show(data: T) {
@@ -58,5 +58,4 @@ abstract class Communication {
             flow.collect { data -> block(data) }
         }
     }
-
 }

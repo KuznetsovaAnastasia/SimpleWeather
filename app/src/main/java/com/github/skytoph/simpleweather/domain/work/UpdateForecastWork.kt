@@ -12,10 +12,12 @@ interface UpdateForecastWork {
     fun observeWork(owner: LifecycleOwner, observer: Observer<WorkInfo>)
 
     abstract class Abstract(protected val workManager: WorkManager) : UpdateForecastWork {
-        protected lateinit var workId: UUID
+        protected var workId: UUID? = null
 
         override fun observeWork(owner: LifecycleOwner, observer: Observer<WorkInfo>) {
-            workManager.getWorkInfoByIdLiveData(workId).observe(owner, observer)
+            workId?.let {
+                workManager.getWorkInfoByIdLiveData(it).observe(owner, observer)
+            }
         }
     }
 
