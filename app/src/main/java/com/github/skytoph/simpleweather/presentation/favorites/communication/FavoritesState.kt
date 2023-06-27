@@ -15,7 +15,6 @@ sealed class FavoritesState : ShowFavorites() {
     abstract class Abstract(
         private val contentVisibility: Int,
         private val errorViewVisibility: Int,
-        private val isProgressVisible: Boolean,
     ) : FavoritesState() {
 
         override fun show(
@@ -27,17 +26,17 @@ sealed class FavoritesState : ShowFavorites() {
             contentMenuItem.isVisible = contentVisibility == View.VISIBLE
             errorView.visibility = errorViewVisibility
         }
-
-        override fun show(progress: ShimmerWrapper) = progress.show(isProgressVisible)
     }
 
-    class Base(private val favorites: List<String>) : Abstract(View.VISIBLE, View.GONE, false) {
+    class Base(private val favorites: List<String>) : Abstract(View.VISIBLE, View.GONE) {
         override fun show(submitFavorites: (List<String>) -> Unit) {
             submitFavorites(favorites)
         }
     }
 
-    object Empty : Abstract(View.GONE, View.VISIBLE, false) {
+    object Initial : Abstract(View.VISIBLE, View.GONE) {}
+
+    object Empty : Abstract(View.GONE, View.VISIBLE) {
         override fun show(submitFavorites: (List<String>) -> Unit) {
             submitFavorites(emptyList())
         }

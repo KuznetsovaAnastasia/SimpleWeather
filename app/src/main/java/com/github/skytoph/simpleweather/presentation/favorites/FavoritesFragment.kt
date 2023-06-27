@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.os.LocaleListCompat
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import androidx.viewpager2.widget.ViewPager2
 import com.github.skytoph.simpleweather.R
@@ -45,19 +46,22 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         val deleteMenuItem =
             activity.findViewById<Toolbar>(R.id.toolbar_main).menu.findItem(R.id.action_delete)
 
+        val progress = binding.shimmerFavorites
+        progress.hideShimmer()
+
         viewModel.observeState(viewLifecycleOwner) { state ->
             state.show(
                 binding.errorView,
                 parentFragmentManager,
                 deleteMenuItem,
-                binding.shimmerFavorites,
+                progress,
                 tabLayout,
                 requestPermission = { permission.request(requireContext()) },
                 submitFavorites = { adapter.submitList(it) }
             )
         }
 
-        viewModel.initialize(lifecycleOwner = viewLifecycleOwner) { favorites ->
+        viewModel.initializeAdapter { favorites ->
             adapter = FavoritesAdapter(this, favorites)
 
             viewPager = binding.viewPagerFavorites
@@ -86,6 +90,14 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         PreferenceManager.getDefaultSharedPreferences(context)
             .registerOnSharedPreferenceChangeListener(this)
         permission.register(this)
+        if (savedInstanceState == null) lifecycleScope.launchWhenStarted {
+            viewModel.initialize(viewLifecycleOwner)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.initializeState()
     }
 
     override fun onDestroy() {
