@@ -122,6 +122,9 @@
     <string name="tooltip_ultraviolet_index_very_high">8–10 is Very High</string>
     <string name="tooltip_ultraviolet_index_extreme">11+ is Extreme</string>
 
+    <string name="about_data_safety_title">Data safety</string>
+    <string name="about_privacy_policy_link">View <b>Privacy Policy</b></string>
+
     <string name="about_design_title">Design</string>
     <string name="about_design_description">Simple Weather app uses a design based on work by <b>Pavan Kamal</b>, licensed under the <b>Creative Commons Attribution 4.0 International (CC BY 4.0)</b> license. The original design was changed to meet technical requirements.</string>
     <string name="about_ccby4_license">More about <b>CC BY 4.0 license</b></string>

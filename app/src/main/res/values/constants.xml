@@ -9,4 +9,5 @@
     <string name="about_locations_terms_of_use_url" translatable="false">https://cloud.google.com/maps-platform/terms/</string>
     <string name="about_locations_terms_of_service_url" translatable="false">http://www.google.com/intl/en/policies/terms</string>
     <string name="about_locations_privacy_policy_url" translatable="false">https://policies.google.com/privacy</string>
+    <string name="about_app_privacy_policy_url" translatable="false">https://sites.google.com/view/skytoph-weather-privacy-policy</string>
 </resources>

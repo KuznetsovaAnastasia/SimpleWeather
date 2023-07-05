@@ -28,10 +28,8 @@ interface Logger {
     class Remote : Abstract() {
 
         override fun log(tag: String, exception: Exception) {
-            if (!isIgnored(exception)) {
-                super.log(tag, exception)
+            if (!isIgnored(exception))
                 FirebaseCrashlytics.getInstance().recordException(exception)
-            }
         }
     }
 

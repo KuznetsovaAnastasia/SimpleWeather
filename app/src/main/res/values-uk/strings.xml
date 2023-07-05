@@ -87,10 +87,13 @@
     <string name="about_odbl_license">Більше про ліцензію <b>ODbL</b></string>
 
     <string name="about_locations_title">API</string>
-    <string name="about_locations_descriptions">Додаток використовує сервіс<b>Place Autocomplete</b> та <b>Geocoding API</b>, які є частиною <b>Google Maps API</b>. Користуючись цим додатком, користувачі зобов’язуються дотримуватися <b>Google’s Terms of Service</b>, <b>Terms of Use</b> та <b>Privacy Policy</b>.</string>
+    <string name="about_locations_descriptions">Додаток використовує сервіс <b>Place Autocomplete</b> та <b>Geocoding API</b>, які є частиною <b>Google Maps API</b>. Користуючись цим додатком, користувачі зобов’язуються дотримуватися <b>Google’s Terms of Service</b>, <b>Terms of Use</b> та <b>Privacy Policy</b>.</string>
     <string name="about_locations_terms_of_use">Google’s <b>Terms of Use</b></string>
     <string name="about_locations_terms_of_service">Google’s <b>Terms of Service</b></string>
     <string name="about_locations_privacy_policy">Google’s <b>Privacy Policy</b></string>
     <string name="error_unable_to_find_current_location">Не вдається визначити поточну локацію</string>
     <string name="error_unable_to_refresh">Не вдалось оновити дані прогнощу</string>
+
+    <string name="about_data_safety_title">Безпека даних</string>
+    <string name="about_privacy_policy_link">Переглянути <b>Політику Конфіденційності</b></string>
 </resources>

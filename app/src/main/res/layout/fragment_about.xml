@@ -26,6 +26,19 @@
         <TextView
             style="@style/About.Title"
             android:layout_marginHorizontal="@dimen/about_horizontal_margin"
+            android:layout_marginBottom="4dp"
+            android:text="@string/about_data_safety_title" />
+
+        <com.github.skytoph.simpleweather.core.presentation.view.ClickableLinkView
+            style="@style/About.Hyperlink"
+            android:layout_marginHorizontal="@dimen/about_horizontal_margin"
+            android:layout_marginBottom="12dp"
+            android:text="@string/about_privacy_policy_link"
+            app:url="@string/about_app_privacy_policy_url" />
+
+        <TextView
+            style="@style/About.Title"
+            android:layout_marginHorizontal="@dimen/about_horizontal_margin"
             android:layout_marginBottom="8dp"
             android:text="@string/about_design_title" />
 
@@ -34,7 +47,6 @@
             android:layout_marginHorizontal="@dimen/about_horizontal_margin"
             android:layout_marginBottom="4dp"
             android:text="@string/about_design_description" />
-
 
         <com.github.skytoph.simpleweather.core.presentation.view.ClickableLinkView
             style="@style/About.Hyperlink"
