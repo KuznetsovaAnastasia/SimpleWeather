@@ -45,7 +45,7 @@ interface SearchLocationDataSource {
         }
 
         private fun fetchFromCloud(query: String): List<PredictionCloud> =
-            if (query.isBlank()) throw  EmptyRequestException()
+            if (query.isBlank()) throw EmptyRequestException()
             else service.getPrediction(query).execute().body()!!
                 .also { if (it.isEmpty()) throw NoResultsException() }
 
@@ -68,8 +68,8 @@ interface SearchLocationDataSource {
             query: String,
             showResult: (List<SearchItemDomain>) -> Unit,
         ) {
-            if (query.isBlank()) return showResult.invoke(domainMapper.map(dataMapper.map(
-                EmptyRequestException())))
+            if (query.isBlank())
+                return showResult.invoke(domainMapper.map(dataMapper.map(EmptyRequestException())))
 
             val request = FindAutocompletePredictionsRequest.builder()
                 .setQuery(query)
@@ -85,8 +85,8 @@ interface SearchLocationDataSource {
                         else dataMapper.map(predictions)
                     showResult.invoke(domainMapper.map(predictionsData))
                 }
-                .addOnFailureListener {
-                    showResult.invoke(domainMapper.map(dataMapper.map(UnknownHostException())))
+                .addOnFailureListener { exception ->
+                    showResult.invoke(domainMapper.map(dataMapper.map(exception)))
                 }
         }
     }
@@ -98,8 +98,11 @@ interface SearchLocationDataSource {
             query: String,
             showResult: (List<SearchItemDomain>) -> Unit,
         ) {
-            showResult.invoke(listOf(SearchItemDomain.Location("11,22", "Mumbai", "Some country"),
-                SearchItemDomain.Location("55,11", "Hyderabad", "Other country"))
+            showResult.invoke(
+                listOf(
+                    SearchItemDomain.Location("11,22", "Mumbai", "Some country"),
+                    SearchItemDomain.Location("55,11", "Hyderabad", "Other country")
+                )
             )
         }
     }
