@@ -24,7 +24,7 @@
     <string name="indicator_time">Час</string>
     <string name="indicator_rain">% опадів</string>
 
-    <string name="error_general">Не вдалось загрузити дані</string>
+    <string name="error_general">Не вдалось завантажити дані</string>
     <string name="language_title">Мова</string>
 
     <string name="error_service_unavailable">Сервіс недоступний</string>
@@ -92,4 +92,5 @@
     <string name="about_locations_terms_of_service">Google’s <b>Terms of Service</b></string>
     <string name="about_locations_privacy_policy">Google’s <b>Privacy Policy</b></string>
     <string name="error_unable_to_find_current_location">Не вдається визначити поточну локацію</string>
+    <string name="error_unable_to_refresh">Не вдалось оновити дані прогнощу</string>
 </resources>

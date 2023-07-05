@@ -21,6 +21,7 @@ interface Mapper<T> {
             is FindCurrentLocationException -> R.string.error_unable_to_find_current_location
             is FavoritesLimitException -> R.string.error_favorites_limit
             is DataIsNotCachedException -> R.string.error_location_is_not_saved
+            is RefreshForecastsException -> R.string.error_unable_to_refresh
             else -> R.string.error_general
         }
     }

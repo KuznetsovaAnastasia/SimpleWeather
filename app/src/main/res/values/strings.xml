@@ -50,6 +50,7 @@
     <string name="error_outdated_forecast">Weather forecast is outdated, try to refresh it</string>
     <string name="error_favorites_limit">Can\'t save location, the number of favorite locations has reached the limit</string>
     <string name="error_unable_to_find_current_location">Something went wrong, unable to find current location</string>
+    <string name="error_unable_to_refresh">Unable to refresh forecast</string>
 
     <!--    Dialog actions-->
     <string name="confirm">Yes</string>
