@@ -22,10 +22,21 @@ data class CurrentWeatherCloud(
     private val uvi: Double,
 
     @Json(name = "weather")
-    private val weather: List<WeatherTypeCloud>,
+    private val weather: List<WeatherTypeCloud>?,
 
     ) : Mappable<WeatherData, CurrentCloudToDataMapper> {
 
     override fun map(mapper: CurrentCloudToDataMapper): WeatherData =
-        mapper.map(dt, temp, sunrise, sunset, uvi, weather[0].map())
+        mapper.map(
+            dt,
+            temp,
+            sunrise,
+            sunset,
+            uvi,
+            if (weather.isNullOrEmpty()) 0 else weather.first().map()
+        )
+
+    companion object {
+        val empty = CurrentWeatherCloud(0, 0.0, 0, 0, 0.0, emptyList())
+    }
 }

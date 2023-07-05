@@ -3,6 +3,7 @@ package com.github.skytoph.simpleweather.di.core
 import com.github.skytoph.simpleweather.data.location.cloud.CoordinatesAdapter
 import com.github.skytoph.simpleweather.data.location.cloud.LocationAdapter
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,5 +35,9 @@ object CloudModule {
 
     @Provides
     fun moshi(): Moshi =
-        Moshi.Builder().add(CoordinatesAdapter()).add(LocationAdapter()).build()
+        Moshi.Builder()
+            .add(CoordinatesAdapter())
+            .add(LocationAdapter())
+            .addLast(KotlinJsonAdapterFactory())
+            .build()
 }

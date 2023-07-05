@@ -7,17 +7,17 @@ import com.squareup.moshi.Json
 
 data class PredictionCloud(
     @Json(name = "name")
-    private val name: String,
+    private val name: String?,
     @Json(name = "lat")
     private val lat: Double,
     @Json(name = "lon")
     private val lon: Double,
     @Json(name = "country")
-    private val country: String,
+    private val country: String?,
     @Json(name = "state")
-    private val state: String,
+    private val state: String?,
 ) : Mappable<SearchItemData, SearchItemCloudToDataMapper> {
 
     override fun map(mapper: SearchItemCloudToDataMapper): SearchItemData =
-        mapper.map("$lat,$lon", name, "$country, $state")
+        mapper.map("$lat,$lon", name.toString(), "$country, $state")
 }
