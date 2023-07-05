@@ -5,12 +5,14 @@ import com.github.skytoph.simpleweather.core.Logger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 object LoggerModule {
 
     @Provides
+    @Singleton
     fun logger(): Logger = if (BuildConfig.DEBUG) Logger.Debug() else Logger.Remote()
 }
