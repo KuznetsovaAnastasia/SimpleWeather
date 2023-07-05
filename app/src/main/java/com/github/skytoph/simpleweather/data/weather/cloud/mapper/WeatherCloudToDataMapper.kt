@@ -1,8 +1,7 @@
 package com.github.skytoph.simpleweather.data.weather.cloud.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
-import com.github.skytoph.simpleweather.data.airquality.cloud.AirQualityCloud
-import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
+import com.github.skytoph.simpleweather.data.airquality.cloud.model.AirQualityCloud
 import com.github.skytoph.simpleweather.data.location.cloud.PlaceData
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceCloudMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.model.*
@@ -27,7 +26,6 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
     ): WeatherData
 
     class Base @Inject constructor(
-        private val idMapper: IdMapper,
         private val currentMapper: CurrentWeatherDataMapper,
         private val indicatorsMapper: IndicatorsCloudToDataMapper,
         private val horizonMapper: HorizonDataMapper,
@@ -64,7 +62,7 @@ interface WeatherCloudToDataMapper : Mapper<WeatherData> {
                         uvi: Double,
                         weather: Int,
                     ): WeatherData {
-                        val pop = hourly[0].map()
+                        val pop = hourly.firstOrNull()?.map() ?: 0.0
                         return WeatherData(
                             IdentifierData(placeId, lat, lng, favorite),
                             ForecastTimeData(dt, timezoneOffset, timezone),

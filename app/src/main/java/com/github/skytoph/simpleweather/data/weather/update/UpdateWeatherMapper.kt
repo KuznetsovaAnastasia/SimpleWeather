@@ -2,7 +2,7 @@ package com.github.skytoph.simpleweather.data.weather.update
 
 import com.github.skytoph.simpleweather.core.Mapper
 import com.github.skytoph.simpleweather.core.util.time.CurrentTime
-import com.github.skytoph.simpleweather.data.airquality.cloud.AirQualityCloud
+import com.github.skytoph.simpleweather.data.airquality.cloud.model.AirQualityCloud
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.CurrentCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.IndicatorsCloudToDataMapper
 import com.github.skytoph.simpleweather.data.weather.cloud.mapper.WeatherCloudMapper
@@ -79,7 +79,7 @@ interface UpdateWeatherMapper : Mapper<WeatherData> {
                                 override fun update(location: Map<String, String>) =
                                     CurrentWeatherData(weather, temp, location)
                             }
-                            val pop = hourly[0].map()
+                            val pop = hourly.firstOrNull()?.map() ?: 0.0
                             return WeatherData(
                                 identifier,
                                 ForecastTimeData(dt, timezoneOffset, timezone),
