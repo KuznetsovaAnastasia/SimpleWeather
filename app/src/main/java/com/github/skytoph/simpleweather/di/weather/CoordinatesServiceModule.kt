@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.di.weather
 
 import com.github.skytoph.simpleweather.data.location.cloud.PlaceCoordinatesService
+import com.github.skytoph.simpleweather.di.core.RetrofitMaps
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +15,6 @@ object CoordinatesServiceModule {
 
     @Provides
     @Singleton
-    fun service(retrofit: Retrofit): PlaceCoordinatesService =
+    fun service(@RetrofitMaps retrofit: Retrofit): PlaceCoordinatesService =
         retrofit.create(PlaceCoordinatesService::class.java)
 }
