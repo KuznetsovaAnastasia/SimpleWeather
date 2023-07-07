@@ -1,6 +1,7 @@
-package com.github.skytoph.simpleweather.data.location.cloud
+package com.github.skytoph.simpleweather.data.location.cloud.model
 
 import com.github.skytoph.simpleweather.core.Mappable
+import com.github.skytoph.simpleweather.data.location.cloud.PlaceData
 import com.github.skytoph.simpleweather.data.location.mapper.PlaceDataMapper
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

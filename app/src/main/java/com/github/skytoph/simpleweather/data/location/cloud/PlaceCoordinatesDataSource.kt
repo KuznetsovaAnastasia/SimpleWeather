@@ -1,5 +1,6 @@
 package com.github.skytoph.simpleweather.data.location.cloud
 
+import com.github.skytoph.simpleweather.data.location.cloud.model.PlaceCoordinatesCloud
 import javax.inject.Inject
 
 interface PlaceCoordinatesDataSource {

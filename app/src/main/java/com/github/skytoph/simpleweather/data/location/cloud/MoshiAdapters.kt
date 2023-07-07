@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.data.location.cloud
 
 import com.github.skytoph.simpleweather.data.location.ChoosePlace
+import com.github.skytoph.simpleweather.data.location.cloud.model.*
 import com.squareup.moshi.FromJson
 
 class CoordinatesAdapter : ChoosePlace.Abstract() {

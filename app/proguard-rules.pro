@@ -83,9 +83,9 @@
 -keep class com.github.skytoph.simpleweather.data.weather.cloud.model.** { *; }
 -keepclassmembers class com.github.skytoph.simpleweather.data.weather.cloud.model.** { *; }
 
--keepnames @kotlin.Metadata class com.github.skytoph.simpleweather.data.location.cloud.**
--keep class com.github.skytoph.simpleweather.data.location.cloud.** { *; }
--keepclassmembers class com.github.skytoph.simpleweather.data.location.cloud.** { *; }
+-keepnames @kotlin.Metadata class com.github.skytoph.simpleweather.data.location.cloud.model.**
+-keep class com.github.skytoph.simpleweather.data.location.cloud.model.** { *; }
+-keepclassmembers class com.github.skytoph.simpleweather.data.location.cloud.model.** { *; }
 
 -keepnames @kotlin.Metadata class com.github.skytoph.simpleweather.data.airquality.cloud.model.**
 -keep class com.github.skytoph.simpleweather.data.airquality.cloud.model.** { *; }

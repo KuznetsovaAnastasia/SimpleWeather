@@ -1,6 +1,7 @@
 package com.github.skytoph.simpleweather.data.location.cloud
 
 import com.github.skytoph.simpleweather.BuildConfig
+import com.github.skytoph.simpleweather.data.location.cloud.model.LocationCloud
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
