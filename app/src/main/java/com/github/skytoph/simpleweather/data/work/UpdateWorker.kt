@@ -5,6 +5,7 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
+import com.github.skytoph.simpleweather.core.Logger
 import com.github.skytoph.simpleweather.domain.weather.mapper.UpdatedLately
 import com.github.skytoph.simpleweather.domain.work.UpdateForecastInteractor
 import dagger.assisted.Assisted
@@ -21,15 +22,14 @@ class UpdateWorker @AssistedInject constructor(
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
-        setForeground(getForegroundInfo())
+        if (notification.isAllowed()) setForeground(getForegroundInfo())
         return withContext(Dispatchers.IO) {
             return@withContext try {
                 val criteria = map(inputData.getInt(ARG_CRITERIA, CRITERIA_ANY))
                 interactor.updateForecasts(criteria)
-                withContext(Dispatchers.Main) { notification.cancel() }
                 Result.success()
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) { notification.cancel() }
+            } catch (exception: Exception) {
+                logger.log(this::class.java.simpleName, exception)
                 val retry = inputData.getBoolean(ARG_RETRY, false)
                 if (retry) Result.retry() else Result.failure()
             }
