@@ -92,7 +92,7 @@
     <string name="about_locations_terms_of_service">Google’s <b>Terms of Service</b></string>
     <string name="about_locations_privacy_policy">Google’s <b>Privacy Policy</b></string>
     <string name="error_unable_to_find_current_location">Не вдається визначити поточну локацію</string>
-    <string name="error_unable_to_refresh">Не вдалось оновити дані прогнощу</string>
+    <string name="error_unable_to_refresh">Не вдалось оновити дані прогнозу</string>
 
     <string name="about_data_safety_title">Безпека даних</string>
     <string name="about_privacy_policy_link">Переглянути <b>Політику Конфіденційності</b></string>
