@@ -33,6 +33,16 @@ interface Logger {
         }
     }
 
+    class InternalTest : Abstract() {
+
+        override fun log(tag: String, exception: Exception) {
+            if (!isIgnored(exception)) {
+                super.log(tag, exception)
+                FirebaseCrashlytics.getInstance().recordException(exception)
+            }
+        }
+    }
+
     private companion object {
         val ignoreList: List<Class<out Exception>> =
             listOf(

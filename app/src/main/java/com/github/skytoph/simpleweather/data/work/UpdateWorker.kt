@@ -19,6 +19,7 @@ class UpdateWorker @AssistedInject constructor(
     @Assisted workerParams: WorkerParameters,
     private val interactor: UpdateForecastInteractor,
     private val notification: LoadingNotification,
+    private val logger: Logger,
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result {
