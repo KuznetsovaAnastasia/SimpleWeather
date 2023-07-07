@@ -34,7 +34,7 @@ object WeatherCloudModule {
     @RetrofitWeather
     fun retrofit(@MoshiConverterWeather moshiConverter: MoshiConverterFactory): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://maps.googleapis.com/")
+            .baseUrl("https://api.openweathermap.org/")
             .client(
                 OkHttpClient.Builder()
                     .apply {
