@@ -32,7 +32,7 @@
     <string name="indicator_uv" translatable="false">uv</string>
     <string name="indicator_rain">% rain</string>
     <string name="indicator_aq" translatable="false">aq</string>
-    <string name="format_12_hours_time" translatable="false">hh:mm a</string>
+    <string name="format_12_hours_time" translatable="false">K:mm a</string>
     <string name="format_24_hours_time" translatable="false">HH:mm</string>
 
     <!--    Messages-->

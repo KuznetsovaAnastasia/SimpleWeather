@@ -1,15 +1,14 @@
 package com.github.skytoph.simpleweather.presentation.settings
 
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.*
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.presentation.favorites.ConfirmationDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,16 +24,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
         setupLanguagePreference()
+        setupTimeFormatPreference()
         setupClearHistoryPreference()
         setupAboutPreference()
     }
 
     private fun setupLanguagePreference() {
-        val preference =
-            preferenceScreen.findPreference<ListPreference>(getString(R.string.key_language))
+        val preference = findPreference<ListPreference>(getString(R.string.key_language))
         val language = Locale.getDefault().language
         val indexOfValue = preference?.findIndexOfValue(language).takeIf { it != -1 } ?: 0
-        preference?.setValueIndex(indexOfValue)
+        if (preference?.value == null) preference?.setValueIndex(indexOfValue)
+    }
+
+    private fun setupTimeFormatPreference() {
+        val key = getString(R.string.key_time)
+        val preference = findPreference<SwitchPreferenceCompat>(key)
+        val default = DateFormat.is24HourFormat(context)
+        val value = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, default)
+        preference?.setDefaultValue(value)
+        preference?.isChecked = value
     }
 
     private fun setupClearHistoryPreference() {
