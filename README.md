@@ -27,6 +27,7 @@ The Weather App is built using the following technologies:
 - [Realm](https://realm.io/) is used as a database for storing and retrieving weather data locally.
 - [Work Manager](https://developer.android.com/topic/libraries/architecture/workmanager) is used for managing the background job of updating the weather forecast.
 - [Dagger Hilt](https://dagger.dev/hilt) is used for dependency injection.
+- [Firebase Crashlytics](https://firebase.google.com/docs/crashlytics) is used to report any crashes or errors that occur within the app.
 
 ## Architecture
 Simple Weather App follows the [MVVM (Model-View-ViewModel)](https://developer.android.com/topic/architecture#recommended-app-arch) architecture pattern and uses a single-activity pattern with navigation based on [Fragment Manager](https://developer.android.com/guide/fragments/fragmentmanager).
