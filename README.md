@@ -1,6 +1,8 @@
 # Simple Weather App
 **Simple Weather App** is a simple Android application that fetches 7-day and 24-hour weather forecast data using the [OpenWeatherMap API](https://openweathermap.org/). It provides weather information for the user's current location or allows the user to search for a specific location using a search bar. The app uses The Place Autocomplete service from the [Google Places API](https://developers.google.com/maps/documentation/places/) to fetch location data.
 
+<a href='https://play.google.com/store/apps/details?id=com.github.skytoph.simpleweather&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="280"/></a>
+
 ## Screenshots
 <img src="https://user-images.githubusercontent.com/44202107/248884070-edef3adb-1073-4cb8-be40-f55d08df9323.jpg" width="250"> <img src="https://user-images.githubusercontent.com/44202107/248884080-b17914f6-b2e5-43ce-9ffe-f4f3d08e4b89.jpg" width="250"> <img src="https://user-images.githubusercontent.com/44202107/248884083-bea3f78e-cebd-44ff-a0ee-3ad22c55f284.jpg" width="250">
 
