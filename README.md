@@ -10,12 +10,10 @@
 The design of the Simple Weather App is based on [the work by **Pavan Kamal**](https://www.figma.com/community/file/1019097765306863573/Minimal-Weather-App), licensed under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). The original design was modified to meet the technical requirements and constraints of the app.
 
 ## Features
-- automatic location detection
-- ability to search for weather information for any location
-- current weather information for the user's location
-- detailed weather information including temperature, probability of precipitation, uv index, air quality, and weather conditions
-- 7-day weather forecast
-- 24-hour weather forecast
+- detailed weather data including temperature, probability of precipitation, uv index, air quality, and weather conditions
+- automatic location detection and ability to search for a location of interest 
+- current weather conditions data for the user's location
+- 7-day and 24-hour weather forecast
 
 ## Technologies
 The Weather App is built using the following technologies:
