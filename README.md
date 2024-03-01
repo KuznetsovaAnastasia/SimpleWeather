@@ -21,7 +21,7 @@ The Weather App is built using the following technologies:
 - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) is used to manage and persist UI-related data across configuration changes.
 - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) is used to observe and react to data changes, providing updated weather information to the UI.
 - [View Binding](https://developer.android.com/topic/libraries/view-binding) simplifies the process of interacting with UI elements from code by generating binding classes.
-- [Coroutines](https://kotlinlang.org/docs/coroutines-overview): Coroutines are used for managing asynchronous programming, making network requests, and updating the UI.
+- [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html): Coroutines are used for managing asynchronous programming, making network requests, and updating the UI.
 - [Retrofit](https://square.github.io/retrofit) is used as a REST Client for making API calls.
 - [Moshi](https://github.com/google/gson) is used for parsing JSON responses received from the server into Java objects.
 - [Realm](https://realm.io/) is used as a database for storing and retrieving weather data locally.
