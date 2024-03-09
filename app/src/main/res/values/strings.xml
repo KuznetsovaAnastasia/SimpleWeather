@@ -47,23 +47,23 @@
     <string name="error_no_results">Can\'t find location</string>
     <string name="error_location_is_not_saved">This data was deleted</string>
     <string name="error_can_not_update_location">Can not update location after language change</string>
-    <string name="error_outdated_forecast">Weather forecast is outdated, try to refresh it</string>
-    <string name="error_favorites_limit">Can\'t save location, the number of favorite locations has reached the limit</string>
+    <string name="error_outdated_forecast">The weather forecast is outdated, try to refresh it</string>
+    <string name="error_favorites_limit">Can\'t save the location, the number of favorite locations has reached the limit</string>
     <string name="error_unable_to_find_current_location">Something went wrong, unable to find current location</string>
-    <string name="error_unable_to_refresh">Unable to refresh forecast</string>
+    <string name="error_unable_to_refresh">Unable to refresh the forecast</string>
 
     <!--    Dialog actions-->
     <string name="confirm">Yes</string>
     <string name="dismiss">Cancel</string>
 
     <!--    Delete confirmation dialog-->
-    <string name="delete_location">Are you sure you want to delete this location from favorites?</string>
+    <string name="delete_location">Are you sure you want to delete this location from your favorites?</string>
 
     <!--    Delete confirmation dialog-->
-    <string name="add_current_location">Do you want to get weather forecast for current location? App needs location permission for this.</string>
+    <string name="add_current_location">Do you want to get the weather forecast for current location? The application needs location permission for this.</string>
 
     <!--    Clear search history confirmation dialog-->
-    <string name="clear_search_history_confirmation">Are you sure you want to clear search history?</string>
+    <string name="clear_search_history_confirmation">Are you sure you want to clear your search history?</string>
 
     <!-- Preference Titles -->
     <string name="general_header">General</string>
