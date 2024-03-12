@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
-import androidx.preference.*
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreferenceCompat
 import com.github.skytoph.simpleweather.R
 import com.github.skytoph.simpleweather.presentation.favorites.ConfirmationDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -31,9 +35,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun setupLanguagePreference() {
         val preference = findPreference<ListPreference>(getString(R.string.key_language))
-        val language = Locale.getDefault().language
-        val indexOfValue = preference?.findIndexOfValue(language).takeIf { it != -1 } ?: 0
-        if (preference?.value == null) preference?.setValueIndex(indexOfValue)
+        if (preference?.value == null) {
+            val language = Locale.getDefault().language
+            val indexOfValue = preference?.findIndexOfValue(language).takeIf { it != -1 } ?: 0
+            preference?.setValueIndex(indexOfValue)
+        }
     }
 
     private fun setupTimeFormatPreference() {

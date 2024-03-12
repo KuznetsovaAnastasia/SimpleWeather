@@ -34,7 +34,7 @@ sealed class FavoritesState : ShowFavorites() {
         }
     }
 
-    object Initial : Abstract(View.VISIBLE, View.GONE) {}
+    object Initial : Abstract(View.VISIBLE, View.GONE)
 
     object Empty : Abstract(View.GONE, View.VISIBLE) {
         override fun show(submitFavorites: (List<String>) -> Unit) {
@@ -64,13 +64,21 @@ sealed class FavoritesState : ShowFavorites() {
         }
     }
 
-    class AddCurrentLocation(addCurrentLocation: () -> Unit, cancel: () -> Unit) :
-        Dialog(
-            addCurrentLocation,
-            cancel,
-            R.string.add_current_location,
-            "AddCurrentLocationDialog"
-        )
+    class AddCurrentLocation(
+        private val showProgress: Boolean = true,
+        addCurrentLocation: () -> Unit,
+        cancel: () -> Unit
+    ) : Dialog(
+        addCurrentLocation,
+        cancel,
+        R.string.add_current_location,
+        "AddCurrentLocationDialog"
+    ) {
+
+        override fun show(progress: ShimmerWrapper) {
+            progress.show(showProgress)
+        }
+    }
 
     class Delete(delete: () -> Unit) :
         Dialog(delete, {}, R.string.delete_location, "DeleteConfirmationDialog")

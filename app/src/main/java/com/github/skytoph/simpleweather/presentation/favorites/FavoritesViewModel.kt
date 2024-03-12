@@ -1,6 +1,11 @@
 package com.github.skytoph.simpleweather.presentation.favorites
 
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.viewModelScope
 import androidx.work.WorkInfo
 import com.github.skytoph.simpleweather.data.work.UpdateWorker
 import com.github.skytoph.simpleweather.domain.favorites.FavoritesInteractor
@@ -45,7 +50,6 @@ class FavoritesViewModel @Inject constructor(
         criteria: Int = UpdateWorker.CRITERIA_HOUR,
         hideRefreshing: () -> Unit = {}
     ) = if (interactor.favoriteIDs().isEmpty()) {
-        stateCommunication.show(FavoritesState.Progress(true))
         requestPermissions()
         hideRefreshing()
     } else {
@@ -93,12 +97,12 @@ class FavoritesViewModel @Inject constructor(
     }
 
     private fun requestPermissions() =
-        stateCommunication.show(FavoritesState.AddCurrentLocation(addCurrentLocation = {
-            stateCommunication.show(FavoritesState.Progress(true))
-            stateCommunication.show(FavoritesState.RequestPermission)
-        }, cancel = {
-            stateCommunication.show(FavoritesState.Progress(false))
-        }))
+        stateCommunication.show(
+            FavoritesState.AddCurrentLocation(
+                showProgress = true,
+                addCurrentLocation = { stateCommunication.show(FavoritesState.RequestPermission) },
+                cancel = { stateCommunication.show(FavoritesState.Progress(false)) })
+        )
 
     fun saveCurrentLocation() {
         viewModelScope.launch(Dispatchers.IO) {
