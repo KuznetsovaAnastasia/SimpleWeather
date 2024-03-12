@@ -44,16 +44,13 @@ data class WeatherCloud(
     private val lon: Double,
 
     @Json(name = "current")
-    private val current: CurrentWeatherCloud,
+    private val current: CurrentWeatherCloud?,
 
     @Json(name = "timezone")
-    private val timezone: String,
+    private val timezone: String?,
 
     @Json(name = "timezone_offset")
     private val timezone_offset: Int,
-
-    @Json(name = "pop")
-    private val pop: Double,
 
     @Json(name = "hourly")
     private val hourly: List<HourlyForecastCloud>?,
@@ -66,9 +63,9 @@ data class WeatherCloud(
 ) : Mappable<WeatherData, WeatherCloudMapper> {
 
     override fun map(mapper: WeatherCloudMapper): WeatherData = mapper.map(
-        current,
+        current ?: CurrentWeatherCloud.empty,
         timezone_offset,
-        timezone,
+        timezone.toString(),
         hourly ?: emptyList(),
         daily ?: emptyList(),
         alerts ?: emptyList()

@@ -1,6 +1,5 @@
 package com.github.skytoph.simpleweather.domain.search
 
-import com.github.skytoph.simpleweather.core.ErrorType
 import com.github.skytoph.simpleweather.core.Mappable
 import com.github.skytoph.simpleweather.presentation.search.model.SearchItemUi
 
@@ -15,9 +14,9 @@ sealed class SearchItemDomain : Mappable<SearchItemUi, SearchItemDomainToUiMappe
             mapper.map(id, title, subtitle)
     }
 
-    data class Fail(private val errorType: ErrorType) : SearchItemDomain() {
+    data class Fail(private val exception: Exception) : SearchItemDomain() {
         override fun map(mapper: SearchItemDomainToUiMapper): SearchItemUi =
-            mapper.map(errorType)
+            mapper.map(exception)
     }
 
     object Attribution : SearchItemDomain() {

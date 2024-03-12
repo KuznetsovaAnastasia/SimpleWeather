@@ -10,6 +10,7 @@
     <string name="remaining_daylight">"Залишок світлового дня: "</string>
 
     <string name="warning">Попередження</string>
+    <string name="warning_rainfall">Очікується злива</string>
     <string name="rain_percent">% опадів</string>
     <string name="expected_warning_start_time">Очік. час початку</string>
     <string name="sunrise_and_sunset"><![CDATA[світанок & захід сонця]]></string>
@@ -24,11 +25,11 @@
     <string name="indicator_time">Час</string>
     <string name="indicator_rain">% опадів</string>
 
-    <string name="error_general">Не вдалось загрузити дані</string>
+    <string name="error_general">Не вдалось завантажити дані</string>
     <string name="language_title">Мова</string>
 
     <string name="error_service_unavailable">Сервіс недоступний</string>
-    <string name="error_no_connection">Інтернет-вз\'язок відсутній</string>
+    <string name="error_no_connection">Інтернет-зв\'язок відсутній</string>
     <string name="error_no_cached_data">Немає збережених локацій</string>
     <string name="error_empty_request">Почніть вводити запит для пошуку локації</string>
     <string name="error_no_results">Не вдалось знайти локацію</string>
@@ -67,7 +68,7 @@
     <string name="tooltip_ultraviolet_index_extreme">11+ Надмірний</string>
     <string name="tooltip_ultraviolet_index_very_high">8–10 Дуже високий</string>
     <string name="tooltip_ultraviolet_index_high">6–7 Високий</string>
-    <string name="add_current_location">Чи бажаєте отримати прогноз погоди для поточного месцезнаходження? Для цього додаток потребує дозвіл на отримання геолокації.</string>
+    <string name="add_current_location">Чи бажаєте отримати прогноз погоди для поточного місцезнаходження? Для цього додаток потребує дозвіл на отримання геолокації.</string>
 
     <string name="settings">Налаштування</string>
 
@@ -77,7 +78,7 @@
     <string name="about_design_title">Дизайн</string>
     <string name="about_design_description">Цей додаток використовує дизайн на основі роботи від <b>Pavan Kamal</b>. Оригінальний дизайн ліцензований за умовами ліцензії  <b>Creative Commons Attribution 4.0 International</b> (<b>CC BY 4.0</b>). В оригінальний дизайн були внесені зміни.</string>
     <string name="about_ccby4_license">Детальніше про ліцензію <b>CC BY 4.0</b></string>
-    <string name="about_original_design">Ориганільний дизайн від <b>Pavan Kamal</b></string>
+    <string name="about_original_design">Оригінальний дизайн від <b>Pavan Kamal</b></string>
     <string name="about_designer_page">Сторінка <b>Pavan Kamal</b> в Instagram</string>
 
     <string name="about_data_title">Дані</string>
@@ -87,9 +88,13 @@
     <string name="about_odbl_license">Більше про ліцензію <b>ODbL</b></string>
 
     <string name="about_locations_title">API</string>
-    <string name="about_locations_descriptions">Додаток використовує сервіс<b>Place Autocomplete</b> та <b>Geocoding API</b>, які є частиною <b>Google Maps API</b>. Користуючись цим додатком, користувачі зобов’язуються дотримуватися <b>Google’s Terms of Service</b>, <b>Terms of Use</b> та <b>Privacy Policy</b>.</string>
+    <string name="about_locations_descriptions">Додаток використовує сервіс <b>Place Autocomplete</b> та <b>Geocoding API</b>, які є частиною <b>Google Maps API</b>. Користуючись цим додатком, користувачі зобов’язуються дотримуватися <b>Google’s Terms of Service</b>, <b>Terms of Use</b> та <b>Privacy Policy</b>.</string>
     <string name="about_locations_terms_of_use">Google’s <b>Terms of Use</b></string>
     <string name="about_locations_terms_of_service">Google’s <b>Terms of Service</b></string>
     <string name="about_locations_privacy_policy">Google’s <b>Privacy Policy</b></string>
     <string name="error_unable_to_find_current_location">Не вдається визначити поточну локацію</string>
+    <string name="error_unable_to_refresh">Не вдалось оновити дані прогнозу</string>
+
+    <string name="about_data_safety_title">Безпека даних</string>
+    <string name="about_privacy_policy_link">Переглянути <b>Політику Конфіденційності</b></string>
 </resources>

@@ -11,10 +11,10 @@ data class DailyForecastCloud(
     private val dt: Long,
 
     @Json(name = "temp")
-    private val temp: DailyTempCloud,
+    private val temp: DailyTempCloud?,
 
     @Json(name = "weather")
-    private val weather: List<WeatherTypeCloud>,
+    private val weather: List<WeatherTypeCloud>?,
 
     @Json(name = "pop")
     private val pop: Double,
@@ -30,7 +30,15 @@ data class DailyForecastCloud(
 ) : Mappable<DailyForecastData, DailyForecastDataMapper>, MappableTo<Double> {
 
     override fun map(mapper: DailyForecastDataMapper): DailyForecastData =
-        mapper.map(dt, temp.map(), weather[0].map(), pop, uvi, sunrise, sunset)
+        mapper.map(
+            time = dt,
+            temp = temp?.map() ?: Pair(0.0, 0.0),
+            weatherId = weather?.firstOrNull()?.map() ?: 0,
+            pop = pop,
+            uvi = uvi,
+            sunrise = sunrise,
+            sunset = sunset
+        )
 
     override fun map(): Double = pop
 }

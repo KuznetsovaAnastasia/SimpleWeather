@@ -14,7 +14,10 @@ import com.github.skytoph.simpleweather.data.weather.model.identifier.Identifier
 import com.github.skytoph.simpleweather.data.weather.model.time.ForecastTimeData
 import com.github.skytoph.simpleweather.domain.weather.mapper.DailyForecastDomainMapper
 import com.github.skytoph.simpleweather.domain.weather.mapper.HourlyForecastListDomainMapper
-import com.github.skytoph.simpleweather.domain.weather.model.*
+import com.github.skytoph.simpleweather.domain.weather.model.ContentDomain
+import com.github.skytoph.simpleweather.domain.weather.model.DailyDomain
+import com.github.skytoph.simpleweather.domain.weather.model.ForecastDomain
+import com.github.skytoph.simpleweather.domain.weather.model.WeatherDomain
 import javax.inject.Inject
 
 interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
@@ -29,7 +32,7 @@ interface WeatherDataToDomainMapper : Mapper<WeatherDomain> {
         private val dailyFilter: DailyForecastFilter,
         private val sunMapper: SunPositionMapper,
         private val warningMapper: WarningsDomainMapper,
-    ) : WeatherDataToDomainMapper, Mapper.ToDomain<WeatherDomain>() {
+    ) : WeatherDataToDomainMapper {
 
         override fun map(
             identifier: IdentifierData, time: ForecastTimeData, content: ContentData,

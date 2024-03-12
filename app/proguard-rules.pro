@@ -51,9 +51,42 @@
 
 # OkHttp platform used only on JVM and when Conscrypt and other security providers are available.
 -dontwarn okhttp3.internal.platform.**
+-dontwarn okhttp3.**
 -dontwarn org.conscrypt.**
 -dontwarn org.bouncycastle.**
 -dontwarn org.openjsse.**
 
 # Okio
 -dontwarn org.codehaus.mojo.animal_sniffer.*
+-dontwarn okio.**
+
+# Moshi
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+-keepclasseswithmembers class * {
+    @com.squareup.moshi.* <methods>;
+}
+-keep @com.squareup.moshi.JsonQualifier interface *
+-dontwarn org.jetbrains.annotations.**
+-keep class kotlin.Metadata { *; }
+-keepclassmembers class kotlin.Metadata {
+    public <methods>;
+}
+
+-keepclassmembers class * {
+    @com.squareup.moshi.FromJson <methods>;
+    @com.squareup.moshi.ToJson <methods>;
+}
+
+-keepnames @kotlin.Metadata class com.github.skytoph.simpleweather.data.weather.cloud.model.**
+-keep class com.github.skytoph.simpleweather.data.weather.cloud.model.** { *; }
+-keepclassmembers class com.github.skytoph.simpleweather.data.weather.cloud.model.** { *; }
+
+-keepnames @kotlin.Metadata class com.github.skytoph.simpleweather.data.location.cloud.model.**
+-keep class com.github.skytoph.simpleweather.data.location.cloud.model.** { *; }
+-keepclassmembers class com.github.skytoph.simpleweather.data.location.cloud.model.** { *; }
+
+-keepnames @kotlin.Metadata class com.github.skytoph.simpleweather.data.airquality.cloud.model.**
+-keep class com.github.skytoph.simpleweather.data.airquality.cloud.model.** { *; }
+-keepclassmembers class com.github.skytoph.simpleweather.data.airquality.cloud.model.** { *; }

@@ -19,7 +19,6 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            app:defaultValue="true"
             app:key="@string/key_time"
             app:singleLineTitle="false"
             app:summaryOff="@string/time_summary_off"

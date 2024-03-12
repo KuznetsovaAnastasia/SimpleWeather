@@ -3,13 +3,15 @@ package com.github.skytoph.simpleweather.core.provider
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
+import android.text.format.DateFormat
 import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 import javax.inject.Inject
 
-interface ResourceManager : PreferencesProvider, ResourceProvider, LocaleProvider {
+interface ResourceManager : PreferencesProvider, ResourceProvider, LocaleProvider,
+    TimeFormatProvider {
 
     class Base @Inject constructor(@ApplicationContext private val context: Context) :
         ResourceManager {
@@ -28,6 +30,8 @@ interface ResourceManager : PreferencesProvider, ResourceProvider, LocaleProvide
 
         override fun defaultPreferences(): SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(context)
+
+        override fun is24HourFormat(): Boolean = DateFormat.is24HourFormat(context)
 
         override fun locale(): Locale = Locale.getDefault() ?: Locale.ENGLISH
     }

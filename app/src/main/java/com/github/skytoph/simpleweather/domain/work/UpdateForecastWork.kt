@@ -28,7 +28,7 @@ interface UpdateForecastWork {
                 Data.Builder().putInt(UpdateWorker.ARG_CRITERIA, updateCriteria)
                     .putBoolean(UpdateWorker.ARG_RETRY, true).build()
             val request =
-                PeriodicWorkRequestBuilder<UpdateWorker>(6, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
+                PeriodicWorkRequestBuilder<UpdateWorker>(12, TimeUnit.HOURS, 30, TimeUnit.MINUTES)
                     .setConstraints(
                         Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
                     )

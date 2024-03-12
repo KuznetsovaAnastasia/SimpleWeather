@@ -7,7 +7,7 @@ import com.squareup.moshi.Json
 
 data class AlertCloud(
     @Json(name = "event")
-    private val event: String,
+    private val event: String?,
 
     @Json(name = "start")
     private val start: Long,
@@ -16,9 +16,9 @@ data class AlertCloud(
     private val end: Long,
 
     @Json(name = "description")
-    private val description: String,
+    private val description: String?,
 ) : Mappable<WarningData, WarningDataMapper> {
 
     override fun map(mapper: WarningDataMapper): WarningData =
-        mapper.map(event, start, end, description)
+        mapper.map(event.toString(), start, end, description.toString())
 }

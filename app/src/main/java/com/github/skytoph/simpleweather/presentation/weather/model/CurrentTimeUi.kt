@@ -9,13 +9,15 @@ sealed class CurrentTimeUi {
     class Format12Hours(private val timezone: String) : CurrentTimeUi() {
         override fun show(timeView: TextClock) {
             timeView.format12Hour = timeView.context.getString(R.string.format_12_hours_time)
+            timeView.format24Hour = null
             timeView.timeZone = timezone
         }
     }
 
     class Format24Hours(private val timezone: String) : CurrentTimeUi() {
         override fun show(timeView: TextClock) {
-            timeView.format12Hour = timeView.context.getString(R.string.format_24_hours_time)
+            timeView.format24Hour = timeView.context.getString(R.string.format_24_hours_time)
+            timeView.format12Hour = null
             timeView.timeZone = timezone
         }
     }

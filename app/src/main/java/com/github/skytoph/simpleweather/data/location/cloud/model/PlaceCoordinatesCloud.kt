@@ -1,7 +1,9 @@
-package com.github.skytoph.simpleweather.data.location.cloud
+package com.github.skytoph.simpleweather.data.location.cloud.model
 
 import com.github.skytoph.simpleweather.core.MappableTo
+import com.github.skytoph.simpleweather.data.location.cloud.IdMapper
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 //"results": [
 //        {
@@ -11,37 +13,42 @@ import com.squareup.moshi.Json
 //                "location": {
 //                    "lat": 37.4224428,
 //                    "lng": -122.0842467
+@JsonClass(generateAdapter = true)
 data class PlaceJson(
     @Json(name = "results")
-    val results: List<ResultJson>
+    val results: List<ResultJson>?
 )
 
+@JsonClass(generateAdapter = true)
 data class ResultJson(
     @Json(name = "geometry")
-    val geometry: GeometryJson,
+    val geometry: GeometryJson?,
     @Json(name = "place_id")
-    val place_id: String,
+    val place_id: String?,
     @Json(name = "types")
-    val types: List<String>
+    val types: List<String>?
 )
 
+@JsonClass(generateAdapter = true)
 data class GeometryJson(
     @Json(name = "location")
-    val location: LocationJson,
+    val location: LocationJson?,
 )
 
+@JsonClass(generateAdapter = true)
 data class LocationJson(
     @Json(name = "lat")
     val lat: Double,
-    @Json(name = "lon")
+    @Json(name = "lng")
     val lng: Double,
 )
 
+@JsonClass(generateAdapter = true)
 data class PlaceCoordinatesCloud(
-    private val placeId: String,
-    private val lat: Double,
-    private val lng: Double,
-    private val types: List<String>,
+    val placeId: String,
+    val lat: Double,
+    val lng: Double,
+    val types: List<String>,
 ) : IdMapper.MappableToStringId, IdMapper.MappableToCoordinates, MappableTo<String> {
 
     override fun map(): String = placeId

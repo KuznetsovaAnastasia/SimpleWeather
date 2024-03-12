@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface PredictionService {
 
-    @GET("https://api.openweathermap.org/geo/1.0/direct?limit=10&appid=${BuildConfig.WEATHER_API_KEY}")
+    @GET("/geo/1.0/direct?limit=10&appid=${BuildConfig.WEATHER_API_KEY}")
     fun getPrediction(
         @Query(value = "q", encoded = true) query: String,
     ): Call<List<PredictionCloud>>

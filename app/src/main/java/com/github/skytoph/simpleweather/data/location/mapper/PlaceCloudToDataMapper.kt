@@ -1,8 +1,8 @@
 package com.github.skytoph.simpleweather.data.location.mapper
 
 import com.github.skytoph.simpleweather.core.Mapper
-import com.github.skytoph.simpleweather.data.location.cloud.LocationCloud
 import com.github.skytoph.simpleweather.data.location.cloud.PlaceData
+import com.github.skytoph.simpleweather.data.location.cloud.model.LocationCloud
 import com.github.skytoph.simpleweather.data.weather.mapper.LocationCloudToDataMapper
 import javax.inject.Inject
 

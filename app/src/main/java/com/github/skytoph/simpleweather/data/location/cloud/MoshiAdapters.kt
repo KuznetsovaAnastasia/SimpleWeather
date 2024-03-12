@@ -1,12 +1,13 @@
 package com.github.skytoph.simpleweather.data.location.cloud
 
 import com.github.skytoph.simpleweather.data.location.ChoosePlace
+import com.github.skytoph.simpleweather.data.location.cloud.model.*
 import com.squareup.moshi.FromJson
 
 class CoordinatesAdapter : ChoosePlace.Abstract() {
     @FromJson
     fun coordinatesFromJson(location: PlaceJson): PlaceCoordinatesCloud {
-        val place: ResultJson? = choosePlace(location.results) { place, i ->
+        val place: ResultJson? = choosePlace(location.results ?: emptyList()) { place, i ->
             place?.types?.contains(TARGET_TYPES[i].name.lowercase()) ?: false
         }
         val coordinates = place?.geometry?.location
@@ -27,6 +28,6 @@ class LocationAdapter {
             LocalNameJson.EN to localNames?.en,
             LocalNameJson.UK to localNames?.uk
         )
-        return LocationCloud(location.name, names, location.lat, location.lon)
+        return LocationCloud(location.name ?: "", names, location.lat, location.lon)
     }
 }

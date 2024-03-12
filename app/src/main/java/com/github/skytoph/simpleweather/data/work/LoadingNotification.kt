@@ -16,6 +16,16 @@ class LoadingNotification @Inject constructor(
     private val notificationManager: NotificationManager
 ) {
 
+    fun isAllowed(): Boolean = when {
+        notificationManager.areNotificationsEnabled().not() -> false
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
+            notificationManager.notificationChannels.none { channel ->
+                channel.importance == NotificationManager.IMPORTANCE_NONE
+            }
+        }
+        else -> true
+    }
+
     fun createForegroundInfo(): ForegroundInfo {
         val channelID = context.getString(R.string.notification_loading_channel_id)
         val title = context.getString(R.string.notification_loading_title)
@@ -44,10 +54,6 @@ class LoadingNotification @Inject constructor(
             description = descriptionText
         }
         notificationManager.createNotificationChannel(channel)
-    }
-
-    fun cancel() {
-        notificationManager.cancel(NOTIFICATION_ID)
     }
 
     private companion object {

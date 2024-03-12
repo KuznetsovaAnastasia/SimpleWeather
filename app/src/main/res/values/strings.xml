@@ -32,7 +32,7 @@
     <string name="indicator_uv" translatable="false">uv</string>
     <string name="indicator_rain">% rain</string>
     <string name="indicator_aq" translatable="false">aq</string>
-    <string name="format_12_hours_time" translatable="false">hh:mm a</string>
+    <string name="format_12_hours_time" translatable="false">K:mm a</string>
     <string name="format_24_hours_time" translatable="false">HH:mm</string>
 
     <!--    Messages-->
@@ -47,22 +47,23 @@
     <string name="error_no_results">Can\'t find location</string>
     <string name="error_location_is_not_saved">This data was deleted</string>
     <string name="error_can_not_update_location">Can not update location after language change</string>
-    <string name="error_outdated_forecast">Weather forecast is outdated, try to refresh it</string>
-    <string name="error_favorites_limit">Can\'t save location, the number of favorite locations has reached the limit</string>
+    <string name="error_outdated_forecast">The weather forecast is outdated, try to refresh it</string>
+    <string name="error_favorites_limit">Can\'t save the location, the number of favorite locations has reached the limit</string>
     <string name="error_unable_to_find_current_location">Something went wrong, unable to find current location</string>
+    <string name="error_unable_to_refresh">Unable to refresh the forecast</string>
 
     <!--    Dialog actions-->
     <string name="confirm">Yes</string>
     <string name="dismiss">Cancel</string>
 
     <!--    Delete confirmation dialog-->
-    <string name="delete_location">Are you sure you want to delete this location from favorites?</string>
+    <string name="delete_location">Are you sure you want to delete this location from your favorites?</string>
 
     <!--    Delete confirmation dialog-->
-    <string name="add_current_location">Do you want to get weather forecast for current location? App needs location permission for this.</string>
+    <string name="add_current_location">Do you want to get the weather forecast for current location? The application needs location permission for this.</string>
 
     <!--    Clear search history confirmation dialog-->
-    <string name="clear_search_history_confirmation">Are you sure you want to clear search history?</string>
+    <string name="clear_search_history_confirmation">Are you sure you want to clear your search history?</string>
 
     <!-- Preference Titles -->
     <string name="general_header">General</string>
@@ -120,6 +121,9 @@
     <string name="tooltip_ultraviolet_index_high">6–7 is High</string>
     <string name="tooltip_ultraviolet_index_very_high">8–10 is Very High</string>
     <string name="tooltip_ultraviolet_index_extreme">11+ is Extreme</string>
+
+    <string name="about_data_safety_title">Data safety</string>
+    <string name="about_privacy_policy_link">View <b>Privacy Policy</b></string>
 
     <string name="about_design_title">Design</string>
     <string name="about_design_description">Simple Weather app uses a design based on work by <b>Pavan Kamal</b>, licensed under the <b>Creative Commons Attribution 4.0 International (CC BY 4.0)</b> license. The original design was changed to meet technical requirements.</string>
